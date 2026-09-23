@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treinador CyberSec — Eduardo</title>
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#121821; --panel2:#0e141c; --ink:#e6edf3; --dim:#8b98a5;
+    --line:#22303c; --acc:#3ddc97; --red:#ff5d5d; --gold:#ffd23f;
+    --blue:#4aa3ff; --purple:#b98cff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  header{padding:20px 26px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e141c,#0b0f14)}
+  h1{margin:0;font-size:20px;letter-spacing:.3px}
+  .sub{color:var(--dim);font-size:13px;margin-top:4px}
+  .sub a{color:var(--blue)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 90px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0}
+  .tab{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--dim);cursor:pointer;font-size:13px}
+  .tab.on{color:#04150d;background:var(--acc);border-color:var(--acc);font-weight:700}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  .bar{height:10px;background:#0a0f15;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--blue));width:0%;transition:width .3s}
+  .badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+  a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+  .note{color:var(--dim);font-size:12.5px}
+  .hide{display:none}
+  .kpi{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
+  .kpi div{font-size:13px;color:var(--dim)} .kpi b{color:var(--ink);font-size:18px;display:block}
+  .reset{float:right;font-size:11px;color:var(--dim);cursor:pointer;border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+  /* track cards */
+  .trackgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
+  .track{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .2s}
+  .track:hover{border-color:var(--acc)}
+  .track h3{margin:0 0 4px;font-size:17px}
+  .track .tmeta{font-size:12px;color:var(--dim);margin-bottom:10px}
+  .track .bar{margin:8px 0 4px}
+  /* domain rows */
+  .dom{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--panel2);cursor:pointer}
+  .dom:hover{border-color:var(--blue)}
+  .dom .dname{flex:1;font-weight:600}
+  .dom .dpct{font-size:12px;color:var(--dim);min-width:130px;text-align:right}
+  .dom .mini{width:90px;height:7px;background:#0a0f15;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:0 0 auto}
+  .dom .mini i{display:block;height:100%;background:var(--acc)}
+  .weak{border-color:var(--red)!important}
+  .weak .dname::after{content:" ⚠";color:var(--red)}
+  /* quiz */
+  .qtop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+  .qtag{font-size:12px;color:var(--purple)}
+  .qtimer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--gold)}
+  .qtext{font-size:16px;font-weight:600;margin:10px 0 14px;line-height:1.5}
+  .opt{display:block;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);cursor:pointer;margin:8px 0;font-size:14.5px;transition:.15s}
+  .opt:hover:not(:disabled){border-color:var(--blue)}
+  .opt:disabled{cursor:default}
+  .opt.correct{border-color:var(--acc);background:#0f2018;color:#c9f7e2}
+  .opt.wrong{border-color:var(--red);background:#20100f;color:#ffd0d0}
+  .opt .lk{color:var(--dim);font-weight:700;margin-right:8px}
+  .fb{margin:12px 0;padding:12px 14px;border-radius:10px;font-size:14px;border-left:3px solid}
+  .fb.ok{border-color:var(--acc);background:#0e1a14}
+  .fb.no{border-color:var(--red);background:#1a0f0f}
+  .fb b{display:block;margin-bottom:4px}
+  .btn{padding:10px 18px;border:1px solid var(--acc);border-radius:8px;background:var(--acc);color:#04150d;font-weight:700;cursor:pointer;font-size:14px}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn:disabled{opacity:.4;cursor:default}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+  .prog{font-size:12px;color:var(--dim)}
+  .big{font-size:40px;font-weight:800}
+  .g-item{padding:10px 12px;border-bottom:1px solid var(--line)}
+  .g-term{font-weight:700}.g-def{font-size:13px;color:#c3cdd6;margin-top:3px}
+  .search{width:100%;padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:14px;margin:10px 0}
+  .chip{display:inline-block;font-size:11px;padding:2px 8px;border:1px solid var(--line);border-radius:999px;color:var(--dim);margin-right:6px}
+  .chip.m{color:var(--acc);border-color:var(--acc)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding-bottom:0">
+    <h1>🎯 Treinador CyberSec — Eduardo</h1>
+    <div class="sub">Te <b>guia, testa e corrige</b> rumo a Security+, Python (PCEP), Linux e Cloud. Roda offline, salva sozinho neste navegador. &nbsp;·&nbsp; <a href="assistente-cybersec.html">← voltar pro Assistente (trilha/carreira)</a></div>
+  </div>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab on" data-t="home">🏠 Início</div>
+    <div class="tab" data-t="praticar">✏️ Praticar</div>
+    <div class="tab" data-t="simulado">⏱️ Simulado</div>
+    <div class="tab" data-t="fracos">🩹 Pontos fracos</div>
+    <div class="tab" data-t="gloss">📖 Glossário</div>
+  </div>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="card">
+      <div class="reset" onclick="if(confirm('Zerar TODO o progresso do treino?')){localStorage.removeItem(KEY);location.reload()}">↺ zerar</div>
+      <b>Teu progresso geral</b>
+      <div class="bar" style="margin:8px 0"><div class="fill" id="fillAll"></div></div>
+      <div class="kpi">
+        <div><b id="kMastered">0</b> questões dominadas</div>
+        <div><b id="kSeen">0</b> respondidas</div>
+        <div><b id="kTotal">0</b> no banco</div>
+        <div><b id="kAcc">–</b> acerto</div>
+        <div><b id="kStreak">0</b> 🔥 streak</div>
+      </div>
+    </div>
+    <div class="card" style="background:linear-gradient(180deg,#12241b,#0e1a14);border-color:#1e3a2c">
+      <b style="color:var(--acc)">▶ Continua daqui</b>
+      <div id="resume" style="margin-top:8px"></div>
+    </div>
+    <h3 style="margin:18px 0 4px">Escolhe a trilha pra praticar</h3>
+    <div class="trackgrid" id="trackgrid"></div>
+  </section>
+
+  <!-- PRATICAR (domain picker + quiz) -->
+  <section id="praticar" class="hide">
+    <div id="pickWrap">
+      <div class="row"><button class="btn ghost" onclick="showTracks()">‹ trilhas</button><b id="pickTitle"></b></div>
+      <div id="domList" style="margin-top:10px"></div>
+    </div>
+    <div id="quizWrap" class="hide"></div>
+  </section>
+
+  <!-- SIMULADO -->
+  <section id="simulado" class="hide">
+    <div id="simSetup">
+      <div class="card">
+        <b>Modo simulado</b>
+        <div class="note" style="margin:6px 0 12px">Questões misturadas de uma trilha, cronometrado, como a prova real. No fim: nota + revisão do que errou.</div>
+        <div id="simTracks" class="row"></div>
+      </div>
+    </div>
+    <div id="simRun" class="hide"></div>
+    <div id="simResult" class="hide"></div>
+  </section>
+
+  <!-- FRACOS -->
+  <section id="fracos" class="hide">
+    <div class="card">
+      <b>🩹 Teus pontos fracos</b>
+      <div class="note" style="margin-top:4px">Questões que tu errou e ainda não dominou (precisa acertar 2x seguidas). Elas voltam aqui até tu travar.</div>
+    </div>
+    <div id="weakWrap"></div>
+  </section>
+
+  <!-- GLOSSARIO -->
+  <section id="gloss" class="hide">
+    <input class="search" id="gsearch" placeholder="🔎 buscar termo (ex: SIEM, RTO, chmod, IAM)...">
+    <div id="glist"></div>
+  </section>
+</div>
+
+<script>
+const KEY="cybersec_trainer_eduardo_v1";
+
+/* ---------- TRILHAS + DOMÍNIOS ---------- */
+const TRACKS=[
+ {id:"secplus", name:"Security+ (SY0-701)", icon:"🛡️", cert:"CompTIA Security+",
+  doms:[
+   {id:"d1", name:"1 · Ameaças, ataques e vulnerabilidades", w:"22%"},
+   {id:"d2", name:"2 · Arquitetura e design de segurança", w:"18%"},
+   {id:"d3", name:"3 · Implementação (cripto, protocolos, IAM)", w:"28%"},
+   {id:"d4", name:"4 · Operações e resposta a incidente", w:"22%"},
+   {id:"d5", name:"5 · Governança, risco e compliance (GRC)", w:"10%"},
+  ]},
+ {id:"python", name:"Python (PCEP)", icon:"🐍", cert:"PCEP / Cisco Python Essentials",
+  doms:[
+   {id:"pbase", name:"Tipos, variáveis e operadores"},
+   {id:"pflow", name:"Condicionais e loops"},
+   {id:"pdata", name:"Listas, strings e funções"},
+  ]},
+ {id:"linux", name:"Linux Essentials", icon:"🐧", cert:"LPI Linux Essentials",
+  doms:[
+   {id:"lcli", name:"Linha de comando e navegação"},
+   {id:"lfile", name:"Arquivos, permissões e processos"},
+  ]},
+ {id:"cloud", name:"Cloud Fundamentals", icon:"☁️", cert:"AWS/Azure fundamentos",
+  doms:[
+   {id:"cmodel", name:"Modelos de serviço e responsabilidade"},
+   {id:"cinfra", name:"Infra, identidade e segurança"},
+  ]},
+];
+
+/* ---------- BANCO DE QUESTÕES (autorais, verificadas) ---------- */
+/* q=pergunta, o=opções, c=índice correto, e=explicação */
+const Q=[
+ // ===== SECURITY+ D1 — Ameaças =====
+ {id:"s101",t:"secplus",d:"d1",q:"Um golpista manda e-mail SE PASSANDO pelo CEO e ordena que o financeiro faça uma transferência urgente. Que ataque é esse?",
+  o:["BEC / CEO fraud (fraude do CEO)","Whaling","Vishing","Tailgating"],c:0,
+  e:"BEC (Business Email Compromise) / CEO fraud: o atacante FINGE ser o executivo pra enganar um funcionário e extrair dinheiro/dados. Pegadinha do SY0-701: WHALING é o contrário — phishing MIRADO no executivo (ele é a vítima, não a máscara usada). Vishing é golpe por voz/telefone; tailgating é entrar atrás de alguém numa porta."},
+ {id:"s102",t:"secplus",d:"d1",q:"Malware que criptografa teus arquivos e exige pagamento pra devolver é:",
+  o:["Spyware","Ransomware","Rootkit","Worm"],c:1,
+  e:"Ransomware sequestra os dados por criptografia e cobra resgate. Spyware espiona; rootkit se esconde no sistema com privilégio; worm se autopropaga na rede."},
+ {id:"s103",t:"secplus",d:"d1",q:"Vulnerabilidade que o fabricante ainda não conhece e não tem correção é chamada de:",
+  o:["CVE pública","Zero-day","Backdoor","Falso positivo"],c:1,
+  e:"Zero-day = falha desconhecida do fornecedor, sem patch — o defensor tem 'zero dias' pra se preparar. CVE pública já é catalogada e geralmente tem correção."},
+ {id:"s104",t:"secplus",d:"d1",q:"Atacante se posiciona entre duas partes e intercepta/altera a comunicação. Isso é:",
+  o:["Ataque on-path (MITM)","Negação de serviço","SQL injection","Força bruta"],c:0,
+  e:"On-path (antigo 'man-in-the-middle') = fica no meio do tráfego lendo/alterando. DoS derruba serviço; SQLi injeta comando no banco; força bruta testa senhas."},
+ {id:"s105",t:"secplus",d:"d1",q:"Golpista liga se passando por suporte de TI e cria urgência pra tu dar a senha. O princípio de engenharia social explorado é:",
+  o:["Escassez","Autoridade + urgência","Prova social","Reciprocidade"],c:1,
+  e:"Fingir autoridade (TI) + pressa desliga o pensamento crítico. É o combo clássico da engenharia social — teu lado investigador reconhece o roteiro."},
+ {id:"s106",t:"secplus",d:"d1",q:"Injeção de comando SQL num campo de login explora principalmente a falta de:",
+  o:["Criptografia do disco","Validação de entrada (input)","Backup","Antivírus"],c:1,
+  e:"SQL injection acontece quando a aplicação NÃO valida/sanitiza o que o usuário digita e joga direto no banco. Validação de entrada é a defesa."},
+
+ // ===== SECURITY+ D2 — Arquitetura =====
+ {id:"s201",t:"secplus",d:"d2",q:"O princípio 'nunca confie, sempre verifique' — mesmo dentro da rede — é o modelo:",
+  o:["Defesa em profundidade","Zero Trust","Air gap","Menor privilégio"],c:1,
+  e:"Zero Trust assume que ninguém é confiável por padrão, nem quem já está dentro. Verifica cada acesso. Menor privilégio é complementar, mas é outro conceito."},
+ {id:"s202",t:"secplus",d:"d2",q:"Dar a cada usuário SÓ o acesso mínimo que ele precisa pra função é:",
+  o:["Menor privilégio","Separação de funções","Rotação de cargo","Need-to-know geográfico"],c:0,
+  e:"Least privilege (menor privilégio): ninguém tem mais permissão que o necessário. Reduz o estrago se a conta for comprometida."},
+ {id:"s203",t:"secplus",d:"d2",q:"Sub-rede isolada que expõe servidores públicos (web/email) protegendo a rede interna é a:",
+  o:["VLAN de voz","DMZ (screened subnet)","VPN","Intranet"],c:1,
+  e:"DMZ / screened subnet fica entre a internet e a rede interna: o que precisa ser público mora lá, e um comprometimento não alcança direto o interno."},
+ {id:"s204",t:"secplus",d:"d2",q:"Usar VÁRIAS camadas de defesa (firewall + antivírus + MFA + treinamento) para não depender de uma só é:",
+  o:["Zero Trust","Defesa em profundidade","Fail-open","Segurança por obscuridade"],c:1,
+  e:"Defense in depth: camadas sobrepostas. Se uma falha, a próxima segura. Não confundir com Zero Trust (modelo de confiança) nem com obscuridade (esconder ≠ proteger)."},
+
+ // ===== SECURITY+ D3 — Implementação =====
+ {id:"s301",t:"secplus",d:"d3",q:"Protocolo seguro pra administrar um servidor por linha de comando remota, na porta 22:",
+  o:["Telnet","SSH","FTP","HTTP"],c:1,
+  e:"SSH (porta 22) criptografa a sessão remota. Telnet (23), FTP (21) e HTTP (80) mandam dados em texto claro — inseguros."},
+ {id:"s302",t:"secplus",d:"d3",q:"AES é um exemplo de criptografia:",
+  o:["Simétrica (mesma chave cifra e decifra)","Assimétrica (par de chaves)","Hash de mão única","Codificação Base64"],c:0,
+  e:"AES é simétrica: a MESMA chave cifra e decifra — rápida, boa pra volume. Assimétrica (RSA) usa par pública/privada. Hash não é criptografia reversível; Base64 é só codificação."},
+ {id:"s303",t:"secplus",d:"d3",q:"MFA combina fatores de categorias diferentes. Qual trio representa as 3 categorias?",
+  o:["Senha, PIN e resposta secreta","Algo que sabe, algo que tem, algo que é","3 senhas diferentes","Usuário, senha e e-mail"],c:1,
+  e:"MFA de verdade mistura categorias: conhecimento (senha), posse (token/celular) e inerência (biometria). Três senhas são o MESMO fator — não é MFA."},
+ {id:"s304",t:"secplus",d:"d3",q:"Pra garantir que um arquivo NÃO foi alterado (integridade), tu usa:",
+  o:["Compressão ZIP","Função hash (ex: SHA-256)","Criptografia AES","Assinatura Base64"],c:1,
+  e:"Hash gera uma 'impressão digital'; se um bit muda, o hash muda. SHA-256 é padrão. AES dá confidencialidade, não integridade por si só."},
+ {id:"s305",t:"secplus",d:"d3",q:"Uma característica de HASH (diferente de criptografia) é que ele:",
+  o:["Pode ser revertido com a chave","É de mão única (não reversível)","Sempre encurta o texto pela metade","Precisa de par de chaves"],c:1,
+  e:"Hash é one-way: não dá pra 'descriptografar' de volta. Por isso serve pra guardar senha (compara hashes) e checar integridade."},
+ {id:"s306",t:"secplus",d:"d3",q:"Protocolo que cria um túnel criptografado pra rede corporativa pela internet:",
+  o:["VPN (ex: IPsec/TLS)","DNS","DHCP","SNMP"],c:0,
+  e:"VPN encapsula e criptografa o tráfego (IPsec ou TLS) por um túnel. DNS resolve nome, DHCP entrega IP, SNMP monitora — nenhum cria o túnel seguro."},
+
+ // ===== SECURITY+ D4 — Operações/Resposta =====
+ {id:"s401",t:"secplus",d:"d4",q:"Na ordem do NIST de resposta a incidente, o que vem PRIMEIRO?",
+  o:["Erradicação","Preparação","Recuperação","Contenção"],c:1,
+  e:"Ordem NIST: Preparação → Detecção/Análise → Contenção → Erradicação → Recuperação → Lições aprendidas. Preparar (plano, ferramentas, treino) vem antes de tudo."},
+ {id:"s402",t:"secplus",d:"d4",q:"Ferramenta que coleta e CORRELACIONA logs de vários sistemas pra achar ameaça é o:",
+  o:["Firewall","SIEM","Proxy","Antivírus"],c:1,
+  e:"SIEM (Security Information and Event Management) junta logs de tudo e correlaciona pra gerar alerta. É o coração do trabalho do analista SOC."},
+ {id:"s403",t:"secplus",d:"d4",q:"Coletando evidência forense, a 'ordem de volatilidade' manda capturar primeiro:",
+  o:["O HD / disco","A memória RAM (dados voláteis)","Os backups em fita","Os logs impressos"],c:1,
+  e:"O mais volátil some primeiro ao desligar: RAM, cache, conexões ativas → depois disco → depois backups. Captura o volátil antes que evapore."},
+ {id:"s404",t:"secplus",d:"d4",q:"Depois de conter e erradicar um ataque, a fase que documenta o que aprendeu pra não repetir é:",
+  o:["Detecção","Lições aprendidas (post-mortem)","Preparação","Contenção"],c:1,
+  e:"Lessons learned fecha o ciclo: o que falhou, o que melhorar. Vira input da próxima 'preparação'. É onde a organização de fato amadurece."},
+
+ // ===== SECURITY+ D5 — GRC =====
+ {id:"s501",t:"secplus",d:"d5",q:"RTO (Recovery Time Objective) mede:",
+  o:["Quanto DADO você aceita perder","Quanto TEMPO o serviço pode ficar fora","O custo do incidente","O número de usuários afetados"],c:1,
+  e:"RTO = tempo máximo aceitável de indisponibilidade (quão rápido tem que voltar). Não confundir com RPO (quanto dado pode perder)."},
+ {id:"s502",t:"secplus",d:"d5",q:"RPO (Recovery Point Objective) mede:",
+  o:["Quanto TEMPO pra voltar ao ar","Quanto DADO (janela) você aceita perder","A gravidade da vulnerabilidade","O SLA do fornecedor"],c:1,
+  e:"RPO = quanto de dado (medido em tempo desde o último backup) você tolera perder. RPO de 1h = backups de hora em hora. RTO é sobre tempo de retorno."},
+ {id:"s503",t:"secplus",d:"d5",q:"Contratar um seguro cibernético pra cobrir prejuízo de um ataque é qual resposta a risco?",
+  o:["Aceitar o risco","Evitar o risco","Transferir o risco","Mitigar o risco"],c:2,
+  e:"Transferência: você passa o impacto financeiro pra terceiro (seguradora). Mitigar = reduzir com controles; evitar = não fazer a atividade; aceitar = conviver com ele."},
+
+ // ===== SECURITY+ — cadeia de ataque moderna + termos de mercado (vagas reais) =====
+ {id:"s107",t:"secplus",d:"d1",q:"Malware que rouba senhas salvas no navegador, cookies e carteiras e manda pro atacante é um:",
+  o:["Infostealer","Adware","Keylogger de hardware","Rootkit de firmware"],c:0,
+  e:"Infostealer rouba credenciais JÁ salvas. Hoje é a porta de entrada nº1: o crime compra essas credenciais vazadas e entra sem 'hackear'. Foi o passo 1 do ataque."},
+ {id:"s108",t:"secplus",d:"d1",q:"No 'acesso inicial' de um ransomware moderno, qual é a falha MAIS explorada?",
+  o:["Firewall mal configurado","Phishing + VPN sem MFA / credencial vazada","Cabo de rede exposto","Falta de antivírus"],c:1,
+  e:"A entrada quase sempre é humana/credencial: phishing, VPN sem segundo fator, ou login vazado por infostealer. Por isso MFA em TUDO é a defesa nº1."},
+ {id:"s109",t:"secplus",d:"d1",q:"Ferramenta clássica pra roubar hashes/credenciais da memória do Windows e fazer movimento lateral:",
+  o:["Wireshark","Mimikatz","Nmap","Nessus"],c:1,
+  e:"Mimikatz extrai hashes/tickets da memória → o atacante pula de máquina em máquina (movimento lateral) até virar Domain Admin. Wireshark fareja rede, Nmap escaneia porta, Nessus escaneia vulnerabilidade."},
+ {id:"s110",t:"secplus",d:"d1",q:"Atacante entra como usuário comum e vira 'Domain Admin'. Esse ganho de poder é:",
+  o:["Escalada de privilégio (privilege escalation)","Negação de serviço","Engenharia social","Sniffing"],c:0,
+  e:"Privilege escalation = subir de acesso baixo pra administrador. Virar Domain Admin dá controle do domínio inteiro (todas as máquinas e contas). É o passo 2 da cadeia."},
+ {id:"s111",t:"secplus",d:"d4",q:"O atacante COPIA os dados pra fora ANTES de criptografar. Esse roubo de dados é a:",
+  o:["Exfiltração","Contenção","Sanitização","Ofuscação"],c:0,
+  e:"Exfiltração = tirar os dados da rede. No ransomware moderno vem ANTES da criptografia, pra permitir a chantagem de vazamento (dupla extorsão)."},
+ {id:"s112",t:"secplus",d:"d1",q:"'Tripla extorsão' no ransomware combina:",
+  o:["Três vírus diferentes","Criptografar + ameaçar vazar dados + chantagear os clientes da vítima","Pedir resgate 3 vezes","Atacar 3 empresas juntas"],c:1,
+  e:"Camada 1: criptografa e cobra a chave. Camada 2: ameaça publicar os dados roubados. Camada 3: extorque também os clientes cujos dados vazaram. Por isso backup sozinho não basta mais."},
+ {id:"s113",t:"secplus",d:"d1",q:"A 'enciclopédia' de táticas e técnicas de atacantes que o SOC usa como mapa é:",
+  o:["OWASP Top 10","MITRE ATT&CK","ISO 27001","PCI-DSS"],c:1,
+  e:"MITRE ATT&CK cataloga TTPs (táticas/técnicas) reais dos atacantes; o SOC mapeia alertas contra ela. OWASP é falha de aplicação; ISO 27001 é gestão; PCI-DSS é cartão."},
+ {id:"s114",t:"secplus",d:"d4",q:"Plataforma que AUTOMATIZA a resposta do SOC (ex: isolar a máquina sozinha ao ver o alerta) é:",
+  o:["SIEM","SOAR","EDR","VPN"],c:1,
+  e:"SOAR (Orchestration, Automation & Response) roda playbooks automáticos: o SIEM DETECTA, o SOAR AGE (bloqueia IP, isola host, abre ticket) sem humano. Acelera a resposta."},
+ {id:"s115",t:"secplus",d:"d3",q:"Evolução do antivírus que monitora e RESPONDE à ameaça direto no dispositivo é:",
+  o:["EDR","DLP","IDS de rede","Proxy"],c:0,
+  e:"EDR (Endpoint Detection & Response) vê comportamento suspeito no endpoint e pode isolar/reverter. DLP impede vazamento de dado; IDS/proxy são de rede."},
+ {id:"s116",t:"secplus",d:"d3",q:"Controle que impede um funcionário de enviar uma planilha confidencial pra fora da empresa é:",
+  o:["DLP (Data Loss Prevention)","SSO","MFA","VPN"],c:0,
+  e:"DLP monitora e bloqueia dado sensível saindo (e-mail, USB, upload). SSO é login único; MFA é fator extra; VPN é túnel — nenhum barra o vazamento em si."},
+ {id:"s117",t:"secplus",d:"d5",q:"O framework NIST CSF organiza a segurança em 5 funções. Quais são?",
+  o:["Instalar, Atualizar, Testar, Auditar, Arquivar","Identificar, Proteger, Detectar, Responder, Recuperar","Planejar, Fazer, Checar, Agir, Revisar","Prevenir, Punir, Prever, Provar, Publicar"],c:1,
+  e:"NIST CSF = Identify, Protect, Detect, Respond, Recover. É o 'checklist mestre' citado em quase toda vaga. (A versão 2.0/2024 somou uma 6ª função, Govern — mas o SY0-701 ainda cobra as 5.) Decorar essas dá ponto fácil na prova e na entrevista."},
+ {id:"s118",t:"secplus",d:"d5",q:"PEGADINHA: 'SOC 2' significa:",
+  o:["O time de analistas (Security Operations Center)","Um relatório de auditoria dos controles de uma empresa","Um tipo de firewall","Uma fase da resposta a incidente"],c:1,
+  e:"SOC 2 (auditoria) ≠ SOC (Security Operations Center, o time). SOC 2 é o relatório que uma empresa SaaS mostra pra provar que tem controles. Mesma sigla, coisas totalmente diferentes."},
+ {id:"s119",t:"secplus",d:"d5",q:"HIPAA, GLBA e GDPR protegem, respectivamente, dados de:",
+  o:["Saúde (US) / Financeiro (US) / Pessoais (UE)","Governo / Militar / Escolar","Cartão / Senha / Biometria","Nuvem / Rede / Endpoint"],c:0,
+  e:"HIPAA = saúde nos EUA; GLBA = dados financeiros nos EUA; GDPR = dados pessoais na União Europeia. São as leis de compliance que mais aparecem nas vagas de GRC."},
+ {id:"s120",t:"secplus",d:"d4",q:"A 'Cyber Kill Chain' descreve o quê?",
+  o:["As fases de um ataque, do reconhecimento à ação final","Um tipo de criptografia","Uma lei de proteção de dados","Uma ferramenta de varredura"],c:0,
+  e:"Cyber Kill Chain (Lockheed Martin) modela o ataque em fases (reconhecimento → entrega → exploração → instalação → comando/controle → ação). Entender as fases ajuda a cortar o ataque cedo."},
+ {id:"s121",t:"secplus",d:"d3",q:"Diferença entre IDS e IPS:",
+  o:["IDS detecta e alerta; IPS detecta e BLOQUEIA","São a mesma coisa","IDS é de disco; IPS é de rede","IPS só grava log"],c:0,
+  e:"IDS (Intrusion Detection System) só AVISA. IPS (Prevention) fica no caminho do tráfego e BLOQUEIA ativamente. O 'P' = Prevenção."},
+ {id:"s122",t:"secplus",d:"d3",q:"O que a PKI (infraestrutura de chave pública) sustenta na prática?",
+  o:["Certificados digitais (o cadeado do HTTPS)","O antivírus","O backup em nuvem","A senha do Wi-Fi"],c:0,
+  e:"PKI emite e gerencia certificados digitais (par de chaves + autoridade certificadora). É o que faz o HTTPS/TLS confiar num site. Base da criptografia assimétrica e da assinatura digital."},
+ {id:"s123",t:"secplus",d:"d3",q:"SAST e DAST testam segurança de software. A diferença:",
+  o:["SAST lê o código PARADO; DAST testa a app RODANDO","SAST é pago; DAST é grátis","São sinônimos","SAST é de rede; DAST é de disco"],c:0,
+  e:"SAST (Static) analisa o código-fonte sem rodar. DAST (Dynamic) ataca a aplicação em execução, de fora, como um hacker. SCA (extra) acha falha nas bibliotecas de terceiros. Trio do DevSecOps."},
+ {id:"s124",t:"secplus",d:"d5",q:"ISO/IEC 27001 é:",
+  o:["A norma INTERNACIONAL de gestão de segurança da informação (SGSI)","Uma lei dos EUA","Um tipo de firewall","Um scanner de vulnerabilidade"],c:0,
+  e:"ISO 27001 = padrão internacional pra montar um Sistema de Gestão de Segurança da Informação (SGSI). Contrato B2B grande exige. A 27701 é a extensão de privacidade (LGPD/GDPR)."},
+ {id:"s125",t:"secplus",d:"d5",q:"TPRM (Third-Party Risk Management) trata de:",
+  o:["Avaliar o risco de segurança dos FORNECEDORES/terceiros","Testar a própria rede","Treinar funcionários","Criptografar backup"],c:0,
+  e:"TPRM avalia se os fornecedores/parceiros que acessam teus dados são seguros — vazamento deles vira teu problema. Área forte e MUITO remota de GRC."},
+
+ // ===== PYTHON — base =====
+ {id:"p101",t:"python",d:"pbase",q:"Qual o resultado de  type(7 / 2)  em Python 3?",
+  o:["<class 'int'>","<class 'float'>","<class 'str'>","erro"],c:1,
+  e:"Em Python 3 a divisão / SEMPRE retorna float. 7/2 = 3.5 (float). Pra divisão inteira use // (floor)."},
+ {id:"p102",t:"python",d:"pbase",q:"Quanto vale  7 // 2  ?",
+  o:["3.5","3","4","1"],c:1,
+  e:"// é divisão inteira (floor): descarta a parte decimal. 7//2 = 3. Já 7/2 = 3.5 e 7%2 = 1 (resto)."},
+ {id:"p103",t:"python",d:"pbase",q:"Quanto vale  10 % 3  ?",
+  o:["3","0","1","3.33"],c:2,
+  e:"% é o operador MÓDULO = resto da divisão. 10 dividido por 3 dá 3 e sobra 1 → 10 % 3 = 1. Muito usado pra testar par/ímpar."},
+ {id:"p104",t:"python",d:"pbase",q:"Qual a diferença entre  =  e  ==  ?",
+  o:["São iguais","= atribui valor; == compara igualdade","= compara; == atribui","== é só pra números"],c:1,
+  e:"= dá um valor a uma variável (x = 5). == pergunta se dois valores são iguais e devolve True/False (x == 5). Trocar os dois é o erro nº1 de iniciante."},
+
+ // ===== PYTHON — fluxo =====
+ {id:"p201",t:"python",d:"pflow",q:"O que  range(3)  produz num  for ?",
+  o:["1, 2, 3","0, 1, 2","0, 1, 2, 3","3, 2, 1"],c:1,
+  e:"range(3) gera 0, 1, 2 — começa no 0 e vai até ANTES do 3. Por isso range(n) roda n vezes."},
+ {id:"p202",t:"python",d:"pflow",q:"Pra testar uma segunda condição só se a primeira falhar, você usa:",
+  o:["else if","elseif","elif","when"],c:2,
+  e:"Em Python é elif (não 'else if' nem 'elseif'). Estrutura: if / elif / else. É pegadinha comum de quem vem de outra linguagem."},
+ {id:"p203",t:"python",d:"pflow",q:"Qual comando interrompe um loop imediatamente?",
+  o:["stop","break","exit","return"],c:1,
+  e:"break sai do loop na hora. continue pula pra próxima iteração. return sai da FUNÇÃO inteira, não só do loop."},
+
+ // ===== PYTHON — dados =====
+ {id:"p301",t:"python",d:"pdata",q:"Numa lista  L = ['a','b','c'] , o que é  L[0] ?",
+  o:["'b'","'a'","'c'","erro"],c:1,
+  e:"Índice começa em 0. L[0] = 'a', L[1] = 'b', L[2] = 'c'. L[-1] pega o último ('c')."},
+ {id:"p302",t:"python",d:"pdata",q:"Como adicionar um item ao FIM de uma lista L?",
+  o:["L.add(x)","L.append(x)","L.push(x)","L + x"],c:1,
+  e:"L.append(x) põe x no fim. Python não tem .add() (isso é de set) nem .push() (isso é JS). L + x daria erro de tipo."},
+ {id:"p303",t:"python",d:"pdata",q:"O que  input()  sempre retorna?",
+  o:["Um número (int)","Uma string (texto)","Um booleano","Depende do que digitou"],c:1,
+  e:"input() SEMPRE devolve string, mesmo se você digitar 42. Pra usar como número, converte: int(input()). Pegadinha clássica do PCEP."},
+ {id:"p304",t:"python",d:"pdata",q:"Qual retorna a quantidade de itens de uma lista L?",
+  o:["L.size()","count(L)","len(L)","L.length"],c:2,
+  e:"len(L) devolve o tamanho. Funciona também pra string (nº de caracteres) e outros. .length é JS; .size() não existe em lista Python."},
+
+ // ===== LINUX — cli =====
+ {id:"l101",t:"linux",d:"lcli",q:"Qual comando mostra o diretório onde você está agora?",
+  o:["ls","pwd","cd","dir"],c:1,
+  e:"pwd = 'print working directory', mostra o caminho atual. ls lista o conteúdo; cd muda de pasta."},
+ {id:"l102",t:"linux",d:"lcli",q:"Qual comando LISTA os arquivos de uma pasta?",
+  o:["ls","pwd","mkdir","touch"],c:0,
+  e:"ls lista o conteúdo. ls -l dá detalhes (permissão, dono, tamanho); ls -a mostra ocultos. mkdir cria pasta, touch cria arquivo vazio."},
+ {id:"l103",t:"linux",d:"lcli",q:"Qual símbolo representa a pasta HOME do usuário?",
+  o:["/","~","..","*"],c:1,
+  e:"~ (til) = home do usuário (ex: /home/eduardo). / é a raiz do sistema; .. é a pasta acima; * é curinga."},
+ {id:"l104",t:"linux",d:"lcli",q:"Qual comando busca um texto dentro de arquivos?",
+  o:["find","grep","cat","echo"],c:1,
+  e:"grep procura padrões de TEXTO dentro de arquivos (grep senha arquivo.txt). find procura ARQUIVOS por nome/atributo; cat mostra conteúdo; echo imprime texto."},
+
+ // ===== LINUX — arquivos/permissões =====
+ {id:"l201",t:"linux",d:"lfile",q:"No chmod, o número 7 (como em chmod 700) dá quais permissões?",
+  o:["Só leitura","Ler + escrever","Ler + escrever + executar (rwx)","Nenhuma"],c:2,
+  e:"Sistema octal: 4=ler(r), 2=escrever(w), 1=executar(x). 7 = 4+2+1 = rwx (tudo). chmod 700 = dono tem tudo, grupo e outros nada."},
+ {id:"l202",t:"linux",d:"lfile",q:"Qual comando executa uma ação com privilégio de administrador (root)?",
+  o:["su","sudo","admin","root"],c:1,
+  e:"sudo roda UM comando como root (sudo apt install ...). su troca de usuário pra uma sessão inteira. Princípio de menor privilégio: usa sudo pontual, não fica logado como root."},
+ {id:"l203",t:"linux",d:"lfile",q:"Qual comando apaga uma pasta e TUDO dentro dela (recursivo)?",
+  o:["rm arquivo","rm -r pasta","del pasta","rmdir cheia"],c:1,
+  e:"rm -r apaga recursivo (pasta + conteúdo). CUIDADO: rm -rf / é catastrófico. rmdir só apaga pasta VAZIA."},
+ {id:"l204",t:"linux",d:"lfile",q:"Qual comando lista os processos em execução?",
+  o:["ps","ls","jobs","run"],c:0,
+  e:"ps mostra processos (ps aux = todos, detalhado). top/htop dão visão ao vivo. Pra matar: kill <PID>. ls é pra arquivos."},
+
+ // ===== CLOUD — modelos =====
+ {id:"c101",t:"cloud",d:"cmodel",q:"Você aluga só a máquina virtual e gerencia o SO e tudo acima. Que modelo é?",
+  o:["SaaS","PaaS","IaaS","On-premises"],c:2,
+  e:"IaaS (Infra as a Service) = provedor dá a infra (VM, rede, storage) e você cuida do SO pra cima. Ex: EC2. PaaS entrega a plataforma pronta; SaaS entrega o app pronto (ex: Gmail)."},
+ {id:"c102",t:"cloud",d:"cmodel",q:"Gmail, Office 365 e Salesforce são exemplos de qual modelo?",
+  o:["IaaS","PaaS","SaaS","FaaS"],c:2,
+  e:"SaaS (Software as a Service): você só usa o app pronto pelo navegador, sem gerenciar nada por baixo. IaaS/PaaS exigem mais gestão sua."},
+ {id:"c103",t:"cloud",d:"cmodel",q:"No modelo de RESPONSABILIDADE COMPARTILHADA, quem cuida da segurança FÍSICA do datacenter?",
+  o:["O cliente","O provedor de nuvem","Os dois igualmente","Um auditor externo"],c:1,
+  e:"O provedor cuida da segurança DA nuvem (hardware, datacenter, rede física). O cliente cuida da segurança NA nuvem (seus dados, acessos/IAM, configs). Config errada = culpa do cliente."},
+ {id:"c104",t:"cloud",d:"cmodel",q:"Pagar só pelo que usar, escalando pra cima/baixo conforme a demanda, é:",
+  o:["Licença perpétua","Pay-as-you-go / elasticidade","CAPEX fixo","Contrato anual travado"],c:1,
+  e:"Modelo pay-as-you-go com elasticidade: recursos sobem no pico e descem na baixa, e você paga o consumo. É a vantagem econômica central da nuvem (OPEX, não CAPEX)."},
+
+ // ===== CLOUD — infra/identidade =====
+ {id:"c201",t:"cloud",d:"cinfra",q:"O serviço que controla QUEM pode acessar O QUÊ na nuvem (usuários, papéis, permissões) é o:",
+  o:["CDN","IAM","VPN","DNS"],c:1,
+  e:"IAM (Identity and Access Management) gerencia identidades e permissões. É onde você aplica menor privilégio na nuvem. CDN acelera conteúdo; DNS resolve nomes."},
+ {id:"c202",t:"cloud",d:"cinfra",q:"Qual a diferença entre Região e Zona de Disponibilidade (AZ)?",
+  o:["São sinônimos","Região é área geográfica; AZ é datacenter isolado dentro dela","AZ é maior que Região","Região é virtual, AZ é física global"],c:1,
+  e:"Região = área geográfica (ex: São Paulo). Cada Região tem várias AZs = datacenters isolados. Espalhar entre AZs dá alta disponibilidade se uma cair."},
+ {id:"c203",t:"cloud",d:"cinfra",q:"Proteger dados 'em repouso' (at rest) significa criptografar:",
+  o:["O tráfego na rede","Os dados gravados no storage/disco","A senha do usuário","O código-fonte"],c:1,
+  e:"Em repouso = dado parado no disco/banco (criptografia at rest). 'Em trânsito' = dado viajando na rede (TLS). Boa prática cobre os dois."},
+ {id:"c204",t:"cloud",d:"cinfra",q:"Serviço que distribui o tráfego entre vários servidores pra não sobrecarregar um só:",
+  o:["Load balancer","Firewall","Bucket","Snapshot"],c:0,
+  e:"Load balancer (balanceador de carga) reparte as requisições entre instâncias — dá escala e tolerância a falha. Firewall filtra; bucket é storage; snapshot é cópia pontual."},
+];
+
+/* ---------- GLOSSÁRIO por trilha ---------- */
+const GLOSS=[
+ {t:"secplus",term:"CIA (Confidencialidade, Integridade, Disponibilidade)",def:"O tripé da segurança. Todo controle serve a pelo menos um: manter segredo, evitar alteração indevida, garantir acesso quando preciso."},
+ {t:"secplus",term:"Zero Trust",def:"'Nunca confie, sempre verifique.' Nenhum acesso é confiável por padrão, nem de dentro da rede."},
+ {t:"secplus",term:"MFA",def:"Autenticação multifator: combina categorias diferentes (algo que sabe + tem + é). Barra a maioria dos roubos de senha."},
+ {t:"secplus",term:"SIEM",def:"Junta e correlaciona logs de vários sistemas pra gerar alerta de ataque. Ferramenta central do analista SOC."},
+ {t:"secplus",term:"On-path (MITM)",def:"Atacante fica no meio da comunicação lendo/alterando o tráfego entre duas partes."},
+ {t:"secplus",term:"Zero-day",def:"Falha desconhecida do fabricante, sem correção disponível. Alto risco por não ter defesa pronta."},
+ {t:"secplus",term:"RTO",def:"Tempo máximo que um serviço pode ficar fora do ar antes de causar dano inaceitável."},
+ {t:"secplus",term:"RPO",def:"Quanto dado (janela de tempo desde o último backup) você tolera perder num desastre."},
+ {t:"secplus",term:"Least privilege",def:"Menor privilégio: cada um recebe só o acesso mínimo necessário. Limita o estrago de uma conta comprometida."},
+ {t:"secplus",term:"Hash",def:"'Impressão digital' de mão única de um dado. Serve pra checar integridade e guardar senha (não é reversível)."},
+ {t:"secplus",term:"Infostealer",def:"Malware que rouba credenciais salvas (navegador, apps, cookies). Porta de entrada nº1 hoje — o crime compra o login vazado e entra sem 'hackear'."},
+ {t:"secplus",term:"Movimento lateral / Mimikatz",def:"Depois de entrar, o atacante pula de máquina em máquina. Mimikatz rouba hashes da memória pra virar Domain Admin (controle do domínio todo)."},
+ {t:"secplus",term:"Escalada de privilégio",def:"Subir de usuário comum pra administrador. Virar Domain Admin = controle de todas as contas e máquinas."},
+ {t:"secplus",term:"Exfiltração",def:"Roubar/copiar dados pra fora da rede. No ransomware moderno vem ANTES de criptografar, pra permitir a chantagem de vazamento."},
+ {t:"secplus",term:"Dupla/tripla extorsão",def:"Criptografa (1) + ameaça vazar os dados (2) + chantageia os clientes da vítima (3). Por isso só ter backup não basta mais."},
+ {t:"secplus",term:"MITRE ATT&CK",def:"Enciclopédia das táticas e técnicas (TTPs) dos atacantes. O mapa que o SOC usa pra classificar e caçar ameaça."},
+ {t:"secplus",term:"Cyber Kill Chain",def:"Modelo das fases de um ataque (recon → entrega → exploração → instalação → C2 → ação). Cortar cedo = menos dano."},
+ {t:"secplus",term:"EDR",def:"Detecção e resposta no endpoint (antivírus turbinado): vê comportamento suspeito no dispositivo e pode isolar/reverter."},
+ {t:"secplus",term:"DLP",def:"Data Loss Prevention: impede dado sensível de sair da empresa (e-mail, USB, upload)."},
+ {t:"secplus",term:"SOAR",def:"Automatiza a resposta do SOC: o SIEM detecta, o SOAR AGE sozinho (bloqueia IP, isola host, abre ticket)."},
+ {t:"secplus",term:"SSO",def:"Single Sign-On: um login serve pra vários sistemas."},
+ {t:"secplus",term:"NIST CSF",def:"Framework mestre dos EUA: Identificar, Proteger, Detectar, Responder, Recuperar. Citado em quase toda vaga."},
+ {t:"secplus",term:"SOC 2 (≠ SOC)",def:"Relatório de auditoria de controles de uma empresa. NÃO confundir com SOC = o time de analistas (Security Operations Center)."},
+ {t:"secplus",term:"HIPAA / GLBA / GDPR",def:"Leis de dados: HIPAA=saúde US, GLBA=financeiro US, GDPR=pessoais na UE. Base das vagas de GRC/compliance."},
+ {t:"secplus",term:"DR / BCP",def:"Disaster Recovery / Business Continuity Plan: como voltar a operar após desastre. RTO (tempo) e RPO (dado) moram aqui."},
+ {t:"secplus",term:"IDS / IPS",def:"IDS detecta e alerta intrusão; IPS fica no caminho e BLOQUEIA. O 'P' = prevenção."},
+ {t:"secplus",term:"PKI",def:"Infraestrutura de chave pública: emite certificados digitais (o cadeado do HTTPS). Base da criptografia assimétrica e da assinatura."},
+ {t:"secplus",term:"SAST / DAST / SCA",def:"Testes de software: SAST lê o código parado; DAST testa a app rodando; SCA acha falha nas bibliotecas de terceiros."},
+ {t:"secplus",term:"ISO 27001 / 27701",def:"Norma internacional de gestão de segurança (SGSI); a 27701 é a extensão de privacidade (LGPD/GDPR). Exigidas em contrato B2B grande."},
+ {t:"secplus",term:"CIS Controls",def:"18 controles de boas práticas priorizadas (Center for Internet Security). Guia prático que complementa o NIST."},
+ {t:"secplus",term:"TPRM",def:"Third-Party Risk Management: avaliar o risco dos fornecedores que acessam teus dados. Área forte e remota de GRC."},
+ {t:"secplus",term:"RMF / NIST 800-53",def:"Risk Management Framework + catálogo de controles do governo US. Base das vagas gov/defesa."},
+ {t:"python",term:"Variável",def:"Um nome que guarda um valor. Ex: idade = 40. Usa = pra atribuir."},
+ {t:"python",term:"// (divisão inteira)",def:"Divide e descarta a parte decimal. 7 // 2 = 3. Já / dá float (3.5)."},
+ {t:"python",term:"% (módulo)",def:"Resto da divisão. 10 % 3 = 1. Muito usado pra testar par/ímpar (n % 2 == 0)."},
+ {t:"python",term:"elif",def:"'else if' do Python. Testa outra condição se a anterior deu falso. Ordem: if / elif / else."},
+ {t:"python",term:"append()",def:"Adiciona item ao fim de uma lista. L.append(x)."},
+ {t:"python",term:"input()",def:"Lê texto do usuário e SEMPRE retorna string. Converta com int() se precisar de número."},
+ {t:"linux",term:"pwd",def:"Mostra a pasta atual (print working directory)."},
+ {t:"linux",term:"ls",def:"Lista arquivos. -l = detalhes, -a = mostra ocultos."},
+ {t:"linux",term:"chmod",def:"Muda permissões. Octal: 4=ler, 2=escrever, 1=executar. 7 = rwx (tudo)."},
+ {t:"linux",term:"sudo",def:"Roda um comando como administrador (root). Use pontual, não vire root o tempo todo."},
+ {t:"linux",term:"grep",def:"Procura texto dentro de arquivos. grep <termo> <arquivo>."},
+ {t:"linux",term:"~ / /",def:"~ é a home do usuário; / é a raiz do sistema inteiro."},
+ {t:"cloud",term:"IaaS / PaaS / SaaS",def:"Quanto o provedor gerencia: IaaS (só a infra), PaaS (plataforma pronta), SaaS (app pronto tipo Gmail)."},
+ {t:"cloud",term:"Responsabilidade compartilhada",def:"Provedor protege A nuvem (hardware/datacenter); você protege NA nuvem (seus dados, acessos, configs)."},
+ {t:"cloud",term:"IAM",def:"Gerencia quem acessa o quê na nuvem. Onde você aplica menor privilégio."},
+ {t:"cloud",term:"Região vs AZ",def:"Região = área geográfica; AZ = datacenter isolado dentro da Região. Espalhar entre AZs dá alta disponibilidade."},
+ {t:"cloud",term:"At rest vs in transit",def:"Criptografia do dado parado no disco (at rest) vs viajando na rede (in transit, via TLS)."},
+ {t:"cloud",term:"Load balancer",def:"Distribui o tráfego entre vários servidores. Dá escala e tolerância a falhas."},
+];
+
+/* ---------- ESTADO ---------- */
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+function save(s){localStorage.setItem(KEY,JSON.stringify(s))}
+let S=load();
+// S.q[qid] = {seen, correct, streak, mastered}
+if(!S.q) S.q={};
+if(!S.stats) S.stats={answered:0, right:0, streak:0, best:0};
+if(!S.last) S.last=null; // {track, dom}
+save(S);
+
+function qById(id){return Q.find(x=>x.id===id)}
+function qsOf(track,dom){return Q.filter(x=>x.t===track && (!dom||x.d===dom))}
+function masteredCount(list){return list.filter(x=>S.q[x.id]&&S.q[x.id].mastered).length}
+function domProg(track,dom){const l=qsOf(track,dom);return {m:masteredCount(l),tot:l.length}}
+function trackProg(track){const l=qsOf(track);return {m:masteredCount(l),tot:l.length}}
+function weakList(){return Q.filter(x=>{const r=S.q[x.id];return r&&r.seen&&!r.mastered && r.streak<1 && (r.wrongs>0)})}
+
+/* ---------- NAV ---------- */
+const SEC=["home","praticar","simulado","fracos","gloss"];
+document.querySelectorAll(".tab").forEach(tb=>tb.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+  tb.classList.add("on");
+  SEC.forEach(s=>document.getElementById(s).classList.add("hide"));
+  const t=tb.dataset.t; document.getElementById(t).classList.remove("hide");
+  if(t==="home") renderHome();
+  if(t==="praticar") showTracks();
+  if(t==="simulado") renderSimSetup();
+  if(t==="fracos") renderWeak();
+  if(t==="gloss") renderGloss();
+});
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const all=Q.length, m=Q.filter(x=>S.q[x.id]&&S.q[x.id].mastered).length;
+  document.getElementById("fillAll").style.width=(all?Math.round(m/all*100):0)+"%";
+  document.getElementById("kMastered").textContent=m;
+  document.getElementById("kSeen").textContent=S.stats.answered;
+  document.getElementById("kTotal").textContent=all;
+  document.getElementById("kAcc").textContent=S.stats.answered?Math.round(S.stats.right/S.stats.answered*100)+"%":"–";
+  document.getElementById("kStreak").textContent=S.stats.streak;
+  // resume
+  const r=document.getElementById("resume");
+  if(S.last){const tr=TRACKS.find(t=>t.id===S.last.track);const dm=tr&&tr.doms.find(d=>d.id===S.last.dom);
+    r.innerHTML=`<button class="btn" onclick="startQuiz('${S.last.track}','${S.last.dom}')">▶ ${tr?tr.icon:''} ${dm?dm.name:'continuar'}</button>`;
+  } else r.innerHTML='<span class="note">Ainda não começou. Escolhe uma trilha abaixo.</span>';
+  // tracks
+  const g=document.getElementById("trackgrid");
+  g.innerHTML=TRACKS.map(t=>{const p=trackProg(t.id);const pct=p.tot?Math.round(p.m/p.tot*100):0;
+    return `<div class="track" onclick="gotoPractice('${t.id}')">
+      <h3>${t.icon} ${t.name}</h3>
+      <div class="tmeta">${t.cert} · ${p.tot} questões</div>
+      <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
+      <div class="note" style="margin-top:6px">${p.m}/${p.tot} dominadas (${pct}%)</div>
+    </div>`}).join("");
+}
+function gotoPractice(track){
+  document.querySelector('.tab[data-t="praticar"]').click();
+  openTrack(track);
+}
+
+/* ---------- PRATICAR: track -> domains -> quiz ---------- */
+function showTracks(){
+  document.getElementById("quizWrap").classList.add("hide");
+  document.getElementById("pickWrap").classList.remove("hide");
+  document.getElementById("pickTitle").textContent="Escolhe a trilha";
+  const el=document.getElementById("domList");
+  el.innerHTML=TRACKS.map(t=>{const p=trackProg(t.id);const pct=p.tot?Math.round(p.m/p.tot*100):0;
+    return `<div class="dom" onclick="openTrack('${t.id}')">
+      <div class="dname">${t.icon} ${t.name}</div>
+      <div class="mini"><i style="width:${pct}%"></i></div>
+      <div class="dpct">${p.m}/${p.tot} dominadas</div></div>`}).join("");
+}
+function openTrack(track){
+  const t=TRACKS.find(x=>x.id===track);
+  document.getElementById("quizWrap").classList.add("hide");
+  document.getElementById("pickWrap").classList.remove("hide");
+  document.getElementById("pickTitle").textContent=t.icon+" "+t.name;
+  const el=document.getElementById("domList");
+  el.innerHTML=`<div class="row" style="margin-bottom:6px"><button class="btn" onclick="startQuiz('${track}',null)">▶ Praticar trilha inteira</button></div>`+
+   t.doms.map(d=>{const p=domProg(track,d.id);const pct=p.tot?Math.round(p.m/p.tot*100):0;
+    const weak=p.tot&&p.m<p.tot && qsOf(track,d.id).some(x=>S.q[x.id]&&S.q[x.id].wrongs>0);
+    return `<div class="dom ${weak?'weak':''}" onclick="startQuiz('${track}','${d.id}')">
+      <div class="dname">${d.name}${d.w?` <span class="chip">${d.w} da prova</span>`:''}</div>
+      <div class="mini"><i style="width:${pct}%"></i></div>
+      <div class="dpct">${p.m}/${p.tot} dominadas</div></div>`}).join("");
+}
+
+/* ---------- QUIZ ENGINE (spaced repetition) ---------- */
+let quiz=null;
+function buildQueue(track,dom){
+  let list=qsOf(track,dom).slice();
+  // ordem: primeiro erradas/não vistas, dominadas por último; embaralha dentro do grupo
+  const w=[],n=[],mst=[];
+  list.forEach(q=>{const r=S.q[q.id];
+    if(r&&r.mastered) mst.push(q);
+    else if(r&&r.wrongs>0) w.push(q);
+    else n.push(q);});
+  shuffle(w);shuffle(n);shuffle(mst);
+  return w.concat(n,mst);
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor((i+1)*rnd());[a[i],a[j]]=[a[j],a[i]]}}
+let _seed=Date.now()%2147483647;
+function rnd(){_seed=(_seed*16807)%2147483647;return (_seed-1)/2147483646}
+function startQuiz(track,dom){
+  S.last={track,dom};save(S);
+  const queue=buildQueue(track,dom);
+  if(!queue.length){alert("Sem questões nessa seleção ainda.");return}
+  quiz={track,dom,queue,idx:0,answered:false};
+  document.getElementById("pickWrap").classList.add("hide");
+  const w=document.getElementById("quizWrap");w.classList.remove("hide");
+  renderQ();
+}
+function renderQ(){
+  const w=document.getElementById("quizWrap");
+  if(quiz.idx>=quiz.queue.length){renderQuizEnd();return}
+  const q=quiz.queue[quiz.idx];
+  const t=TRACKS.find(x=>x.id===q.t);const d=t.doms.find(x=>x.id===q.d);
+  const rec=S.q[q.id];const mst=rec&&rec.mastered;
+  w.innerHTML=`
+    <div class="qtop">
+      <span class="qtag">${t.icon} ${t.name} · ${d.name}</span>
+      <span class="prog">${quiz.idx+1}/${quiz.queue.length} ${mst?'· ✅ dominada':''}</span>
+    </div>
+    <div class="card">
+      <div class="qtext">${q.q}</div>
+      <div id="opts">${q.o.map((op,i)=>`<button class="opt" onclick="answer(${i})"><span class="lk">${'ABCD'[i]}</span>${op}</button>`).join("")}</div>
+      <div id="fb"></div>
+      <div class="row" id="qnav"></div>
+    </div>`;
+}
+function answer(i){
+  if(quiz.answered)return;quiz.answered=true;
+  const q=quiz.queue[quiz.idx];const ok=(i===q.c);
+  const opts=document.querySelectorAll("#opts .opt");
+  opts.forEach((b,idx)=>{b.disabled=true;
+    if(idx===q.c)b.classList.add("correct");
+    if(idx===i&&!ok)b.classList.add("wrong");});
+  // update state
+  const r=S.q[q.id]||{seen:0,correct:0,wrongs:0,streak:0,mastered:false};
+  r.seen++; S.stats.answered++;
+  if(ok){r.correct++;r.streak++;S.stats.right++;S.stats.streak++;if(S.stats.streak>S.stats.best)S.stats.best=S.stats.streak;
+    if(r.streak>=2)r.mastered=true;}
+  else{r.wrongs++;r.streak=0;S.stats.streak=0;
+    // requeue: reinsere 3 posições à frente pra repetição espaçada
+    const qq=quiz.queue[quiz.idx];const pos=Math.min(quiz.idx+3,quiz.queue.length);
+    quiz.queue.splice(pos,0,qq);}
+  S.q[q.id]=r;save(S);
+  document.getElementById("fb").innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?'✅ Certo!':'❌ Errou — resposta certa: '+'ABCD'[q.c]}</b>${q.e}${!ok?'<br><span class="note">Essa volta mais pra frente até tu travar.</span>':(r.mastered?'<br><span class="note">🔒 Dominada (2 acertos seguidos).</span>':'<br><span class="note">Acerta 1x mais seguido pra dominar.</span>')}</div>`;
+  document.getElementById("qnav").innerHTML=`<button class="btn" onclick="nextQ()">Próxima ›</button>`;
+}
+function nextQ(){quiz.idx++;quiz.answered=false;renderQ();}
+function renderQuizEnd(){
+  const w=document.getElementById("quizWrap");
+  const p=trackProg(quiz.track);
+  w.innerHTML=`<div class="card" style="text-align:center">
+    <div class="big">🎉</div><b>Rodada concluída!</b>
+    <div class="note" style="margin:8px 0">Trilha ${TRACKS.find(t=>t.id===quiz.track).name}: ${p.m}/${p.tot} dominadas.</div>
+    <div class="row" style="justify-content:center">
+      <button class="btn" onclick="startQuiz('${quiz.track}',${quiz.dom?`'${quiz.dom}'`:null})">↻ De novo (só o que falta domina rápido)</button>
+      <button class="btn ghost" onclick="openTrack('${quiz.track}')">‹ voltar</button>
+    </div></div>`;
+  renderHome();
+}
+
+/* ---------- SIMULADO ---------- */
+let sim=null,simTimer=null;
+function renderSimSetup(){
+  document.getElementById("simRun").classList.add("hide");
+  document.getElementById("simResult").classList.add("hide");
+  document.getElementById("simSetup").classList.remove("hide");
+  document.getElementById("simTracks").innerHTML=TRACKS.map(t=>
+    `<button class="btn ghost" onclick="startSim('${t.id}')">${t.icon} ${t.name}</button>`).join("");
+}
+function startSim(track){
+  const list=qsOf(track).slice();shuffle(list);
+  sim={track,queue:list,idx:0,ans:[],secs:list.length*60};
+  document.getElementById("simSetup").classList.add("hide");
+  document.getElementById("simResult").classList.add("hide");
+  document.getElementById("simRun").classList.remove("hide");
+  if(simTimer)clearInterval(simTimer);
+  simTimer=setInterval(()=>{sim.secs--;const el=document.getElementById("simClock");
+    if(el){const m=Math.floor(sim.secs/60),s=sim.secs%60;el.textContent=`${m}:${String(s).padStart(2,'0')}`;}
+    if(sim.secs<=0){clearInterval(simTimer);finishSim();}},1000);
+  renderSim();
+}
+function renderSim(){
+  const w=document.getElementById("simRun");
+  if(sim.idx>=sim.queue.length){finishSim();return}
+  const q=sim.queue[sim.idx];
+  w.innerHTML=`<div class="qtop">
+      <span class="qtag">Simulado · ${TRACKS.find(t=>t.id===sim.track).name}</span>
+      <span class="qtimer">⏱️ <span id="simClock"></span></span></div>
+    <div class="card">
+      <div class="prog">Questão ${sim.idx+1} de ${sim.queue.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.o.map((op,i)=>`<button class="opt" onclick="simAns(${i})"><span class="lk">${'ABCD'[i]}</span>${op}</button>`).join("")}
+    </div>`;
+  const m=Math.floor(sim.secs/60),s=sim.secs%60;const c=document.getElementById("simClock");if(c)c.textContent=`${m}:${String(s).padStart(2,'0')}`;
+}
+function simAns(i){sim.ans[sim.idx]=i;sim.idx++;renderSim();}
+function finishSim(){
+  if(simTimer)clearInterval(simTimer);
+  document.getElementById("simRun").classList.add("hide");
+  const res=document.getElementById("simResult");res.classList.remove("hide");
+  let right=0;const rows=sim.queue.map((q,idx)=>{const a=sim.ans[idx];const ok=(a===q.c);if(ok)right++;
+    // grava no progresso tbm
+    const r=S.q[q.id]||{seen:0,correct:0,wrongs:0,streak:0,mastered:false};
+    r.seen++;S.stats.answered++;
+    if(ok){r.correct++;r.streak++;S.stats.right++;if(r.streak>=2)r.mastered=true;}
+    else{r.wrongs++;r.streak=0;}
+    S.q[q.id]=r;
+    return `<div class="item" style="display:block;border-left:3px solid ${ok?'var(--acc)':'var(--red)'}">
+      <div style="font-weight:600">${ok?'✅':'❌'} ${q.q}</div>
+      <div class="note" style="margin-top:4px">Certa: <b>${'ABCD'[q.c]}) ${q.o[q.c]}</b>${a==null?' · (não respondida)':(ok?'':` · você marcou ${'ABCD'[a]}`)}</div>
+      <div class="it-exp" style="font-size:12.5px;color:var(--dim);margin-top:5px;border-left:2px solid var(--line);padding-left:8px">${q.e}</div>
+    </div>`}).join("");
+  S.stats.streak=0;save(S);
+  const total=sim.queue.length;const pct=Math.round(right/total*100);
+  const pass=pct>=80;
+  res.innerHTML=`<div class="card" style="text-align:center;border-color:${pass?'var(--acc)':'var(--red)'}">
+      <div class="big" style="color:${pass?'var(--acc)':'var(--red)'}">${pct}%</div>
+      <b>${right}/${total} certas — ${pass?'PASSOU (≥80%) ✅':'ainda não (<80%)'}</b>
+      <div class="note" style="margin:6px 0">${pass?'No nível de aprovação. Continua reforçando os fracos.':'Revisa as erradas abaixo e refaz. A prova real exige ~80%.'}</div>
+      <button class="btn" onclick="renderSimSetup()">↺ novo simulado</button>
+    </div>
+    <h3 style="margin:16px 0 4px">Revisão</h3>${rows}`;
+  renderHome();
+}
+
+/* ---------- FRACOS ---------- */
+function renderWeak(){
+  const w=document.getElementById("weakWrap");
+  const list=Q.filter(x=>{const r=S.q[x.id];return r&&r.seen&&!r.mastered&&r.wrongs>0});
+  if(!list.length){w.innerHTML='<div class="card note">Nenhum ponto fraco registrado ainda — ou tu já dominou tudo que errou. 💪 Pratica mais pra o sistema mapear.</div>';return}
+  w.innerHTML=`<div class="row" style="margin:8px 0"><button class="btn" onclick="startWeakDrill()">▶ Treinar SÓ os ${list.length} fracos agora</button></div>`+
+   list.map(q=>{const t=TRACKS.find(x=>x.id===q.t);const r=S.q[q.id];
+    return `<div class="item" style="display:block;border:1px solid var(--red);border-radius:10px;padding:12px;margin:8px 0;background:var(--panel2)">
+      <div class="chip">${t.icon} ${t.name}</div>
+      <div style="font-weight:600;margin-top:6px">${q.q}</div>
+      <div class="note" style="margin-top:4px">errou ${r.wrongs}x · acertou ${r.correct}x — falta ${2-r.streak} acerto(s) seguido(s) pra dominar</div>
+    </div>`}).join("");
+}
+function startWeakDrill(){
+  const list=Q.filter(x=>{const r=S.q[x.id];return r&&r.seen&&!r.mastered&&r.wrongs>0});
+  if(!list.length)return;
+  shuffle(list);
+  quiz={track:list[0].t,dom:null,queue:list,idx:0,answered:false};
+  document.querySelector('.tab[data-t="praticar"]').classList.add("on");
+  document.querySelectorAll(".tab").forEach(x=>{if(x.dataset.t!=="praticar")x.classList.remove("on")});
+  SEC.forEach(s=>document.getElementById(s).classList.add("hide"));
+  document.getElementById("praticar").classList.remove("hide");
+  document.getElementById("pickWrap").classList.add("hide");
+  document.getElementById("quizWrap").classList.remove("hide");
+  renderQ();
+}
+
+/* ---------- GLOSSARIO ---------- */
+function renderGloss(){
+  const q=(document.getElementById("gsearch").value||"").toLowerCase();
+  const list=GLOSS.filter(g=>!q||g.term.toLowerCase().includes(q)||g.def.toLowerCase().includes(q));
+  const byTrack={};list.forEach(g=>{(byTrack[g.t]=byTrack[g.t]||[]).push(g)});
+  document.getElementById("glist").innerHTML=TRACKS.map(t=>{
+    const gs=byTrack[t.id];if(!gs||!gs.length)return"";
+    return `<div class="card"><b>${t.icon} ${t.name}</b>${gs.map(g=>
+      `<div class="g-item"><span class="g-term">${g.term}</span><div class="g-def">${g.def}</div></div>`).join("")}</div>`;
+  }).join("")||'<div class="card note">Nada encontrado.</div>';
+}
+document.getElementById("gsearch").addEventListener("input",renderGloss);
+
+/* ---------- INIT ---------- */
+renderHome();
+</script>
+</body>
+</html>

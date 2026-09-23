@@ -1,0 +1,688 @@
+[00:00] que a gente tem bastante coisa legal.
+[00:02] A gente estava falando agora a pouco sobre inteligência artificial
+[00:05] e como o impacto da IA está afetando diretamente um setor
+[00:12] de muitos de vocês que é o setor de tecnologia.
+[00:15] Tudo aquilo que antes você fazia de forma repetitiva,
+[00:19] a IA já consegue automatizar,
+[00:23] ela já consegue reproduzir com uma velocidade muito maior,
+[00:28] com padrões muito melhores,
+[00:31] porque você eventualmente, para realizar uma atividade repetitiva,
+[00:35] nem sempre você vai realizar da mesma forma,
+[00:38] a IA consegue fazer com muita consistência.
+[00:41] E isso está gerando uma preocupação no mercado.
+[00:45] Eu vi uma reportagem esses dias de um filme que o Andrew Garfield fez
+[00:50] repreendendo o Sun Ultiman
+[00:55] no filme que está para sair chamado Artificial,
+[00:59] e assim que ele acabou de gravar o filme,
+[01:02] ele desconectou a sua conta da OpenAI.
+[01:06] Isso porque durante o filme, os próprios engenheiros
+[01:10] e as pessoas que conversavam com ele para que ele entrasse no personagem,
+[01:14] falavam que não sabia ao certo dizer qual tipo de emprego,
+[01:20] qual a área, qual o nicho que a inteligência artificial vai engolir como crescimento.
+[01:27] Eles não conseguem ter uma projeção de onde a IA vai chegar
+[01:32] quando a gente fala de tomada de empregos.
+[01:36] O que a gente sabe é que alguns empregos vão deixar de existir
+[01:40] e a inteligência artificial vai passar por um...
+[01:42] Nós passamos por um processo de adequação,
+[01:45] como aconteceu também na Revolução Industrial,
+[01:48] como aconteceu, tem acontecido na história recente.
+[01:53] Então, a gente sabe que serviços de tecnologia,
+[01:57] muitos deles serão engolidos por IA.
+[02:00] Mas a gente sabe também que o profissional que sabe como
+[02:04] não somente apertar um botão, mas tem um pensamento crítico,
+[02:09] esse profissional vai ser muito buscado por grandes empresas.
+[02:15] Com isso, a gente tem um cenário onde muitos profissionais,
+[02:21] muitos empregos na área de IA deixam de existir
+[02:25] e, por outro lado, a gente começa a ver mais oportunidades
+[02:29] no mercado de saber-se segurança.
+[02:31] Se você parar para analisar, a gente tem visto aí,
+[02:35] e no próximo sábado a gente vai abordar essa questão,
+[02:38] de como cada dia surge uma ferramenta nova feita por inteligência artificial.
+[02:43] A gente participa de alguns grupos e alguns eventos
+[02:46] que você vê esses gurus e coaches de internet falando que
+[02:52] eu construo ferramenta de inteligência artificial,
+[02:55] uma aplicação para a minha empresa,
+[02:57] no final de semana utilizando IA.
+[02:59] Em duas semanas eu construí o que a equipe de desenvolvedores da minha empresa
+[03:04] não conseguiu fazer em seis meses.
+[03:06] Com isso, a gente vê uma redução de vagas de oportunidades
+[03:12] para o setor de ITI e, por outro lado, um aumento em cibersegurança.
+[03:18] Isso é o fato desde o cenário da Covid, da pandemia,
+[03:25] onde nós tivemos uma migração muito forçada e muito rápida para o digital.
+[03:32] Profissionais que tinham, eventualmente, um restaurante,
+[03:35] uma loja de roupas, um comércio, que atuavam só no seu bairro,
+[03:41] eles tiveram que migrar urgentemente para o online
+[03:45] para conseguir se adequar ao cenário de isolamento social.
+[03:50] Com a chegada da inteligência artificial,
+[03:53] a gente tem visto que empreendedores, pequenos negócios
+[03:57] e até profissionais de grandes empresas têm criado novas soluções,
+[04:04] criados aplicações para atender alguma necessidade específica de mercado
+[04:09] e, com isso, a gente tem visto um volume grande de softwares vulneráveis.
+[04:14] Recentemente, a Casper, que soltou uma matéria,
+[04:21] falando que 45% dos softwares criados em vibecode
+[04:26] possuem algum tipo de vulnerabilidade.
+[04:29] E detalhes, são vulnerabilidades comuns expostas no Top Ten Wasp.
+[04:36] Além disso, a gente tem visto que muita gente,
+[04:41] quando cria aplicação com inteligência artificial,
+[04:44] acaba expondo chave de API, acaba expondo credenciais,
+[04:50] e, com isso, a IA está treinando o seu conhecimento
+[04:54] com dados que estão disponíveis na internet
+[04:57] e acaba também utilizando informações e vazando informações
+[05:02] que antes deveriam estar protegidas.
+[05:07] Isso também tem acelerado esse movimento de inteligência artificial,
+[05:11] também tem acelerado oportunidades dentro de cyber.
+[05:15] Então, o Fernando havia mencionado alguns minutos atrás
+[05:21] que vagas relacionadas a cloud, a desenvolvimento seguro,
+[05:30] estão crescendo, estão em crescimento, porque?
+[05:34] A gente tem muita solução sendo criadas em cloud,
+[05:39] porém sem nenhum tipo de cuidado, sem nenhum tipo de proteção.
+[05:43] Até desenvolvedores hoje em dia já estão trabalhando
+[05:47] com inteligência artificial para apoiar nos seus processos.
+[05:51] E aí, um detalhe importante que eu costumo mencionar no nosso canal,
+[05:57] quando a gente está falando para executivos,
+[06:00] é que se você é um profissional bom na sua área,
+[06:06] se você é um especialista na sua área de acuação,
+[06:09] quando você acrescenta a inteligência artificial,
+[06:12] você acaba sendo um profissional muito mais produtivo,
+[06:17] e a IA potencializa a qualidade do seu trabalho.
+[06:22] Agora, quando você é um profissional
+[06:24] que não é especialista na sua área,
+[06:26] ou não tem conhecimento na sua área,
+[06:28] e você vai utilizar inteligência artificial,
+[06:32] existe um risco muito grande de você potencializar a falha.
+[06:36] O que nós temos visto no mercado são vários profissionais,
+[06:40] que muitos deles não são de tecnologia,
+[06:43] tentando criar soluções tecnológicas
+[06:46] utilizando inteligência artificial, sem levar em consideração,
+[06:49] cuidados com codificação segura,
+[06:52] com esteira de desenvolvimento,
+[06:55] que é o caso de DevSecCollapse,
+[06:58] quando um software vai ser construído,
+[07:01] a gente começa a falar em segurança
+[07:04] a partir do momento de levantamento de escopo,
+[07:09] porque a gente sabe que dentro de uma esteira de desenvolvimento,
+[07:12] quanto antes você falar, você levar as questões de segurança,
+[07:17] mais barato fica.
+[07:19] Imagina você construir uma aplicação,
+[07:22] passa pelo processo de levantamento de escopo,
+[07:24] pelo design da aplicação, pela codagem da aplicação,
+[07:28] que é o desenvolvimento propriamente dito,
+[07:30] e de repente você identifica que essa aplicação é uma aplicação insegura.
+[07:36] O custo para resolver isso, para retornar isso,
+[07:40] acaba sendo um custo muito mais caro.
+[07:42] E com isso a gente tem visto que profissionais
+[07:46] que desenvolvem de forma segura,
+[07:49] usando metodologias, usando frameworks,
+[07:51] e profissionais que atuam em toda a cadeia de desenvolvimento,
+[07:56] esses profissionais acabam sendo bem requisitados no mercado.
+[08:01] A gente tem visto também profissionais que já atuam em cybersegurança,
+[08:06] criando soluções tanto para atacar quanto para defender.
+[08:11] E é o caso do que o Fernando comentou,
+[08:14] de pen test sendo realizado já por inteligência artificial.
+[08:19] Bem, antes a gente falar de pen test utilizando inteligência artificial,
+[08:23] quem aí não viu nenhuma matéria de OpenAI
+[08:27] realizando algum tipo de comprometimento em alguma empresa
+[08:30] sem devida autorização,
+[08:32] o cloud da Antrópica fazendo a mesma coisa,
+[08:36] e recentemente o próprio Google soltou um relatório
+[08:41] que o Gemini também realizou algum tipo de ataque sem autorização.
+[08:48] Então inteligência artificial já está escapando de alguns ambientes
+[08:53] devidamente controlados para realizar ataque.
+[08:56] Agora, imagine esse tipo de ferramenta
+[09:00] na mão de profissionais, na mão do cybercrime,
+[09:03] que está voltado a realizar ataques.
+[09:06] Isso potencializa a necessidade de profissionais de cybersegurança.
+[09:12] Mas calma que nem tudo isso é para te deixar armado,
+[09:17] porque nós temos também a inteligência artificial
+[09:20] sendo utilizada para o pen.
+[09:23] Imagina que você precisa, quem é mais antigo de cybersegurança,
+[09:30] como no meu caso, caso do Fernando,
+[09:33] que a gente atua com cybersegurança já há mais de 20 anos,
+[09:36] quando você precisava fazer uma investigação,
+[09:40] você tinha que analisar dados de logs,
+[09:43] você precisava abrir o servidor, abrir a ferramenta,
+[09:47] verificar quando aconteceu o evento,
+[09:50] verificar num outro servidor para tentar correlacionar essas informações,
+[09:54] isso era muito trabalhoso, muito demorado.
+[09:58] A inteligência artificial consegue processar esse tipo de dados
+[10:03] numa velocidade muito rápida.
+[10:05] Então, quando você associa a inteligência artificial
+[10:08] no processo de investigação,
+[10:10] no processo de correlação de eventos,
+[10:14] no processo de análise de ameaças de mercado
+[10:17] ou de automação de alguma atividade de segurança,
+[10:21] você consegue ter um ganho muito grande.
+[10:24] Então, a IA, sendo utilizada por profissionais, por especialistas,
+[10:29] potencializa a sua entrega.
+[10:33] E nós teremos também conteúdo de inteligência artificial.
+[10:39] Há alguns anos, eu acabei saindo por acaso numa matéria do UOL,
+[10:45] como o brasileiro cria uma fábrica de vírus
+[10:50] usando inteligência artificial.
+[10:52] E essa matéria acabou sendo um fato curioso,
+[10:57] porque eu tinha feito uma postagem no LinkedIn
+[11:00] para mostrar como você, orientando a IA de forma adequada,
+[11:07] podemos dizer assim,
+[11:08] ela poderia responder qualquer tipo de solicitação.
+[11:12] O objetivo era conscientização,
+[11:15] mas claro, como sempre, alguma coisa estava saindo do controle,
+[11:19] alguém pegou essa postagem e colocou no Facebook,
+[11:23] onde o foco era só diversão e bagunça,
+[11:27] e acabou acontecendo que essa matéria acabou viralizando.
+[11:31] Veja aqui, alguém com um objetivo específico
+[11:36] de criar uma ferramenta para gerar algum tipo de malware
+[11:40] conseguiu fazer isso quando a IA ainda estava engatinhando,
+[11:44] ainda mais nos dias de hoje,
+[11:46] onde você consegue criar uma ferramenta para fazer um playtest,
+[11:49] consegue criar uma ferramenta para exploração.
+[11:53] Então, fiquem atentos,
+[11:54] se você não conhece inteligência artificial,
+[11:57] comece a procurar saber,
+[12:00] apenas 1% da população global utiliza inteligência artificial,
+[12:05] como a gente tinha falado,
+[12:06] nós teremos conteúdo também de inteligência artificial
+[12:09] voltado para a cibersegurança,
+[12:11] para alavancar seus negócios.
+[12:13] Maravilha, pessoal.
+[12:15] E a gente tem alguns mitos em ciber, como nós falamos aqui.
+[12:19] O profissional generalista não vai se aprofundar
+[12:24] em determinadas disciplinas.
+[12:26] Então você pode trabalhar com ciber muito bem,
+[12:28] sem ser nenhum exímio programador.
+[12:32] Hoje qualquer um programa, com IA, o famoso Vibe Code,
+[12:37] entretanto a gente trouxe alguns paradigmas aqui.
+[12:41] Não precisa de nenhuma graduação específica.
+[12:45] Cibersegurança não é somente para invasão, pessoal.
+[12:50] Inclusive, uma das áreas mais carentes e demandadas no mercado
+[12:54] não é a de invasão, é a de defesa.
+[12:57] Vamos lá, pessoal.
+[12:59] Quem que vocês conhecem de empresa que faz testes de invasão todos os anos?
+[13:05] Vamos olhar para o mercado nacional aqui.
+[13:08] Toda empresa faz teste de invasão todo ano.
+[13:12] A gente já viu uma empresa grande fazendo a cada dois.
+[13:16] E outra, quando faz, faz um teste de invasão no ano,
+[13:20] enquanto em defesa a empresa investe todo mês.
+[13:25] Defesa é contínua, pessoal.
+[13:28] Então a gente tem essa janela de oportunidade aqui
+[13:32] de fugir do glamour do famoso hacker
+[13:36] pro glamour do profissional de segurança
+[13:39] que protege as empresas de verdade no dia a dia.
+[13:43] Esse aqui é um dos temas que está ligado com a venda, pessoal.
+[13:48] A venda, pessoal, é muito relacional.
+[13:51] E dentro de segurança cibernética,
+[13:53] eu toquei a área de comercial por muitos anos.
+[13:57] Então, no comercial,
+[14:00] o cliente precisa ter segurança e confiança em você.
+[14:08] Senão ele não compra.
+[14:10] É diferente de comprar um carro,
+[14:13] é diferente de comprar um curso,
+[14:16] onde é muito mais uma questão de expectativa
+[14:22] do que de relacionamento.
+[14:24] E existe, pessoal, uma questão muito delicada aqui,
+[14:28] é que se essa confiança for quebrada por qualquer motivo,
+[14:32] por menor que seja,
+[14:34] você corre o risco de perder o cliente.
+[14:37] Então, como que a gente conquista, pessoal, essa confiança?
+[14:44] O caminho tradicional de uma carreira em ciber, pessoal.
+[14:47] Eu vou estudar,
+[14:49] eu vou aplicar esse conhecimento em algum lugar,
+[14:52] eu vou construir uma boa reputação
+[14:54] com relacionamento, com networking,
+[14:57] independente de gostar ou de não gostar, pessoal.
+[14:59] Às vezes a gente...
+[15:02] Eu não sei se isso é um luxo da nossa cultura aqui no Brasil,
+[15:08] se lá fora é diferente,
+[15:11] mas eu já ouvi comentários fora do Brasil,
+[15:17] tipo...
+[15:19] Você gosta de alguém que você trabalha?
+[15:21] E a pessoa fala...
+[15:22] Eu só trabalho, eu não tenho que gostar.
+[15:24] Nem gosto, nem desgosto.
+[15:26] Eu vou lá porque eu estou lá na empresa para trabalhar.
+[15:29] Então tem uma mentalidade diferente.
+[15:31] Mas a gente tem o costume aqui...
+[15:34] O brasileiro é passional, né?
+[15:36] Então tem aquele negócio de...
+[15:38] Eu não suporto qualquer coisa.
+[15:41] A partir do momento, pessoal, que a gente olha para os problemas
+[15:44] e a gente deixa de olhar para as oportunidades,
+[15:46] a gente mata o nosso network, pessoal.
+[15:50] Aquela pessoa que por qualquer motivo
+[15:53] você teve um desentendimento,
+[15:55] você não serviu de alguma forma,
+[15:58] que você poderia ter ajudado,
+[16:00] poderia ter contribuído para a carreira daquela pessoa,
+[16:03] é a pessoa que ia te abençoar
+[16:05] para você crescer e se destacar na sua carreira,
+[16:07] e você deixou essa oportunidade passar.
+[16:11] Então, dentro de cyber,
+[16:14] para você poder chegar na venda,
+[16:18] um dos requisitos é construir um bom networking.
+[16:22] E a gente já falou aqui, pessoal, sobre alguns fatores que
+[16:25] apoiam aqui nesse networking
+[16:27] a inteligência emocional,
+[16:30] a inteligência nos relacionamentos,
+[16:33] nós falamos sobre a sabedoria,
+[16:35] e agora falando sobre o networking,
+[16:41] se a gente não se conecta com profissionais
+[16:45] e com clientes além daquele vínculo do trabalho,
+[16:51] a gente não chega em lugar nenhum,
+[16:53] é uma exigência que eu peço para os nossos gestores,
+[16:56] eu falo, você tem que saber o nome do cachorro do teu funcionário.
+[16:59] Brincadeira, pessoal,
+[17:01] é óbvio que é um exemplo, e às vezes até exagerado,
+[17:04] não é todo mundo que tem cachorro, e por aí vai,
+[17:07] mas se a gente não está conectado
+[17:10] com as pessoas que estão ao nosso redor,
+[17:13] como é que a gente vai construir um futuro junto,
+[17:15] como é que a gente cresce junto,
+[17:17] se o líder tem que formar o seu liderado,
+[17:20] e não existe conexão,
+[17:22] como é que essa formação vai acontecer?
+[17:26] A gente só aprende, pessoal,
+[17:28] quando a gente admira,
+[17:30] quando a gente tem uma liderança que inspira,
+[17:32] e no networking a gente segue o mesmo caminho,
+[17:36] a gente não se relaciona com pessoas que não são construtivas,
+[17:40] então, voltando para a questão da inteligência nos relacionamentos,
+[17:46] quais são, pessoal,
+[17:48] os relacionamentos que vocês devem cultivar
+[17:51] e os relacionamentos que vocês talvez devam tirar das suas vidas.
+[17:56] Essa é uma boa análise, um exercício,
+[17:58] que vocês poderiam fazer agora, ou ao final da imersão.
+[18:02] Olha, eu tenho aqui relacionamentos que eu estou marginalizando,
+[18:06] que são relacionamentos que vão potencializar o meu crescimento,
+[18:11] e eu tenho relacionamentos que não me levam a lugar nenhum.
+[18:16] Eu estou dentro de um ambiente que é um ambiente que degrada,
+[18:19] que é um ambiente que reduz, que é um ambiente que não constrói,
+[18:23] e será que você está em um ambiente que é compatível ali com os teus princípios?
+[18:28] Se não for, pessoal, é uma oportunidade de repensar.
+[18:33] E como eu falei, aqui na First Class,
+[18:37] o objetivo é que a gente construa esse networking que vá além do tradicional,
+[18:44] onde a gente consiga, de verdade,
+[18:47] gerar negócios, crescer e prosperar em segurança cibernética.
+[18:52] Leo, jornada.
+[18:55] Ó, acabou o tempo, tem alguns slides aqui ainda.
+[18:59] Como é que a gente está aí, pessoal?
+[19:03] Está tarde, querem fazer uma votação,
+[19:06] a gente segue mais alguns minutos aqui, mas a gente precisa respeitar a agenda,
+[19:10] não dá para passar meia hora,
+[19:12] ou a gente segue aqui mais alguns minutos.
+[19:15] Pessoal, sugestões?
+[19:18] Estão falando, vamos ficar, vamos ficar.
+[19:23] Maravilha.
+[19:25] Flávia segue.
+[19:29] Então, bora lá.
+[19:30] Mais alguns minutos?
+[19:31] Bora, Leo.
+[19:32] Beleza.
+[19:33] Enrola o cabo dessa classe, lembrei.
+[19:36] Eu vou tentar acelerar agora,
+[19:38] até para a gente não tomar muito tempo de vocês,
+[19:41] porque tem aplicativo no final.
+[19:43] Pessoal, falam um pouquinho da minha jornada,
+[19:46] da sala de aula até inovação.
+[19:49] Eu tive duas viradas de chaves interessantes na minha carreira.
+[19:53] Uma delas, e talvez esse seja um gatinho para muitos de vocês,
+[19:57] eu trabalho com tecnologia desde o final da década de 90,
+[20:01] desde 97, 96, 97, já trabalho com tecnologia.
+[20:06] Libero o app.
+[20:07] E fechou até amanhã, isso aí, dez minutos.
+[20:10] Pode ser?
+[20:11] Melhor.
+[20:12] Bom, fechou.
+[20:13] Então, galera, vamos fazer o seguinte,
+[20:14] a gente vai parar por aqui,
+[20:17] e a gente dá continuidade amanhã,
+[20:19] e a gente vai fazer a liberação do app agora,
+[20:21] até porque a gente vai ter um tempinho agora
+[20:23] para poder fazer a liberação.
+[20:25] Deixa eu parar a janela aqui.
+[20:30] Enquanto o Leo vai liberar aqui, pessoal,
+[20:33] qual que é um dos grandes desafios de CYBER?
+[20:36] Resultado, pessoal.
+[20:38] E o que esse resultado precisa ser?
+[20:41] Transformador.
+[20:42] Não dá para entregar um relatório que o cliente não entende,
+[20:45] não dá para entregar um relatório que não direciona,
+[20:48] que não mostra o caminho que tem que ser seguido,
+[20:51] e na maioria das vezes esse caminho
+[20:54] é um profissional experiente que desenha.
+[20:57] A gente não tem receita pronta.
+[20:59] Então, um dos itens que nós trouxemos na imersão,
+[21:04] e de novo, pessoal, os objetivos são muitos.
+[21:08] Você pode ser um profissional de tecnologia
+[21:10] que na tua empresa não tem nada ainda de CYBER,
+[21:13] que é uma cadeira que você pode conquistar,
+[21:16] você pode fazer um diagnóstico na sua empresa,
+[21:19] você pode fazer um diagnóstico para um cliente,
+[21:22] sendo um fornecedor aqui de serviços de tecnologia,
+[21:26] grandes empresas, pessoal,
+[21:28] costumam ter um diagnóstico.
+[21:31] Não significa que a gente não pode abordar
+[21:34] esse desafio mais para frente,
+[21:36] mas é mais complexo.
+[21:38] Mas pensem, pessoal,
+[21:40] que o diagnóstico precisa mapear as dores,
+[21:43] mas acima de tudo indicar quais são as prioridades
+[21:48] que precisam ser resolvidas ali,
+[21:51] que precisam ser atendidas,
+[21:53] eu direto no curto prazo.
+[21:55] Vou dar um exemplo, pessoal.
+[21:57] Eu fiz um diagnóstico
+[21:59] e eu digo para o cliente que ele tem 20 problemas,
+[22:01] mas eu não digo como resolver,
+[22:04] talvez esse diagnóstico esteja pela metade.
+[22:08] Se neste diagnóstico, pessoal,
+[22:12] eu não digo quais são as prioridades,
+[22:18] eu tenho 20 coisas para fazer,
+[22:20] mas qual que eu faço primeiro?
+[22:22] Eu também votei ali uma certa limitação, pessoal.
+[22:28] Pode ser que o cliente questione no final do projeto
+[22:32] se ele realmente atingiu o seu objetivo
+[22:38] e qual que é o próximo passo.
+[22:41] Nós tivemos aqui a felicidade, pessoal,
+[22:45] de se não a grande maioria, talvez,
+[22:50] todos os clientes que nós fizemos diagnósticos,
+[22:53] eles contratarem serviços conosco depois do diagnóstico,
+[22:58] porque todo esse trabalho de diagnóstico
+[23:01] foi feito com muito carinho,
+[23:03] não foi simplesmente entregar o relatório,
+[23:05] mas a gente também se aprofundou a entender o ambiente do cliente.
+[23:10] E a gente tem uma dor, pessoal.
+[23:12] Tem diagnóstico no mercado de 10 minutos.
+[23:17] Estou exagerando, pessoal.
+[23:19] Mas tem diagnóstico muito rápido.
+[23:21] Os diagnósticos que nós fazemos para grandes empresas,
+[23:25] eles giram em torno ali de 300 horas.
+[23:29] É um investimento considerável,
+[23:31] são muitas reuniões para a gente entender
+[23:34] o desafio em um nível de detalhe
+[23:37] que teve um cliente nosso que é um dos maiores do mundo no que faz,
+[23:42] inclusive é responsável hoje por mais de 10% do nosso faturamento,
+[23:48] que quando nós entregamos o relatório,
+[23:50] o cliente falou...
+[23:53] Nunca me entregaram nada parecido.
+[23:56] Eu já recebi diversos relatórios
+[23:58] que parecia que tinha sido feito para outra empresa.
+[24:03] Então eu não vou dizer, pessoal,
+[24:05] que a gente consegue fazer isso para todo mundo.
+[24:08] Pode ser que em um cliente pequeno você não tenha nem com quem falar.
+[24:12] O cliente pequeno, você vai ter sorte
+[24:15] se conseguir algumas respostas.
+[24:18] Então...
+[24:20] O Léo vai colocar aqui, pessoal.
+[24:23] Está na tela.
+[24:24] O QR code está na tela, pessoal.
+[24:29] E o código é GENESIS,
+[24:32] em letra maiúscula,
+[24:34] como está mostrando aqui.
+[24:36] Esse código ficará disponível por 24 horas.
+[24:41] Então, escaneio o QR code,
+[24:44] você vai acessar a página
+[24:47] e você vai clicar no botão Cadastro.
+[24:51] Assim que você...
+[24:52] Para você cadastrar, você vai precisar colocar o código.
+[24:55] O código é GENESIS,
+[24:57] com a letra maiúscula,
+[25:00] para você fazer o cadastro.
+[25:02] Assim que você fizer o cadastro,
+[25:04] deixa eu logar aqui e já puxo a tela para cá também.
+[25:12] Só parar.
+[25:14] Todo mundo pegou já?
+[25:16] Você colocou no grupo?
+[25:17] Você colocou no grupo?
+[25:18] Então, legal.
+[25:19] Eu vou tirar agora daqui a tela
+[25:21] para colocar a outra tela aqui para vocês.
+[25:30] Agora sim.
+[25:31] Então, vamos lá.
+[25:32] Compartilhar a outra tela.
+[25:36] Agora sim.
+[25:37] Pessoal, assim que vocês carregarem a primeira vez,
+[25:41] você vai ver essa tela aqui vazia.
+[25:44] Deixa eu excluir esse relatório.
+[25:46] Então, o que é o SIS?
+[25:49] O SIS é uma ferramenta...
+[25:52] Na verdade, é um conjunto de controles
+[25:54] para medição de maturidade
+[25:58] e padronização de controle.
+[26:02] Maturidade e padronização de segurança do seu ambiente.
+[26:08] O que essa ferramenta vai fazer?
+[26:11] Você vai criar a empresa,
+[26:13] definir qual é a avaliação que você quer fazer.
+[26:16] Então, pode ser um novo caso aqui para Security First.
+[26:22] Eu quero avaliar...
+[26:24] O SIS é definido em avaliação básica,
+[26:28] avançada e especializada.
+[26:30] O que me interessa para mim é o nível 1 somente de segurança,
+[26:33] é o mais básico,
+[26:34] até porque muitas empresas não possuem nenhum tipo de controle.
+[26:38] Então, quando você começar a avaliar...
+[26:41] Primeira coisa, você possui controle dos ativos
+[26:45] ou inventário do seu ambiente?
+[26:48] Se já está implementado,
+[26:51] ele já está implementado e é feito de forma automática?
+[26:54] Ou não?
+[26:55] Ele está parcialmente implementado.
+[26:57] Eu não tenho controle muito bem dos meus ativos.
+[27:00] Você vai começar a preencher
+[27:05] com base no seu ambiente
+[27:08] ou com base no cliente que você já atua.
+[27:13] Ou na sua empresa, caso você queira fazer,
+[27:16] levantar esse nível de maturidade.
+[27:18] Então, proteção de dados dentro do seu ambiente.
+[27:21] Você tem alguma prevenção de vazamento de dados,
+[27:24] algum DLP implementado?
+[27:26] Ah, eu tenho para algumas áreas,
+[27:28] eu não tenho inventário de dados sensíveis dentro do meu ambiente,
+[27:32] ou eu tenho implementado já no meu ambiente.
+[27:36] O que acontece, enquanto a aplicação...
+[27:40] Enquanto você não finalizar a avaliação,
+[27:44] você pode voltar e retomar a qualquer momento.
+[27:49] O que acontece quando você finalizar?
+[27:52] Ele trava para que as informações não sejam mais alteradas.
+[27:57] Mas o que é importante aqui nessa solução de análise de maturidade?
+[28:02] É que para cada item que você tem,
+[28:06] existe um plano de ação recomendado.
+[28:09] Então, o que você precisa fazer para elevar esse nível de maturidade?
+[28:14] E como toda ferramenta,
+[28:16] é importante que se você está fazendo um assessment de maturidade,
+[28:20] você tenha condições também de gerar um relatório para o seu cliente.
+[28:26] E nesse relatório, você consegue ter a informação
+[28:30] de qual nível de maturidade o seu cliente ou a sua empresa tem.
+[28:35] Você consegue ver quais controles foram avaliados,
+[28:40] e você consegue também ter o plano de ação para cada um desses itens.
+[28:46] E por que isso é importante?
+[28:48] E eu ia falar, amanhã quando a gente estiver falando da jornada,
+[28:52] a gente vai abordar um pouquinho essa questão.
+[28:54] O mercado acadêmico hoje, ele está muito focado em formar Red Team, formar Blue Team,
+[29:02] mas ele acaba deixando um gap muito grande daquilo que o mercado precisa,
+[29:08] daquilo que a empresa capacita, a escola, a instituição de ensino capacita,
+[29:15] e muitas vezes não fornece nenhum tipo de ferramenta.
+[29:18] A janela entre o que você aprende, o que o mercado precisa,
+[29:23] é tão grande que eventualmente alguns de vocês que estão aqui falam,
+[29:27] olha, mas eu já tenho certificação, eu já fiz curso A, B, C, D,
+[29:32] e não consigo uma oportunidade no mercado.
+[29:35] Ou de repente você já faz algum tipo de serviço de segurança no seu cliente,
+[29:39] você tem alguns clientes,
+[29:41] porém você não consegue atender a necessidade do seu cliente.
+[29:45] Por que?
+[29:46] Porque você não consegue enxergar a segurança,
+[29:50] enxergar o seu cliente de uma forma generalista,
+[29:53] você não consegue ter uma visão de qual a necessidade do seu cliente.
+[29:57] Você não sabe qual que é o nível de maturidade
+[30:01] para você começar a implementar os controles.
+[30:04] Hoje, se eu perguntar para muitos de vocês, ou talvez para todos vocês,
+[30:09] se vocês, na empresa que vocês atuam,
+[30:12] se vocês sabem qual o nível de maturidade de segurança,
+[30:15] possivelmente quase todos dirão que não sabem,
+[30:20] porque não existe nenhum tipo de parâmetro.
+[30:22] Ah, eu sei que de vez em quando pede para eu fazer um pen test,
+[30:25] quando alguém cria uma aplicação, pede para eu testar a segurança,
+[30:28] ah, pedem para eu fazer controle de acesso.
+[30:32] Veja que você acaba atuando muitas vezes de forma específica numa dor,
+[30:38] mas ninguém na empresa trata o todo.
+[30:41] E essa migração do cenário de educação
+[30:44] para o cenário de inovação dentro da Security First e de educação,
+[30:50] ele tem justamente esse objetivo,
+[30:53] é trazer a educação mais próximo da necessidade de mercado,
+[30:58] não só com conteúdo teórico,
+[31:01] mas com ferramentas que ajudam vocês a se desenvolverem
+[31:06] e a conseguirem clientes para poder fazer implementação de segurança
+[31:09] e aumentarem o escopo de atuação de vocês no mercado.
+[31:13] Tentei reduzir mais rápido do que eu podia.
+[31:15] Muito bom, Léo. E, pessoal, essa ferramenta aqui,
+[31:19] óbvio que é algo que dá para vender, tá?
+[31:26] Funciona bem aí em pequenas, médias empresas
+[31:30] e vai apoiar em dar um direcionamento de segurança.
+[31:35] Mas a gente volta.
+[31:37] Sem entender o negócio, sem entender o contexto do negócio,
+[31:41] qualquer recomendação, pessoal, é uma recomendação genérica.
+[31:46] Não vai ser uma solução absoluta.
+[31:52] Então, na semana que vem,
+[31:58] quinta-feira que vem,
+[32:01] nós vamos fazer uma live dia 30... não, dia 1, pessoal.
+[32:08] Então, no dia 1, a gente vai fazer uma live de diagnóstico do SIS gratuita,
+[32:14] então todo mundo que está na imersão aqui está convidado para participar,
+[32:18] onde nessa live a gente vai passar em cada um dos itens
+[32:24] e a gente vai explicar o que é bom e o que é ruim dentro daquele item,
+[32:29] desafios, risco, como que o cliente pode resolver aquele problema,
+[32:33] eventuais ferramentas, dá para fazer no Excel,
+[32:36] dá para fazer com uma ferramenta quadrante mágico do Gardner pagando milhões.
+[32:42] Tudo é possível, pessoal.
+[32:44] Mas no final disso seria até legal a gente ter exemplos
+[32:49] de, poxa, olha, eu trabalho em uma faculdade,
+[32:52] eu trabalho em uma empresa aqui no mercado financeiro,
+[32:55] é uma fintech, é uma startup de mercado financeiro,
+[32:59] para a gente debater e trazer essa sensibilidade
+[33:04] de entendimento e análise de riscos
+[33:07] para a gente conseguir entregar um relatório
+[33:10] que vai direcionar verdadeiramente e reduzir os riscos daquela operação.
+[33:16] Resumindo, pessoal,
+[33:19] imaginem que a gente entregou um relatório para um cliente com dez itens, pessoal,
+[33:26] e ele só fez um item no dia seguinte.
+[33:30] Se ele sofreu um ataque,
+[33:32] aquele item que ele fez deveria diminuir a dor.
+[33:37] Se ele foi atacado e ele fez cinco itens,
+[33:42] vamos lá, eu recomendei dez ações para o meu cliente,
+[33:46] ele fez cinco.
+[33:48] Se ele foi atacado e o resultado dele ter feito as cinco ações
+[33:54] e ele não ter feito for o mesmo,
+[33:57] era melhor ele não ter feito.
+[33:59] Significa que não priorizou as medidas corretivas,
+[34:03] não priorizou o contexto de negócio,
+[34:05] não priorizou o risco da forma correta.
+[34:08] Então a gente vai trazer nessa imersão,
+[34:11] vão ter profissionais do nosso time,
+[34:13] nessa aula vamos compartilhar com vocês
+[34:18] um pouquinho dessa visão de riscos que nós temos aqui atendendo grandes empresas.
+[34:23] Não é absoluto, mas é um desenvolvimento extraordinário,
+[34:27] principalmente para quem ainda não fez o assessment, pessoal.
+[34:30] O que é importante que vocês vão ver nessa aula
+[34:33] é que vocês veem, quando vocês abriram a fiamenta,
+[34:36] vocês viram que eu tenho desde zero, nada implementado,
+[34:41] até o modelo que já está automatizado.
+[34:44] Não quer dizer que automatizar tudo seja o melhor cenário.
+[34:49] A solução tem que ser, o diagnóstico tem que ser de acordo
+[34:55] com a necessidade do seu negócio.
+[34:57] Eventualmente, para automatizar tudo, o custo seria tão inviável
+[35:02] que ele pode até desmotivar a empresa a investir em controles de segurança.
+[35:08] Então, eventualmente, você já ter algo implementado naquela necessidade
+[35:14] já é o suficiente, não precisa ser algo que está com a melhor avaliação.
+[35:20] Isso é importante em cibersegurança que o mercado não ensina.
+[35:25] O mercado ensina você a mitigar risco,
+[35:28] a eliminar qualquer possibilidade do risco acontecer
+[35:32] e você elimina o risco acontecendo se você tirar o computador da tomada,
+[35:36] ainda assim, se você guardar no cofre, uma bomba pode explodir e vazar dados
+[35:40] e você perder dados é importante.
+[35:42] Então, não quer dizer que você tem que atender tudo 100%.
+[35:48] Eventualmente, se você está num nível de maturidade inicial
+[35:52] e você passar para um nível que você já está implementado,
+[35:56] ou implementado parcial, já é mais importante do que você continuar num estado zero.
+[36:02] Então, isso é importante que você não encontra no mercado.
+[36:05] Exato, pessoal.
+[36:07] Então, esse é um exemplo, pessoal, de resultado de curto prazo
+[36:14] que a gente consegue entregar.
+[36:16] Eu acho que... eu tenho uma opinião, pessoal, muito particular aqui de diagnóstico, não gosto.
+[36:22] Não gosto de diagnóstico.
+[36:24] Tem um negócio que eu tenho a repulsa de diagnóstico. Por quê?
+[36:27] O cliente contrata o diagnóstico, pessoal, você volta dali dois anos,
+[36:31] você faz outro diagnóstico, é a mesma coisa.
+[36:34] O cara não corrigiu. Empresas pequenas e médias, eles estão nessa inércia de...
+[36:41] Ah, me dá um relatório para eu tentar justificar algo que eu não sei justificar,
+[36:48] para talvez eu mudar aqui a segurança da minha organização.
+[36:53] Os profissionais que estão nas pequenas empresas, eles não conseguem chegar para o dono,
+[36:58] não sei se é por medo de ser mandado embora,
+[37:01] e falar a verdade, ou investimos em segurança ou vão ter problema.
+[37:05] É muito comum, pessoal, da gente fazer um diagnóstico um ano ou dois depois,
+[37:11] o cara não mudou.
+[37:12] Então, um dos argumentos de venda que nós temos aqui
+[37:16] é que diagnóstico não resolve o problema.
+[37:19] É muito melhor... a gente vai ter trilha aqui, pessoal,
+[37:24] de serviço, que vocês vão entrar em qualquer empresa
+[37:28] e vão diminuir o risco daquela empresa.
+[37:30] Implantando controles, fazendo gestão de segurança objetiva,
+[37:35] esquecendo aquela postura...
+[37:38] O livro do CISP, pessoal, de mil páginas lá, esquece, pessoal,
+[37:42] a gente não vai ler CISP aqui, a gente vai direto no que interessa.
+[37:45] Não que o CISP não seja extraordinário, é.
+[37:47] Só que não cabe numa pequena empresa.
+[37:50] Não dá tempo para uma empresa que precisa de proteção em dois ou três meses.
+[37:54] Então a gente vai ter diversas ferramentas e metodologias
+[37:58] para a gente traçar esse caminho de forma mais objetiva.
+[38:01] Então esse foi o primeiro entregável aqui da nossa imersão.
+[38:06] A gente tem mais entregáveis aqui nos próximos dois dias
+[38:10] que vocês vão poder usar dentro de casa,
+[38:13] tem a possibilidade de vender como serviço,
+[38:16] só que ainda falta o conhecimento para, eu diria,
+[38:21] ser faixa preta aqui em diagnóstico.
+[38:23] Para ser faixa preta, pessoal, em diagnóstico,
+[38:26] vai levar anos.
+[38:28] Não é um negócio que, olha, eu fiz um curso e eu saí muito bom.
+[38:33] O curso vai acelerar, é o nosso propósito aqui,
+[38:36] a gente trazer esse conhecimento que acelere qualquer um
+[38:39] que nunca fez um diagnóstico,
+[38:41] com conhecimento mínimo ali de tecnologia,
+[38:44] porque a gente vai falar de inventário,
+[38:46] a gente vai falar de pet management, pessoal.
+[38:48] A gente não está falando de ciência da NASA aqui,
+[38:51] de criptografia pós-quântica,
+[38:53] a gente está falando de controles simples
+[38:55] que pequenas empresas deveriam ter
+[38:57] e como que a gente junta esses controles em uma ordem,
+[39:01] uma sequência ótima
+[39:03] para a gente entregar o maior nível de segurança possível.
+[39:06] Esse é o nosso objetivo.
+[39:08] Isso que muda um pouco da nossa abordagem aqui.
+[39:11] Os nossos treinamentos, quando a gente fala de ISO,
+[39:14] quando a gente fala de NIST,
+[39:16] ele vai vir com foco em resolver o problema.
+[39:19] Se vai ser, pessoal, no Excel,
+[39:22] na ferramenta quadrante mágico do Gartner,
+[39:25] é outra história.
+[39:26] A gente vai resolver o problema com aquilo que a gente tem na mão.
+[39:30] Na Security First a gente desenvolveu uma cultura, pessoal,
+[39:35] de não dar desculpa.
+[39:36] Não tem essa de...
+[39:37] Ah, então foi... perdão, nós fomos invadidos aqui porque não deu para fazer.
+[39:44] Para a gente, pessoal, não existe ou não deu para fazer.
+[39:48] Quando a gente senta com um cliente e pergunta para ele
+[39:51] se tem ferramenta, o cliente fala não, beleza.
+[39:55] Tem Excel, o cliente fala não.
+[39:59] Eu falo, tá, então me dá caneta e um papel,
+[40:01] eu vou resolver esse entretenimento aí.
+[40:03] Eu tenho que resolver de algum jeito.
+[40:04] Brincadeira, pessoal,
+[40:06] mas muitos desafios dentro de segurança,
+[40:09] a gente resolve de forma objetiva.
+[40:12] A gente não precisa de nenhuma ferramenta extraordinária.
+[40:15] A gente vai falar um pouco melhor sobre esse entregável.
+[40:18] Eu queria agradecer a presença de todos
+[40:21] para respeitar o horário.
+[40:22] Para quem tem família e precisa descansar.
+[40:24] Eu tenho duas princesas em casa que já estão descansando,
+[40:28] a Bélia Rabe, de dois e quatro anos.
+[40:31] Desejo uma ótima noite para vocês,
+[40:34] uma terça e quarta-feira abençoadas.
+[40:38] Voltamos amanhã, pessoal, às 19h.
+[40:42] Léo, fica à vontade para fechar aí.

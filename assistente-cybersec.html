@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistente CyberSec — Eduardo</title>
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#121821; --panel2:#0e141c; --ink:#e6edf3; --dim:#8b98a5;
+    --line:#22303c; --acc:#3ddc97; --acc2:#39a0 ff; --red:#ff5d5d; --gold:#ffd23f;
+    --blue:#4aa3ff; --purple:#b98cff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  header{padding:22px 26px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e141c,#0b0f14)}
+  h1{margin:0;font-size:20px;letter-spacing:.3px}
+  .sub{color:var(--dim);font-size:13px;margin-top:4px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0}
+  .tab{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--dim);cursor:pointer;font-size:13px}
+  .tab.on{color:#04150d;background:var(--acc);border-color:var(--acc);font-weight:700}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  .bar{height:10px;background:#0a0f15;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--blue));width:0%}
+  .phase{margin:18px 0 6px;display:flex;align-items:center;gap:10px}
+  .phase h3{margin:0;font-size:16px}
+  .badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+  .b-s{color:var(--gold);border-color:var(--gold)}
+  .b-a{color:var(--acc);border-color:var(--acc)}
+  .item{display:flex;gap:12px;padding:12px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--panel2)}
+  .item.done{opacity:.55}
+  .item input{margin-top:4px;width:18px;height:18px;accent-color:var(--acc);cursor:pointer;flex:0 0 auto}
+  .it-body{flex:1}
+  .it-title{font-weight:600}
+  .it-title.done{text-decoration:line-through}
+  .it-meta{font-size:12px;color:var(--dim);margin:2px 0 6px;display:flex;gap:8px;flex-wrap:wrap}
+  .pill{border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+  .pill.free{color:var(--acc);border-color:var(--acc)}
+  .pill.paid{color:var(--gold);border-color:var(--gold)}
+  .it-desc{font-size:13px;color:#c3cdd6}
+  .it-exp{font-size:12.5px;color:var(--dim);margin-top:5px;border-left:2px solid var(--line);padding-left:8px}
+  a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+  .next{background:linear-gradient(180deg,#12241b,#0e1a14);border-color:#1e3a2c}
+  .next h3{margin:0 0 8px;color:var(--acc)}
+  .search{width:100%;padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:14px;margin:10px 0}
+  .g-item{padding:10px 12px;border-bottom:1px solid var(--line)}
+  .g-term{font-weight:700}
+  .g-cat{font-size:11px;color:var(--purple);margin-left:8px}
+  .g-def{font-size:13px;color:#c3cdd6;margin-top:3px}
+  .funnel{display:flex;flex-direction:column;align-items:center;gap:4px;margin:14px 0}
+  .fl{padding:8px 0;text-align:center;border-radius:8px;font-size:13px;color:#04150d;font-weight:600}
+  .note{color:var(--dim);font-size:12.5px}
+  .kpi{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
+  .kpi div{font-size:13px;color:var(--dim)} .kpi b{color:var(--ink);font-size:18px;display:block}
+  .hide{display:none}
+  .reset{float:right;font-size:11px;color:var(--dim);cursor:pointer;border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding-bottom:0">
+    <h1>🛡️ Assistente CyberSec — trilha pessoal do Eduardo</h1>
+    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. Alvo: <b>especialista raro em segurança de IA / agentes</b>.</div>
+  </div>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab on" data-t="painel">📊 Painel</div>
+    <div class="tab" data-t="trilha">🧭 Trilha</div>
+    <div class="tab" data-t="glossario">📖 Glossário (100)</div>
+    <div class="tab" data-t="carreiras">💼 Carreiras</div>
+    <div class="tab" data-t="funil">🎯 Funil da raridade</div>
+    <div class="tab" data-t="ms">🎓 MS CU Boulder</div>
+    <div class="tab" data-t="perfil">🧬 Meu perfil (EB-2)</div>
+    <div class="tab" data-t="certs">🎖️ Certificados</div>
+    <div class="tab" data-t="vagas">💼 Vagas US (mercado real)</div>
+    <div class="tab" data-t="fontes">📚 Onde estudar grátis</div>
+  </div>
+
+  <section id="painel">
+    <div class="card next">
+      <h3>▶ Faz isto agora (próximos 3 passos)</h3>
+      <div id="next3"></div>
+    </div>
+    <div class="card">
+      <div class="reset" onclick="if(confirm('Zerar todo o progresso?')){localStorage.removeItem(KEY);location.reload()}">↺ zerar progresso</div>
+      <b>Progresso geral</b>
+      <div class="bar" style="margin:8px 0"><div class="fill" id="fillAll"></div></div>
+      <div class="kpi">
+        <div><b id="kDone">0</b> concluídos</div>
+        <div><b id="kTotal">0</b> itens totais</div>
+        <div><b id="kPct">0%</b> da trilha</div>
+        <div><b id="kFree">0</b> itens 100% grátis</div>
+      </div>
+    </div>
+    <div id="phaseBars"></div>
+  </section>
+
+  <section id="trilha" class="hide"></section>
+
+  <section id="glossario" class="hide">
+    <input class="search" id="gsearch" placeholder="🔎 buscar termo, sigla ou conceito… (ex: prompt injection, MITRE, zero trust)">
+    <div class="card" id="glist" style="padding:0"></div>
+  </section>
+
+  <section id="carreiras" class="hide"></section>
+
+  <section id="ms" class="hide">
+    <div class="card">
+      <h3 style="margin-top:0">🎓 MS-CS — CU Boulder (Coursera)</h3>
+      <p class="note">Admissão <b>por desempenho</b>: não tem prova de inscrição, transcript, GRE/TOEFL, carta nem taxa. Tu faz um Pathway de 3 disciplinas com <b>B+ em cada</b> e és admitido — <b>mesmo sem diploma de graduação</b>. As 3 já contam como crédito. Diploma idêntico ao do campus, não menciona Coursera/online.</p>
+      <div class="kpi">
+        <div><b>$525</b> por crédito</div><div><b>$15.750</b> os 30 créditos</div>
+        <div><b>6</b> sessões/ano (8 sem cada)</div><div><b>pay-as-you-go</b> paga só o que cursar</div>
+      </div>
+    </div>
+    <div class="card">
+      <b>Pathways de entrada (escolhe 1)</b>
+      <div class="it-exp"><b>Network Systems</b> (recomendado): Foundation → Linux Networking → Cloud Networking. Casa com cibersegurança e teu fundo operacional.</div>
+      <div class="it-exp"><b>Data Structures & Algorithms</b>: base de Ciência da Computação mais funda, se preferir.</div>
+    </div>
+    <div class="card">
+      <b>Próximas sessões — datas oficiais (MT / Colorado)</b>
+      <div id="msSessions" style="margin-top:8px"></div>
+      <p class="note">⚠️ Fall 2/2026 é tua janela imediata. Sem extensão de prazo — planeja.</p>
+    </div>
+  </section>
+
+  <section id="perfil" class="hide">
+    <div class="card">
+      <h3 style="margin-top:0">🧬 Teu perfil pro EB-2 NIW — o tripé</h3>
+      <p class="note">O grau só te QUALIFICA pro EB-2. Quem GANHA o NIW são os 3 prongs Dhanasar = teu impacto/portfólio. As três pernas cobrem a fraqueza uma da outra.</p>
+      <div id="tripod"></div>
+    </div>
+    <div class="card" style="border-color:#5a3a1e;background:#1c140c">
+      <b style="color:var(--gold)">⚠️ Verificar com advogado ANTES de bancar</b>
+      <p class="note">EB-2 "advanced degree" é grau <i>acima</i> do bacharelado. Teu <b>tecnólogo</b> pode ser avaliado como equivalente a bachelor's US (WES) — o que resolve a dúvida do mestrado-sem-graduação. NÃO é garantido; depende de carga horária. Confirma com advogado de imigração. Mesmo no pior caso, o MS reforça o prong "well-positioned" — nada é desperdício.</p>
+    </div>
+  </section>
+
+  <section id="certs" class="hide">
+    <div class="card"><h3 style="margin-top:0">🎖️ Teus certificados — a ordem certa</h3>
+    <p class="note">Confirmado pelo mercado (imersão + vagas reais US). Faz na ordem: <b>núcleo</b> primeiro (barato, destrava emprego), depois escolhe um <b>ramo</b> (SOC · GRC · nuvem · pentest) e teu <b>diferencial de IA</b>. As do núcleo tu <b>treina agora</b> no <a href="treino-cybersec.html">🎯 Treinador ↗</a>. Sênior (CISSP/CISA/CISM) é destino — exige anos de experiência.</p></div>
+    <div id="certList"></div>
+    <div class="card" style="margin-top:16px"><h3 style="margin:0">🧰 Conhecimentos & ferramentas que as vagas pedem</h3>
+    <p class="note">O que aprender na prática além das certs (levantado das vagas reais). Muitos já estão no Glossário e no Treinador. Não precisa dominar tudo — foca no ramo que escolher.</p></div>
+    <div id="skillsList"></div>
+  </section>
+
+  <section id="vagas" class="hide">
+    <div class="card"><h3 style="margin-top:0">💼 Vagas US — tabela viva (ciente do teu nível)</h3>
+    <p class="note">Vagas reais (Dice/APIs). Marca os certificados que tu <b>já tem</b> → a tabela recalcula o que tu <b>pode aplicar</b> e o que <b>falta</b>. Atualiza sozinha quando a varredura roda. <span id="jobsUpd"></span></p>
+    <div id="credsBox" style="margin-top:8px"></div>
+    </div>
+    <div id="jobsInsight" class="card next" style="display:none"></div>
+    <div id="jobsLive"></div>
+    <div class="card" style="margin-top:14px"><h3 style="margin:0">🧭 Leitura estratégica do mercado</h3>
+    <p class="note">O mapa por trás da tabela: alvos de entrada, teu nicho, e as travas honestas.</p></div>
+    <div id="vagasList"></div>
+  </section>
+
+  <section id="fontes" class="hide">
+    <div class="card"><h3 style="margin-top:0">📚 Fontes grátis pra chegar pronto</h3>
+    <p class="note">Plataformas onde tu faz cursinho de graça — como o Cisco — pra chegar no MS e no Security+ já sabendo. Prioriza a Cisco (tu já conhece) pro Python e cyber.</p></div>
+    <div id="fontesList"></div>
+  </section>
+
+  <section id="funil" class="hide">
+    <div class="card">
+      <h3 style="margin-top:0">🎯 O funil pra ser raro</h3>
+      <p class="note">Todo mundo entra pela base larga. Pouca gente sobe. O topo — segurança de sistemas de IA agênticos — é onde tu já tem obra construída. Quanto mais estreito o degrau, mais raro e mais caro o profissional.</p>
+      <div class="funnel" id="funnel"></div>
+      <p class="note">Regra: <b>não invista no degrau de baixo</b> (o que a IA automatiza). Use a base só como alicerce e suba rápido pro topo, onde o teu portfólio de <i>agent-gates / deputy</i> já te posiciona.</p>
+    </div>
+  </section>
+</div>
+
+<script src="_jobscan/vagas_data.js"></script>
+<script>
+const KEY = "cybersec_tracker_eduardo_v1";
+let done = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+/* ---- Tabela de vagas viva, ciente das credenciais ---- */
+const CREDS_KEY = "cybersec_creds_v1";
+let creds = JSON.parse(localStorage.getItem(CREDS_KEY) || "{}");
+const CRED_DEFS = [
+  ["secplus","Security+"],["cloud","Cloud (AWS/AZ/SC-900)"],["network","Network+"],
+  ["pcep","PCEP (Python)"],["linux","Linux"],["cysa","CySA+"],["secai","SecAI+"],["cgrc","CGRC/GRC"]
+];
+const CRED_LABEL = Object.fromEntries(CRED_DEFS);
+function toggleCred(k){ creds[k]=!creds[k]; localStorage.setItem(CREDS_KEY, JSON.stringify(creds)); renderCreds(); renderJobsLive(); }
+function renderCreds(){
+  const el=document.getElementById("credsBox"); if(!el) return;
+  el.innerHTML = "<b style='font-size:13px'>Meus certificados (marca o que já tens):</b><div style='margin-top:6px;display:flex;gap:6px;flex-wrap:wrap'>"+
+    CRED_DEFS.map(([k,lab])=>`<span class="tab ${creds[k]?'on':''}" style="cursor:pointer" onclick="toggleCred('${k}')">${creds[k]?'✓ ':''}${lab}</span>`).join("")+"</div>";
+}
+function jobFit(j){
+  if(j.clearance) return {cls:"paid", txt:"🔒 exige cidadania/clearance"};
+  const miss=(j.req||[]).filter(r=>!creds[r]);
+  if(j.student && miss.length===0) return {cls:"free", txt:"🎓 elegível via matrícula (MS)"};
+  if(miss.length===0) return {cls:"free", txt:"✅ pode aplicar"};
+  return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
+}
+function renderJobsLive(){
+  const box=document.getElementById("jobsLive"); if(!box) return;
+  const jobs = (window.JOBS_LIVE||[]);
+  const upd=document.getElementById("jobsUpd");
+  if(upd) upd.innerHTML = window.JOBS_UPDATED ? `· <b>atualizado:</b> ${window.JOBS_UPDATED}` : "· <i>rode job_scan.py pra atualizar</i>";
+  const ins=document.getElementById("jobsInsight");
+  if(ins && window.JOBS_INSIGHT){ ins.style.display="block"; ins.innerHTML=`<b>💡 ${window.JOBS_INSIGHT}</b>`; }
+  if(!jobs.length){ box.innerHTML='<div class="card note">Sem dados ainda — roda <code>_jobscan/job_scan.py</code>.</div>'; return; }
+  // ordena: aplicáveis primeiro
+  const scored=jobs.map(j=>({j,fit:jobFit(j)}));
+  const rank=f=>f.txt.startsWith("✅")?0:(f.txt.startsWith("🎓")?1:(f.txt.startsWith("falta")?2:3));
+  scored.sort((a,b)=>rank(a.fit)-rank(b.fit));
+  box.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:12.5px">'+
+    '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Vaga</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Empresa</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Local</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">$</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Nível</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Situação</th></tr>'+
+    scored.map(({j,fit})=>{
+      const link = j.url ? `<a href="${j.url}" target="_blank">${j.role}</a>` : j.role;
+      const spo = j.sponsor ? ' <span class="pill free">sponsor</span>' : '';
+      return `<tr title="${(j.note||'').replace(/"/g,'')}">
+        <td style="padding:6px;border-bottom:1px solid var(--line)">${link}${spo}</td>
+        <td style="padding:6px;border-bottom:1px solid var(--line)">${j.company}</td>
+        <td style="padding:6px;border-bottom:1px solid var(--line)">${j.loc}</td>
+        <td style="padding:6px;border-bottom:1px solid var(--line)">${j.pay||'—'}</td>
+        <td style="padding:6px;border-bottom:1px solid var(--line)">${j.level}</td>
+        <td style="padding:6px;border-bottom:1px solid var(--line)"><span class="pill ${fit.cls}">${fit.txt}</span></td></tr>`;
+    }).join("")+'</table>'+
+    '<p class="note" style="margin-top:6px">Passa o mouse na vaga pra ver a nota. Fonte: curadoria Dice + APIs abertas. Gov/clearance = cidadania (fechado agora).</p>';
+}
+const save = ()=>localStorage.setItem(KEY, JSON.stringify(done));
+
+/* ---------------- DADOS: TRILHA ---------------- */
+const ROADMAP = [
+ {ph:"Fase 0 — Fundamento + 1º certificado grátis", tier:"base", items:[
+   {id:"cisco-net", t:"Cisco — Networking Basics", type:"Curso", free:1, done:1,
+    link:"https://www.netacad.com/",
+    d:"Redes do zero: IP, sub-rede, switch/roteador. VOCÊ JÁ FEZ ✅.",
+    e:"Base de tudo. Sem entender rede, segurança de rede é decoreba."},
+   {id:"cisco-introcyber", t:"Cisco — Introduction to Cybersecurity", type:"Curso", free:1, done:1,
+    link:"https://www.netacad.com/",
+    d:"Panorama da área, tipos de ameaça, vocabulário inicial. VOCÊ ESTÁ FAZENDO.",
+    e:"Leve, panorâmico. Serve pra pegar os termos-guarda-chuva e ver os subcampos."},
+   {id:"messer-secplus", t:"⭐ Security+ — estudo grátis (Professor Messer) → é a PRIORIDADE de cert", type:"Curso→Cert", free:1,
+    link:"https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/",
+    d:"Curso completo e GRÁTIS no YouTube que prepara pro CompTIA Security+ (exame ~US$400). VIROU tua prioridade de certificado: é o crachá que o RH filtra, muito mais reconhecido que o ISC2 CC.",
+    e:"O vocabulário-padrão da indústria inteira. Aqui os termos que te assustam viram familiares. Estuda grátis, paga só o exame quando estiver pronto."},
+   {id:"isc2-cc", t:"ISC2 — Certified in Cybersecurity (CC) — perdeu o grátis", type:"CERTIFICADO", free:0,
+    link:"https://www.isc2.org/certifications/cc",
+    d:"⚠️ O programa grátis 'One Million' FECHOU inscrições em 20/mai/2026. Agora: exame US$199 + US$50/ano (AMF recorrente). Sem o grátis, o Security+ vale mais o dinheiro. OPCIONAL/pular.",
+    e:"5 domínios (segurança/risco/acesso/rede/operações). Continua sendo cert reconhecida, mas como pago perde pro Security+ em custo-benefício. Só faz se quiser o 2º cert barato."},
+   {id:"tryhack-101", t:"TryHackMe — Cyber Security 101", type:"Prática", free:1,
+    link:"https://tryhackme.com/",
+    d:"Laboratório interativo no navegador. Trilha guiada, muita coisa grátis.",
+    e:"Mão na massa: terminal, ataques simples, defesa. Vicia (do bom) e ensina fazendo."},
+ ]},
+ {ph:"🐍 Python pré-matrícula — só o que os challenges cobram", tier:"base", items:[
+   {id:"py-base", t:"Python base — Python for Everybody (ou CS50P)", type:"Curso", free:1,
+    link:"https://www.py4e.com/",
+    d:"Grátis, do zero. Foca em: variáveis, loops, funções, listas, DICIONÁRIOS, classes, arquivos. Alternativa mais puxada: CS50P (cs50.harvard.edu/python).",
+    e:"É a base de TODAS as atribuições. Dicionário/classe = como tu vai representar tabela de roteamento."},
+   {id:"py-exercism", t:"Prática guiada — Exercism (trilha Python)", type:"Prática", free:1,
+    link:"https://exercism.org/tracks/python",
+    d:"Exercícios com correção automática + mentor, grátis. Simula o formato 'escreve código → máquina corrige' das atribuições.",
+    e:"Faz até ficar automático. É o mesmo tipo de avaliação do Coursera."},
+   {id:"py-socket", t:"Sockets — cliente/servidor TCP (Real Python + Beej)", type:"Tópico", free:1,
+    link:"https://realpython.com/python-sockets/",
+    d:"Módulo `socket` do Python: criar cliente e servidor. Complemento clássico: Beej's Guide (beej.us/guide/bgnet).",
+    e:"DESBLOQUEIA a atribuição de socket programming da Foundations. Item obrigatório."},
+   {id:"py-bytes", t:"Bytes/binário — struct + parsing de pacote", type:"Tópico", free:1,
+    link:"https://docs.python.org/3/library/struct.html",
+    d:"Ler/montar dados binários (`struct`, `bytes`, `bytearray`). Base pra analisar tráfego de rede.",
+    e:"DESBLOQUEIA a atribuição de análise de tráfego. Pacote de rede é binário."},
+   {id:"py-tls", t:"TLS/certificados — módulo ssl + cryptography", type:"Tópico", free:1,
+    link:"https://docs.python.org/3/library/ssl.html",
+    d:"Gerar/usar certificado, entender TLS em Python (módulos `ssl` e `cryptography`). Real Python tem guia.",
+    e:"DESBLOQUEIA a atribuição de TLS/HTTPS da Foundations."},
+   {id:"py-solo", t:"Treino SEM consulta (simula a prova proctorada)", type:"Prática", free:1,
+    link:"https://exercism.org/tracks/python",
+    d:"Refaz 3-4 exercícios de socket/struct do zero, cronometrado, SEM IA e SEM copiar. A prova final é proctorada — sozinho.",
+    e:"Esse é o teste real de que tu tira B+. Se conseguir aqui, está pronto pra matricular."},
+   {id:"py-cisco1", t:"Cisco Python Essentials 1 — badge grátis (ponte pro PCEP)", type:"Curso", free:1,
+    link:"https://www.netacad.com/courses/python-essentials-1?courseLang=en-US",
+    d:"Grátis, na plataforma que tu já usa. Dá BADGE verificável e cobre 100% do exame PCEP. Depois o Essentials 2 → prep pro PCAP.",
+    e:"O badge é comprovante leve; o PESO real está no PCEP que ele destrava. Faz sem dúvida."},
+   {id:"py-pcep", t:"PCEP — Certified Entry-Level Python (exame ~US$59)", type:"Certificação", free:0,
+    link:"https://pythoninstitute.org/pcep",
+    d:"Certificação REAL de fundação do Python Institute (não é badge de curso). Pago, mas reconhecido. O Cisco Essentials 1 te prepara 100%.",
+    e:"Esse é o certificado de Python que VALE no CV. Badge Cisco = ponte; PCEP = o papel. Tira depois de passar no treino solo."},
+ ]},
+ {ph:"⭐ ÂNCORA — MS-CS CU Boulder (Coursera)", tier:"topo", items:[
+   {id:"ms-decide", t:"✓ TRAVADO: MS-CS · Pathway Network Systems", type:"Decisão", free:1, done:1,
+    link:"https://www.colorado.edu/cs/academics/online-programs/mscs-coursera",
+    d:"TRAVADO 18/09. MS-CS (tem trilha de cibersegurança de verdade + eletivas de IA) via Pathway NETWORK SYSTEMS (redes/Linux/cloud — casa com cibersegurança e teu fundo operacional).",
+    e:"$525/crédito · $15.750 os 30 créditos · pay-as-you-go · diploma não menciona Coursera/online. Admissão por desempenho, sem exigir diploma."},
+   {id:"ms-enroll", t:"⚡ ACELERADO: matricular as 3 na sessão Fall 2 (out→dez) → admissão DEZ/2026", type:"Marco", free:1,
+    link:"https://www.colorado.edu/cs/academics/online-programs/mscs-coursera/calendar",
+    d:"Matrícula abre 5/OUT · aula 19/out · entrega 11/DEZ. Com 5-8h/dia dá pra fazer as 3 juntas e ser admitido em dez/2026 (não abr/2027). ~US$1.575 as 3. Começa conta+onboarding (3-5h) em 5/out. SEM extensão.",
+    e:"Risco NÃO é tempo — é o B+ no código (Linux/Cloud têm Python: roteamento, socket, TLS) + a prova final PROCTORADA (sozinho, sem IA). Ataca Foundations 1º (rápida, sobrepõe Cisco), depois as 2 de código."},
+   {id:"ms-p1", t:"✓ TRAVADA 1/3 — Network Systems Foundations", type:"Disciplina (B+)", free:0,
+    link:"https://www.coursera.org/learn/network-systems-foundations",
+    d:"1ª do Pathway Network Systems (travado). B ou mais. Já conta como crédito do diploma.",
+    e:"Camadas de rede, IP, TLS, Python. Começa por esta."},
+   {id:"ms-p2", t:"✓ TRAVADA 2/3 — Linux Networking", type:"Disciplina (B+)", free:0,
+    link:"https://www.coursera.org/learn/npp-linux-networking",
+    d:"2ª do Pathway. B+. Faz DEPOIS da Foundations.", e:"Linux + rede na prática — pão-com-manteiga de quem defende infra."},
+   {id:"ms-p3", t:"✓ TRAVADA 3/3 — Cloud Networking", type:"Disciplina (B+)", free:0,
+    link:"https://www.coursera.org/learn/npp-cloud-networking",
+    d:"3ª do Pathway. B+. Faz por ÚLTIMO (depois de Foundations + Linux).", e:"Cloud networking — direto pra cloud security."},
+   {id:"ms-admit", t:"Admissão automática — alvo DEZ/2026 (B+ nas 3 + GPA ≥ 3.0)", type:"Marco", free:1,
+    link:"https://www.coursera.org/degrees/ms-computer-science-boulder/admissions",
+    d:"B+ nas 3 + GPA pathway ≥3.0 + GPA cumulativo ≥3.0 + indicar interesse = admitido. Sem transcript, GRE/TOEFL, carta ou taxa. Modo acelerado: admissão ~dez/2026.",
+    e:"Depois: 15 créditos de breadth + 15 de eletivas. Concentra em Security & Ethical Hacking + ML/GenAI/RL = o cruzamento IA×segurança."},
+ ]},
+ {ph:"Fase 1 — Prática hands-on (grátis, com certificado)", tier:"base", items:[
+   {id:"portswigger", t:"PortSwigger — Web Security Academy", type:"CERTIFICADO", free:1,
+    link:"https://portswigger.net/web-security",
+    d:"O MELHOR recurso de segurança web do mundo, 100% grátis, feito pela dona do Burp Suite. Emite certificado.",
+    e:"SQLi, XSS, SSRF, autenticação quebrada, na prática, com labs. Sozinho já te dá base séria de AppSec."},
+   {id:"thm-presec", t:"TryHackMe — Pre Security + Jr Penetration Tester", type:"Prática", free:1,
+    link:"https://tryhackme.com/",
+    d:"Trilhas estruturadas do básico ao pentest júnior.",
+    e:"Nmap, Metasploit, privilege escalation. Certificado de trilha ao fim."},
+   {id:"attack", t:"MITRE ATT&CK — treino grátis", type:"Leitura/Curso", free:1,
+    link:"https://attack.mitre.org/",
+    d:"O dicionário mundial de táticas e técnicas de atacante. Todo blue team usa.",
+    e:"Vira teu mapa mental de 'como o inimigo age'. MITRE tem trilha de treino grátis."},
+   {id:"cisa", t:"CISA / OpenSecurityTraining2 — cursos gov grátis", type:"Curso", free:1,
+    link:"https://www.cisa.gov/resources-tools/training",
+    d:"Treinamento profundo e gratuito de agência de segurança dos EUA + material acadêmico aberto.",
+    e:"Denso, técnico, de graça. Bom pra aprofundar onde o resto foi superficial."},
+ ]},
+ {ph:"Fase 2 — Especialização em IA/Agent Security (TEU DIFERENCIAL)", tier:"topo", items:[
+   {id:"owasp-llm", t:"OWASP Top 10 for LLM Applications", type:"Leitura", free:1,
+    link:"https://genai.owasp.org/",
+    d:"As 10 falhas mais críticas de apps com LLM. Leitura OBRIGATÓRIA do teu nicho.",
+    e:"Prompt injection, vazamento de dados, envenenamento. Tu vai reconhecer coisas que já tratou no deputy."},
+   {id:"atlas", t:"MITRE ATLAS", type:"Leitura", free:1,
+    link:"https://atlas.mitre.org/",
+    d:"O 'ATT&CK da IA': táticas de ataque contra sistemas de machine learning, com casos reais.",
+    e:"Roubo de modelo, evasão, envenenamento. É o mapa do teu campo de batalha específico."},
+   {id:"nist-airmf", t:"NIST AI Risk Management Framework", type:"Leitura", free:1,
+    link:"https://www.nist.gov/itl/ai-risk-management-framework",
+    d:"O framework de governança de IA que o mercado (e reguladores) vão exigir.",
+    e:"Governar/mapear/medir/gerir risco de IA. É o lado GRC do teu nicho — o que dá cargo por lei."},
+   {id:"lakera", t:"Lakera Gandalf + labs de prompt injection", type:"Prática", free:1,
+    link:"https://gandalf.lakera.ai/",
+    d:"Jogo que ensina prompt injection tentando extrair a senha de um LLM.",
+    e:"Lúdico e afiado. Depois: red-team de LLM em HackTheBox / desafios de AI."},
+   {id:"ms-ai", t:"Microsoft Learn — AI security & SC-900", type:"Curso", free:1,
+    link:"https://learn.microsoft.com/",
+    d:"Módulos grátis de segurança de IA e fundamentos de segurança/identidade.",
+    e:"Boa introdução corporativa a como empresas grandes tratam risco de IA."},
+ ]},
+ {ph:"Fase 3 — Certificação que abre porta (pagas; estuda grátis antes)", tier:"topo", items:[
+   {id:"secplus", t:"CompTIA Security+ (exame)", type:"CERTIFICADO", free:0,
+    link:"https://www.comptia.org/certifications/security",
+    d:"O crachá de entrada que o RH filtra. ~US$400. Estuda de graça no Messer (Fase 0).",
+    e:"Depois dele, teu currículo passa por filtros automáticos que hoje te barram."},
+   {id:"oscp-or-cloud", t:"Escolha: OSCP (ofensiva) OU AWS/Azure Security (arquitetura)", type:"CERTIFICADO", free:0,
+    link:"https://www.offsec.com/courses/pen-200/",
+    d:"OSCP = a cert ofensiva mais respeitada do mundo. Cloud security = o caminho arquitetura/defesa.",
+    e:"Escolhe pelo que te acende: quebrar (OSCP) ou blindar (cloud). Ambos são sênior-de-verdade."},
+   {id:"portfolio", t:"Publicar + escrever sobre teu agent-security", type:"Portfólio", free:1,
+    link:"https://github.com/edusouzaxGV",
+    d:"Continuar o portfólio (deputy, agent-gates) e ESCREVER o raciocínio por trás. É tua credencial mais rara.",
+    e:"Um recrutador de AI security quer ver isto MAIS que um diploma. Tu já tem — é só narrar."},
+ ]},
+];
+
+/* ---------------- DADOS: GLOSSÁRIO 100 ---------------- */
+const GLOSSARY = [
+ ["TCP/IP","Rede","O conjunto de regras que faz dados viajarem pela internet. TCP garante entrega, IP endereça."],
+ ["DNS","Rede","Agenda telefônica da internet: traduz nome (site.com) em número (IP). Alvo comum de ataque."],
+ ["HTTP/HTTPS","Rede","Protocolo da web. O 'S' = criptografado (TLS). Sem S, dá pra ler o tráfego."],
+ ["TLS/SSL","Cripto","A criptografia que fecha o cadeado do navegador. Protege dados em trânsito."],
+ ["Modelo OSI","Rede","As 7 camadas que descrevem como a comunicação de rede funciona, da física à aplicação."],
+ ["VLAN","Rede","Separar redes logicamente no mesmo hardware. Isola tráfego = contém invasor."],
+ ["Firewall","Defesa","Porteiro da rede: decide qual tráfego entra/sai por regras."],
+ ["VPN","Rede","Túnel criptografado entre tu e a rede. Esconde e protege o tráfego."],
+ ["Zero Trust","Arquitetura","'Nunca confie, sempre verifique.' Nenhum acesso é presumido — tudo é checado, sempre."],
+ ["IAM","Identidade","Identity & Access Management: quem é você e o que pode fazer. Coração da segurança moderna."],
+ ["PAM","Identidade","Privileged Access Management: controle extra sobre contas poderosas (admin, root)."],
+ ["MFA/2FA","Identidade","Mais de um fator pra provar quem é (senha + celular). Barra a maioria dos ataques de conta."],
+ ["Least Privilege","Princípio","Dar o MÍNIMO de acesso necessário. Tu já aplicou isto no autopilot."],
+ ["Defense in Depth","Princípio","Camadas de defesa — se uma falha, a próxima segura. É o teu deputy (zona+banca+teto)."],
+ ["Fail-closed","Princípio","Na dúvida, BLOQUEIA. É exatamente a lógica dos teus gates. Nome consagrado desde 1975."],
+ ["Separation of Duties","Princípio","Nenhuma pessoa (ou agente) decide sozinha algo crítico. Teu 2-de-2 de adjudicação."],
+ ["MITRE ATT&CK","Framework","Catálogo mundial de táticas e técnicas de atacantes. Linguagem comum do blue team."],
+ ["MITRE ATLAS","Framework IA","O ATT&CK específico pra ataques contra sistemas de IA/ML."],
+ ["NIST CSF","Framework","Framework de cibersegurança do NIST: Identificar, Proteger, Detectar, Responder, Recuperar."],
+ ["NIST AI RMF","Framework IA","Framework do NIST pra gerir risco de IA. Base da governança que reguladores exigem."],
+ ["CIS Controls","Framework","Lista priorizada de controles práticos de segurança. Ótimo ponto de partida defensivo."],
+ ["OWASP Top 10","AppSec","As 10 falhas web mais críticas. Bíblia de quem protege aplicações."],
+ ["OWASP API Top 10","AppSec","Versão pra APIs — onde a maioria dos apps modernos realmente vive."],
+ ["OWASP LLM Top 10","AI Security","As 10 falhas mais críticas de apps com LLM. O documento-chave do TEU nicho."],
+ ["OWASP ASVS","AppSec","Padrão de verificação de segurança de aplicação. Checklist do que um app seguro tem."],
+ ["ISO 27001","GRC","Norma internacional de gestão de segurança da informação. Selo que empresas buscam."],
+ ["SOC 2","GRC","Auditoria que prova que uma empresa cuida bem dos dados dos clientes."],
+ ["PCI-DSS","GRC","Regras obrigatórias pra quem processa cartão de crédito."],
+ ["STRIDE","Threat Modeling","Método pra achar ameaças: Spoofing, Tampering, Repudiation, Info leak, DoS, Elevation."],
+ ["Cyber Kill Chain","Framework","As etapas de um ataque, do reconhecimento à ação final. Quebrar uma etapa = parar o ataque."],
+ ["Kali Linux","Ferramenta","Sistema Linux recheado de ferramentas de pentest. O canivete do atacante."],
+ ["Burp Suite","Ferramenta","A ferramenta padrão pra testar segurança de web. Intercepta e manipula requisições."],
+ ["Nmap","Ferramenta","Mapeia a rede: que máquinas existem, que portas estão abertas. 1º passo de todo teste."],
+ ["Metasploit","Ferramenta","Arsenal de exploits prontos pra testar vulnerabilidades conhecidas."],
+ ["Wireshark","Ferramenta","Microscópio de rede: mostra cada pacote que trafega. Diagnóstico e forense."],
+ ["SQLmap","Ferramenta","Automatiza a exploração de SQL injection em bancos de dados."],
+ ["Hashcat/John","Ferramenta","Quebram senhas a partir do hash. Testam se as senhas de uma empresa são fracas."],
+ ["BloodHound","Ferramenta","Mapeia caminhos de ataque dentro do Active Directory (redes Windows corporativas)."],
+ ["SQL Injection","Ataque","Injetar comando de banco de dados por um campo do site. Clássico e ainda mortal."],
+ ["XSS","Ataque","Cross-Site Scripting: injetar código que roda no navegador de outra vítima."],
+ ["SSRF","Ataque","Fazer o servidor da vítima acessar recursos internos por você. Perigoso em cloud."],
+ ["CSRF","Ataque","Enganar o navegador da vítima pra executar uma ação sem ela querer."],
+ ["Privilege Escalation","Ataque","Sair de um acesso baixo pra um acesso de admin. O 'subir de nível' do invasor."],
+ ["Phishing","Ataque","Enganar o humano pra entregar senha/clicar. O vetor nº1 do mundo real."],
+ ["Ransomware","Ameaça","Malware que criptografa os dados e cobra resgate. A praga corporativa da década."],
+ ["OSINT","Técnica","Inteligência de fontes abertas: o que dá pra descobrir do alvo sem invadir nada."],
+ ["Social Engineering","Técnica","Hackear a PESSOA, não a máquina. Manipulação psicológica."],
+ ["SIEM","Defesa","Central que junta e correlaciona logs pra detectar ataques (Splunk, Sentinel, Elastic)."],
+ ["EDR/XDR","Defesa","Sensor nos endpoints que detecta e responde a ameaças. XDR = versão estendida."],
+ ["SOAR","Defesa","Automação da resposta: playbooks que agem sozinhos em incidentes conhecidos."],
+ ["Sigma","Defesa","Formato aberto pra escrever regras de detecção portáveis entre SIEMs."],
+ ["YARA","Defesa","Regras pra identificar malware por padrões. 'Impressão digital' de arquivos maliciosos."],
+ ["IDS/IPS","Defesa","Detecta (IDS) ou bloqueia (IPS) tráfego malicioso. Snort, Suricata, Zeek."],
+ ["Threat Intelligence","Defesa","Saber quem ataca, como e com quê — antes de ser atacado."],
+ ["IOC/IOA","Defesa","Indicador de Comprometimento (o rastro do ataque) / de Ataque (o comportamento)."],
+ ["Sysmon","Defesa","Ferramenta que registra tudo que acontece no Windows em detalhe, pra detecção."],
+ ["Honeypot","Defesa","Isca: sistema falso pra atrair e estudar o atacante. É teu 'canary'."],
+ ["Detection Engineering","Defesa","Escrever e afinar as regras que pegam o ataque. Arte de virar sinal em alerta."],
+ ["DFIR","Forense","Digital Forensics & Incident Response: investigar e responder quando dá merda."],
+ ["Chain of Custody","Forense","A trilha datada e íntegra da evidência. Sem ela, a prova não vale no tribunal."],
+ ["AWS/Azure/GCP IAM","Cloud","Controle de acesso das três grandes nuvens. Onde a maioria dos vazamentos começa."],
+ ["CSPM","Cloud","Cloud Security Posture Management: acha configuração errada na nuvem antes do invasor."],
+ ["CWPP","Cloud","Proteção das cargas de trabalho (VMs, containers) rodando na nuvem."],
+ ["CIEM","Cloud","Gestão de permissões na nuvem — quem pode o quê, e o excesso perigoso."],
+ ["Kubernetes Security","Cloud","Proteger orquestração de containers. Superfície enorme e mal-configurada com frequência."],
+ ["Container Security","Cloud","Blindar Docker/containers: imagem, runtime, isolamento."],
+ ["IaC Scanning","DevSecOps","Achar falha na infraestrutura-como-código (Terraform) antes de ela virar servidor real."],
+ ["Secrets Management","DevSecOps","Guardar senhas/chaves fora do código (Vault). Tu já faz varredura disso."],
+ ["Shared Responsibility","Cloud","Quem cuida do quê entre você e o provedor de nuvem. Erro clássico: achar que é tudo deles."],
+ ["SAST","DevSecOps","Análise estática: lê o código-fonte procurando falha, sem rodar."],
+ ["DAST","DevSecOps","Análise dinâmica: ataca o app rodando pra achar falha."],
+ ["SCA","DevSecOps","Software Composition Analysis: checa as DEPENDÊNCIAS (bibliotecas) por vulnerabilidade."],
+ ["Threat Modeling","AppSec","Pensar 'como isto seria atacado?' ANTES de construir. O teu método filosófico, formalizado."],
+ ["CI/CD Security","DevSecOps","Proteger a esteira que constrói e publica software — alvo de ataque de supply chain."],
+ ["Supply Chain Security","DevSecOps","Garantir que o que você USA (libs, imagens) não foi envenenado. SLSA é o padrão."],
+ ["SBOM","DevSecOps","Software Bill of Materials: a 'lista de ingredientes' do teu software. Teu PROVENANCE é primo disto."],
+ ["Fuzzing","AppSec","Jogar entrada aleatória/maluca no programa pra ver o que quebra."],
+ ["Prompt Injection","AI Security","Fazer o LLM ignorar suas instruções via entrada maliciosa. A falha nº1 de apps de IA."],
+ ["Indirect Prompt Injection","AI Security","A instrução maliciosa vem de um dado que o LLM lê (site, doc), não do usuário direto."],
+ ["Jailbreak","AI Security","Contornar as travas de segurança de um modelo pra ele fazer o proibido."],
+ ["Data Poisoning","AI Security","Envenenar os dados de treino pra corromper o modelo desde a origem."],
+ ["Model Extraction","AI Security","Roubar um modelo copiando seu comportamento por milhares de consultas."],
+ ["Model Inversion","AI Security","Reconstruir dados privados de treino a partir das respostas do modelo."],
+ ["Adversarial Examples","AI Security","Entradas com ruído imperceptível que enganam o modelo (a placa 'pare' virar 'siga')."],
+ ["Membership Inference","AI Security","Descobrir se um dado específico estava no treino — vaza privacidade."],
+ ["RAG Security","AI Security","Proteger sistemas que buscam documentos pra alimentar o LLM. Porta de injeção indireta."],
+ ["Agent/Tool Security","AI Security","Segurança de agentes que usam ferramentas/ações. É EXATAMENTE o que o teu deputy trata."],
+ ["Guardrails","AI Security","Travas que limitam o que a IA pode fazer/dizer. Teu agent-gates é isto."],
+ ["LLM Red Teaming","AI Security","Atacar o próprio modelo pra achar suas falhas antes do inimigo. Nicho raríssimo e caro."],
+ ["MLSecOps","AI Security","Levar segurança pra dentro do ciclo de vida de ML, como o DevSecOps fez com software."],
+ ["AI Governance","GRC IA","Políticas, responsáveis e controles pra usar IA com risco gerido. Emprego criado por regulação."],
+ ["EU AI Act","Regulação","Lei europeia de IA. Classifica risco e exige controles — cria demanda por governança."],
+ ["Human-in-the-loop","AI Security","Manter o humano na decisão crítica. A tese central do teu deputy."],
+ ["Byzantine Fault Tolerance","Teoria","Sistema que funciona mesmo com componentes mentindo/falhando. Sabor do teu 'mudo ≠ discorda'."],
+ ["Circuit Breaker","Padrão","Corta a operação ao detectar falha/estouro, pra não piorar. Teu spend-guard."],
+ ["Dead Man's Switch","Padrão","Dispara alarme se o sistema parar de dar sinal de vida. Teu health monitor."],
+ ["Post-Quantum Crypto","Cripto","Criptografia que resiste a computador quântico. O futuro obrigatório da cripto."],
+ ["Hashing","Cripto","Transformar dado em impressão digital irreversível. Base de senha e integridade."],
+ ["Public Key Crypto","Cripto","Par de chaves (pública/privada) que permite cifrar e assinar sem trocar segredo antes."],
+ ["Risk Management","GRC","Identificar, medir e decidir o que fazer com o risco. A skill que separa sênior de técnico."],
+];
+
+/* ---------------- DADOS: CARREIRAS ---------------- */
+const CAREERS = [
+ {n:"Segurança de IA / Agentes (AI/LLM Security)", tier:"S", why:"Área nascendo agora, escassez brutal, teu portfólio já pontua.", note:"TUA APOSTA Nº1. Prompt injection, red team de LLM, segurança de agentes."},
+ {n:"Arquitetura de Segurança (Cloud + Zero Trust)", tier:"S", why:"Desenhar sistemas seguros exige julgamento que a IA assiste mas não assume.", note:"Cargo de sênior de verdade, altíssima demanda."},
+ {n:"AI Governance / GRC", tier:"S", why:"Regulador exige humano responsável por lei. Cresce POR CAUSA da IA.", note:"EU AI Act, NIST AI RMF. Lado menos técnico, muito bem pago."},
+ {n:"Offensive / Red Team (com IA red teaming)", tier:"A", why:"Criatividade adversarial contra sistemas novos fica rara e cara.", note:"Se te acende quebrar coisa. OSCP é o caminho."},
+ {n:"DFIR — Forense e Resposta a Incidente", tier:"A", why:"Crise às 3h da manhã ninguém confia só na IA. Cadeia de custódia é jurídica.", note:"Adrenalina + investigação. Sempre haverá vaga."},
+ {n:"OT/ICS — Segurança Industrial", tier:"A", why:"Físico, escasso, altíssimo valor, pouca gente quer.", note:"Usina, fábrica, energia. Nicho de ouro se aguenta o ambiente."},
+ {n:"AppSec / Product Security", tier:"A", why:"IA gera código inseguro em escala — alguém tem que blindar.", note:"Threat modeling, revisão de código. Casa com teu perfil de builder."},
+];
+
+/* ---------------- DADOS: FONTES GRÁTIS ---------------- */
+const FONTES = [
+ {p:"Cisco NetAcad ⭐ (tu já usa)", best:"Python + redes + cyber, tudo grátis, mesma plataforma",
+  link:"https://www.netacad.com/catalog",
+  cursos:"Python Essentials 1 & 2 (alinhado ao cert PCEP) · Networking Essentials · NDG Linux Essentials · Cybersecurity Essentials · Ethical Hacker · CyberOps Associate"},
+ {p:"Harvard CS50 (edX)", best:"Ciência da computação e Python de nível mundial, grátis",
+  link:"https://cs50.harvard.edu/",
+  cursos:"CS50P (Python) · CS50x (fundamentos CC) · CS50 Cybersecurity — certificado grátis opcional"},
+ {p:"Python for Everybody", best:"Python do zero, didático, grátis",
+  link:"https://www.py4e.com/",
+  cursos:"Curso completo do Dr. Chuck — o mais amigável pra começar"},
+ {p:"freeCodeCamp", best:"Programação + segurança, grátis, com certificado",
+  link:"https://www.freecodecamp.org/",
+  cursos:"Scientific Computing with Python · Information Security · vídeos longos no YouTube"},
+ {p:"Exercism", best:"Praticar código com correção automática + mentor, grátis",
+  link:"https://exercism.org/tracks/python",
+  cursos:"Trilha Python — simula o formato das atribuições do Coursera"},
+ {p:"PortSwigger Web Security Academy", best:"Segurança web na prática, grátis + certificado",
+  link:"https://portswigger.net/web-security",
+  cursos:"O melhor recurso de AppSec do mundo (SQLi, XSS, SSRF)"},
+ {p:"TryHackMe", best:"Labs de cyber no navegador, trilhas guiadas",
+  link:"https://tryhackme.com/",
+  cursos:"Cyber Security 101 · SOC Level 1 · Jr Penetration Tester"},
+ {p:"HackTheBox (tier grátis)", best:"Labs hands-on = prova de skill + portfólio (mata o catch-22 de experiência)",
+  link:"https://www.hackthebox.com/",
+  cursos:"⚠️ Complemento do Security+, não substitui. Mira a trilha DEFENSIVA/SOC (cert CDSA) e AI Pentester (teu nicho). Respeitado por hiring manager técnico, fraco no filtro de RH. Não afunda no glamour red-team — teu plano é defesa + GRC."},
+ {p:"OverTheWire (Bandit)", best:"Aprender Linux/segurança jogando (wargame), grátis",
+  link:"https://overthewire.org/wargames/bandit/",
+  cursos:"Bandit — linha de comando Linux na marra, viciante"},
+ {p:"Fornecedores de nuvem (grátis)", best:"Cloud de verdade, direto da fonte",
+  link:"https://aws.amazon.com/training/awsacademy/",
+  cursos:"AWS Cloud Practitioner Essentials · Microsoft Learn (SC-900) · Google Cybersecurity (Coursera áudio)"},
+ {p:"Professor Messer", best:"Security+ completo em vídeo, grátis",
+  link:"https://www.professormesser.com/",
+  cursos:"CompTIA Security+ SY0-701 — estuda grátis, paga só o exame"},
+];
+
+/* ---------------- DADOS: VETOR DE DESTAQUE (CyberSeek) ---------------- */
+const SPOTLIGHT = {
+  role:"Security Intelligence / Intelligence Analyst",
+  openings:"14.863 vagas (12 meses, dados CyberSeek US)",
+  edu:[["59%","menos que bacharelado (Sub-BA)"],["36%","bacharelado"],["3%","pós-graduação"]],
+  matchSkills:["Human Intelligence (HUMINT) — top skill de cyber nº1","Law Enforcement — top skill nº5",
+    "OSINT (nº4)","Incident Response (nº3)","Cyber Threat Intelligence","Risk Analysis"],
+  titles:["Intelligence Analysts","Security Analysts","Special Agents","IT Security Analysts","SOC Analysts"],
+  certs:"CISSP · GIAC · CISM · CEH · CISA (avançados — empregador costuma pagar)",
+  why:"O cargo pede, em 1º lugar, EXATAMENTE o que tu fez por 13,5 anos na PMMG. HUMINT e Law Enforcement não se aprendem em curso — tu viveu. E 59% das vagas nem exigem bacharelado: com tecnólogo + PMMG + certs, tu entra QUALIFICADO, não por baixo.",
+  salary:"~US$ 85–110 mil/ano (faixa aprox. mercado US; nº exato = caixa do cargo no CyberSeek)",
+};
+
+/* ---------------- BANCO COMPLETO DE CARGOS (CyberSeek) ----------------
+   sal = faixa APROXIMADA de mercado US (NÃO o número exato do CyberSeek; esse
+   fica na caixa do cargo no mapa). Atualizado 2026-09-17 pelos prints do Eduardo. */
+const ROLES = [
+ // ENTRADA (azul) — onde tu começa
+ {lvl:"ENTRADA", c:"#2f5a48", r:"Cyber Crime Analyst", sal:"~US$ 75–95k", fit:"ALTÍSSIMO ← PMMG",
+  certs:"Security+ · GIAC · CIPP", skills:"Info Security · Security Operations · Cryptography",
+  need:"JÁ: Security+ + OSINT/forense básica. Teu fundo policial cobre a investigação."},
+ {lvl:"ENTRADA", c:"#2f5a48", r:"Incident & Intrusion Analyst", sal:"~US$ 90–112k", fit:"ALTO",
+  certs:"Security+ · GIAC (GCIH)", skills:"Incident Response · Threat Analysis · Network Security · SIEM",
+  need:"JÁ: Security+ + trilha SOC (TryHackMe) + noção de SIEM."},
+ {lvl:"ENTRADA", c:"#2f5a48", r:"Cybersecurity Specialist", sal:"~US$ 95–115k", fit:"MÉDIO",
+  certs:"Security+ · GIAC", skills:"Info Security · Sec Ops · Risk · Auth · Network Security",
+  need:"JÁ: Security+ (+ Network+) + fundamentos amplos."},
+ {lvl:"ENTRADA", c:"#2f5a48", r:"IT Auditor", sal:"~US$ 80–105k", fit:"MÉDIO",
+  certs:"CISA · CISM · CIPP · GIAC · Security+", skills:"Risk · Internal Auditing · NIST CSF · Threat Analysis",
+  need:"JÁ: Security+ ou trilha CISA + ISO 27001/NIST."},
+ // MID (roxo) — 1–3 anos de experiência
+ {lvl:"INTERMEDIÁRIO", c:"#356b52", r:"Cybersecurity Analyst", sal:"~US$ 95–120k", fit:"depois de entrar",
+  certs:"CISA · CISM · CIPP · GIAC · Security+", skills:"Info Sec · Sec Ops · Risk · Threat · Network Security",
+  need:"1–3 anos + CySA+/CISSP-assoc. Vem depois do cargo de entrada."},
+ {lvl:"INTERMEDIÁRIO", c:"#356b52", r:"Penetration & Vulnerability Tester", sal:"~US$ 100–130k", fit:"se curtir quebrar",
+  certs:"GIAC · CISA · CISM · Security+ (+OSCP/CEH na prática)", skills:"Threat · Crypto · Network Security · Risk",
+  need:"OSCP é o padrão-ouro. Estuda via PortSwigger + TryHackMe/HTB antes."},
+ {lvl:"INTERMEDIÁRIO", c:"#356b52", r:"Cybersecurity Consultant", sal:"~US$ 100–135k", fit:"depois de base",
+  certs:"CISSP · CISA · CIPP · CISM · GIAC · Security+", skills:"amplo: Info Sec · Risk · Threat · Auth · Auditing",
+  need:"Exige amplitude + CISSP. Cargo de quem já rodou o ciclo."},
+ // AVANÇADO (verde) — teu ALVO, anos + CISSP
+ {lvl:"AVANÇADO", c:"#3ddc97", r:"Cybersecurity Engineer", sal:"~US$ 115–150k", fit:"ALVO (AI/agent sec)",
+  certs:"CISSP · CISA · CISM · GIAC · Security+", skills:"Info Sec · Sec Ops · Crypto · Threat · Network Security",
+  need:"Anos + CISSP. É onde 'segurança de IA' se esconde. Teu portfólio acelera."},
+ {lvl:"AVANÇADO", c:"#3ddc97", r:"Cybersecurity Architect", sal:"~US$ 140–170k", fit:"ALVO",
+  certs:"CISSP · CISA · CISM · GIAC · Security+", skills:"Info Sec · Sec Ops · Crypto · Risk · NIST · todas",
+  need:"Sênior de verdade. CISSP + anos de projeto. Zero Trust + segurança de IA."},
+ {lvl:"AVANÇADO", c:"#3ddc97", r:"Cybersecurity Manager", sal:"~US$ 130–160k", fit:"se quiser gestão",
+  certs:"CISSP · CISA · CIPP · CISM · GIAC", skills:"Info Sec · Risk · Crypto · NIST · Internal Auditing",
+  need:"Gestão + CISM/CISSP. Menos código, mais liderança/risco."},
+];
+
+/* ---------------- DADOS: ESCADA CYBERSEEK ---------------- */
+const LADDER = [
+ {tier:"Alimentadores (de onde se vem)", c:"#2a3a48", roles:[
+   {r:"Redes / TI / Dev / Risco", certs:"— (tu já tem base de rede + eng.)", you:""},
+ ]},
+ {tier:"ENTRADA", c:"#2f5a48", roles:[
+   {r:"Cyber Crime Analyst", certs:"Security+, (base investigativa)", you:"← teu fundo PMMG entra DIRETO aqui"},
+   {r:"Incident & Intrusion Analyst", certs:"Security+, GCIH", you:"← operar sob ataque = tua praia"},
+   {r:"Cybersecurity Specialist / IT Auditor", certs:"Security+, Network+", you:""},
+ ]},
+ {tier:"INTERMEDIÁRIO", c:"#356b52", roles:[
+   {r:"Cybersecurity Analyst", certs:"Security+, CySA+, CISSP(assoc)", you:""},
+   {r:"Penetration & Vulnerability Tester", certs:"OSCP, CEH, GPEN", you:""},
+   {r:"Cybersecurity Consultant", certs:"CISSP, GIAC", you:""},
+ ]},
+ {tier:"AVANÇADO (teu alvo mora aqui)", c:"#3ddc97", roles:[
+   {r:"Cybersecurity Engineer", certs:"CISSP, cloud sec", you:"← 'AI/agent security' se esconde aqui"},
+   {r:"AppSec Engineer", certs:"CISSP, OSCP, GWAPT", you:"← e aqui (segurança DE software/IA)"},
+   {r:"Cybersecurity Architect", certs:"CISSP, CISM", you:"← e aqui (arquitetura Zero Trust)"},
+ ]},
+];
+
+/* ---------------- DADOS: FUNIL ---------------- */
+const FUNNEL = [
+ {w:"100%", c:"#2a3a48", txt:"Todos que entram em TI / cyber (base larga, muita concorrência)"},
+ {w:"78%", c:"#2f5a48", txt:"Fez fundamentos + Security+ (já filtra metade)"},
+ {w:"55%", c:"#356b52", txt:"Sabe AppSec / cloud na prática (PortSwigger, labs)"},
+ {w:"36%", c:"#3d8a63", txt:"Especializou em UMA área de verdade"},
+ {w:"18%", c:"#3ddc97", txt:"Domina segurança de IA / LLM (nicho novo)"},
+ {w:"7%", c:"#ffd23f", txt:"Segurança de AGENTES autônomos + constrói guardrails ← TU JÁ ESTÁ AQUI"},
+];
+
+const MS_SESSIONS = [
+ ["Fall 2 / 2026 ← próxima","5 out 2026","27 nov 2026","19 out 2026","11 dez 2026",1],
+ ["Spring 1 / 2027","4 jan 2027","19 fev 2027","11 jan 2027","5 mar 2027",0],
+ ["Spring 2 / 2027","22 fev 2027","16 abr 2027","8 mar 2027","30 abr 2027",0],
+ ["Summer 1 / 2027","19 abr 2027","11 jun 2027","3 mai 2027","25 jun 2027",0],
+ ["Summer 2 / 2027","14 jun 2027","6 ago 2027","28 jun 2027","20 ago 2027",0],
+];
+const TRIPOD = [
+ {n:"1. Tecnólogo em Comércio Exterior", role:"CATEGORIA (não competência)",
+  d:"Superior, sem experiência na área. Serve de possível equivalente a bachelor's pro EB-2 (WES). É a peça de categoria, não argumento técnico."},
+ {n:"2. PMMG — 13,5 anos, Cabo (2006–2019)", role:"NARRATIVA + skills transferíveis",
+  d:"Favelas, incursões em zona de risco, certificados de armas. Não é experiência cyber, mas dá mentalidade adversarial, operar sob pressão, cadeia de custódia — ponte LE→cyber é pipeline respeitado (threat intel, DFIR, forense, infra crítica/OT). Narrativa rara pro prong 'importância nacional'."},
+ {n:"3. Daqui pra frente", role:"A COMPETÊNCIA cyber de verdade",
+  d:"MS-CS (foco IA/segurança) + certs (ISC2 CC → Security+ → especialização IA) + portfólio (deputy, agent-gates, 14 repos) + possível oferta US. Isto é o corpo técnico do caso."},
+];
+
+/* ---------------- RENDER ---------------- */
+const allItems = ()=>ROADMAP.flatMap(p=>p.items);
+function isDone(it){ return (it.id in done) ? done[it.id] : !!it.done; }
+
+function renderTrilha(){
+  const el = document.getElementById("trilha"); el.innerHTML="";
+  ROADMAP.forEach(p=>{
+    const bt = p.tier==="topo" ? '<span class="badge b-s">TOPO / RARO</span>' : '<span class="badge b-a">BASE</span>';
+    const ph = document.createElement("div");
+    ph.innerHTML = `<div class="phase"><h3>${p.ph}</h3>${bt}</div>`;
+    p.items.forEach(it=>{
+      const d = isDone(it);
+      const freePill = it.free ? '<span class="pill free">GRÁTIS</span>' : '<span class="pill paid">PAGO</span>';
+      const div = document.createElement("div");
+      div.className = "item"+(d?" done":"");
+      div.innerHTML = `
+        <input type="checkbox" ${d?"checked":""} data-id="${it.id}">
+        <div class="it-body">
+          <div class="it-title ${d?"done":""}">${it.t}</div>
+          <div class="it-meta"><span class="pill">${it.type}</span>${freePill}
+            <a href="${it.link}" target="_blank">abrir ↗</a></div>
+          <div class="it-desc">${it.d}</div>
+          <div class="it-exp"><b>O que esperar:</b> ${it.e}</div>
+        </div>`;
+      ph.appendChild(div);
+    });
+    el.appendChild(ph);
+  });
+  el.querySelectorAll("input[type=checkbox]").forEach(cb=>{
+    cb.onchange = ()=>{ done[cb.dataset.id]=cb.checked; save(); renderAll(); };
+  });
+}
+
+function renderPainel(){
+  const items = allItems();
+  const total = items.length, dn = items.filter(isDone).length;
+  const pct = Math.round(dn/total*100);
+  document.getElementById("kDone").textContent = dn;
+  document.getElementById("kTotal").textContent = total;
+  document.getElementById("kPct").textContent = pct+"%";
+  document.getElementById("kFree").textContent = items.filter(i=>i.free).length;
+  document.getElementById("fillAll").style.width = pct+"%";
+  // next 3
+  const next = items.filter(i=>!isDone(i)).slice(0,3);
+  document.getElementById("next3").innerHTML = next.length
+    ? next.map((i,k)=>`<div style="margin:6px 0"><b>${k+1}.</b> ${i.t}
+        <span class="note">— ${i.type}${i.free?" · grátis":""}</span><br>
+        <a href="${i.link}" target="_blank">${i.link}</a></div>`).join("")
+    : "🎉 Trilha concluída. Hora de aplicar: portfólio + vagas.";
+  // phase bars
+  const pb = document.getElementById("phaseBars"); pb.innerHTML="";
+  ROADMAP.forEach(p=>{
+    const t=p.items.length, d=p.items.filter(isDone).length, pc=Math.round(d/t*100);
+    const c=document.createElement("div"); c.className="card";
+    c.innerHTML=`<div style="display:flex;justify-content:space-between"><b>${p.ph}</b><span class="note">${d}/${t}</span></div>
+      <div class="bar" style="margin-top:8px"><div class="fill" style="width:${pc}%"></div></div>`;
+    pb.appendChild(c);
+  });
+}
+
+function renderGloss(f=""){
+  const q=f.toLowerCase();
+  const list=GLOSSARY.filter(g=>!q||g[0].toLowerCase().includes(q)||g[1].toLowerCase().includes(q)||g[2].toLowerCase().includes(q));
+  document.getElementById("glist").innerHTML = list.map(g=>
+    `<div class="g-item"><span class="g-term">${g[0]}</span><span class="g-cat">${g[1]}</span>
+     <div class="g-def">${g[2]}</div></div>`).join("") || '<div class="g-item note">nada encontrado</div>';
+}
+
+function renderCareers(){
+  const el=document.getElementById("carreiras");
+  const ladder = `<div class="card"><h3 style="margin-top:0">🪜 Escada CyberSeek (mercado US real)</h3>
+    <p class="note">Cargo-ponte → cargo-alvo, com os certs que cada nível pede. Teu fundo de PMMG alimenta a entrada investigativa; teu alvo de IA/agentes mora no topo (Engineer/AppSec/Architect), porque é novo demais pra ter nó próprio no CyberSeek.</p>` +
+    LADDER.map(L=>`<div style="margin:10px 0">
+      <div class="fl" style="width:100%;background:${L.c};${L.c==='#2a3a48'||L.c==='#2f5a48'||L.c==='#356b52'?'color:#dfe8ef':''}">${L.tier}</div>
+      ${L.roles.map(r=>`<div class="item"><div class="it-body">
+        <div class="it-title">${r.r} ${r.you?`<span class="note" style="color:var(--acc)">${r.you}</span>`:''}</div>
+        <div class="it-meta"><span class="pill">certs: ${r.certs}</span></div></div></div>`).join("")}
+    </div>`).join("") + `</div>`;
+  const spot = `<div class="card" style="border:2px solid var(--gold);background:#1c1608">
+    <div class="phase"><h3 style="color:var(--gold)">⭐ TEU VETOR MAIS FORTE — ${SPOTLIGHT.role}</h3></div>
+    <div class="it-desc" style="margin-bottom:8px">${SPOTLIGHT.why}</div>
+    <div class="it-meta"><span class="pill free">${SPOTLIGHT.openings}</span><span class="pill">${SPOTLIGHT.salary}</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+      <div><b class="note">Escolaridade exigida</b>${SPOTLIGHT.edu.map(e=>`<div class="small" style="margin:3px 0"><b style="color:var(--acc)">${e[0]}</b> ${e[1]}</div>`).join("")}</div>
+      <div><b class="note">Skills que TU já tem</b>${SPOTLIGHT.matchSkills.map(s=>`<div class="small" style="margin:3px 0">✓ ${s}</div>`).join("")}</div>
+    </div>
+    <div class="it-exp" style="margin-top:10px"><b>Cargos comuns:</b> ${SPOTLIGHT.titles.join(" · ")}<br><b>Certs pedidos:</b> ${SPOTLIGHT.certs}</div>
+  </div>`;
+  const levels = ["ENTRADA","INTERMEDIÁRIO","AVANÇADO"];
+  const rolesBank = `<div class="card"><h3 style="margin-top:0">💵 Banco de cargos — salário, certs e o que precisa</h3>
+    <p class="note">Faixa de salário = mercado US aproximado (não o nº exato do CyberSeek; esse fica na caixa do cargo). "JÁ" = dá pra mirar agora com Security+ + labs grátis + teu fundo.</p>` +
+    levels.map(lv=>{const c=ROLES.find(r=>r.lvl===lv).c; return `
+      <div class="fl" style="width:100%;background:${c};${lv!=='AVANÇADO'?'color:#dfe8ef':''};margin-top:10px">${lv}</div>` +
+      ROLES.filter(r=>r.lvl===lv).map(r=>`<div class="item"><div class="it-body">
+        <div class="it-title">${r.r} <span class="note" style="color:var(--acc)">${r.sal}</span> <span class="pill">${r.fit}</span></div>
+        <div class="it-meta"><span class="pill">certs: ${r.certs}</span></div>
+        <div class="it-desc">skills: ${r.skills}</div>
+        <div class="it-exp"><b>Pra ocupar:</b> ${r.need}</div></div></div>`).join("");
+    }).join("") + `</div>`;
+  el.innerHTML = spot + `<p class="note">Ranqueadas por valor × sobrevida à IA. Tier S = aposta mais segura pra 10+ anos.</p>` +
+   CAREERS.map(c=>`<div class="card"><div class="phase"><h3>${c.n}</h3>
+     <span class="badge ${c.tier==='S'?'b-s':'b-a'}">TIER ${c.tier}</span></div>
+     <div class="it-desc"><b>Por quê sobrevive:</b> ${c.why}</div>
+     <div class="it-exp">${c.note}</div></div>`).join("") + ladder + rolesBank;
+}
+
+function renderFunnel(){
+  document.getElementById("funnel").innerHTML = FUNNEL.map(f=>
+    `<div class="fl" style="width:${f.w};background:${f.c};${f.c==='#2a3a48'||f.c==='#2f5a48'||f.c==='#356b52'?'color:#dfe8ef':''}">${f.txt}</div>`).join("");
+}
+
+function renderMS(){
+  document.getElementById("msSessions").innerHTML =
+    '<table style="width:100%;border-collapse:collapse;font-size:12.5px">'+
+    '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Sessão</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Matrícula abre</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Fecha</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Aula</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Entrega</th></tr>'+
+    MS_SESSIONS.map(s=>`<tr style="${s[5]?'background:#12241b':''}">
+      <td style="padding:6px;border-bottom:1px solid var(--line)"><b>${s[0]}</b></td>
+      <td style="padding:6px;border-bottom:1px solid var(--line)">${s[1]}</td>
+      <td style="padding:6px;border-bottom:1px solid var(--line)">${s[2]}</td>
+      <td style="padding:6px;border-bottom:1px solid var(--line)">${s[3]}</td>
+      <td style="padding:6px;border-bottom:1px solid var(--line)">${s[4]}</td></tr>`).join('')+'</table>';
+}
+function renderTripod(){
+  document.getElementById("tripod").innerHTML = TRIPOD.map(t=>
+    `<div class="item"><div class="it-body"><div class="it-title">${t.n}</div>
+     <div class="it-meta"><span class="pill">${t.role}</span></div>
+     <div class="it-desc">${t.d}</div></div></div>`).join("");
+}
+function renderFontes(){
+  document.getElementById("fontesList").innerHTML = FONTES.map(f=>
+    `<div class="item"><div class="it-body">
+      <div class="it-title">${f.p} <a href="${f.link}" target="_blank" style="font-size:12px">abrir ↗</a></div>
+      <div class="it-meta"><span class="pill">${f.best}</span></div>
+      <div class="it-desc">${f.cursos}</div></div></div>`).join("");
+}
+const CERTS=[
+ // 🧱 NÚCLEO
+ {n:"CompTIA Security+ (SY0-701)", org:"CompTIA", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$404", pay:"$35–48/h", train:1,
+  when:"PRIORIDADE 1", why:"O filtro de RH. Em quase toda vaga. Destrava SOC e Vulnerability Mgmt júnior. Só ela já vale $35–48/h."},
+ {n:"CompTIA Network+", org:"CompTIA", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$358", pay:"—", train:0,
+  when:"opcional, base de redes", why:"Fundamento de redes (TCP/IP, portas). Ajuda no Security+ e em SOC. Opcional se tu já domina rede."},
+ {n:"Cloud fundamentos — AWS CLF-C02 · Azure AZ-900 · MS SC-900", org:"AWS / Microsoft", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$100", pay:"—", train:1,
+  when:"junto do Security+", why:"Nuvem pinga em quase todo anúncio. SC-900 = fundamentos de segurança Microsoft. Baratas. Treina na trilha ☁️."},
+ {n:"PCEP → PCAP (Python)", org:"Python Institute", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$59 / 295", pay:"—", train:1,
+  when:"pré-matrícula do MS", why:"Python das atribuições do MS + automação de SOC. Cisco Python Essentials 1&2 prepara grátis. Treina na trilha 🐍."},
+ {n:"LPI Linux Essentials → RHCSA", org:"LPI / Red Hat", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$120 / 500", pay:"—", train:1,
+  when:"em paralelo", why:"Linux em toda vaga de SOC/infra. RHCSA (Red Hat) é o degrau forte depois. Treina na trilha 🐧."},
+
+ // 🛡️ DEFENSIVO / SOC
+ {n:"CompTIA CySA+", org:"CompTIA", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"~US$404", pay:"$38–48/h", train:0,
+  when:"6–12 meses (ou já, se render)", why:"A cert de ANÁLISE/SOC. Te tira de júnior. MITRE ATT&CK, SIEM, detecção. Vaga aceita 'estudando'."},
+ {n:"Microsoft SC-200 (SecOps Analyst)", org:"Microsoft", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"~US$165", pay:"$38–48/h", train:0,
+  when:"se o alvo usa Microsoft", why:"SOC no mundo Microsoft (Sentinel/Defender). Apareceu na vaga de SOC Analyst. Barata."},
+ {n:"BTL1 — Blue Team Level 1", org:"Security Blue Team", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"~US$399", pay:"—", train:0,
+  when:"prática hands-on de SOC", why:"Cert 100% prática de analista SOC (investigação real, sem decoreba). Ótima pra provar mão na massa."},
+ {n:"GIAC GSEC / GCIH / GCIA", org:"GIAC (SANS)", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"caras (empregador paga)", pay:"alto", train:0,
+  when:"quando a empresa bancar", why:"Essentials / Incident Handler / Intrusion Analyst. Muito respeitadas, caras — geralmente o empregador paga."},
+
+ // ☁️ NUVEM / DEVSECOPS
+ {n:"AWS Security Specialty · Azure SC-100", org:"AWS / Microsoft", branch:"☁️ Nuvem / DevSecOps", cost:"~US$300 / 165", pay:"alto", train:0,
+  when:"ramo nuvem", why:"Segurança de nuvem avançada. As vagas remotas de cloud security ($60–75/h) pedem. Casa com DevSecOps."},
+ {n:"Kubernetes CKA / CKS", org:"CNCF / Linux Foundation", branch:"☁️ Nuvem / DevSecOps", cost:"~US$395 cada", pay:"alto", train:0,
+  when:"ramo DevSecOps", why:"Administrar/proteger containers (K8s). Requisito das vagas de DevSecOps. Curva grande — mais tarde."},
+
+ // 📋 GRC / AUDITORIA
+ {n:"CGRC — Governance, Risk & Compliance", org:"ISC2", branch:"📋 GRC / Auditoria", cost:"~US$599", pay:"$38–48/h", train:0,
+  when:"se seguir GRC", why:"Cert de governança/risco/compliance. Paga cedo, menos técnico. Ramo alternativo ao SOC."},
+ {n:"ISO 27001 Lead Implementer / Lead Auditor", org:"PECB / BSI", branch:"📋 GRC / Auditoria", cost:"~US$500–1000", pay:"alto", train:0,
+  when:"ramo GRC/consultoria", why:"Implantar/auditar a norma internacional (SGSI). 'Passaporte' de contrato B2B grande. Muito valorizada."},
+ {n:"ISACA CISA (auditoria)", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$575", pay:"US$154k+/ano", train:0,
+  when:"precisa 5 anos p/ título", why:"Auditoria de SI, top de GRC. Faz a prova antes; título só com experiência. Destino, não agora."},
+ {n:"ISACA CRISC (risco)", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$575", pay:"alto", train:0,
+  when:"precisa 3 anos", why:"Gestão de risco de TI. Ramo GRC. Também gated por experiência."},
+ {n:"ISACA CDPSE (privacidade)", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$575", pay:"alto", train:0,
+  when:"ramo privacidade/dados", why:"Privacidade de dados (LGPD/GDPR). Cresce com IA + leis de dados. Casa com ISO 27701."},
+
+ // 💥 OFENSIVO / PENTEST
+ {n:"CompTIA PenTest+", org:"CompTIA", branch:"💥 Ofensivo / Pentest — mais tarde", cost:"~US$404", pay:"$38–48/h", train:0,
+  when:"entrada no pentest", why:"Pentest de entrada (CompTIA). Porta pro ramo ofensivo antes das pesadas."},
+ {n:"CEH — Certified Ethical Hacker", org:"EC-Council", branch:"💥 Ofensivo / Pentest — mais tarde", cost:"~US$1199", pay:"$38–48/h", train:0,
+  when:"boa de RH/currículo", why:"Hacker ético. RH reconhece bem; teórica. Cara."},
+ {n:"OSCP (→ OSWE / BSCP / GWAPT / GPEN)", org:"OffSec / PortSwigger / GIAC", branch:"💥 Ofensivo / Pentest — mais tarde", cost:"~US$1600", pay:"alto", train:0,
+  when:"ápice do pentest", why:"OSCP = a cert de pentest mais respeitada (100% prática, difícil). OSWE/BSCP/GWAPT = web avançado."},
+
+ // 🤖 DIFERENCIAL — IA
+ {n:"CompTIA SecAI+ (Segurança + IA)", org:"CompTIA", branch:"🤖 Diferencial — segurança de IA (teu nicho)", cost:"~US$400", pay:"$43–45/h", train:0,
+  when:"teu diferencial raro", why:"⭐ IA + segurança = o 'especialista raro' que tu quer ser. É onde mora sponsorship + $ alto (vaga Tymon). Casa com MS-CS e EB-2."},
+
+ // 👑 SÊNIOR (destino)
+ {n:"CISSP (gold standard)", org:"ISC2", branch:"👑 Sênior — destino (5+ anos)", cost:"~US$749", pay:"US$150k+/ano", train:0,
+  when:"5+ anos de experiência", why:"A cert sênior mais reconhecida do mundo. Exige 5 anos comprovados. Meta de longo prazo."},
+ {n:"ISACA CISM / CGEIT", org:"ISACA", branch:"👑 Sênior — destino (5+ anos)", cost:"~US$575", pay:"US$167k+/ano", train:0,
+  when:"5+ anos + gestão", why:"CISM = gestão de segurança; CGEIT = governança executiva. Cargo de liderança. Destino."},
+ {n:"CompTIA CASP+ / SecurityX", org:"CompTIA", branch:"👑 Sênior — destino (5+ anos)", cost:"~US$509", pay:"alto", train:0,
+  when:"técnico avançado", why:"O topo TÉCNICO da CompTIA (arquitetura/engenharia de segurança). Alternativa hands-on ao CISSP."},
+];
+function renderCerts(){
+  const branches=[...new Set(CERTS.map(c=>c.branch))];
+  document.getElementById("certList").innerHTML = branches.map(b=>{
+    const items=CERTS.filter(c=>c.branch===b);
+    return `<div class="phase"><h3>${b}</h3></div>`+items.map(c=>
+      `<div class="item ${c.branch.indexOf('Sênior')>-1?'done':''}"><div class="it-body">
+        <div class="it-title">${c.n} ${c.train?'<span class="pill free">🎯 treina no app</span>':''}</div>
+        <div class="it-meta"><span class="pill">${c.org}</span><span class="pill paid">${c.cost}</span>${(c.pay&&c.pay!=="—")?`<span class="pill free">paga ${c.pay}</span>`:''}<span class="pill">${c.when}</span></div>
+        <div class="it-desc">${c.why}</div></div></div>`).join("");
+  }).join("");
+}
+const SKILLS=[
+ {cat:"🎯 SOC / Detecção", d:"SIEM (Splunk, Microsoft Sentinel) · EDR · SOAR · MITRE ATT&CK · Cyber Kill Chain · Pyramid of Pain · Windows Event IDs (4624/4625/4648) · análise de log · threat hunting"},
+ {cat:"🔍 Gestão de vulnerabilidade", d:"Nessus · Qualys · Tenable · Rapid7 · OpenVAS · CVE · CVSS (nota 0–10) · ciclo de patch · CAASM (Axonius, Armis)"},
+ {cat:"📋 Frameworks & leis", d:"NIST CSF / 800-53 / RMF · ISO 27001 e 27701 · CIS Controls (18) · SOC 2 · HIPAA · GLBA · GDPR / CCPA · NIS2 · SOX · PCI-DSS · NERC-CIP · TPRM"},
+ {cat:"☁️ Nuvem & DevSecOps", d:"AWS / Azure / GCP · Kubernetes · IaC (Terraform) · CI/CD · SAST / DAST / SCA · OWASP (ASVS, Top 10) · containers · secure code review"},
+ {cat:"🔐 Identidade & rede", d:"IAM · MFA · SSO · PKI · DLP · IDS / IPS · firewall · VPN · Zero Trust · MDM / UEM · email security"},
+ {cat:"🧱 Base técnica", d:"Linux (linha de comando) · administração Windows · redes TCP/IP · scripting (Python, Bash, PowerShell) · Git / controle de versão"},
+ {cat:"🗂️ Ferramentas GRC / ITSM", d:"ServiceNow · Jira · RSA Archer · OneTrust · Prevalent · ProcessUnity (onde o trabalho de risco/compliance acontece)"},
+];
+function renderSkills(){
+  document.getElementById("skillsList").innerHTML = SKILLS.map(s=>
+    `<div class="item"><div class="it-body"><div class="it-title">${s.cat}</div>
+      <div class="it-desc">${s.d}</div></div></div>`).join("");
+}
+const VAGAS=[
+ {t:"🎯 Alvos de ENTRADA (com Security+)", tag:"alcançável", cls:"free",
+  d:"SOC Analyst · Vulnerability Management · Kyndryl 'Early Career' <b>REMOTO</b> (~US$63k). Pedem Security+ + SIEM + gestão de vulnerabilidade + Linux/cloud. Vários aceitam 'estudando a cert'."},
+ {t:"⭐ Teu nicho RARO — segurança de IA (sponsor + $ alto)", tag:"meta", cls:"paid",
+  d:"AI Security / DevSecOps com IA — ex: Tymon Global, remoto, US$70–75/h, <b>'Able to Sponsor'</b> (patrocina visto). Sponsorship + salário alto concentram aqui. É o que o <b>SecAI+</b> + o MS destravam. Poucos têm."},
+ {t:"📋 GRC remoto (abundante)", tag:"alcançável", cls:"free",
+  d:"Cyber Analyst GRC · TPRM · SOC 2 · ISO 27001 — muitos contratos <b>100% remotos</b> (US$50–62/h). Menos técnico, paga cedo. Ramo alternativo ao SOC (o que a imersão empurra)."},
+ {t:"🎓 Estágios (o MS-CS te torna elegível)", tag:"via MS", cls:"",
+  d:"Blue Team Intern · Toyota · <b>BCG AI+Cyber (US$110–120k)</b>. Exigem estar MATRICULADO numa universidade — teu MS-CS abre. O da BCG é IA+cyber = teu diferencial."},
+ {t:"⚠️ Travas honestas", tag:"cuidado", cls:"paid",
+  d:"Clearance/DoD = cidadania (fechado agora). <b>Autorização de trabalho US</b>: MS online normalmente NÃO dá visto/OPT — essas vagas viram reais com <b>green card (EB-2)</b> ou empresa que <b>patrocina</b>."},
+ {t:"🌐 Onde procurar", tag:"dica", cls:"",
+  d:"<b>Dice.com</b> abre e é ótimo pra cyber. USAJOBS = governo (exige cidadania). Indeed/Monster/CareerBuilder bloqueiam IP de fora dos EUA (usa quando morar lá ou via VPN US)."},
+];
+function renderVagas(){
+  document.getElementById("vagasList").innerHTML = VAGAS.map(v=>
+    `<div class="item"><div class="it-body">
+      <div class="it-title">${v.t}</div>
+      <div class="it-meta"><span class="pill ${v.cls}">${v.tag}</span></div>
+      <div class="it-desc">${v.d}</div></div></div>`).join("");
+}
+function renderAll(){ renderPainel(); renderTrilha(); renderCareers(); renderFunnel(); renderMS(); renderTripod(); renderCerts(); renderSkills(); renderCreds(); renderJobsLive(); renderVagas(); renderFontes(); renderGloss(document.getElementById("gsearch").value); }
+
+document.querySelectorAll(".tab").forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+    t.classList.add("on");
+    ["painel","trilha","glossario","carreiras","funil","ms","perfil","certs","vagas","fontes"].forEach(s=>
+      document.getElementById(s).classList.toggle("hide", s!==t.dataset.t));
+  };
+});
+document.getElementById("gsearch").addEventListener("input",e=>renderGloss(e.target.value));
+renderAll();
+</script>
+</body>
+</html>

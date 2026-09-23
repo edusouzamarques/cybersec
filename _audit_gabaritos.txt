@@ -1,0 +1,58 @@
+INSTRUCAO: Voce e instrutor senior de CompTIA Security+ SY0-701, Python PCEP, Linux LPI e Cloud. Abaixo tem questoes de multipla escolha com o gabarito que EU marquei como correto. Sua tarefa: apontar SOMENTE se algum gabarito esta TECNICAMENTE ERRADO ou impreciso. Se todos estiverem corretos, diga exatamente na ultima linha: 'AUDITORIA: LIMPO'. Se algum estiver errado, liste o numero + o certo, e na ultima linha 'AUDITORIA: TEM-FALHAS'.
+
+SECURITY+
+1) Email imitando CEO pedindo transferencia urgente = WHALING. (certo?)
+2) Malware que criptografa arquivos e cobra resgate = RANSOMWARE.
+3) Falha desconhecida do fabricante sem patch = ZERO-DAY.
+4) Atacante no meio da comunicacao lendo/alterando = ON-PATH (MITM).
+5) SQL injection explora falta de VALIDACAO DE ENTRADA.
+6) 'Nunca confie sempre verifique' = ZERO TRUST.
+7) Acesso minimo necessario = MENOR PRIVILEGIO (least privilege).
+8) Sub-rede que expoe servidores publicos protegendo interna = DMZ / screened subnet.
+9) Varias camadas de defesa = DEFESA EM PROFUNDIDADE.
+10) CLI remota segura porta 22 = SSH.
+11) AES = criptografia SIMETRICA (mesma chave).
+12) MFA = algo que sabe + algo que tem + algo que e.
+13) Garantir que arquivo nao foi alterado (integridade) = HASH (SHA-256).
+14) HASH e de MAO UNICA (nao reversivel).
+15) Tunel criptografado pra rede corporativa pela internet = VPN (IPsec/TLS).
+16) Primeira fase NIST de resposta a incidente = PREPARACAO.
+17) Ferramenta que coleta e correlaciona logs = SIEM.
+18) Ordem de volatilidade: capturar primeiro a MEMORIA RAM (antes do disco).
+19) Fase que documenta o aprendido pra nao repetir = LICOES APRENDIDAS.
+20) RTO = quanto TEMPO o servico pode ficar fora.
+21) RPO = quanto DADO (janela) voce aceita perder.
+22) Contratar seguro cibernetico = TRANSFERIR o risco.
+
+PYTHON
+23) type(7 / 2) em Python 3 = FLOAT.
+24) 7 // 2 = 3 (divisao inteira).
+25) 10 % 3 = 1 (modulo/resto).
+26) = atribui; == compara igualdade.
+27) range(3) num for = 0,1,2.
+28) 'else if' do Python = ELIF.
+29) break interrompe o loop imediatamente.
+30) Lista L=['a','b','c'], L[0] = 'a'.
+31) Adicionar item ao fim da lista = L.append(x).
+32) input() sempre retorna STRING.
+33) Quantidade de itens de lista = len(L).
+
+LINUX
+34) Mostra a pasta atual = pwd.
+35) Lista arquivos = ls.
+36) ~ = home do usuario.
+37) Busca texto dentro de arquivos = grep.
+38) chmod 7 = rwx (ler+escrever+executar), octal 4+2+1.
+39) Rodar comando como root = sudo.
+40) Apagar pasta e conteudo recursivo = rm -r.
+41) Lista processos em execucao = ps.
+
+CLOUD
+42) Aluga VM e gerencia SO pra cima = IaaS.
+43) Gmail/Office365/Salesforce = SaaS.
+44) Seguranca fisica do datacenter (resp. compartilhada) = PROVEDOR.
+45) Pagar so pelo que usa, escalando = PAY-AS-YOU-GO / elasticidade.
+46) Controla quem acessa o que na nuvem = IAM.
+47) Regiao = area geografica; AZ = datacenter isolado dentro dela.
+48) Dado 'em repouso' (at rest) = criptografar dado gravado no disco/storage.
+49) Distribui trafego entre varios servidores = LOAD BALANCER.
