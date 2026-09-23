@@ -51,6 +51,8 @@
   .qtag{font-size:12px;color:var(--purple)}
   .qtimer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--gold)}
   .qtext{font-size:16px;font-weight:600;margin:10px 0 14px;line-height:1.5}
+  .scratch{width:100%;box-sizing:border-box;min-height:90px;resize:vertical;background:#0a0f15;border:1px dashed var(--line);border-radius:8px;color:#c9d6e2;font:13px/1.5 Consolas,'Courier New',monospace;padding:10px;margin-top:2px}
+  .scratch:focus{border-color:var(--blue);outline:none}
   .opt{display:block;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);cursor:pointer;margin:8px 0;font-size:14.5px;transition:.15s}
   .opt:hover:not(:disabled){border-color:var(--blue)}
   .opt:disabled{cursor:default}
@@ -743,6 +745,9 @@ function startQuiz(track,dom){
 }
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function fmt(s){return esc(s).replace(/&lt;br&gt;/g,'<br>').replace(/&amp;nbsp;/g,'&nbsp;');}
+function scrGet(id){try{return (JSON.parse(localStorage.getItem('cybersec_scratch')||'{}'))[id]||''}catch(e){return ''}}
+function scrSet(id,v){try{var o={};try{o=JSON.parse(localStorage.getItem('cybersec_scratch')||'{}')}catch(e){}o[id]=v;localStorage.setItem('cybersec_scratch',JSON.stringify(o));}catch(e){}}
+function scratchBox(id){return '<div style="margin-top:12px"><div class="note" style="margin-bottom:4px">✍️ Rascunho — teu papel e caneta: anota, faz o teste de mesa, escreve código pra achar a resposta (salva sozinho).</div><textarea class="scratch" spellcheck="false" oninput="scrSet(\''+id+'\',this.value)" placeholder="ex:&#10;7 / 2 = 3.5 (float)&#10;range(2,10,3) -> 2, 5, 8">'+esc(scrGet(id))+'</textarea></div>';}
 function renderQ(){
   const w=document.getElementById("quizWrap");
   if(quiz.idx>=quiz.queue.length){renderQuizEnd();return}
@@ -757,6 +762,7 @@ function renderQ(){
     <div class="card">
       <div class="qtext">${fmt(q.q)}</div>
       <div id="opts">${q.o.map((op,i)=>`<button class="opt" onclick="answer(${i})"><span class="lk">${'ABCD'[i]}</span>${fmt(op)}</button>`).join("")}</div>
+      ${scratchBox(q.id)}
       <div id="fb"></div>
       <div class="row" id="qnav"></div>
     </div>`;
@@ -827,6 +833,7 @@ function renderSim(){
       <div class="prog">Questão ${sim.idx+1} de ${sim.queue.length}</div>
       <div class="qtext">${fmt(q.q)}</div>
       ${q.o.map((op,i)=>`<button class="opt" onclick="simAns(${i})"><span class="lk">${'ABCD'[i]}</span>${fmt(op)}</button>`).join("")}
+      ${scratchBox(q.id)}
     </div>`;
   const m=Math.floor(sim.secs/60),s=sim.secs%60;const c=document.getElementById("simClock");if(c)c.textContent=`${m}:${String(s).padStart(2,'0')}`;
 }
