@@ -1,9 +1,11 @@
-# Áudios pesados da aula (~40MB)
-*.mp3
-*.m4a
-*.wav
-
-# Logs e outputs intermediários
-*.log
-*.out
-__pycache__/
+# nunca publicar: conteúdo de curso pago + rascunhos + estado local
+_aula/
+*_audit*.txt
+_plano_treino.md
+_jobscan/job_scan_log.ndjson
+_jobscan/job_digest.md
+_jobscan/rem*.json
+_jobscan/rok.json
+_jobscan/himalayas.json
+*.tmp
+_TODO_EDUARDO.md
