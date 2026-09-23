@@ -441,6 +441,28 @@ const Q=[
  {id:"p414",t:"python",d:"pfunc",q:"def f(): pass. Quanto vale print(f())?",o:["None","0","pass","erro"],c:0,
   e:"Função sem return devolve None. pass = 'não faça nada'. Imprime None."},
 
+ // ===== PCEP — lote 2 =====
+ {id:"p120",t:"python",d:"pbase",q:"Quanto vale: 'abc'.upper()",o:["'ABC'","'abc'","'Abc'","erro"],c:0,e:".upper() devolve tudo em maiúsculo: 'ABC'. .lower() faz o contrário. Não muda o original (strings são imutáveis)."},
+ {id:"p121",t:"python",d:"pbase",q:"Quanto vale: len('Python')",o:["6","5","7","erro"],c:0,e:"len conta os caracteres: P-y-t-h-o-n = 6."},
+ {id:"p122",t:"python",d:"pbase",q:"Quanto vale: True + True + False",o:["2","3","True","erro"],c:0,e:"Booleanos viram números em conta: True=1, False=0. 1+1+0 = 2."},
+ {id:"p123",t:"python",d:"pbase",q:"Quanto vale: 1 < 2 < 3",o:["True","False","erro","1"],c:0,e:"Python permite comparação encadeada: 1<2 E 2<3, ambas verdadeiras → True."},
+ {id:"p124",t:"python",d:"pbase",q:"Quanto vale: 'Hello'.replace('l','L')",o:["'HeLLo'","'HeLlo'","'Hello'","erro"],c:0,e:".replace troca TODAS as ocorrências: os dois 'l' viram 'L' → 'HeLLo'."},
+ {id:"p220",t:"python",d:"pflow",q:"Quantas vezes roda: for i in range(5, 0, -1)",o:["5","4","6","0"],c:0,e:"Passo -1 conta pra trás: 5,4,3,2,1 (para antes do 0) = 5 iterações."},
+ {id:"p221",t:"python",d:"pflow",q:"O que imprime:<br>for c in 'ab':<br>&nbsp;&nbsp;print(c, end='')",o:["ab","a b","'a''b'","erro"],c:0,e:"O for percorre a string caractere a caractere: imprime 'a' e 'b' → 'ab'."},
+ {id:"p222",t:"python",d:"pflow",q:"Valor final de x:<br>x=10<br>while x>0:<br>&nbsp;&nbsp;x-=3",o:["-2","0","1","erro"],c:0,e:"10→7→4→1→-2. Em x=1 (>0) subtrai 3 = -2. Aí -2>0 é falso, para. Final = -2."},
+ {id:"p223",t:"python",d:"pflow",q:"Num loop aninhado, o break dentro do loop de dentro:",o:["Sai só do loop de DENTRO","Sai dos dois loops","Sai do programa","Não faz nada"],c:0,e:"break sai apenas do loop mais interno; o de fora continua. Pra sair de ambos precisa de flag/função."},
+ {id:"p224",t:"python",d:"pflow",q:"O que imprime:<br>for i in range(3):<br>&nbsp;&nbsp;print(i, end=' ')<br>else:<br>&nbsp;&nbsp;print('ok')",o:["0 1 2 ok","0 1 2","ok","erro"],c:0,e:"O else do for roda após o loop terminar sem break. Imprime '0 1 2 ' e depois 'ok'."},
+ {id:"p320",t:"python",d:"pdata",q:"d={'a':1,'b':2}. Quanto vale list(d.keys())?",o:["['a', 'b']","[1, 2]","['a', 'b', 1, 2]","erro"],c:0,e:".keys() dá as CHAVES → ['a','b']. .values() dá [1,2]; .items() dá os pares."},
+ {id:"p321",t:"python",d:"pdata",q:"Quanto vale: 'a,b,c'.split(',')",o:["['a', 'b', 'c']","'abc'","['a,b,c']","erro"],c:0,e:".split(',') quebra a string no separador → lista ['a','b','c']. O inverso é ','.join(lista)."},
+ {id:"p322",t:"python",d:"pdata",q:"Quanto vale: '-'.join(['a','b','c'])",o:["'a-b-c'","['a','b','c']","'abc'","erro"],c:0,e:".join cola os itens da lista usando o separador → 'a-b-c'. Note: é separador.join(lista)."},
+ {id:"p323",t:"python",d:"pdata",q:"L=[3,1,2]; L.sort(); O que L virou (e o que sort() retorna)?",o:["L=[1,2,3] ; retorna None","L=[3,1,2] ; retorna [1,2,3]","L=[1,2,3] ; retorna [1,2,3]","erro"],c:0,e:".sort() ordena a lista NO LUGAR e devolve None. Se quiser uma nova lista sem mexer na original, use sorted(L)."},
+ {id:"p324",t:"python",d:"pdata",q:"Quanto vale: 'x' in ['x','y','z']",o:["True","False","'x'","erro"],c:0,e:"O operador in testa pertencimento → True (x está na lista). Funciona em lista, string, dict (nas chaves)."},
+ {id:"p325",t:"python",d:"pdata",q:"a=[1,2]; b=a; b.append(3); quanto vale len(a)?",o:["3","2","erro","1"],c:0,e:"b=a NÃO copia — b e a apontam pra MESMA lista. append em b muda a também → len(a)=3. (Pra copiar: b=a[:] ou list(a).)"},
+ {id:"p420",t:"python",d:"pfunc",q:"def f(): return 1, 2. O que f() devolve?",o:["A tupla (1, 2)","Só o 1","Um erro","A lista [1,2]"],c:0,e:"Vírgula no return cria uma TUPLA: (1,2). Dá pra desempacotar: a,b = f()."},
+ {id:"p421",t:"python",d:"pfunc",q:"Quanto vale: (lambda x: x*2)(5)",o:["10","5","'55'","erro"],c:0,e:"lambda é função anônima. (lambda x: x*2) recebe 5 → 5*2 = 10."},
+ {id:"p422",t:"python",d:"pfunc",q:"Num try/except/finally, o bloco finally:",o:["SEMPRE roda (com erro ou sem)","Só roda se deu erro","Só roda se NÃO deu erro","Nunca roda"],c:0,e:"finally executa sempre — deu exceção ou não. Serve pra limpar recurso (fechar arquivo/conexão)."},
+ {id:"p423",t:"python",d:"pfunc",q:"def f(*a): return len(a). Quanto vale f(1,2,3)?",o:["3","1","(1,2,3)","erro"],c:0,e:"*a junta todos os argumentos numa TUPLA. f(1,2,3) → a=(1,2,3) → len=3. (**kwargs faz o mesmo com nomeados, num dict.)"},
+
  // ===== LINUX — cli =====
  {id:"l101",t:"linux",d:"lcli",q:"Qual comando mostra o diretório onde você está agora?",
   o:["ls","pwd","cd","dir"],c:1,
