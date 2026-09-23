@@ -714,6 +714,8 @@ function startQuiz(track,dom){
   const w=document.getElementById("quizWrap");w.classList.remove("hide");
   renderQ();
 }
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmt(s){return esc(s).replace(/&lt;br&gt;/g,'<br>').replace(/&amp;nbsp;/g,'&nbsp;');}
 function renderQ(){
   const w=document.getElementById("quizWrap");
   if(quiz.idx>=quiz.queue.length){renderQuizEnd();return}
@@ -726,8 +728,8 @@ function renderQ(){
       <span class="prog">${quiz.idx+1}/${quiz.queue.length} ${mst?'· ✅ dominada':''}</span>
     </div>
     <div class="card">
-      <div class="qtext">${q.q}</div>
-      <div id="opts">${q.o.map((op,i)=>`<button class="opt" onclick="answer(${i})"><span class="lk">${'ABCD'[i]}</span>${op}</button>`).join("")}</div>
+      <div class="qtext">${fmt(q.q)}</div>
+      <div id="opts">${q.o.map((op,i)=>`<button class="opt" onclick="answer(${i})"><span class="lk">${'ABCD'[i]}</span>${fmt(op)}</button>`).join("")}</div>
       <div id="fb"></div>
       <div class="row" id="qnav"></div>
     </div>`;
@@ -749,7 +751,7 @@ function answer(i){
     const qq=quiz.queue[quiz.idx];const pos=Math.min(quiz.idx+3,quiz.queue.length);
     quiz.queue.splice(pos,0,qq);}
   S.q[q.id]=r;save(S);
-  document.getElementById("fb").innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?'✅ Certo!':'❌ Errou — resposta certa: '+'ABCD'[q.c]}</b>${q.e}${!ok?'<br><span class="note">Essa volta mais pra frente até tu travar.</span>':(r.mastered?'<br><span class="note">🔒 Dominada (2 acertos seguidos).</span>':'<br><span class="note">Acerta 1x mais seguido pra dominar.</span>')}</div>`;
+  document.getElementById("fb").innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?'✅ Certo!':'❌ Errou — resposta certa: '+'ABCD'[q.c]}</b>${fmt(q.e)}${!ok?'<br><span class="note">Essa volta mais pra frente até tu travar.</span>':(r.mastered?'<br><span class="note">🔒 Dominada (2 acertos seguidos).</span>':'<br><span class="note">Acerta 1x mais seguido pra dominar.</span>')}</div>`;
   document.getElementById("qnav").innerHTML=`<button class="btn" onclick="nextQ()">Próxima ›</button>`;
 }
 function nextQ(){quiz.idx++;quiz.answered=false;renderQ();}
@@ -796,8 +798,8 @@ function renderSim(){
       <span class="qtimer">⏱️ <span id="simClock"></span></span></div>
     <div class="card">
       <div class="prog">Questão ${sim.idx+1} de ${sim.queue.length}</div>
-      <div class="qtext">${q.q}</div>
-      ${q.o.map((op,i)=>`<button class="opt" onclick="simAns(${i})"><span class="lk">${'ABCD'[i]}</span>${op}</button>`).join("")}
+      <div class="qtext">${fmt(q.q)}</div>
+      ${q.o.map((op,i)=>`<button class="opt" onclick="simAns(${i})"><span class="lk">${'ABCD'[i]}</span>${fmt(op)}</button>`).join("")}
     </div>`;
   const m=Math.floor(sim.secs/60),s=sim.secs%60;const c=document.getElementById("simClock");if(c)c.textContent=`${m}:${String(s).padStart(2,'0')}`;
 }
@@ -814,9 +816,9 @@ function finishSim(){
     else{r.wrongs++;r.streak=0;}
     S.q[q.id]=r;
     return `<div class="item" style="display:block;border-left:3px solid ${ok?'var(--acc)':'var(--red)'}">
-      <div style="font-weight:600">${ok?'✅':'❌'} ${q.q}</div>
-      <div class="note" style="margin-top:4px">Certa: <b>${'ABCD'[q.c]}) ${q.o[q.c]}</b>${a==null?' · (não respondida)':(ok?'':` · você marcou ${'ABCD'[a]}`)}</div>
-      <div class="it-exp" style="font-size:12.5px;color:var(--dim);margin-top:5px;border-left:2px solid var(--line);padding-left:8px">${q.e}</div>
+      <div style="font-weight:600">${ok?'✅':'❌'} ${fmt(q.q)}</div>
+      <div class="note" style="margin-top:4px">Certa: <b>${'ABCD'[q.c]}) ${fmt(q.o[q.c])}</b>${a==null?' · (não respondida)':(ok?'':` · você marcou ${'ABCD'[a]}`)}</div>
+      <div class="it-exp" style="font-size:12.5px;color:var(--dim);margin-top:5px;border-left:2px solid var(--line);padding-left:8px">${fmt(q.e)}</div>
     </div>`}).join("");
   S.stats.streak=0;save(S);
   const total=sim.queue.length;const pct=Math.round(right/total*100);
@@ -840,7 +842,7 @@ function renderWeak(){
    list.map(q=>{const t=TRACKS.find(x=>x.id===q.t);const r=S.q[q.id];
     return `<div class="item" style="display:block;border:1px solid var(--red);border-radius:10px;padding:12px;margin:8px 0;background:var(--panel2)">
       <div class="chip">${t.icon} ${t.name}</div>
-      <div style="font-weight:600;margin-top:6px">${q.q}</div>
+      <div style="font-weight:600;margin-top:6px">${fmt(q.q)}</div>
       <div class="note" style="margin-top:4px">errou ${r.wrongs}x · acertou ${r.correct}x — falta ${2-r.streak} acerto(s) seguido(s) pra dominar</div>
     </div>`}).join("");
 }
