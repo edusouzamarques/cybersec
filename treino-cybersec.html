@@ -574,7 +574,7 @@ const Q=[
  {id:"pg22",t:"python",d:"pfunc",q:"Qual é a saída do código abaixo?<br><br>t = (1, 2, 3)<br>try:<br>&nbsp;&nbsp;&nbsp;&nbsp;t[0] = 99<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Modificado\")<br>except TypeError:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Erro capturado\")",o:["Modificado", "Erro capturado", "(99, 2, 3)", "Nenhuma saída"],c:1,e:"Tuplas são imutáveis. Atribuição lança TypeError, capturado pelo except."},
  {id:"pg23",t:"python",d:"pfunc",q:"Qual é a saída do código abaixo?<br><br>x = 1<br>def altera():<br>&nbsp;&nbsp;&nbsp;&nbsp;x = 10<br>altera()<br>print(x)",o:["1", "10", "Erro", "None"],c:0,e:"x = 10 dentro da função cria variável local, não altera a global x = 1."},
  {id:"pg24",t:"python",d:"pdata",q:"Qual é a saída do código abaixo?<br><br>lista = [1, 2, 3]<br>print(lista * 2)",o:["[1, 2, 3]", "[2, 4, 6]", "[1, 2, 3, 1, 2, 3]", "Erro"],c:2,e:"Multiplicar lista por 2 a duplica, não multiplica elementos. Resultado: [1, 2, 3, 1, 2, 3]."},
- {id:"pg25",t:"python",d:"pbase",q:"Qual é a saída do código abaixo?<br><br>s = \"programacao\"<br>print(len(s) // 2)",o:["5", "6", "7", "11"],c:1,e:"len(\"programacao\") = 13. 13 // 2 = 6 (divisão inteira)."},
+ {id:"pg25",t:"python",d:"pbase",q:"Qual é a saída do código abaixo?<br><br>s = \"programacao\"<br>print(len(s) // 2)",o:["5", "6", "7", "11"],c:0,e:"len(\"programacao\") = 11 (conta as letras: p-r-o-g-r-a-m-a-c-a-o). 11 // 2 = 5 (divisão inteira)."},
 ];
 
 /* ---------- GLOSSÁRIO por trilha ---------- */
