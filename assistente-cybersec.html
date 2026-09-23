@@ -71,7 +71,6 @@
     <div class="tab" data-t="carreiras">💼 Carreiras</div>
     <div class="tab" data-t="funil">🎯 Funil da raridade</div>
     <div class="tab" data-t="ms">🎓 MS CU Boulder</div>
-    <div class="tab" data-t="perfil">🧬 Meu perfil (EB-2)</div>
     <div class="tab" data-t="certs">🎖️ Certificados</div>
     <div class="tab" data-t="vagas">💼 Vagas US (mercado real)</div>
     <div class="tab" data-t="fontes">📚 Onde estudar grátis</div>
@@ -123,18 +122,6 @@
       <b>Próximas sessões — datas oficiais (MT / Colorado)</b>
       <div id="msSessions" style="margin-top:8px"></div>
       <p class="note">⚠️ Fall 2/2026 é tua janela imediata. Sem extensão de prazo — planeja.</p>
-    </div>
-  </section>
-
-  <section id="perfil" class="hide">
-    <div class="card">
-      <h3 style="margin-top:0">🧬 Teu perfil pro EB-2 NIW — o tripé</h3>
-      <p class="note">O grau só te QUALIFICA pro EB-2. Quem GANHA o NIW são os 3 prongs Dhanasar = teu impacto/portfólio. As três pernas cobrem a fraqueza uma da outra.</p>
-      <div id="tripod"></div>
-    </div>
-    <div class="card" style="border-color:#5a3a1e;background:#1c140c">
-      <b style="color:var(--gold)">⚠️ Verificar com advogado ANTES de bancar</b>
-      <p class="note">EB-2 "advanced degree" é grau <i>acima</i> do bacharelado. Teu <b>tecnólogo</b> pode ser avaliado como equivalente a bachelor's US (WES) — o que resolve a dúvida do mestrado-sem-graduação. NÃO é garantido; depende de carga horária. Confirma com advogado de imigração. Mesmo no pior caso, o MS reforça o prong "well-positioned" — nada é desperdício.</p>
     </div>
   </section>
 
@@ -752,7 +739,8 @@ function renderMS(){
       <td style="padding:6px;border-bottom:1px solid var(--line)">${s[4]}</td></tr>`).join('')+'</table>';
 }
 function renderTripod(){
-  document.getElementById("tripod").innerHTML = TRIPOD.map(t=>
+  var _tp=document.getElementById("tripod"); if(!_tp) return;
+  _tp.innerHTML = TRIPOD.map(t=>
     `<div class="item"><div class="it-body"><div class="it-title">${t.n}</div>
      <div class="it-meta"><span class="pill">${t.role}</span></div>
      <div class="it-desc">${t.d}</div></div></div>`).join("");
@@ -877,7 +865,7 @@ document.querySelectorAll(".tab").forEach(t=>{
   t.onclick=()=>{
     document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
     t.classList.add("on");
-    ["painel","trilha","glossario","carreiras","funil","ms","perfil","certs","vagas","fontes"].forEach(s=>
+    ["painel","trilha","glossario","carreiras","funil","ms","certs","vagas","fontes"].forEach(s=>
       document.getElementById(s).classList.toggle("hide", s!==t.dataset.t));
   };
 });
