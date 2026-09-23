@@ -521,7 +521,7 @@ const SPOTLIGHT = {
     "OSINT (nº4)","Incident Response (nº3)","Cyber Threat Intelligence","Risk Analysis"],
   titles:["Intelligence Analysts","Security Analysts","Special Agents","IT Security Analysts","SOC Analysts"],
   certs:"CISSP · GIAC · CISM · CEH · CISA (avançados — empregador costuma pagar)",
-  why:"O cargo pede, em 1º lugar, EXATAMENTE o que tu fez por 13,5 anos na PMMG. HUMINT e Law Enforcement não se aprendem em curso — tu viveu. E 59% das vagas nem exigem bacharelado: com tecnólogo + PMMG + certs, tu entra QUALIFICADO, não por baixo.",
+  why:"O cargo pede, em 1º lugar, EXATAMENTE o que tu fez por anos na segurança pública. HUMINT e Law Enforcement não se aprendem em curso — tu viveu. E 59% das vagas nem exigem bacharelado: com formação superior + segurança pública + certs, tu entra QUALIFICADO, não por baixo.",
   salary:"~US$ 85–110 mil/ano (faixa aprox. mercado US; nº exato = caixa do cargo no CyberSeek)",
 };
 
@@ -530,7 +530,7 @@ const SPOTLIGHT = {
    fica na caixa do cargo no mapa). Atualizado 2026-09-17 pelos prints do Eduardo. */
 const ROLES = [
  // ENTRADA (azul) — onde tu começa
- {lvl:"ENTRADA", c:"#2f5a48", r:"Cyber Crime Analyst", sal:"~US$ 75–95k", fit:"ALTÍSSIMO ← PMMG",
+ {lvl:"ENTRADA", c:"#2f5a48", r:"Cyber Crime Analyst", sal:"~US$ 75–95k", fit:"ALTÍSSIMO ← fundo investigativo",
   certs:"Security+ · GIAC · CIPP", skills:"Info Security · Security Operations · Cryptography",
   need:"JÁ: Security+ + OSINT/forense básica. Teu fundo policial cobre a investigação."},
  {lvl:"ENTRADA", c:"#2f5a48", r:"Incident & Intrusion Analyst", sal:"~US$ 90–112k", fit:"ALTO",
@@ -570,7 +570,7 @@ const LADDER = [
    {r:"Redes / TI / Dev / Risco", certs:"— (tu já tem base de rede + eng.)", you:""},
  ]},
  {tier:"ENTRADA", c:"#2f5a48", roles:[
-   {r:"Cyber Crime Analyst", certs:"Security+, (base investigativa)", you:"← teu fundo PMMG entra DIRETO aqui"},
+   {r:"Cyber Crime Analyst", certs:"Security+, (base investigativa)", you:"← um fundo investigativo entra DIRETO aqui"},
    {r:"Incident & Intrusion Analyst", certs:"Security+, GCIH", you:"← operar sob ataque = tua praia"},
    {r:"Cybersecurity Specialist / IT Auditor", certs:"Security+, Network+", you:""},
  ]},
@@ -603,14 +603,7 @@ const MS_SESSIONS = [
  ["Summer 1 / 2027","19 abr 2027","11 jun 2027","3 mai 2027","25 jun 2027",0],
  ["Summer 2 / 2027","14 jun 2027","6 ago 2027","28 jun 2027","20 ago 2027",0],
 ];
-const TRIPOD = [
- {n:"1. Tecnólogo em Comércio Exterior", role:"CATEGORIA (não competência)",
-  d:"Superior, sem experiência na área. Serve de possível equivalente a bachelor's pro EB-2 (WES). É a peça de categoria, não argumento técnico."},
- {n:"2. PMMG — 13,5 anos, Cabo (2006–2019)", role:"NARRATIVA + skills transferíveis",
-  d:"Favelas, incursões em zona de risco, certificados de armas. Não é experiência cyber, mas dá mentalidade adversarial, operar sob pressão, cadeia de custódia — ponte LE→cyber é pipeline respeitado (threat intel, DFIR, forense, infra crítica/OT). Narrativa rara pro prong 'importância nacional'."},
- {n:"3. Daqui pra frente", role:"A COMPETÊNCIA cyber de verdade",
-  d:"MS-CS (foco IA/segurança) + certs (ISC2 CC → Security+ → especialização IA) + portfólio (deputy, agent-gates, 14 repos) + possível oferta US. Isto é o corpo técnico do caso."},
-];
+const TRIPOD = [];
 
 /* ---------------- RENDER ---------------- */
 const allItems = ()=>ROADMAP.flatMap(p=>p.items);
@@ -683,7 +676,7 @@ function renderGloss(f=""){
 function renderCareers(){
   const el=document.getElementById("carreiras");
   const ladder = `<div class="card"><h3 style="margin-top:0">🪜 Escada CyberSeek (mercado US real)</h3>
-    <p class="note">Cargo-ponte → cargo-alvo, com os certs que cada nível pede. Teu fundo de PMMG alimenta a entrada investigativa; teu alvo de IA/agentes mora no topo (Engineer/AppSec/Architect), porque é novo demais pra ter nó próprio no CyberSeek.</p>` +
+    <p class="note">Cargo-ponte → cargo-alvo, com os certs que cada nível pede. Teu fundo de segurança pública alimenta a entrada investigativa; teu alvo de IA/agentes mora no topo (Engineer/AppSec/Architect), porque é novo demais pra ter nó próprio no CyberSeek.</p>` +
     LADDER.map(L=>`<div style="margin:10px 0">
       <div class="fl" style="width:100%;background:${L.c};${L.c==='#2a3a48'||L.c==='#2f5a48'||L.c==='#356b52'?'color:#dfe8ef':''}">${L.tier}</div>
       ${L.roles.map(r=>`<div class="item"><div class="it-body">
@@ -803,7 +796,7 @@ const CERTS=[
 
  // 🤖 DIFERENCIAL — IA
  {n:"CompTIA SecAI+ (Segurança + IA)", org:"CompTIA", branch:"🤖 Diferencial — segurança de IA (teu nicho)", cost:"~US$400", pay:"$43–45/h", train:0,
-  when:"teu diferencial raro", why:"⭐ IA + segurança = o 'especialista raro' que tu quer ser. É onde mora sponsorship + $ alto (vaga Tymon). Casa com MS-CS e EB-2."},
+  when:"teu diferencial raro", why:"⭐ IA + segurança = o 'especialista raro' que tu quer ser. É onde mora sponsorship + $ alto (vaga Tymon). Casa com MS-CS."},
 
  // 👑 SÊNIOR (destino)
  {n:"CISSP (gold standard)", org:"ISC2", branch:"👑 Sênior — destino (5+ anos)", cost:"~US$749", pay:"US$150k+/ano", train:0,
@@ -848,7 +841,7 @@ const VAGAS=[
  {t:"🎓 Estágios (o MS-CS te torna elegível)", tag:"via MS", cls:"",
   d:"Blue Team Intern · Toyota · <b>BCG AI+Cyber (US$110–120k)</b>. Exigem estar MATRICULADO numa universidade — teu MS-CS abre. O da BCG é IA+cyber = teu diferencial."},
  {t:"⚠️ Travas honestas", tag:"cuidado", cls:"paid",
-  d:"Clearance/DoD = cidadania (fechado agora). <b>Autorização de trabalho US</b>: MS online normalmente NÃO dá visto/OPT — essas vagas viram reais com <b>green card (EB-2)</b> ou empresa que <b>patrocina</b>."},
+  d:"Clearance/DoD = cidadania (fechado agora). <b>Autorização de trabalho US</b>: MS online normalmente NÃO dá visto/OPT — essas vagas viram reais com <b>autorização de trabalho</b> ou empresa que <b>patrocina</b>."},
  {t:"🌐 Onde procurar", tag:"dica", cls:"",
   d:"<b>Dice.com</b> abre e é ótimo pra cyber. USAJOBS = governo (exige cidadania). Indeed/Monster/CareerBuilder bloqueiam IP de fora dos EUA (usa quando morar lá ou via VPN US)."},
 ];
