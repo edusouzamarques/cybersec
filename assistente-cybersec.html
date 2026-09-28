@@ -256,7 +256,7 @@ function renderJobsLive(){
         <td style="padding:6px;border-bottom:1px solid var(--line)"><span class="pill ${fit.cls}">${fit.txt}</span></td></tr>`;
     }).join("")+'</table>'+
     (shown.length<scored.length ? `<p class="note" style="margin-top:6px">🚫 ${scored.length-shown.length} vaga(s) de cidadania/clearance EXCLUÍDA(S) da tabela (não se encaixam: exigem cidadania americana).</p>` : '')+
-    '<p class="note" style="margin-top:6px">PERFIL: mora no Brasil, sem green card ainda — tudo (empresa US + mestrado US) substancia o green card. Regras da tabela: <b>✅ worldwide/contractor</b> = possível do Brasil AGORA · <b>⭐ sponsor</b> = patrocina visto · <b>🇺🇸 US-remote</b> = alvo APÓS green card (fica visível como mapa) · <b>🚫 cidadania</b> = excluída. Fonte: curadoria Dice + varredura automática (Jobicy, Greenhouse, Ashby, Remotive, RemoteOK) — roda todo dia 08:00, vê a aba 🤖.</p>';
+    '<p class="note" style="margin-top:6px">PERFIL: moras no Brasil, sem green card ainda — tudo (empresa US + mestrado US) substancia o green card. A tabela só mostra vagas que <b>contratam do BRASIL hoje</b> (worldwide/global/sponsor). US-remote e cidadania são <b>filtradas fora pelo scanner</b> (não se encaixam). Fonte: curadoria + varredura automática (Jobicy, Greenhouse, Ashby, Remotive, RemoteOK) — roda todo dia 08:00, vê a aba 🤖.</p>';
 }
 const save = ()=>localStorage.setItem(KEY, JSON.stringify(done));
 
