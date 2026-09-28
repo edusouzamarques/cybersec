@@ -183,7 +183,7 @@
   </section>
 </div>
 
-<script src="_jobscan/vagas_data.js"></script>
+<script>document.write('<script src="_jobscan/vagas_data.js?cb='+Date.now()+'"><\/script>');</script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
 let done = JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -245,8 +245,12 @@ function renderJobsLive(){
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Nível</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Situação</th></tr>'+
     shown.map(({j,fit})=>{
-      const link = j.url ? `<a href="${j.url}" target="_blank">${j.role}</a>` : j.role;
       const spo = j.sponsor ? ' <span class="pill free">sponsor</span>' : '';
+      // link clicável na vaga (direto na fonte); se não tiver URL, monta busca no site de origem
+      let link;
+      if (j.url) link = `<a href="${j.url}" target="_blank">${j.role}</a>`;
+      else if ((j.source||"").toLowerCase()==="dice") link = `<a href="https://www.dice.com/jobs?q=${encodeURIComponent(j.company+' '+j.role.split(' ').slice(0,3).join(' '))}&location=United%20States" target="_blank">${j.role}</a>`;
+      else link = `<a href="https://www.google.com/search?q=${encodeURIComponent(j.role+' '+j.company+' '+j.loc+' job')}" target="_blank">${j.role}</a>`;
       return `<tr title="${(j.note||'').replace(/"/g,'')}">
         <td style="padding:6px;border-bottom:1px solid var(--line)">${link}${spo}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.company}</td>
