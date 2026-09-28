@@ -60,7 +60,7 @@
 <header>
   <div class="wrap" style="padding-bottom:0">
     <h1>🛡️ Assistente CyberSec — trilha pessoal do Eduardo</h1>
-    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. Alvo: <b>especialista raro em segurança de IA / agentes</b>. Estado 28/09: <b>Python Essentials 1 ✅ · Linux Unhatched em curso · Messer Security+ + Linux 1 na sequência</b> — bloco de certs (PCEP · Linux Essentials · Security+) alvo até fim de outubro.</div>
+    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. Alvo: <b>especialista raro em segurança de IA / agentes</b>. Estado 28/09: <b>Python Essentials 1 ✅ · Linux Unhatched em curso · Messer Security+ + Linux 1 na sequência</b> — bloco de certs (PCEP · Linux Essentials · Security+) alvo até fim de outubro. <b>Tabela de vagas calibrada pra ENTRY LEVEL (0 experiência formal)</b>; estágios via MS ficam como reserva (jan/2027).</div>
   </div>
 </header>
 <div class="wrap">
@@ -137,7 +137,7 @@
 
   <section id="vagas" class="hide">
     <div class="card"><h3 style="margin-top:0">💼 Vagas US — tabela viva (ciente do teu nível)</h3>
-    <p class="note">Vagas reais (Dice + APIs abertas: Jobicy, Greenhouse, Remotive, RemoteOK, Ashby). Marca os certificados que tu <b>já tem</b> → a tabela recalcula o que tu <b>pode aplicar</b> e o que <b>falta</b>. A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
+    <p class="note">Vagas reais (Dice + APIs abertas: Jobicy, Greenhouse, Remotive, RemoteOK, Ashby). Marca os certificados que tu <b>já tem</b> → a tabela recalcula. Calibrada pra <b>ENTRY LEVEL</b>: o que pode aplicar AGORA sobe pro topo; pleno/sênior ficam como meta/destino; estágios = 🎓 <b>RESERVA</b> (só aplicáveis com o MS em janeiro). A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
     <div id="credsBox" style="margin-top:8px"></div>
     </div>
     <div id="jobsInsight" class="card next" style="display:none"></div>
@@ -205,8 +205,12 @@ function renderCreds(){
 function jobFit(j){
   if(j.clearance) return {cls:"paid", txt:"🔒 exige cidadania/clearance"};
   const miss=(j.req||[]).filter(r=>!creds[r]);
-  if(j.student && miss.length===0) return {cls:"free", txt:"🎓 elegível via matrícula (MS)"};
-  if(miss.length===0) return {cls:"free", txt:"✅ pode aplicar"};
+  // entry level total: só cargos entry/júnior/estágio são "aplicar agora"
+  if(j.level==="pleno") return {cls:"", txt: miss.length ? "🎯 meta 1-2 anos (falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")+")" : "🎯 meta 1-2 anos de prática"};
+  if(j.level==="senior") return {cls:"paid", txt:"👑 destino 3+ anos"};
+  if(j.student && miss.length===0) return {cls:"free", txt:"🎓 RESERVA via MS (jan/2027)"};
+  if(j.student) return {cls:"", txt:"🎓 via MS + falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
+  if(miss.length===0) return {cls:"free", txt:"✅ pode aplicar AGORA"};
   return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
 }
 function renderJobsLive(){
@@ -219,7 +223,16 @@ function renderJobsLive(){
   if(!jobs.length){ box.innerHTML='<div class="card note">Sem dados ainda — roda <code>_jobscan/job_scan.py</code>.</div>'; return; }
   // ordena: aplicáveis primeiro
   const scored=jobs.map(j=>({j,fit:jobFit(j)}));
-  const rank=f=>f.txt.startsWith("✅")?0:(f.txt.startsWith("🎓")?1:(f.txt.startsWith("falta")?2:3));
+  const rank=f=>{
+    const t=f.txt;
+    if(t.startsWith("✅")) return 0;              // aplicar AGORA
+    if(t.startsWith("falta")) return 1;          // entry mas falta cert
+    if(t.startsWith("🎓 RESERVA")) return 2;     // via MS jan/2027
+    if(t.startsWith("🎓")) return 3;
+    if(t.startsWith("🎯")) return 4;             // meta 1-2 anos
+    if(t.startsWith("👑")) return 5;
+    return 6;                                     // clearance por último
+  };
   scored.sort((a,b)=>rank(a.fit)-rank(b.fit));
   box.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:12.5px">'+
     '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Vaga</th>'+
@@ -896,20 +909,18 @@ function renderSkills(){
       <div class="it-desc">${s.d}</div></div></div>`).join("");
 }
 const VAGAS=[
- {t:"🎯 Alvos de ENTRADA — CONFIRMADOS remotos (com Security+)", tag:"alcançável", cls:"free",
-  d:"<b>Novos achados 28/09 (APIs de empresa direto):</b> Expel <b>Associate SOC Analyst</b> (remoto, MDR) · Huntress <b>SecOps Analyst</b> (remoto US) · Twilio <b>GSOC Operator</b> (remoto US) · MongoDB <b>Associate TPRM</b> (GRC entry!) · OpenAI <b>GSOC Operator</b> (SF). Mais a curadoria Dice: Kyndryl Early Career REMOTO ~US$63k (3 vagas). Vários aceitam 'estudando a cert'."},
- {t:"⭐ Teu nicho RARO — segurança de IA (sponsor + $ alto)", tag:"meta", cls:"paid",
-  d:"<b>OpenAI 'Security Engineer, Agent Security'</b> existe e está aberta — segurança de AGENTES autônomos é exatamente teu portfólio (deputy/agent-gates). Tymon Global AI Security (remoto, US$70–75/h, <b>patrocina visto</b>). Sponsorship + $ alto concentram aqui. É o que o <b>SecAI+</b> + o MS destravam."},
- {t:"📋 GRC remoto (abundante)", tag:"alcançável", cls:"free",
-  d:"MongoDB <b>Associate TPRM</b> (GRC ENTRY em big-tech, raríssimo) · System One GRC US$62/h · ASCII TPRM/SOC 2 US$50/h · Canonical <b>Security Risk Management</b> (worldwide). Menos técnico, paga cedo."},
- {t:"🐧 Linux = tua alavanca nova (Canonical worldwide)", tag:"meta", cls:"paid",
-  d:"Canonical (Ubuntu) contrata <b>WORLDWIDE</b> e patrocina: Ubuntu Security Engineer · Security Software Engineer · Linux Crypto Engineer. Casam com tua trilha Linux (Unhatched → Linux 1 → LPI → RHCSA). Worldwide = não depende de green card no dia 1 (contratam como contractor internacional)."},
- {t:"🎓 Estágios (o MS-CS te torna elegível)", tag:"via MS", cls:"",
-  d:"Blue Team Intern · Toyota · <b>BCG AI+Cyber (US$110–120k)</b>. Exigem estar MATRICULADO numa universidade — teu MS-CS abre. O da BCG é IA+cyber = teu diferencial."},
- {t:"⚠️ Travas honestas", tag:"cuidado", cls:"paid",
-  d:"Clearance/DoD = cidadania (fechado agora). <b>Autorização de trabalho US</b>: MS online normalmente NÃO dá visto/OPT — essas vagas viram reais com <b>autorização de trabalho</b> ou empresa que <b>patrocina</b> (Tymon, Canonical, OpenAI patrocinam)."},
- {t:"🌐 Onde procurar (busca automática)", tag:"dica", cls:"",
-  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria Dice</b> todo dia 08:00. Vê a aba <b>🤖 Busca automática</b>. Indeed/LinkedIn bloqueiam IP BR — só com VPN US."},
+ {t:"🎯 ENTRADA REAL — 0 experiência formal (teu nível AGORA)", tag:"aplicar já", cls:"free",
+  d:"Cargos de ENTRY de verdade (não pedem emprego anterior, pedem base + certs em curso): <b>Expel Associate SOC Analyst</b> (remoto) · Huntress <b>SecOps Analyst</b> (remoto US) · Twilio <b>GSOC Operator</b> (remoto US) · Kyndryl Early Career ~US$63k (3 vagas remoto) · MongoDB <b>Associate TPRM</b> (GRC entry) · OpenAI <b>GSOC Operator</b>. Vários aceitam 'estudando a cert' — teu Security+ em outubro destrava a maioria."},
+ {t:"🎓 RESERVA — vagas de ESTÁGIO via Mestrado (jan/2027)", tag:"reserva", cls:"",
+  d:"<b>Estágios exigem MATRÍCULA ativa — tu só é elegível quando o MS-CS começar (jan/2027).</b> São a porta de entrega do mestrado pra vagas que hoje exigem estudante: BCG AI+Cyber intern (US$110–120k) · Blue Team Intern (American National, verão 2027) · Toyota Cybersecurity Internship (verão 2027). <b>Não prioriza agora</b> — em janeiro, com matrícula na mão, vira alvo primário. O app marca essas vagas como 🎓 RESERVA na tabela."},
+ {t:"⭐ Teu nicho RARO — segurança de IA (meta de médio prazo)", tag:"meta", cls:"paid",
+  d:"<b>OpenAI 'Security Engineer, Agent Security'</b> — segurança de AGENTES autônomos = exatamente teu portfólio (deputy/agent-gates). Tymon Global AI Security (remoto, US$70–75/h, patrocina visto). São cargos pleno/sênior HOJE — mas é o mapa do destino que o mestrado (eletivas de IA) + SecAI+ + portfólio preparam."},
+ {t:"🐧 Linux = alavanca worldwide (não depende de green card)", tag:"meta", cls:"paid",
+  d:"Canonical (Ubuntu) contrata <b>WORLDWIDE</b> e patrocina: Ubuntu Security Engineer · Security Software Engineer. Pleno — meta 1-2 anos. Mas worldwide = pode trabalhar do Brasil como contractor enquanto o green card não vem."},
+ {t:"🚫 O que NÃO perder tempo agora (entry real)", tag:"cuidado", cls:"paid",
+  d:"Cargos pleno/sênior aparecem na varredura e o app marca como 🎯 meta ou 👑 destino — NÃO são pra ti agora, e não é fracasso ignorar: entry level não compete com '5 anos de experiência'. Clearance/DoD = cidadania (fechado por anos). MS online não dá OPT — vagas US exigem green card, patrocínio, ou cargo worldwide-remote."},
+ {t:"🌐 Onde procurar (busca automática + manual)", tag:"dica", cls:"",
+  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria Dice</b> todo dia 08:00 (aba 🤖 Busca automática). <b>Remote Rocketship</b> (remoterocketship.com) = 185k+ vagas, varre páginas de empresa direto, filtro de <b>entry-level / sem experiência</b>, e avisa o que NÃO está no LinkedIn — é o melhor site pra tua busca MANUAL de entry (API automática é paga; o site é grátis pra navegar)."},
 ];
 function renderVagas(){
   document.getElementById("vagasList").innerHTML = VAGAS.map(v=>
@@ -928,12 +939,13 @@ const SCAN_SOURCES=[
  ["jobs_seed.json (curadoria Dice)","Dice (curado à mão)","22 fixas","A espinha de qualidade: Kyndryl Early Career, Tymon (sponsor), BCG intern, GRC remoto. Atualizada em sessão."],
 ];
 const SCAN_SITES=[
+ ["⭐ Remote Rocketship","remoterocketship.com","<b>O melhor pra tua busca MANUAL de entry</b>: 185k+ vagas 100% remotas, varre páginas de EMPRESA direto (não LinkedIn), filtro de <b>entry-level / sem experiência / sem diploma</b>, ghost-score (vaga fantasma), e marca 'job not on LinkedIn'. Grátis pra navegar. API automática é paga (subscription) — navega e aplica direto no site."],
  ["✅ Jobicy.com","jobicy.com","100% remoto, boas em dev/data/segurança. API aberta — o script puxa direto."],
  ["✅ Remotive.com","remotive.com","Agregador remoto grande, categoria security. API aberta."],
  ["✅ RemoteOK.com","remoteok.com","Board remoto mais famoso. API aberta (credite a fonte na página)."],
  ["✅ Greenhouse/Ashby (direto na empresa)","boards.greenhouse.io · jobs.ashbyhq.com","Os ATS das big techs. API pública de cada empresa — o script consulta 17 boards."],
  ["✅ Dice.com","dice.com","O melhor pra cyber US. SEM API pública — o script guarda a curadoria (seed) que fizemos navegando lá."],
- ["🎓 Built In (estágios/new grad)","builtin.com","Bom pra estágio de verão (o MS te deixa elegível). Manual — sem API aberta."],
+ ["🎓 Built In (estágios/new grad)","builtin.com","Bom pra estágio de verão (o MS te deixa elegível a partir de jan/2027). Manual — sem API aberta."],
  ["⚠️ Indeed / Monster / CareerBuilder","indeed.com etc.","WAF + bloqueio de IP brasileiro. Usa via VPN US quando tiveres autorização de trabalho."],
  ["⚠️ LinkedIn Jobs","linkedin.com","Geo-bloqueado pro BR sem login; melhor usado DEPOIS do green card."],
  ["🚫 USAJOBS / DoD","usajobs.gov","Exige CIDADANIA americana (clearance). Fechado por anos — nem adianta."],
