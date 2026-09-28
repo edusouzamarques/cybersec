@@ -60,7 +60,7 @@
 <header>
   <div class="wrap" style="padding-bottom:0">
     <h1>🛡️ Assistente CyberSec — trilha pessoal do Eduardo</h1>
-    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. Alvo: <b>especialista raro em segurança de IA / agentes</b>.</div>
+    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. Alvo: <b>especialista raro em segurança de IA / agentes</b>. Estado 28/09: <b>Python Essentials 1 ✅ · Linux Unhatched em curso · Messer Security+ + Linux 1 na sequência</b> — bloco de certs (PCEP · Linux Essentials · Security+) alvo até fim de outubro.</div>
   </div>
 </header>
 <div class="wrap">
@@ -73,6 +73,7 @@
     <div class="tab" data-t="ms">🎓 MS CU Boulder</div>
     <div class="tab" data-t="certs">🎖️ Certificados</div>
     <div class="tab" data-t="vagas">💼 Vagas US (mercado real)</div>
+    <div class="tab" data-t="autoscan">🤖 Busca automática</div>
     <div class="tab" data-t="fontes">📚 Onde estudar grátis</div>
   </div>
 
@@ -136,7 +137,7 @@
 
   <section id="vagas" class="hide">
     <div class="card"><h3 style="margin-top:0">💼 Vagas US — tabela viva (ciente do teu nível)</h3>
-    <p class="note">Vagas reais (Dice/APIs). Marca os certificados que tu <b>já tem</b> → a tabela recalcula o que tu <b>pode aplicar</b> e o que <b>falta</b>. Atualiza sozinha quando a varredura roda. <span id="jobsUpd"></span></p>
+    <p class="note">Vagas reais (Dice + APIs abertas: Jobicy, Greenhouse, Remotive, RemoteOK, Ashby). Marca os certificados que tu <b>já tem</b> → a tabela recalcula o que tu <b>pode aplicar</b> e o que <b>falta</b>. A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
     <div id="credsBox" style="margin-top:8px"></div>
     </div>
     <div id="jobsInsight" class="card next" style="display:none"></div>
@@ -144,6 +145,26 @@
     <div class="card" style="margin-top:14px"><h3 style="margin:0">🧭 Leitura estratégica do mercado</h3>
     <p class="note">O mapa por trás da tabela: alvos de entrada, teu nicho, e as travas honestas.</p></div>
     <div id="vagasList"></div>
+  </section>
+
+  <section id="autoscan" class="hide">
+    <div class="card next">
+      <h3>🤖 Como a busca automática funciona</h3>
+      <p class="note">Um script no Dell (<code>_jobscan\job_scan.py</code>) roda <b>todo dia às 08:00</b> (tarefa agendada <b>"CyberSec Job Scan"</b>). Ele consulta 6 fontes de API aberta, filtra por segurança/IA, classifica nível (entrada/pleno/sênior), remove duplicadas e regenera <code>vagas_data.js</code> — a mesma tabela da aba 💾 Vagas, que atualiza sozinha aqui.</p>
+      <div class="it-meta" style="margin:10px 0"><span class="pill free">job_scan.py → vagas_data.js</span><span class="pill">agendado: 08:00 diário</span><span class="pill">log: job_digest.md</span></div>
+    </div>
+    <div class="card"><h3 style="margin-top:0">📡 As 6 fontes de API (testadas 28/09)</h3>
+      <div id="scanSources"></div>
+    </div>
+    <div class="card"><h3 style="margin:0">🌐 Sites que o script cobre — e os que ficam fora (e por quê)</h3>
+      <p class="note">Os melhores sites pra TI/cyber US remoto. O script puxa <b>APIs abertas</b> (sem bloqueio de IP brasileiro). Sites que bloqueiam IP de fora dos EUA entram na lista "quando tiveres green card / VPN US".</p>
+      <div id="scanSites" style="margin-top:8px"></div>
+    </div>
+    <div class="card"><h3 style="margin:0">⚙️ Como rodar/ajustar manualmente</h3>
+      <p class="note"><b>Rodar agora:</b> <code>python -X utf8 C:\Users\ivign\CYBERSEC\_jobscan\job_scan.py</code><br>
+      <b>Adicionar vaga fixa:</b> edita <code>jobs_seed.json</code> (curadoria à mão — sobrevive mesmo se a API de origem mudar).<br>
+      <b>Adicionar fonte nova:</b> edita <code>job_scan.py</code> — se o site tem API aberta (Greenhouse/Ashby/Jobicy/Remotive), é só incluir o nome do board. Sites com WAF (Indeed, LinkedIn, Monster) NÃO entram — bloqueiam IP BR.</p>
+    </div>
   </section>
 
   <section id="fontes" class="hide">
@@ -218,7 +239,7 @@ function renderJobsLive(){
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.level}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)"><span class="pill ${fit.cls}">${fit.txt}</span></td></tr>`;
     }).join("")+'</table>'+
-    '<p class="note" style="margin-top:6px">Passa o mouse na vaga pra ver a nota. Fonte: curadoria Dice + APIs abertas. Gov/clearance = cidadania (fechado agora).</p>';
+    '<p class="note" style="margin-top:6px">Passa o mouse na vaga pra ver a nota. Fonte: curadoria Dice + varredura automática (Jobicy, Greenhouse, Ashby, Remotive, RemoteOK) — roda todo dia 08:00, vê a aba 🤖. Gov/clearance = cidadania (fechado agora).</p>';
 }
 const save = ()=>localStorage.setItem(KEY, JSON.stringify(done));
 
@@ -233,10 +254,22 @@ const ROADMAP = [
     link:"https://www.netacad.com/",
     d:"Panorama da área, tipos de ameaça, vocabulário inicial. VOCÊ ESTÁ FAZENDO.",
     e:"Leve, panorâmico. Serve pra pegar os termos-guarda-chuva e ver os subcampos."},
-   {id:"messer-secplus", t:"⭐ Security+ — estudo grátis (Professor Messer) → é a PRIORIDADE de cert", type:"Curso→Cert", free:1,
+   {id:"messer-secplus", t:"⭐ Security+ — estudo grátis (Professor Messer) → é a PRIORIDADE de cert", type:"Curso→Cert", free:1, done:1,
     link:"https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/",
-    d:"Curso completo e GRÁTIS no YouTube que prepara pro CompTIA Security+ (exame ~US$400). VIROU tua prioridade de certificado: é o crachá que o RH filtra, muito mais reconhecido que o ISC2 CC.",
+    d:"Curso completo e GRÁTIS no YouTube que prepara pro CompTIA Security+ (exame ~US$400). VIROU tua prioridade de certificado: é o crachá que o RH filtra, muito mais reconhecido que o ISC2 CC. INICIADO 28/09 (logo após Linux Unhatched) — meta: exame agendado até fim de outubro.",
     e:"O vocabulário-padrão da indústria inteira. Aqui os termos que te assustam viram familiares. Estuda grátis, paga só o exame quando estiver pronto."},
+   {id:"linux-unhatched", t:"🐧 Cisco NDG Linux Unhatched → em ANDAMENTO (28/09)", type:"Curso", free:1,
+    link:"https://www.netacad.com/courses/ndg-linux-unhatched",
+    d:"Primeiro degrau Linux da Cisco (30-40h curtas). Terminando AGORA. Assim que fechar, entra em sequência: Professor Messer Security+ + Cisco NDG Linux 1 (em paralelo).",
+    e:"Linux é requisito em ~80% das vagas de SOC/infra do radar. Depois dele: LPI Linux Essentials (exame) vira o comprovante."},
+   {id:"linux-1", t:"🐧 Cisco NDG Linux 1 (em sequência, com Messer em paralelo)", type:"Curso", free:1,
+    link:"https://www.netacad.com/courses/ndg-linux-1?courseLang=en-US",
+    d:"Aprofunda linha de comando, sistema de arquivos, scripts bash, permissões. Cobre boa parte da LPI Linux Essentials. Faz DEPOIS do Unhatched, em paralelo com o Messer.",
+    e:"Linux + Security+ juntos = o combo que o radar de vagas pede (Kyndryl Infra, Huntress, Canonical). Destrava a aba Linux do Treinador."},
+   {id:"pcep-done", t:"✅ Cisco Python Essentials 1 — CONCLUÍDO (badge na conta NetAcad)", type:"Curso", free:1, done:1,
+    link:"https://www.netacad.com/courses/python-essentials-1?courseLang=en-US",
+    d:"Badge emitido. Cobre 100% do conteúdo do exame PCEP. Próximo passo: agendar o exame PCEP (~US$59) OU ir direto pro Essentials 2 (ponte pro PCAP).",
+    e:"Primeiro cert de Python no currículo. O PCEP pago vira 'o papel' — o PCEP + Sec+ + Linux Essentials é o bloco de certs de out/2026."},
    {id:"isc2-cc", t:"ISC2 — Certified in Cybersecurity (CC) — perdeu o grátis", type:"CERTIFICADO", free:0,
     link:"https://www.isc2.org/certifications/cc",
     d:"⚠️ O programa grátis 'One Million' FECHOU inscrições em 20/mai/2026. Agora: exame US$199 + US$50/ano (AMF recorrente). Sem o grátis, o Security+ vale mais o dinheiro. OPCIONAL/pular.",
@@ -271,10 +304,10 @@ const ROADMAP = [
     link:"https://exercism.org/tracks/python",
     d:"Refaz 3-4 exercícios de socket/struct do zero, cronometrado, SEM IA e SEM copiar. A prova final é proctorada — sozinho.",
     e:"Esse é o teste real de que tu tira B+. Se conseguir aqui, está pronto pra matricular."},
-   {id:"py-cisco1", t:"Cisco Python Essentials 1 — badge grátis (ponte pro PCEP)", type:"Curso", free:1,
+   {id:"py-cisco1", t:"✅ Cisco Python Essentials 1 — badge grátis (ponte pro PCEP)", type:"Curso", free:1, done:1,
     link:"https://www.netacad.com/courses/python-essentials-1?courseLang=en-US",
-    d:"Grátis, na plataforma que tu já usa. Dá BADGE verificável e cobre 100% do exame PCEP. Depois o Essentials 2 → prep pro PCAP.",
-    e:"O badge é comprovante leve; o PESO real está no PCEP que ele destrava. Faz sem dúvida."},
+    d:"Grátis, na plataforma que tu já usa. Dá BADGE verificável e cobre 100% do exame PCEP. CONCLUÍDO 28/09 — badge na conta NetAcad.",
+    e:"O badge é comprovante leve; o PESO real está no PCEP que ele destrava. Agora: agendar o exame PCEP."},
    {id:"py-pcep", t:"PCEP — Certified Entry-Level Python (exame ~US$59)", type:"Certificação", free:0,
     link:"https://pythoninstitute.org/pcep",
     d:"Certificação REAL de fundação do Python Institute (não é badge de curso). Pago, mas reconhecido. O Cisco Essentials 1 te prepara 100%.",
@@ -345,10 +378,10 @@ const ROADMAP = [
     e:"Boa introdução corporativa a como empresas grandes tratam risco de IA."},
  ]},
  {ph:"Fase 3 — Certificação que abre porta (pagas; estuda grátis antes)", tier:"topo", items:[
-   {id:"secplus", t:"CompTIA Security+ (exame)", type:"CERTIFICADO", free:0,
+   {id:"secplus", t:"CompTIA Security+ (exame ~US$400) — estudo Messer INICIADO 28/09", type:"CERTIFICADO", free:0,
     link:"https://www.comptia.org/certifications/security",
-    d:"O crachá de entrada que o RH filtra. ~US$400. Estuda de graça no Messer (Fase 0).",
-    e:"Depois dele, teu currículo passa por filtros automáticos que hoje te barram."},
+    d:"O crachá de entrada que o RH filtra. Estudo já começou (Messer). Meta: agendar exame até fim de outubro — com PCEP + Linux Essentials fecham o bloco de out/2026.",
+    e:"Depois dele, teu currículo passa por filtros automáticos que hoje te barram. 6 das 8 vagas de entrada do radar destravam SÓ com ele."},
    {id:"oscp-or-cloud", t:"Escolha: OSCP (ofensiva) OU AWS/Azure Security (arquitetura)", type:"CERTIFICADO", free:0,
     link:"https://www.offsec.com/courses/pen-200/",
     d:"OSCP = a cert ofensiva mais respeitada do mundo. Cloud security = o caminho arquitetura/defesa.",
@@ -863,18 +896,20 @@ function renderSkills(){
       <div class="it-desc">${s.d}</div></div></div>`).join("");
 }
 const VAGAS=[
- {t:"🎯 Alvos de ENTRADA (com Security+)", tag:"alcançável", cls:"free",
-  d:"SOC Analyst · Vulnerability Management · Kyndryl 'Early Career' <b>REMOTO</b> (~US$63k). Pedem Security+ + SIEM + gestão de vulnerabilidade + Linux/cloud. Vários aceitam 'estudando a cert'."},
+ {t:"🎯 Alvos de ENTRADA — CONFIRMADOS remotos (com Security+)", tag:"alcançável", cls:"free",
+  d:"<b>Novos achados 28/09 (APIs de empresa direto):</b> Expel <b>Associate SOC Analyst</b> (remoto, MDR) · Huntress <b>SecOps Analyst</b> (remoto US) · Twilio <b>GSOC Operator</b> (remoto US) · MongoDB <b>Associate TPRM</b> (GRC entry!) · OpenAI <b>GSOC Operator</b> (SF). Mais a curadoria Dice: Kyndryl Early Career REMOTO ~US$63k (3 vagas). Vários aceitam 'estudando a cert'."},
  {t:"⭐ Teu nicho RARO — segurança de IA (sponsor + $ alto)", tag:"meta", cls:"paid",
-  d:"AI Security / DevSecOps com IA — ex: Tymon Global, remoto, US$70–75/h, <b>'Able to Sponsor'</b> (patrocina visto). Sponsorship + salário alto concentram aqui. É o que o <b>SecAI+</b> + o MS destravam. Poucos têm."},
+  d:"<b>OpenAI 'Security Engineer, Agent Security'</b> existe e está aberta — segurança de AGENTES autônomos é exatamente teu portfólio (deputy/agent-gates). Tymon Global AI Security (remoto, US$70–75/h, <b>patrocina visto</b>). Sponsorship + $ alto concentram aqui. É o que o <b>SecAI+</b> + o MS destravam."},
  {t:"📋 GRC remoto (abundante)", tag:"alcançável", cls:"free",
-  d:"Cyber Analyst GRC · TPRM · SOC 2 · ISO 27001 — muitos contratos <b>100% remotos</b> (US$50–62/h). Menos técnico, paga cedo. Ramo alternativo ao SOC (o que a imersão empurra)."},
+  d:"MongoDB <b>Associate TPRM</b> (GRC ENTRY em big-tech, raríssimo) · System One GRC US$62/h · ASCII TPRM/SOC 2 US$50/h · Canonical <b>Security Risk Management</b> (worldwide). Menos técnico, paga cedo."},
+ {t:"🐧 Linux = tua alavanca nova (Canonical worldwide)", tag:"meta", cls:"paid",
+  d:"Canonical (Ubuntu) contrata <b>WORLDWIDE</b> e patrocina: Ubuntu Security Engineer · Security Software Engineer · Linux Crypto Engineer. Casam com tua trilha Linux (Unhatched → Linux 1 → LPI → RHCSA). Worldwide = não depende de green card no dia 1 (contratam como contractor internacional)."},
  {t:"🎓 Estágios (o MS-CS te torna elegível)", tag:"via MS", cls:"",
   d:"Blue Team Intern · Toyota · <b>BCG AI+Cyber (US$110–120k)</b>. Exigem estar MATRICULADO numa universidade — teu MS-CS abre. O da BCG é IA+cyber = teu diferencial."},
  {t:"⚠️ Travas honestas", tag:"cuidado", cls:"paid",
-  d:"Clearance/DoD = cidadania (fechado agora). <b>Autorização de trabalho US</b>: MS online normalmente NÃO dá visto/OPT — essas vagas viram reais com <b>autorização de trabalho</b> ou empresa que <b>patrocina</b>."},
- {t:"🌐 Onde procurar", tag:"dica", cls:"",
-  d:"<b>Dice.com</b> abre e é ótimo pra cyber. USAJOBS = governo (exige cidadania). Indeed/Monster/CareerBuilder bloqueiam IP de fora dos EUA (usa quando morar lá ou via VPN US)."},
+  d:"Clearance/DoD = cidadania (fechado agora). <b>Autorização de trabalho US</b>: MS online normalmente NÃO dá visto/OPT — essas vagas viram reais com <b>autorização de trabalho</b> ou empresa que <b>patrocina</b> (Tymon, Canonical, OpenAI patrocinam)."},
+ {t:"🌐 Onde procurar (busca automática)", tag:"dica", cls:"",
+  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria Dice</b> todo dia 08:00. Vê a aba <b>🤖 Busca automática</b>. Indeed/LinkedIn bloqueiam IP BR — só com VPN US."},
 ];
 function renderVagas(){
   document.getElementById("vagasList").innerHTML = VAGAS.map(v=>
@@ -883,13 +918,45 @@ function renderVagas(){
       <div class="it-meta"><span class="pill ${v.cls}">${v.tag}</span></div>
       <div class="it-desc">${v.d}</div></div></div>`).join("");
 }
-function renderAll(){ renderPainel(); renderTrilha(); renderCareers(); renderFunnel(); renderMS(); renderTripod(); renderCerts(); renderSkills(); renderCreds(); renderJobsLive(); renderVagas(); renderFontes(); renderGloss(document.getElementById("gsearch").value); }
+/* ---------------- BUSCA AUTOMÁTICA (fontes + sites) ---------------- */
+const SCAN_SOURCES=[
+ ["Jobicy · industry=cybersecurity","Jobicy","~50/scan","API aberta, curadoria de vagas 100% remotas. A fonte live mais forte de segurança."],
+ ["Greenhouse · 13 boards públicos","Expel, Huntress, Twilio, GitLab, Canonical, MongoDB, Cloudflare, Okta, Zscaler, BeyondTrust, Netskope, Synack, Turing","variável","APIs abertas de ATS. É de ONDE vieram os achados-ouro: Expel SOC entry, Huntress SecOps, Canonical worldwide."],
+ ["Ashby · openai/ramp/plaid/supabase","Ashby ATS","variável","API aberta. OpenAI tem vagas 'Agent Security' — teu nicho exato. Corporate Security GSOC Operator (entry!) apareceu aqui."],
+ ["Remotive · category=security","Remotive","~16/rodada","API aberta clássica de remoto. Poucas de cyber, mas limpa."],
+ ["RemoteOK · feed geral filtrado","RemoteOK","~5/rodada","API aberta. Fraco pra cyber puro, bom pra dev/IA com filtro de título."],
+ ["jobs_seed.json (curadoria Dice)","Dice (curado à mão)","22 fixas","A espinha de qualidade: Kyndryl Early Career, Tymon (sponsor), BCG intern, GRC remoto. Atualizada em sessão."],
+];
+const SCAN_SITES=[
+ ["✅ Jobicy.com","jobicy.com","100% remoto, boas em dev/data/segurança. API aberta — o script puxa direto."],
+ ["✅ Remotive.com","remotive.com","Agregador remoto grande, categoria security. API aberta."],
+ ["✅ RemoteOK.com","remoteok.com","Board remoto mais famoso. API aberta (credite a fonte na página)."],
+ ["✅ Greenhouse/Ashby (direto na empresa)","boards.greenhouse.io · jobs.ashbyhq.com","Os ATS das big techs. API pública de cada empresa — o script consulta 17 boards."],
+ ["✅ Dice.com","dice.com","O melhor pra cyber US. SEM API pública — o script guarda a curadoria (seed) que fizemos navegando lá."],
+ ["🎓 Built In (estágios/new grad)","builtin.com","Bom pra estágio de verão (o MS te deixa elegível). Manual — sem API aberta."],
+ ["⚠️ Indeed / Monster / CareerBuilder","indeed.com etc.","WAF + bloqueio de IP brasileiro. Usa via VPN US quando tiveres autorização de trabalho."],
+ ["⚠️ LinkedIn Jobs","linkedin.com","Geo-bloqueado pro BR sem login; melhor usado DEPOIS do green card."],
+ ["🚫 USAJOBS / DoD","usajobs.gov","Exige CIDADANIA americana (clearance). Fechado por anos — nem adianta."],
+ ["🚫 Government/clearance (Booz, ASM, Leidos)","—","Idem: cidadania. O app marca essas vagas como 🔒 pra não perderes tempo."],
+];
+function renderScan(){
+  const ss=document.getElementById("scanSources");
+  if(ss) ss.innerHTML = SCAN_SOURCES.map(s=>
+    `<div class="item"><div class="it-body"><div class="it-title">${s[0]}</div>
+     <div class="it-meta"><span class="pill free">${s[2]} · última varredura: ${window.JOBS_UPDATED||"—"}</span></div>
+     <div class="it-desc">${s[3]}</div></div></div>`).join("");
+  const st=document.getElementById("scanSites");
+  if(st) st.innerHTML = SCAN_SITES.map(s=>
+    `<div class="item"><div class="it-body"><div class="it-title">${s[0]} <span class="note">— ${s[1]}</span></div>
+     <div class="it-desc">${s[2]}</div></div></div>`).join("");
+}
+function renderAll(){ renderPainel(); renderTrilha(); renderCareers(); renderFunnel(); renderMS(); renderTripod(); renderCerts(); renderSkills(); renderCreds(); renderJobsLive(); renderVagas(); renderScan(); renderFontes(); renderGloss(document.getElementById("gsearch").value); }
 
 document.querySelectorAll(".tab").forEach(t=>{
   t.onclick=()=>{
     document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
     t.classList.add("on");
-    ["painel","trilha","glossario","carreiras","funil","ms","certs","vagas","fontes"].forEach(s=>
+    ["painel","trilha","glossario","carreiras","funil","ms","certs","vagas","autoscan","fontes"].forEach(s=>
       document.getElementById(s).classList.toggle("hide", s!==t.dataset.t));
   };
 });
