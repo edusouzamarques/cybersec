@@ -60,7 +60,7 @@
 <header>
   <div class="wrap" style="padding-bottom:0">
     <h1>🛡️ Assistente CyberSec — trilha pessoal do Eduardo</h1>
-    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. Alvo: <b>especialista raro em segurança de IA / agentes</b>. Estado 28/09: <b>Python Essentials 1 ✅ · Linux Unhatched em curso · Messer Security+ + Linux 1 na sequência</b> — bloco de certs (PCEP · Linux Essentials · Security+) alvo até fim de outubro. <b>Tabela de vagas calibrada pra ENTRY LEVEL (0 experiência formal)</b>; estágios via MS ficam como reserva (jan/2027).</div>
+    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. <b>Estrela-norte: GRC (segurança em linguagem de negócio), com Security Intelligence mesclado e SOC como suporte</b>; diferencial raro: segurança de IA/agentes. Estado 28/09: <b>Python Essentials 1 ✅ · Linux Unhatched em curso · Messer Security+ começa APÓS fechar o Unhatched</b> — bloco de certs (PCEP · Linux Essentials · Security+) alvo até fim de outubro. <b>Tabela de vagas calibrada pra ENTRY LEVEL (0 experiência formal)</b>; estágios via MS ficam como reserva (jan/2027).</div>
   </div>
 </header>
 <div class="wrap">
@@ -128,7 +128,7 @@
 
   <section id="certs" class="hide">
     <div class="card"><h3 style="margin-top:0">🎖️ Teus certificados — a ordem certa</h3>
-    <p class="note">Confirmado pelo mercado (imersão + vagas reais US). Faz na ordem: <b>núcleo</b> primeiro (barato, destrava emprego), depois escolhe um <b>ramo</b> (SOC · GRC · nuvem · pentest) e teu <b>diferencial de IA</b>. As do núcleo tu <b>treina agora</b> no <a href="treino-cybersec.html">🎯 Treinador ↗</a>. Sênior (CISSP/CISA/CISM) é destino — exige anos de experiência.</p></div>
+    <p class="note">Confirmado pelo mercado (imersão + vagas reais US). Faz na ordem: <b>núcleo</b> primeiro (Security+ é o alicerce — inclusive do GRC), depois <b>TUA SEQUÊNCIA GRC (1→10, ordenada por evolução intelectual: cada degrau é base do próximo)</b>, com teu <b>diferencial de IA</b> (AIGP + ISO 42001) no topo. SOC fica como suporte (CySA+/BTL1 só se o trabalho pedir). Sênior (CISSP/CISA/CISM) é destino — exige anos de experiência.</p></div>
     <div id="certList"></div>
     <div class="card" style="margin-top:16px"><h3 style="margin:0">🧰 Conhecimentos & ferramentas que as vagas pedem</h3>
     <p class="note">O que aprender na prática além das certs (levantado das vagas reais). Muitos já estão no Glossário e no Treinador. Não precisa dominar tudo — foca no ramo que escolher.</p></div>
@@ -137,7 +137,7 @@
 
   <section id="vagas" class="hide">
     <div class="card"><h3 style="margin-top:0">💼 Vagas US — tabela viva (ciente do teu nível)</h3>
-    <p class="note">Vagas reais (Dice + APIs abertas: Jobicy, Greenhouse, Remotive, RemoteOK, Ashby). Marca os certificados que tu <b>já tem</b> → a tabela recalcula. Calibrada pra <b>ENTRY LEVEL</b>: o que pode aplicar AGORA sobe pro topo; pleno/sênior ficam como meta/destino; estágios = 🎓 <b>RESERVA</b> (só aplicáveis com o MS em janeiro). A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
+    <p class="note">Vagas reais (Dice + APIs abertas: Jobicy, Greenhouse, Remotive, RemoteOK, Ashby). <b>PERFIL: moras no Brasil, sem green card ainda — tudo (empresa US + mestrado) substancia o green card.</b> A tabela separa: ✅ <b>worldwide</b> (possível do Brasil AGORA) · ⭐ <b>sponsor</b> (patrocina visto) · 🇺🇸 <b>US-remote</b> (alvo APÓS green card — fica como mapa) · 🚫 <b>cidadania = excluída</b> (some da tabela). A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
     <div id="credsBox" style="margin-top:8px"></div>
     </div>
     <div id="jobsInsight" class="card next" style="display:none"></div>
@@ -203,15 +203,21 @@ function renderCreds(){
     CRED_DEFS.map(([k,lab])=>`<span class="tab ${creds[k]?'on':''}" style="cursor:pointer" onclick="toggleCred('${k}')">${creds[k]?'✓ ':''}${lab}</span>`).join("")+"</div>";
 }
 function jobFit(j){
-  if(j.clearance) return {cls:"paid", txt:"🔒 exige cidadania/clearance"};
+  if(j.clearance) return {cls:"paid", txt:"🚫 EXCLUÍDA — exige cidadania"};
   const miss=(j.req||[]).filter(r=>!creds[r]);
-  // entry level total: só cargos entry/júnior/estágio são "aplicar agora"
-  if(j.level==="pleno") return {cls:"", txt: miss.length ? "🎯 meta 1-2 anos (falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")+")" : "🎯 meta 1-2 anos de prática"};
+  const m = ()=> miss.length ? " · falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ") : "";
+  const worldwide = j.geo==="worldwide";
+  // entry level total + perfil BRASIL (sem green card ainda)
+  if(j.level==="pleno") return {cls:"", txt:(worldwide?"🎯 meta (WORLDWIDE — possível do Brasil como contractor)":"🎯 meta 1-2 anos")+m()};
   if(j.level==="senior") return {cls:"paid", txt:"👑 destino 3+ anos"};
-  if(j.student && miss.length===0) return {cls:"free", txt:"🎓 RESERVA via MS (jan/2027)"};
-  if(j.student) return {cls:"", txt:"🎓 via MS + falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
-  if(miss.length===0) return {cls:"free", txt:"✅ pode aplicar AGORA"};
-  return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
+  if(j.student) return {cls:"", txt:"🎓 RESERVA via MS (jan/2027)"+m()};
+  if(j.sponsor) return {cls:"free", txt:"⭐ PATROCINA visto — alvo com MS+SecAI+"+m()};
+  if(worldwide){
+    if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (do Brasil)"};
+    return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
+  }
+  // US-remote sem sponsor: precisa de autorização (green card)
+  return {cls:"", txt:"🇺🇸 alvo APÓS green card"+m()};
 }
 function renderJobsLive(){
   const box=document.getElementById("jobsLive"); if(!box) return;
@@ -225,15 +231,17 @@ function renderJobsLive(){
   const scored=jobs.map(j=>({j,fit:jobFit(j)}));
   const rank=f=>{
     const t=f.txt;
-    if(t.startsWith("✅")) return 0;              // aplicar AGORA
-    if(t.startsWith("falta")) return 1;          // entry mas falta cert
-    if(t.startsWith("🎓 RESERVA")) return 2;     // via MS jan/2027
-    if(t.startsWith("🎓")) return 3;
-    if(t.startsWith("🎯")) return 4;             // meta 1-2 anos
-    if(t.startsWith("👑")) return 5;
-    return 6;                                     // clearance por último
+    if(t.startsWith("✅")) return 0;              // aplicar AGORA (worldwide/contrato)
+    if(t.startsWith("⭐")) return 1;              // patrocina visto
+    if(t.startsWith("🇺🇸 alvo APÓS")) return 2;   // US-remote: após green card
+    if(t.startsWith("falta")) return 3;          // entry mas falta cert
+    if(t.startsWith("🎓")) return 4;             // via MS jan/2027
+    if(t.startsWith("🎯")) return 5;             // meta 1-2 anos
+    if(t.startsWith("👑")) return 6;
+    return 7;                                     // EXCLUÍDA por último
   };
   scored.sort((a,b)=>rank(a.fit)-rank(b.fit));
+  const shown = scored.filter(s=>!s.fit.txt.startsWith("🚫"));
   box.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:12.5px">'+
     '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Vaga</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Empresa</th>'+
@@ -241,7 +249,7 @@ function renderJobsLive(){
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">$</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Nível</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Situação</th></tr>'+
-    scored.map(({j,fit})=>{
+    shown.map(({j,fit})=>{
       const link = j.url ? `<a href="${j.url}" target="_blank">${j.role}</a>` : j.role;
       const spo = j.sponsor ? ' <span class="pill free">sponsor</span>' : '';
       return `<tr title="${(j.note||'').replace(/"/g,'')}">
@@ -252,7 +260,8 @@ function renderJobsLive(){
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.level}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)"><span class="pill ${fit.cls}">${fit.txt}</span></td></tr>`;
     }).join("")+'</table>'+
-    '<p class="note" style="margin-top:6px">Passa o mouse na vaga pra ver a nota. Fonte: curadoria Dice + varredura automática (Jobicy, Greenhouse, Ashby, Remotive, RemoteOK) — roda todo dia 08:00, vê a aba 🤖. Gov/clearance = cidadania (fechado agora).</p>';
+    (shown.length<scored.length ? `<p class="note" style="margin-top:6px">🚫 ${scored.length-shown.length} vaga(s) de cidadania/clearance EXCLUÍDA(S) da tabela (não se encaixam: exigem cidadania americana).</p>` : '')+
+    '<p class="note" style="margin-top:6px">PERFIL: mora no Brasil, sem green card ainda — tudo (empresa US + mestrado US) substancia o green card. Regras da tabela: <b>✅ worldwide/contractor</b> = possível do Brasil AGORA · <b>⭐ sponsor</b> = patrocina visto · <b>🇺🇸 US-remote</b> = alvo APÓS green card (fica visível como mapa) · <b>🚫 cidadania</b> = excluída. Fonte: curadoria Dice + varredura automática (Jobicy, Greenhouse, Ashby, Remotive, RemoteOK) — roda todo dia 08:00, vê a aba 🤖.</p>';
 }
 const save = ()=>localStorage.setItem(KEY, JSON.stringify(done));
 
@@ -267,10 +276,10 @@ const ROADMAP = [
     link:"https://www.netacad.com/",
     d:"Panorama da área, tipos de ameaça, vocabulário inicial. VOCÊ ESTÁ FAZENDO.",
     e:"Leve, panorâmico. Serve pra pegar os termos-guarda-chuva e ver os subcampos."},
-   {id:"messer-secplus", t:"⭐ Security+ — estudo grátis (Professor Messer) → é a PRIORIDADE de cert", type:"Curso→Cert", free:1, done:1,
+   {id:"messer-secplus", t:"⭐ Security+ — estudo grátis (Professor Messer) → é a PRIORIDADE de cert", type:"Curso→Cert", free:1,
     link:"https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/",
-    d:"Curso completo e GRÁTIS no YouTube que prepara pro CompTIA Security+ (exame ~US$400). VIROU tua prioridade de certificado: é o crachá que o RH filtra, muito mais reconhecido que o ISC2 CC. INICIADO 28/09 (logo após Linux Unhatched) — meta: exame agendado até fim de outubro.",
-    e:"O vocabulário-padrão da indústria inteira. Aqui os termos que te assustam viram familiares. Estuda grátis, paga só o exame quando estiver pronto."},
+    d:"Curso completo e GRÁTIS no YouTube que prepara pro CompTIA Security+ (exame ~US$400). VIROU tua prioridade de certificado: é o crachá que o RH filtra, muito mais reconhecido que o ISC2 CC. AINDA NÃO INICIADO — começa logo após fechar o Linux Unhatched (teu combinado: Unhatched → então Messer + Linux 1 em paralelo).",
+    e:"O vocabulário-padrão da indústria inteira — e a BASE do GRC: segurança, risco, conformidade e arquitetura no vocabulário que o mercado usa. Estuda grátis, paga só o exame quando estiver pronto."},
    {id:"linux-unhatched", t:"🐧 Cisco NDG Linux Unhatched → em ANDAMENTO (28/09)", type:"Curso", free:1,
     link:"https://www.netacad.com/courses/ndg-linux-unhatched",
     d:"Primeiro degrau Linux da Cisco (30-40h curtas). Terminando AGORA. Assim que fechar, entra em sequência: Professor Messer Security+ + Cisco NDG Linux 1 (em paralelo).",
@@ -391,10 +400,10 @@ const ROADMAP = [
     e:"Boa introdução corporativa a como empresas grandes tratam risco de IA."},
  ]},
  {ph:"Fase 3 — Certificação que abre porta (pagas; estuda grátis antes)", tier:"topo", items:[
-   {id:"secplus", t:"CompTIA Security+ (exame ~US$400) — estudo Messer INICIADO 28/09", type:"CERTIFICADO", free:0,
+   {id:"secplus", t:"CompTIA Security+ (exame ~US$400) — Messer ainda NÃO iniciado (entra após Linux Unhatched)", type:"CERTIFICADO", free:0,
     link:"https://www.comptia.org/certifications/security",
-    d:"O crachá de entrada que o RH filtra. Estudo já começou (Messer). Meta: agendar exame até fim de outubro — com PCEP + Linux Essentials fecham o bloco de out/2026.",
-    e:"Depois dele, teu currículo passa por filtros automáticos que hoje te barram. 6 das 8 vagas de entrada do radar destravam SÓ com ele."},
+    d:"O crachá de entrada que o RH filtra. Estudo começa quando o Linux Unhatched fechar (Messer + Linux 1 em paralelo). Meta: exame até fim de outubro — com PCEP + Linux Essentials fecham o bloco de out/2026.",
+    e:"Depois dele, teu currículo passa por filtros automáticos que hoje te barram. 6 das 8 vagas de entrada do radar destravam SÓ com ele — inclusive as de GRC (MongoDB TPRM, System One)."},
    {id:"oscp-or-cloud", t:"Escolha: OSCP (ofensiva) OU AWS/Azure Security (arquitetura)", type:"CERTIFICADO", free:0,
     link:"https://www.offsec.com/courses/pen-200/",
     d:"OSCP = a cert ofensiva mais respeitada do mundo. Cloud security = o caminho arquitetura/defesa.",
@@ -511,14 +520,26 @@ const GLOSSARY = [
 ];
 
 /* ---------------- DADOS: CARREIRAS ---------------- */
+/* ESTRELA-NORTE travada com o Eduardo (2026-09-28): GRC primário, SOC secundário, SI/IA mesclado. */
 const CAREERS = [
- {n:"Segurança de IA / Agentes (AI/LLM Security)", tier:"S", why:"Área nascendo agora, escassez brutal, teu portfólio já pontua.", note:"TUA APOSTA Nº1. Prompt injection, red team de LLM, segurança de agentes."},
- {n:"Arquitetura de Segurança (Cloud + Zero Trust)", tier:"S", why:"Desenhar sistemas seguros exige julgamento que a IA assiste mas não assume.", note:"Cargo de sênior de verdade, altíssima demanda."},
- {n:"AI Governance / GRC", tier:"S", why:"Regulador exige humano responsável por lei. Cresce POR CAUSA da IA.", note:"EU AI Act, NIST AI RMF. Lado menos técnico, muito bem pago."},
- {n:"Offensive / Red Team (com IA red teaming)", tier:"A", why:"Criatividade adversarial contra sistemas novos fica rara e cara.", note:"Se te acende quebrar coisa. OSCP é o caminho."},
- {n:"DFIR — Forense e Resposta a Incidente", tier:"A", why:"Crise às 3h da manhã ninguém confia só na IA. Cadeia de custódia é jurídica.", note:"Adrenalina + investigação. Sempre haverá vaga."},
- {n:"OT/ICS — Segurança Industrial", tier:"A", why:"Físico, escasso, altíssimo valor, pouca gente quer.", note:"Usina, fábrica, energia. Nicho de ouro se aguenta o ambiente."},
- {n:"AppSec / Product Security", tier:"A", why:"IA gera código inseguro em escala — alguém tem que blindar.", note:"Threat modeling, revisão de código. Casa com teu perfil de builder."},
+ {n:"⭐ GRC — Governança, Risco & Compliance (TUA ESTRELA-NORTE)", tier:"S", star:1,
+  why:"É o profissional que aprendeu a falar de segurança na LINGUAGEM DE NEGÓCIO: faz a ponte entre o técnico e o board via risco, política, processo e metodologia. Cresce POR CAUSA da IA e da regulação (EU AI Act, NIST AI RMF, leis de dados) — o regulador exige um humano responsável por lei. Remoto por natureza (trabalha com documento, ferramenta e reunião, não com console 24/7), paga cedo, e não exige 'anos de console' pra entrar.",
+  note:"O QUE É: identificar, medir e comunicar risco; escrever política que a operação consegue cumprir; auditar contra frameworks (NIST CSF, ISO 27001, CIS); gerir risco de terceiros (TPRM); preparar a empresa pra SOC 2 / ISO 27001. O QUE FAZ NO DIA: gap analysis, risk register, política, auditoria, dashboard pro board. POR QUE VOCÊ: teu fundo investigativo (análise de evidência, relatório, cadeia de custódia) é exatamente a matéria-prima do GRC — auditoria é investigação formalizada."},
+ {n:"⭐ Security Intelligence / Intelligence Analyst (MESCLADO com GRC)", tier:"S", star:1,
+  why:"O segundo pilar teu: inteligência de segurança (OSINT, HUMINT, threat intel) é onde teu passado de segurança pública entra DIRETO — e é a skill nº1 do cargo no CyberSeek (59% das vagas nem exigem bacharelado). MESCLAR com GRC é tua fórmula rara: inteligência alimenta o risco (quem te ameaça, com quê) → GRC traduz em decisão de negócio (priorizar, investir, cumprir).",
+  note:"MELD GRC × SI: threat intel como insumo do risk register · OSINT como evidência de due diligence de terceiro (TPRM) · NIST AI RMF + MITRE ATLAS como o framework da inteligência aplicada a IA. Ninguém domina os dois — quem mescla vira o 'special intelligence' que empresas pagam caro."},
+ {n:"AI Governance / Governança de IA (o teu diferencial no topo do GRC)", tier:"S", star:1,
+  why:"O cruzamento dos teus dois pilares: GRC aplicado a sistemas de IA. Regulação (EU AI Act, NIST AI RMF, ISO/IEC 42001) criou um cargo que quase ninguém sabe exercer: governar risco de IA com método. Teu portfólio de agentes (deputy/agent-gates) já demonstra o tema na prática.",
+  note:"É o GRC do futuro: risk register pra modelos, política de uso, auditoria de conformidade de IA. AIGP (IAPP) + ISO 42001 + teu MS (eletivas de IA) = a trilogia."},
+ {n:"🟡 SOC — Security Operations (SECUNDÁRIO: suporte, não primário)", tier:"A", sec:1,
+  why:"Fica como APOIO, não como carreira: 1) dá o vocabulário técnico que o GRC precisa pra ser levado a sério (o GRC que nunca viu um alerta não convence o time técnico); 2) algumas vagas de entrada remota de SOC aceitam 'estudando a cert' e pagam enquanto tu constrói o GRC; 3) o N1 de SOC está sendo automatizado — NÃO construir carreira nele.",
+  note:"USO ESTRATÉGICO: lab Wazuh/LetsDefend em casa = evidência prática pro currículo de GRC (quem escreve política e entende detecção é outro nível). Mas o destino é GRC — SOC é meio de caminho, não o fim."},
+ {n:"Arquitetura de Segurança (Cloud + Zero Trust)", tier:"A", why:"Desenhar sistemas seguros exige julgamento que a IA assiste mas não assume.", note:"Cargo de sênior de verdade, altíssima demanda. Destino possível depois de GRC + cloud."},
+ {n:"AppSec / Product Security", tier:"A", why:"IA gera código inseguro em escala — alguém tem que blindar.", note:"Threat modeling é skill de GRC também. Casa com teu perfil de builder."},
+ {n:"DFIR — Forense e Resposta a Incidente", tier:"A", why:"Crise às 3h da manhã ninguém confia só na IA. Cadeia de custódia é jurídica.", note:"Conecta com tua veia investigativa — possível especialização da inteligência."},
+ {n:"Offensive / Red Team (com IA red teaming)", tier:"B", why:"Não é o teu norte — ofensiva é ofício à parte.", note:"Deixa pro Treinador/portfólio. GRC não exige."},
+ {n:"OT/ICS — Segurança Industrial", tier:"B", why:"Nicho de ouro, mas presencial/industrial — longe do teu plano remoto.", note:"Descartado por ora."},
+
 ];
 
 /* ---------------- DADOS: FONTES GRÁTIS ---------------- */
@@ -771,9 +792,9 @@ function renderCareers(){
         <div class="it-desc">skills: ${r.skills}</div>
         <div class="it-exp"><b>Pra ocupar:</b> ${r.need}</div></div></div>`).join("");
     }).join("") + `</div>`;
-  el.innerHTML = spot + `<p class="note">Ranqueadas por valor × sobrevida à IA. Tier S = aposta mais segura pra 10+ anos.</p>` +
-   CAREERS.map(c=>`<div class="card"><div class="phase"><h3>${c.n}</h3>
-     <span class="badge ${c.tier==='S'?'b-s':'b-a'}">TIER ${c.tier}</span></div>
+  el.innerHTML = spot + `<p class="note">🧭 <b>ESTRELA-NORTE (travada 28/09 com tu): GRC primário</b> — segurança em linguagem de negócio — com <b>Security Intelligence mesclado</b> (tu fundo investigativo alimenta o risco) e <b>SOC como suporte</b> (vocabulário técnico + evidência de lab, não carreira). ⭐ = teus pilares. Ranqueadas por valor × sobrevida à IA. Tier S = aposta mais segura pra 10+ anos.</p>` +
+   CAREERS.map(c=>`<div class="card" ${c.star?'style="border:2px solid var(--gold);background:#1c1608"':''}><div class="phase"><h3>${c.n}</h3>
+     <span class="badge ${c.tier==='S'?'b-s':'b-a'}">TIER ${c.tier}</span>${c.sec?'<span class="badge">SECUNDÁRIO</span>':''}</div>
      <div class="it-desc"><b>Por quê sobrevive:</b> ${c.why}</div>
      <div class="it-exp">${c.note}</div></div>`).join("") + ladder + rolesBank;
 }
@@ -825,15 +846,15 @@ const CERTS=[
  {n:"LPI Linux Essentials → RHCSA", org:"LPI / Red Hat", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$120 / 500", pay:"—", train:1,
   when:"em paralelo", why:"Linux em toda vaga de SOC/infra. RHCSA (Red Hat) é o degrau forte depois. Treina na trilha 🐧."},
 
- // 🛡️ DEFENSIVO / SOC
- {n:"CompTIA CySA+", org:"CompTIA", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"~US$404", pay:"$38–48/h", train:0,
-  when:"6–12 meses (ou já, se render)", why:"A cert de ANÁLISE/SOC. Te tira de júnior. MITRE ATT&CK, SIEM, detecção. Vaga aceita 'estudando'."},
- {n:"Microsoft SC-200 (SecOps Analyst)", org:"Microsoft", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"~US$165", pay:"$38–48/h", train:0,
-  when:"se o alvo usa Microsoft", why:"SOC no mundo Microsoft (Sentinel/Defender). Apareceu na vaga de SOC Analyst. Barata."},
- {n:"BTL1 — Blue Team Level 1", org:"Security Blue Team", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"~US$399", pay:"—", train:0,
-  when:"prática hands-on de SOC", why:"Cert 100% prática de analista SOC (investigação real, sem decoreba). Ótima pra provar mão na massa."},
- {n:"GIAC GSEC / GCIH / GCIA", org:"GIAC (SANS)", branch:"🛡️ Defensivo / SOC — degrau 2", cost:"caras (empregador paga)", pay:"alto", train:0,
-  when:"quando a empresa bancar", why:"Essentials / Incident Handler / Intrusion Analyst. Muito respeitadas, caras — geralmente o empregador paga."},
+ // 🛡️ DEFENSIVO / SOC (SECUNDÁRIO — suporte ao GRC, não carreira principal)
+  {n:"CompTIA CySA+", org:"CompTIA", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"~US$404", pay:"$38–48/h", train:0,
+   when:"SÓ se o trabalho de GRC pedir", why:"Cert de análise/SOC. Tua estrela-norte é GRC — CySA+ só entra se um emprego exigir. Prioridade BAIXA."},
+  {n:"Microsoft SC-200 (SecOps Analyst)", org:"Microsoft", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"~US$165", pay:"$38–48/h", train:0,
+   when:"se o alvo usa Microsoft", why:"SOC no mundo Microsoft (Sentinel/Defender). Só se o trabalho exigir."},
+  {n:"BTL1 — Blue Team Level 1", org:"Security Blue Team", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"~US$399", pay:"—", train:0,
+   when:"opcional — evidência prática", why:"Cert 100% prática de SOC. Como SECUNDÁRIO: o lab Wazuh grátis (aba Fontes) já dá evidência sem o custo."},
+  {n:"GIAC GSEC / GCIH / GCIA", org:"GIAC (SANS)", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"caras (empregador paga)", pay:"alto", train:0,
+   when:"quando a empresa bancar", why:"Muito respeitadas, caras — geralmente o empregador paga. Não saia do bolso pra isso."},
 
  // ☁️ NUVEM / DEVSECOPS
  {n:"AWS Security Specialty · Azure SC-100", org:"AWS / Microsoft", branch:"☁️ Nuvem / DevSecOps", cost:"~US$300 / 165", pay:"alto", train:0,
@@ -841,27 +862,33 @@ const CERTS=[
  {n:"Kubernetes CKA / CKS", org:"CNCF / Linux Foundation", branch:"☁️ Nuvem / DevSecOps", cost:"~US$395 cada", pay:"alto", train:0,
   when:"ramo DevSecOps", why:"Administrar/proteger containers (K8s). Requisito das vagas de DevSecOps. Curva grande — mais tarde."},
 
- // 📋 GRC / AUDITORIA
- {n:"CGRC — Governance, Risk & Compliance", org:"ISC2", branch:"📋 GRC / Auditoria", cost:"~US$599", pay:"$38–48/h", train:0,
-  when:"se seguir GRC", why:"Cert de governança/risco/compliance. Paga cedo, menos técnico. Ramo alternativo ao SOC."},
- {n:"ISO 27001 Lead Implementer / Lead Auditor", org:"PECB / BSI", branch:"📋 GRC / Auditoria", cost:"~US$500–1000", pay:"alto", train:0,
-  when:"ramo GRC/consultoria", why:"Implantar/auditar a norma internacional (SGSI). 'Passaporte' de contrato B2B grande. Muito valorizada."},
- {n:"ISACA CISA (auditoria)", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$575", pay:"US$154k+/ano", train:0,
-  when:"precisa 5 anos p/ título", why:"Auditoria de SI, top de GRC. Faz a prova antes; título só com experiência. Destino, não agora."},
- {n:"ISACA CRISC (risco)", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$575", pay:"alto", train:0,
-  when:"precisa 3 anos", why:"Gestão de risco de TI. Ramo GRC. Também gated por experiência."},
- {n:"ISACA CDPSE (privacidade)", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$575", pay:"alto", train:0,
-  when:"ramo privacidade/dados", why:"Privacidade de dados (LGPD/GDPR). Cresce com IA + leis de dados. Casa com ISO 27701."},
- {n:"ISACA IT Risk / Cybersecurity Fundamentals", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$150", pay:"—", train:0,
-  when:"ENTRADA em GRC (sem experiência)", why:"Certs de FUNDAMENTOS, sem trava de experiência. A porta de entrada mais fácil no GRC pra provar base antes das pesadas."},
- {n:"IAPP CIPP/US (+ CIPM)", org:"IAPP", branch:"📋 GRC / Auditoria", cost:"~US$550 cada", pay:"alto", train:0,
-  when:"ramo privacidade (mercado US)", why:"CIPP/US = a cert de privacidade nº1 nos EUA (leis de dados US). CIPM = gestão de privacidade. Muito pedidas em GRC/privacidade."},
- {n:"COBIT 2019 Foundation", org:"ISACA", branch:"📋 GRC / Auditoria", cost:"~US$185", pay:"—", train:0,
-  when:"governança de TI", why:"Framework de governança de TI (o mais citado). Base pra papéis de governança e pra o CGEIT."},
- {n:"⭐ IAPP AIGP — AI Governance Professional", org:"IAPP", branch:"📋 GRC / Auditoria", cost:"~US$700", pay:"alto", train:0,
-  when:"teu diferencial (AI Governance)", why:"A principal cert de GOVERNANÇA DE IA. É o casamento do teu ramo GRC com teu nicho de IA. Rara, nova, em alta. Par perfeito do SecAI+."},
- {n:"ISO/IEC 42001 Lead Implementer/Auditor", org:"PECB", branch:"📋 GRC / Auditoria", cost:"~US$500–1000", pay:"alto", train:0,
-  when:"governança de IA", why:"O 'ISO 27001 da IA' — norma de Sistema de Gestão de IA (AIMS). Novíssima; quem domina cedo vira referência escassa."},
+ // 📋 GRC / AUDITORIA — em SEQUÊNCIA INTELECTUAL (cada uma base da próxima)
+ {n:"DEGRAU 1 · ISACA IT Risk Fundamentals / Cybersecurity Fundamentals", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$150 (exame)", pay:"—", train:0,
+  when:"ENTRADA GRC — AGORA (sem experiência)", why:"A primeira porta do GRC. Cert de FUNDAMENTOS sem NENHUMA trava de experiência: prova que sabes o vocabulário de risco, controles e conformidade. Serve de escada: quem passa nos Fundamentals ganha 12 créditos aplicáveis pro CGRC/CRISC depois. É o 'Security+ do GRC' — barata, rápida (2-4 semanas), e destrava o vocabulário das vagas de TPRM/risk analyst."},
+ {n:"DEGRAU 2 · CompTIA Security+ (D5 = GRC)", org:"CompTIA", branch:"📋 GRC — SEQUÊNCIA (1→10)", cost:"~US$404", pay:"$35–48/h", train:1,
+  when:"out/2026 (Messer após Unhatched)", why:"Não é de GRC, mas É A BASE: o domínio 5 (Governança, Risco, Compliance) é literalmente a introdução ao GRC. Toda vaga de GRC pede Security+ como piso (MongoDB TPRM, System One). Sem ele, os filtros automáticos te barram ANTES de lerem teu GRC. Faz ANTES de qualquer GRC paga — é o alicerce conceitual de todas."},
+ {n:"DEGRAU 3 · IAPP CIPP/US (privacidade US)", org:"IAPP", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$550 + US$275/ano AMF", pay:"alto", train:0,
+  when:"1º ramo técnico do GRC (nov-dez/2026)", why:"⭐ Deveria ter estrela — tem agora. A cert de privacidade nº1 do mercado US: prova que dominas as leis de dados americanas (CCPA/CPRA, HIPAA, GLBA, can-spam) e como governá-las. POR QUE NESTE PONTO: privacidade é o sub-ramo do GRC com mais vagas remotas nos EUA e o único que não exige anos de console. O corpo da prova é lei + prática de compliance — casa com teu perfil. AMF anual US$275 — entra no cálculo do custo real."},
+ {n:"DEGRAU 4 · IAPP CIPM (gestão de privacidade)", org:"IAPP", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$550", pay:"alto", train:0,
+  when:"logo após CIPP/US", why:"Complemento operacional do CIPP: ENQUANTO o CIPP prova que sabes AS LEIS, o CIPM prova que sabes RODAR um programa de privacidade (inventário de dados, DPIA, resposta a vazamento, treinamento). Juntos formam o 'par clássico' que as vagas de privacy analyst/consultant listam. Faz o CIPM só se seguir privacidade — mas o par abre mais portas que cada um sozinho."},
+ {n:"DEGRAU 5 · COBIT 2019 Foundation", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$185 (exame)", pay:"—", train:0,
+  when:"base de GOVERNANÇA (antes do CGRC)", why:"O framework de governança de TI mais citado do mundo: como o board dirige e controla a TI (metas, componentes, desempenho). É O VOCABULÁRIO que o CGRC e o CRISC pressupõem — quem pula o COBIT estuda governança sem mapa. Barata, conceitual, 1-2 semanas. Faz ANTES do CGRC: primeiro o 'como governar', depois o 'como aplicar risco'."},
+ {n:"DEGRAU 6 · ISC2 CGRC (Certified Governance, Risk & Compliance)", org:"ISC2", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$599", pay:"$38–48/h", train:0,
+  when:"o CERT CENTRAL do teu ramo (1-2 anos)", why:"⭐ A cert que dá NOME à tua estrela-norte. Prova que sabes implantar e gerir um programa de GRC ponta a ponta: escopo, risk register, controles, auditoria, monitoramento contínuo (conformidade). É a cert citada nas vagas GRC do teu radar (System One, ASCII, Canonical Risk). ISC2 exige 1 ano de experiência em 2 dos 7 domínios — ou tu trabalha na área, ou compensa com educação. Faz DEPOIS de Security+ + COBIT + prática (teu lab + TPRM em casa)."},
+ {n:"DEGRAU 7 · ISO/IEC 27001 Lead Implementer (PECB)", org:"PECB / BSI / LRQA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$500–1000 (curso+exame)", pay:"alto", train:0,
+  when:"quando estiveres trabalhando em GRC", why:"O 'passaporte de contrato B2B': ISO 27001 é a norma internacional de SGSI e a que mais aparece em requisição de cliente ('precisamos de fornecedor certificado'). Lead Implementer = sabes IMPLANTAR o sistema de gestão do zero. Escolhe LI primeiro (constrói) e LA depois (audita) — ou os dois com desconto no bundle. Melhor custo-benefício quando uma consultoria ou empregador paga."},
+ {n:"DEGRAU 7 · ISO/IEC 27701 (extensão de privacidade do 27001)", org:"PECB", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$500-900", pay:"alto", train:0,
+  when:"após 27001 + CIPP", why:"O casamento das tuas duas frentes: estende o SGSI pra cobrir PII (privacidade). Quem tem 27001 LI + CIPP/US entende 27701 rapidinho — e 'SGSI+PIMS' é o pacote que consultorias vendem pra clientes grandes. Segunda norma na tua bancada."},
+ {n:"DEGRAU 8 · ISO/IEC 42001 (Sistema de Gestão de IA) — o '27001 da IA'", org:"PECB", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$500–1000", pay:"alto", train:0,
+  when:"2027 — TEU DIFERENCIAL raro", why:"⭐ A norma de sistema de gestão de IA (AIMS), publicada fim de 2023 — a 'ISO 27001 da IA'. Quem domina CEDO vira referência escassa: o mercado de AI governance está nascendo AGORA e o padrão de certificação ainda é raro. É o par técnico do AIGP e o topo natural da tua sequência GRC + IA. Casar com o mestrado (eletivas de IA) e teu portfólio de agentes."},
+ {n:"⭐ IAPP AIGP — AI Governance Professional (diferencial)", org:"IAPP", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$700 + US$275/ano AMF", pay:"alto", train:0,
+  when:"2027 — par do ISO 42001", why:"⭐ A principal cert de GOVERNANÇA DE IA do mundo: cobre frameworks de risco de IA (NIST AI RMF, EU AI Act), governança de modelos e responsabilidade legal. É onde teu GRC encontra teu nicho de IA — e onde quase ninguém tem. Faz DEPOIS de ter base GRC (não faz sentido AIGP sem saber risco). O teu portfólio de agent-gates vira o caso de estudo da prova... e da entrevista."},
+ {n:"DEGRAU 9 · ISACA CRISC (risco enterprise)", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano AMF", pay:"alto", train:0,
+  when:"3+ anos de prática — gestão de risco", why:"A cert do GERENTE de risco: identifica, avalia, mitiga e MONITORA risco em nível enterprise (board/CFO). Exige 3 anos de experiência comprovada em 2 áreas de CRISC. É o degrau entre o CGRC (praticante) e o CISA (auditor) — prova maturidade de risco em escala. Título gated: faz a prova antes, título chega com os anos."},
+ {n:"DEGRAU 10 · ISACA CISA (auditoria de SI)", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano AMF", pay:"US$154k+/ano", train:0,
+  when:"5 anos de prática — destino GRC", why:"⭐ O padrão-ouro da AUDITORIA de sistemas: o cargo 'IT Auditor' do CyberSeek pede ela por nome, e auditoria é o ramo do GRC que mais contrata nos EUA (big4 + corporação). Exige 5 anos de experiência em auditoria/segurança. Como o CRISC: prova antes (a prova vale 5 anos), título após os anos. É o topo da tua escada GRC antes do CISM."},
+ {n:"ISACA CISM (gestão de segurança) — pós-GRC", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$575 + AMF", pay:"US$167k+/ano", train:0,
+  when:"5+ anos + gestão — destino final", why:"A cert do GERENTE de segurança (CISO track): programa, orçamento, alinhamento com negócio. Depois de GRC bem construído, CISM é a progressão natural pra liderança. Precisa 5 anos com 3 de gestão. Destino — não agende antes dos anos."},
 
  // 💥 OFENSIVO / PENTEST
  {n:"CompTIA PenTest+", org:"CompTIA", branch:"💥 Ofensivo / Pentest — mais tarde", cost:"~US$404", pay:"$38–48/h", train:0,
@@ -909,18 +936,20 @@ function renderSkills(){
       <div class="it-desc">${s.d}</div></div></div>`).join("");
 }
 const VAGAS=[
- {t:"🎯 ENTRADA REAL — 0 experiência formal (teu nível AGORA)", tag:"aplicar já", cls:"free",
-  d:"Cargos de ENTRY de verdade (não pedem emprego anterior, pedem base + certs em curso): <b>Expel Associate SOC Analyst</b> (remoto) · Huntress <b>SecOps Analyst</b> (remoto US) · Twilio <b>GSOC Operator</b> (remoto US) · Kyndryl Early Career ~US$63k (3 vagas remoto) · MongoDB <b>Associate TPRM</b> (GRC entry) · OpenAI <b>GSOC Operator</b>. Vários aceitam 'estudando a cert' — teu Security+ em outubro destrava a maioria."},
- {t:"🎓 RESERVA — vagas de ESTÁGIO via Mestrado (jan/2027)", tag:"reserva", cls:"",
-  d:"<b>Estágios exigem MATRÍCULA ativa — tu só é elegível quando o MS-CS começar (jan/2027).</b> São a porta de entrega do mestrado pra vagas que hoje exigem estudante: BCG AI+Cyber intern (US$110–120k) · Blue Team Intern (American National, verão 2027) · Toyota Cybersecurity Internship (verão 2027). <b>Não prioriza agora</b> — em janeiro, com matrícula na mão, vira alvo primário. O app marca essas vagas como 🎓 RESERVA na tabela."},
- {t:"⭐ Teu nicho RARO — segurança de IA (meta de médio prazo)", tag:"meta", cls:"paid",
-  d:"<b>OpenAI 'Security Engineer, Agent Security'</b> — segurança de AGENTES autônomos = exatamente teu portfólio (deputy/agent-gates). Tymon Global AI Security (remoto, US$70–75/h, patrocina visto). São cargos pleno/sênior HOJE — mas é o mapa do destino que o mestrado (eletivas de IA) + SecAI+ + portfólio preparam."},
- {t:"🐧 Linux = alavanca worldwide (não depende de green card)", tag:"meta", cls:"paid",
-  d:"Canonical (Ubuntu) contrata <b>WORLDWIDE</b> e patrocina: Ubuntu Security Engineer · Security Software Engineer. Pleno — meta 1-2 anos. Mas worldwide = pode trabalhar do Brasil como contractor enquanto o green card não vem."},
- {t:"🚫 O que NÃO perder tempo agora (entry real)", tag:"cuidado", cls:"paid",
-  d:"Cargos pleno/sênior aparecem na varredura e o app marca como 🎯 meta ou 👑 destino — NÃO são pra ti agora, e não é fracasso ignorar: entry level não compete com '5 anos de experiência'. Clearance/DoD = cidadania (fechado por anos). MS online não dá OPT — vagas US exigem green card, patrocínio, ou cargo worldwide-remote."},
+ {t:"✅ APLICAR AGORA (do Brasil) — Worldwide/contractor", tag:"agora", cls:"free",
+  d:"Vagas que contratam de QUALQUER país (como contractor internacional, sem green card): <b>Canonical (Ubuntu)</b> — Ubuntu Security Engineer · Security Software Engineer · Security Risk Management (GRC/risco) · Security Operations. É o único caminho de EMPREGO americano remoto possível HOJE, do Brasil. Casam com tua linha Linux + GRC. Meta pleno (1-2 anos), mas é a porta real."},
+ {t:"⭐ PATROCINAM visto — alvo com MS + SecAI+ (2027)", tag:"sponsor", cls:"free",
+  d:"<b>Tymon Global AI Security</b> (remoto, US$70–75/h, patrocina) · <b>Canonical</b> (worldwide + relocação) · OpenAI (patrocina em cargos sênior). São pleno HOJE — destravam com MS (jan/2027) + SecAI+ + portfólio. O mestrado americano é EXATAMENTE o que substancia o patrocínio."},
+ {t:"🇺🇸 US-Remote — alvo APÓS green card (mapa, não desespero)", tag:"pós-GC", cls:"",
+  d:"Vagas 100% remotas mas exigindo autorização americana (Kyndryl $63k entry, Expel SOC, Huntress, Twilio GSOC, MongoDB TPRM, System One GRC): <b>ficam na tabela como MAPA</b> — são exatamente as vagas que tua trilha (Security+ + PCEP + GRC + MS) vai qualificar-te quando o green card chegar. NÃO aplicares agora — o RH filtra por autorização e rejeição desnuda o nome."},
+ {t:"🎓 RESERVA via MS — estágios (jan/2027, com atenção ao visto)", tag:"reserva", cls:"",
+  d:"Estágios exigem matrícula ATIVA + VISTO de estágio presencial (J-1/CPT): <b>⚠️ MS ONLINE (Coursera) NÃO dá visto</b> — os estágios presenciais (BCG NY, Toyota, American National) só se encaixam se houver outra via de visto. Ficam como referência; em janeiro reavaliar com advogado."},
+ {t:"⭐ Teu nicho RARO — Agent Security (destino)", tag:"meta", cls:"paid",
+  d:"<b>OpenAI 'Security Engineer, Agent Security'</b> — segurança de AGENTES autônomos = teu portfólio (deputy/agent-gates). Sênior + US + patrocina. É o destino: green card + anos + mestrado + SecAI+ te posicionam. Existe, está aberta, e prova o tamanho do nicho."},
+ {t:"🚫 EXCLUÍDAS — cidadania/clearance", tag:"excluída", cls:"paid",
+  d:"Booz Allen, ASM Research, USAJOBS, todo cargo DoD/clearance: exigem CIDADANIA americana — <b>removidas da tabela</b> (não se encaixam em nenhum cenário teu, nem pós-green card). O scanner filtra sozinho."},
  {t:"🌐 Onde procurar (busca automática + manual)", tag:"dica", cls:"",
-  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria Dice</b> todo dia 08:00 (aba 🤖 Busca automática). <b>Remote Rocketship</b> (remoterocketship.com) = 185k+ vagas, varre páginas de empresa direto, filtro de <b>entry-level / sem experiência</b>, e avisa o que NÃO está no LinkedIn — é o melhor site pra tua busca MANUAL de entry (API automática é paga; o site é grátis pra navegar)."},
+  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria Dice</b> todo dia 08:00 (aba 🤖 Busca automática). <b>Remote Rocketship</b> tem filtro de country — usa 'Worldwide' + 'LatAm' pra achar vagas que contratam do Brasil. Filtro de <b>entry-level</b> lá é o melhor do mercado."},
 ];
 function renderVagas(){
   document.getElementById("vagasList").innerHTML = VAGAS.map(v=>
