@@ -137,7 +137,7 @@
 
   <section id="vagas" class="hide">
     <div class="card"><h3 style="margin-top:0">💼 Vagas US — tabela viva (ciente do teu nível)</h3>
-    <p class="note">Vagas reais (Dice + APIs abertas: Jobicy, Greenhouse, Remotive, RemoteOK, Ashby). <b>PERFIL: moras no Brasil, sem green card ainda — tudo (empresa US + mestrado) substancia o green card.</b> A tabela separa: ✅ <b>worldwide</b> (possível do Brasil AGORA) · ⭐ <b>sponsor</b> (patrocina visto) · 🇺🇸 <b>US-remote</b> (alvo APÓS green card — fica como mapa) · 🚫 <b>cidadania = excluída</b> (some da tabela). A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
+    <p class="note">Vagas que <b>contratam do BRASIL hoje</b> (worldwide/global/sponsor) — o scanner descarta automaticamente US-remote (pede autorização americana) e cidadania/clearance. <b>Perfil: entry level, morando no Brasil, sem green card ainda — tudo (empresa US + mestrado) substancia o green card.</b> A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
     <div id="credsBox" style="margin-top:8px"></div>
     </div>
     <div id="jobsInsight" class="card next" style="display:none"></div>
@@ -207,17 +207,13 @@ function jobFit(j){
   const miss=(j.req||[]).filter(r=>!creds[r]);
   const m = ()=> miss.length ? " · falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ") : "";
   const worldwide = j.geo==="worldwide";
-  // entry level total + perfil BRASIL (sem green card ainda)
-  if(j.level==="pleno") return {cls:"", txt:(worldwide?"🎯 meta (WORLDWIDE — possível do Brasil como contractor)":"🎯 meta 1-2 anos")+m()};
+  // entry level total + perfil BRASIL: todas listadas já são worldwide/sponsor (US-remote é filtrado fora no scan)
+  if(j.level==="pleno") return {cls:"", txt:(worldwide?"🎯 meta 1-2 anos (WORLDWIDE — do Brasil)":"🎯 meta 1-2 anos")+m()};
   if(j.level==="senior") return {cls:"paid", txt:"👑 destino 3+ anos"};
   if(j.student) return {cls:"", txt:"🎓 RESERVA via MS (jan/2027)"+m()};
   if(j.sponsor) return {cls:"free", txt:"⭐ PATROCINA visto — alvo com MS+SecAI+"+m()};
-  if(worldwide){
-    if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (do Brasil)"};
-    return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
-  }
-  // US-remote sem sponsor: precisa de autorização (green card)
-  return {cls:"", txt:"🇺🇸 alvo APÓS green card"+m()};
+  if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (do Brasil)"};
+  return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
 }
 function renderJobsLive(){
   const box=document.getElementById("jobsLive"); if(!box) return;
@@ -231,14 +227,13 @@ function renderJobsLive(){
   const scored=jobs.map(j=>({j,fit:jobFit(j)}));
   const rank=f=>{
     const t=f.txt;
-    if(t.startsWith("✅")) return 0;              // aplicar AGORA (worldwide/contrato)
+    if(t.startsWith("✅")) return 0;              // aplicar AGORA (do Brasil)
     if(t.startsWith("⭐")) return 1;              // patrocina visto
-    if(t.startsWith("🇺🇸 alvo APÓS")) return 2;   // US-remote: após green card
-    if(t.startsWith("falta")) return 3;          // entry mas falta cert
-    if(t.startsWith("🎓")) return 4;             // via MS jan/2027
-    if(t.startsWith("🎯")) return 5;             // meta 1-2 anos
-    if(t.startsWith("👑")) return 6;
-    return 7;                                     // EXCLUÍDA por último
+    if(t.startsWith("falta")) return 2;          // encaixa mas falta cert
+    if(t.startsWith("🎓")) return 3;             // via MS jan/2027
+    if(t.startsWith("🎯")) return 4;             // meta 1-2 anos
+    if(t.startsWith("👑")) return 5;
+    return 6;                                     // EXCLUÍDA por último
   };
   scored.sort((a,b)=>rank(a.fit)-rank(b.fit));
   const shown = scored.filter(s=>!s.fit.txt.startsWith("🚫"));
@@ -936,26 +931,18 @@ function renderSkills(){
       <div class="it-desc">${s.d}</div></div></div>`).join("");
 }
 const VAGAS=[
- {t:"✅ APLICAR AGORA (do Brasil) — Worldwide/contractor", tag:"agora", cls:"free",
-  d:"Vagas que contratam de QUALQUER país (como contractor internacional, sem green card): <b>Canonical (Ubuntu)</b> — Ubuntu Security Engineer · Security Software Engineer · Security Risk Management (GRC/risco) · Security Operations. É o único caminho de EMPREGO americano remoto possível HOJE, do Brasil. Casam com tua linha Linux + GRC. Meta pleno (1-2 anos), mas é a porta real."},
- {t:"⭐ PATROCINAM visto — alvo com MS + SecAI+ (2027)", tag:"sponsor", cls:"free",
-  d:"<b>Tymon Global AI Security</b> (remoto, US$70–75/h, patrocina) · <b>Canonical</b> (worldwide + relocação) · OpenAI (patrocina em cargos sênior). São pleno HOJE — destravam com MS (jan/2027) + SecAI+ + portfólio. O mestrado americano é EXATAMENTE o que substancia o patrocínio."},
- {t:"🇺🇸 US-Remote — alvo APÓS green card (mapa, não desespero)", tag:"pós-GC", cls:"",
-  d:"Vagas 100% remotas mas exigindo autorização americana (Kyndryl $63k entry, Expel SOC, Huntress, Twilio GSOC, MongoDB TPRM, System One GRC): <b>ficam na tabela como MAPA</b> — são exatamente as vagas que tua trilha (Security+ + PCEP + GRC + MS) vai qualificar-te quando o green card chegar. NÃO aplicares agora — o RH filtra por autorização e rejeição desnuda o nome."},
- {t:"🎓 RESERVA via MS — estágios (jan/2027, com atenção ao visto)", tag:"reserva", cls:"",
-  d:"Estágios exigem matrícula ATIVA + VISTO de estágio presencial (J-1/CPT): <b>⚠️ MS ONLINE (Coursera) NÃO dá visto</b> — os estágios presenciais (BCG NY, Toyota, American National) só se encaixam se houver outra via de visto. Ficam como referência; em janeiro reavaliar com advogado."},
- {t:"⭐ Teu nicho RARO — Agent Security (destino)", tag:"meta", cls:"paid",
-  d:"<b>OpenAI 'Security Engineer, Agent Security'</b> — segurança de AGENTES autônomos = teu portfólio (deputy/agent-gates). Sênior + US + patrocina. É o destino: green card + anos + mestrado + SecAI+ te posicionam. Existe, está aberta, e prova o tamanho do nicho."},
- {t:"🚫 EXCLUÍDAS — cidadania/clearance", tag:"excluída", cls:"paid",
-  d:"Booz Allen, ASM Research, USAJOBS, todo cargo DoD/clearance: exigem CIDADANIA americana — <b>removidas da tabela</b> (não se encaixam em nenhum cenário teu, nem pós-green card). O scanner filtra sozinho."},
- {t:"🇪🇺 EUROPA — segundo bloco (não exige green card)", tag:"euro", cls:"free",
-  d:"Mercado de segurança forte, remoto-first e SEM barreira de cidadania americana — contratam brasileiro direto (via contractor ou EOR). <b>Alemanha/Amsterdã/Dublin/Lisboa</b> são os hubs: GRC/audit em alemão+inglês (Deloitte DE, KPMG, PwC), privacidade (GDPR é teu diferencial: CIPP/E vale tanto quanto CIPP/US), DevSecOps em fintechs (N26, Revolut, Wise), security em tech europeias (GitLab, Canonical, Grafana, Elastic, Snyk, Docker). <b>Português: Lisboa/Porto são porta de entrada</b> (fintechs + centers de excelência contratando brasileiros em massa). Salário menor que US, mas caminho REAL sem green card."},
- {t:"🇨🇦 CANADÁ — terceiro bloco (via express entry)", tag:"canadá", cls:"free",
-  d:"O caminho mais REAL de residência fora do US: <b>Express Entry pontua por idade, inglês e experiência</b> — e o teu mestrado americano + certs somam. Empresas remoto-Canada que contratam estrangeiro: GitLab (remoto CA), Shopify, Tailscale, Tucows, 1Password (Toronto), Databricks CA. Vagas de GRC/privacy em bancos (RBC, TD) pedem 'eligible to work in Canada' — mas o Express Entry resolve isso em 6-12 meses de processo. <b>Francais dá bônus de pontos</b> (não tens, mas o inglês + mestrado + oferta de emprego somam). Plano B sério se o  demorar."},
- {t:"🇦🇺 AUSTRÁLIA/NZ — quarto bloco (skills shortage)", tag:"aus", cls:"free",
-  d:"Também possível: <b>Australia Skilled Migration (189/190 visa) lista cibersegurança como ocupação de demanda</b> (ANZSCO 2621). Salário alto (A$120-180k), inglês nativo, e empresas como Atlassian, Canva, Qantas, big4 AU contratam estrangeiro. Exige IELTS/PTE + skills assessment (ACS). Mais lento que Canadá, mas real. Foco GRC + auditoria (a demanda AU é forte em governança)."},
+ {t:"✅ ENTRY WORLDWIDE — APLICAR (do Brasil, sem green card)", tag:"agora", cls:"free",
+  d:"Achadas na varredura 28/09 (vagas entry que contratam de QUALQUER país): <b>Canonical Graduate Software Engineer</b> (programa de entrada oficial, Linux/open source) · <b>Canonical Associate Linux Support Engineer</b> (entry, Ubuntu) · <b>Turing Investigations Analyst</b> (remoto global — <b>o melhor casamento com teu fundo investigativo</b>: fraud/abuse/trust & safety). Security+ + Linux te qualificam; paga em moeda local."},
+ {t:"⭐ GRC + IA WORLDWIDE — teu alvo 1-2 anos", tag:"sponsor/meta", cls:"free",
+  d:"<b>Canonical Security Risk Management Specialist</b> (GRC/risco, worldwide — a vaga da tua estrela-norte possível do BRASIL) · <b>Ubuntu Security Engineer</b> (worldwide) · <b>Tymon Global AI Security</b> (US$70–75/h, patrocina) · <b>OpenAI Agent Security</b> (destino sênior). Destravam com: Security+ → COBIT → CGRC + MS (jan/2027) + SecAI+ + portfólio."},
+ {t:"🎓 RESERVA via MS — estágios (jan/2027, atenção ao visto)", tag:"reserva", cls:"",
+  d:"Estágios exigem matrícula ativa + visto de estágio PRESENCIAL (BCG NY, Toyota): <b>⚠️ MS online (Coursera) não dá visto</b> — ficam como referência; reavaliar com advogado em janeiro."},
+ {t:"🚫 FILTRADAS FORA do scanner (não percas tempo)", tag:"excluída", cls:"paid",
+  d:"O scanner agora DISCARDA automaticamente: (1) vagas de cidadania/clearance (Booz, ASM, USAJOBS); (2) <b>vagas US-remote que exigem autorização americana</b> (Kyndryl, Expel, Huntress, Twilio, MongoDB, GitLab US…) — a tabela só mostra vagas que contratam do BRASIL hoje (worldwide/global/sponsor). Se quiser ver as US-remote como mapa, é uma linha no job_scan.py."},
+ {t:"🇪🇺🇨🇦🇦🇺 Segunda a quarta opções de país", tag:"planos B", cls:"free",
+  d:"<b>Europa</b> (Alemanha/Dublin/Lisboa — GDPR teu diferencial, GitLab/Grafana/Elastic/Snyk) · <b>Canadá</b> (Express Entry pontua mestrado+inglês; GitLab CA, Shopify, 1Password) · <b>Austrália</b> (visa 189 lista cyber, ANZSCO 2621, Atlassian/Canva). Todos caminhos reais SEM green card — detalhes abaixo."},
  {t:"🌐 Onde procurar (busca automática + manual)", tag:"dica", cls:"",
-  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria Dice</b> todo dia 08:00 (aba 🤖 Busca automática). <b>Remote Rocketship</b> tem filtro de country — usa 'Worldwide' + 'LatAm' pra achar vagas que contratam do Brasil. Filtro de <b>entry-level</b> lá é o melhor do mercado."},
+  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria</b> todo dia 08:00 (aba 🤖 Busca automática) — agora filtrando por <b>vagas que contratam do Brasil</b>. <b>Remote Rocketship</b>: filtro country 'Worldwide' + 'LatAm' + entry-level = teu melhor site manual."},
 ];
 function renderVagas(){
   document.getElementById("vagasList").innerHTML = VAGAS.map(v=>
