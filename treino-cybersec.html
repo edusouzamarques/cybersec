@@ -86,11 +86,18 @@
 <div class="wrap">
   <div class="tabs">
     <div class="tab on" data-t="home">🏠 Início</div>
+    <div class="tab" data-t="aulas">🎬 Aulas (vídeo a vídeo)</div>
     <div class="tab" data-t="praticar">✏️ Praticar</div>
     <div class="tab" data-t="simulado">⏱️ Simulado</div>
     <div class="tab" data-t="fracos">🩹 Pontos fracos</div>
     <div class="tab" data-t="gloss">📖 Glossário</div>
   </div>
+
+  <!-- AULAS: vídeo por vídeo -->
+  <section id="aulas" class="hide">
+    <div id="aulaList"></div>
+    <div id="aulaDetail" class="hide"></div>
+  </section>
 
   <!-- HOME -->
   <section id="home">
@@ -1000,6 +1007,107 @@ function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){re
 function save(s){localStorage.setItem(KEY,JSON.stringify(s))}
 let S=load();
 // S.q[qid] = {seen, correct, streak, mastered}
+/* AULAS: progresso por vídeo = S.aula[lessonId] = {watched, pdf, quiz, passed, bestPct} */
+if(!S.aula) S.aula={};
+
+/* ---------- AULAS (vídeo por vídeo — Professor Messer SY0-701) ---------- */
+const AULAS_BASE="https://www.professormesser.com/security-plus/sy0-701/";
+const YT_BASE="https://www.youtube.com/watch?v=";
+const LESSONS=[
+ {id:"L000",sec:"0.1",t:"How to Pass Your SY0-701 Security+ Exam",dur:"10:06",pdf:null,
+  ytid:"9lfXWnQ7QXw",
+  res:"Como é a prova: até 90 questões, múltipla escolha + cenários práticos (performance-based), 90 minutos, corta em 750/900. Sem negativação — responde tudo. Estratégia: primeiro as certas óbvias, volta nas difíceis.",
+  hi:["Até 90 questões em 90 min = ~1 min por questão",
+      "Questões 'performance-based' (clicar/arrastar) aparecem no começo — não entre em pânico",
+      "Sem pontos negativos: chute educado educado nas difíceis"]},
+ {id:"L001",sec:"1.1",t:"Security Controls",dur:"11:48",pdf:"aula-01-1-security-controls.pdf",
+  ytid:"STM3EUvL7wg",
+  res:"Controle de segurança = qualquer medida que evita, avisa, conserta ou compensa um evento. 4 CATEGORIAS (Technical/Managerial/Operational/Physical = POR MEIO do que age) × 6 TIPOS (Preventive/Deterrent/Detective/Corrective/Compensating/Directive = O QUE faz). A prova dá um EXEMPLO e pede a classificação nas DUAS dimensões.",
+  hi:["Matriz 4×6: tipo × categoria — todo controle cai num cruzamento",
+      "Preventive barra ANTES (MFA, firewall); Detective AVISA (SIEM, log); Corrective CONCERTA (backup restore)",
+      "Compensating = plano B temporário quando o ideal é impossível (firewall block no lugar do patch)",
+      "Directive o tipo MAIS FRACO: só DIRECIONA o comportamento, sem barra técnica",
+      "Antivírus é technical + preventive E detective dependendo da config",
+      "Extintor = corrective, NÃO preventive — repare a lógica do tempo"],
+  tips:["Gatilhos de texto: 'after the event'=corrective · 'discourage'=deterrent · 'logs/detects'=detective · 'alternative approach'=compensating",
+        "A prova quase SEMPRE dá um exemplo NOVO — não o do vídeo. Aprende a RAÇÃO, não decora o exemplo"]},
+ {id:"L002",sec:"1.2",t:"The CIA Triad",dur:"5:17",pdf:"aula-01-2-cia-triad.pdf",
+  ytid:"y6tZKQO1f2I",
+  res:"3 pilares: CONFIDENCIALIDADE (só quem pode, vê — criptografia, access control, MFA), INTEGRIDADE (dado não alterado — hash, assinatura digital, certificado), DISPONIBILIDADE (serviço up — redundância, failover, patching). Toda a segurança deriva destes 3.",
+  hi:["C = segredo — vazamento feriu CONF. Controle: cripto + ACL + MFA",
+      "I = íntegro — dado alterado é INTEGRIDADE ferida. Controle: hash + assinatura",
+      "A = disponível — serviço caiu é DISPONIBILIDADE. DDoS, ransomware, blackout",
+      "Assinatura digital dá os 3: integridade + autenticação + non-repudiation",
+      "Hash NÃO dá confidencialidade — é de mão única, não cifra o conteúdo"],
+  tips:["A prova pergunta: 'qual objetivo foi comprometido?' ou 'qual control protege o objetivo X?'",
+        "Cenário: 'visto/roubado' = C · 'alterado/fraudado' = I · 'caiu/não acessa' = A"]},
+];
+
+/* Mapeamento questão por aula (por tema, puxando do banco Q existente) */
+const LESSON_QS={
+ "L001":["s101","s102","s117","s201","s204","gq6","gq7","gq8","gq9","gq12"],
+ "L002":["s205","s303","s141","gq23"],
+ "L000":[]
+};
+
+function renderAulas(){
+  const el=document.getElementById("aulaList");
+  const elD=document.getElementById("aulaDetail");
+  elD.classList.add("hide");el.classList.remove("hide");
+  const groups={};LESSONS.forEach(l=>{(groups[l.sec[0]] = groups[l.sec[0]]||[]).push(l)});
+  el.innerHTML = Object.keys(groups).sort().map(sec=>{
+    return `<div class="card"><h3 style="margin-top:0">📄 Seção ${secLabel(sec)}</h3>` +
+      groups[sec].map(l=>{
+      const st=S.aula[l.id]||{};
+      const pct=qsOf(l.id);
+      return `<div class="dom" onclick="openAula('${l.id}')">
+        <div class="dname"><b>${l.sec}</b> · ${l.t}<div class="note">⏱ ${l.dur}${l.pdf?` · <a href='${l.pdf}' onclick=\"event.stopPropagation()\" target='_blank'>PDF ↗</a>`:''} ${st.watched?'· ✅assistido':''}</div></div>
+        <div class="dpct">${pct.m}/${pct.t} dominadas</div></div>`;
+    }).join("") + '</div>';
+  }).join("");
+}
+function sec(n){return {0:"0 — Preparação da prova",1:"1 — General Security Concepts",2:"2 — Threats",3:"3 — Architecture",4:"4 — Security Operations",5:"5 — Program Management"}[n]||("Seção "+n)}
+function openAula(id){
+  const l=LESSONS.find(x=>x.id===id);if(!l)return;
+  const el=document.getElementById("aulaList");el.classList.add("hide");
+  const d=document.getElementById("aulaDetail");d.classList.remove("hide");
+  const st=S.aula[id]||{};
+  const qs=lessonQs(id);
+  d.innerHTML=`
+    <div class="row"><button class="btn ghost" onclick="renderAulas()">‹ todas as aulas</button>
+      <b>${l.sec} · ${l.t} <span class="note">(${l.dur})</span></b></div>
+    <div class="card">
+      <div class="row" style="margin:0 0 10px">
+        ${l.ytid?`<a class="btn" href="${YT_BASE}${l.ytid}" target="_blank">▶ vídeo no YouTube</a>`:''}
+        ${l.pdf?`<a class="btn ghost" href="${l.pdf}" target="_blank">📄 PDF ↗</a>`:''}
+        <label style="font-size:14px;margin-left:8px"><input type="checkbox" ${st.watched?'checked':''} onchange="toggleAulaWatched('${id}',this.checked)"> assisti a aula</label>
+      </div>
+      <h3 style="margin-top:12px">📖 Resumo</h3>
+      <p>${l.res}</p>
+      <h3>💡 Highlights</h3>
+      <ul>${l.hi.map(h=>'<li>'+h+'</li>').join('')}</ul>
+      ${l.tips?`<div class="card" style="background:#1c1608;border-color:#5a4a12"><b style="color:var(--gold)">🎯 Dicas de prova</b><ul>${l.tips.map(t=>'<li>'+t+'</li>').join('')}</ul></div>`:''}
+    </div>
+    ${qs.length?`<div class="card"><div class="row" style="justify-content:space-between">
+        <b>✏️ ${qs.length} questões desta aula</b>
+        <div><button class="btn" onclick="startAulaQuiz('${id}')">▶ Praticar as ${qs.length}</button>
+             <button class="btn ghost" onclick="renderAulas()">‹ volta</button></div></div>
+      <div class="note">Aula ${l.sec}: questões com explicação completa, no formato da prova real.</div></div>`:''}
+  `;
+}
+function lessonQs(id){const ids=LESSON_QS[id]||[];return ids.map(x=>qById(x)).filter(Boolean)}
+function qsOf(id){const q=lessonQs(id);return {m:q.filter(x=>S.q[x.id]&&S.q[x.id].mastered).length,t:q.length}}
+function toggleAulaWatch(id){const st=S.aula[id]||{};st.watched=!st.watched;S.aula[id]=st;save(S);renderAulas();}
+function startAulaQuiz(id){
+  const qs=lessonQs(id);
+  shuffle(qs);
+  quiz={track:qs[0]?qs[0].t:'secplus',dom:null,queue:qs,idx:0,answered:false,aula:id};
+  document.getElementById("aulaDetail").classList.add("hide");
+  document.getElementById("aulaList").classList.add("hide");
+  document.getElementById("quizWrap").classList.remove("hide");
+  renderQ();
+}
+/* alteração no renderQuizEnd: se veio de uma aula, retorna pra ela */
 if(!S.q) S.q={};
 if(!S.stats) S.stats={answered:0, right:0, streak:0, best:0};
 if(!S.last) S.last=null; // {track, dom}
@@ -1013,13 +1121,14 @@ function trackProg(track){const l=qsOf(track);return {m:masteredCount(l),tot:l.l
 function weakList(){return Q.filter(x=>{const r=S.q[x.id];return r&&r.seen&&!r.mastered && r.streak<1 && (r.wrongs>0)})}
 
 /* ---------- NAV ---------- */
-const SEC=["home","praticar","simulado","fracos","gloss"];
+const SEC=["home","aulas","praticar","simulado","fracos","gloss"];
 document.querySelectorAll(".tab").forEach(tb=>tb.onclick=()=>{
   document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
   tb.classList.add("on");
   SEC.forEach(s=>document.getElementById(s).classList.add("hide"));
   const t=tb.dataset.t; document.getElementById(t).classList.remove("hide");
   if(t==="home") renderHome();
+  if(t==="aulas") renderAulas();
   if(t==="praticar") showTracks();
   if(t==="simulado") renderSimSetup();
   if(t==="fracos") renderWeak();
@@ -1154,6 +1263,18 @@ function answer(i){
 function nextQ(){quiz.idx++;quiz.answered=false;renderQ();}
 function renderQuizEnd(){
   const w=document.getElementById("quizWrap");
+  if(quiz.aula){
+    // veio do modo AULA: volta pra aula
+    const l=LESSONS.find(x=>x.id===quiz.aula);
+    w.innerHTML=`<div class="card" style="text-align:center">
+      <div class="big">🎉</div><b>Rodada da aula ${l.sec} concluída!</b>
+      <div class="note" style="margin:8px 0">${l.t} · ${qsOf(l.id)}</div>
+      <div class="row" style="justify-content:center">
+        <button class="btn" onclick="startAulaQuiz('${l.id}')">↻ Praticar de novo</button>
+        <button class="btn ghost" onclick="openAula('${l.id}')">‹ voltar pra aula</button>
+      </div></div>`;
+    return;
+  }
   const p=trackProg(quiz.track);
   w.innerHTML=`<div class="card" style="text-align:center">
     <div class="big">🎉</div><b>Rodada concluída!</b>
