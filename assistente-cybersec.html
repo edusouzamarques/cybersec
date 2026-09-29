@@ -60,7 +60,7 @@
 <header>
   <div class="wrap" style="padding-bottom:0">
     <h1>🛡️ Assistente CyberSec — trilha pessoal do Eduardo</h1>
-    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. <b>Estrela-norte: GRC (segurança em linguagem de negócio), com Security Intelligence mesclado e SOC como suporte</b>; diferencial raro: segurança de IA/agentes. Estado 28/09: <b>Python Essentials 1 ✅ · Linux Unhatched em curso · Messer Security+ começa APÓS fechar o Unhatched</b> — bloco de certs (PCEP · Linux Essentials · Security+) alvo até fim de outubro. <b>Tabela de vagas calibrada pra ENTRY LEVEL (0 experiência formal)</b>; estágios via MS ficam como reserva (jan/2027).</div>
+    <div class="sub">Roda offline. Marca o que concluir — ele salva sozinho neste navegador e te diz o próximo passo. <b>Estrela-norte: trabalho de risco e conformidade (segurança traduzida em linguagem de negócio), mesclado com teu passado de investigação; operação de defesa (monitoramento) fica como suporte</b>; diferencial raro: segurança de inteligência artificial. Estado 28/09: <b>Python parte 1 ✅ · Linux primeiro degrau em curso · curso do Messer começa APÓS fechar o Linux</b> — bloco de exames (Python · Linux · Security+) alvo até fim de outubro. <b>Tabela de vagas calibrada pra quem está começando (0 experiência formal)</b>; estágios via mestrado ficam como reserva (jan/2027).</div>
   </div>
 </header>
 <div class="wrap">
@@ -128,7 +128,7 @@
 
   <section id="certs" class="hide">
     <div class="card"><h3 style="margin-top:0">🎖️ Teus certificados — a ordem certa</h3>
-    <p class="note">Confirmado pelo mercado (imersão + vagas reais US). Faz na ordem: <b>núcleo</b> primeiro (Security+ é o alicerce — inclusive do GRC), depois <b>TUA SEQUÊNCIA GRC (1→10, ordenada por evolução intelectual: cada degrau é base do próximo)</b>, com teu <b>diferencial de IA</b> (AIGP + ISO 42001) no topo. SOC fica como suporte (CySA+/BTL1 só se o trabalho pedir). Sênior (CISSP/CISA/CISM) é destino — exige anos de experiência.</p></div>
+    <p class="note">Confirmado pelo mercado (imersão + vagas reais dos EUA). Faz na ordem: <b>a base primeiro</b> (Security+ é o alicerce — inclusive do ramo de risco), depois <b>A TUA SEQUÊNCIA (1→10, ordenada por evolução: cada degrau é base do próximo)</b>, com <b>teu diferencial de IA</b> (o certificado de governança de IA + a norma ISO 42001) no topo. Operação/monitoramento fica como suporte (só se o trabalho pedir). Os certos de sênior (CISSP/CISA/CISM) são destino — exigem anos de experiência.</p></div>
     <div id="certList"></div>
     <div class="card" style="margin-top:16px"><h3 style="margin:0">🧰 Conhecimentos & ferramentas que as vagas pedem</h3>
     <p class="note">O que aprender na prática além das certs (levantado das vagas reais). Muitos já estão no Glossário e no Treinador. Não precisa dominar tudo — foca no ramo que escolher.</p></div>
@@ -183,7 +183,7 @@
   </section>
 </div>
 
-<script>document.write('<script src="_jobscan/vagas_data.js?cb='+Date.now()+'"><\/script>');</script>
+<script src="_jobscan/vagas_data.js"></script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
 let done = JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -193,7 +193,7 @@ const CREDS_KEY = "cybersec_creds_v1";
 let creds = JSON.parse(localStorage.getItem(CREDS_KEY) || "{}");
 const CRED_DEFS = [
   ["secplus","Security+"],["cloud","Cloud (AWS/AZ/SC-900)"],["network","Network+"],
-  ["pcep","PCEP (Python)"],["linux","Linux"],["cysa","CySA+"],["secai","SecAI+"],["cgrc","CGRC/GRC"]
+  ["pcep","Certificado de Python (PCEP)"],["linux","Certificado de Linux"],["cysa","CySA+"],["secai","SecAI+"],["cgrc","Certificado de Risco (CGRC)"]
 ];
 const CRED_LABEL = Object.fromEntries(CRED_DEFS);
 function toggleCred(k){ creds[k]=!creds[k]; localStorage.setItem(CREDS_KEY, JSON.stringify(creds)); renderCreds(); renderJobsLive(); }
@@ -209,7 +209,7 @@ function jobFit(j){
   // TODA vaga listada já é trabalhável do Brasil (worldwide) ou patrocina visto (sponsor) — o scanner filtra o resto
   if(j.level==="pleno") return {cls:"", txt:"🎯 meta 1-2 anos"+m()};
   if(j.level==="senior") return {cls:"paid", txt:"👑 destino 3+ anos"};
-  if(j.sponsor) return {cls:"free", txt:"⭐ PATROCINA visto — alvo com MS+SecAI+"+m()};
+  if(j.sponsor) return {cls:"free", txt:"⭐ a empresa TRAZ-TE (patrocina o papel) — alvo com mestrado"+m()};
   if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (do Brasil)"};
   return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
 }
@@ -264,152 +264,138 @@ const save = ()=>localStorage.setItem(KEY, JSON.stringify(done));
 
 /* ---------------- DADOS: TRILHA ---------------- */
 const ROADMAP = [
- {ph:"Fase 0 — Fundamento + 1º certificado grátis", tier:"base", items:[
-   {id:"cisco-net", t:"Cisco — Networking Basics", type:"Curso", free:1, done:1,
+ {ph:"Fase 0 — A base + o primeiro certificado de verdade", tier:"base", items:[
+   {id:"cisco-net", t:"Cisco — Como funcionam as redes de computador", type:"Curso", free:1, done:1,
     link:"https://www.netacad.com/",
-    d:"Redes do zero: IP, sub-rede, switch/roteador. VOCÊ JÁ FEZ ✅.",
-    e:"Base de tudo. Sem entender rede, segurança de rede é decoreba."},
-   {id:"cisco-introcyber", t:"Cisco — Introduction to Cybersecurity", type:"Curso", free:1, done:1,
+    d:"Como computadores conversam entre si: endereços, roteadores, o caminho que a informação percorre. TU JÁ FEZ ✅.",
+    e:"É o alicerce de tudo. Sem entender como as máquinas conversam, proteger a conversa é decoreba."},
+   {id:"cisco-introcyber", t:"Cisco — Introdução à Segurança Digital", type:"Curso", free:1, done:1,
     link:"https://www.netacad.com/",
-    d:"Panorama da área, tipos de ameaça, vocabulário inicial. VOCÊ ESTÁ FAZENDO.",
-    e:"Leve, panorâmico. Serve pra pegar os termos-guarda-chuva e ver os subcampos."},
-   {id:"messer-secplus", t:"⭐ Security+ — estudo grátis (Professor Messer) → é a PRIORIDADE de cert", type:"Curso→Cert", free:1,
-    link:"https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/",
-    d:"Curso completo e GRÁTIS no YouTube que prepara pro CompTIA Security+ (exame ~US$400). VIROU tua prioridade de certificado: é o crachá que o RH filtra, muito mais reconhecido que o ISC2 CC. AINDA NÃO INICIADO — começa logo após fechar o Linux Unhatched (teu combinado: Unhatched → então Messer + Linux 1 em paralelo).",
-    e:"O vocabulário-padrão da indústria inteira — e a BASE do GRC: segurança, risco, conformidade e arquitetura no vocabulário que o mercado usa. Estuda grátis, paga só o exame quando estiver pronto."},
-   {id:"linux-unhatched", t:"🐧 Cisco NDG Linux Unhatched → em ANDAMENTO (28/09)", type:"Curso", free:1,
+    d:"O panorama geral: quem ataca, como atacam, o que se protege, e quais são os tipos de trabalho nesse mundo. TU JÁ FEZ ✅.",
+    e:"Um passeio guiado pelos tipos de emprego que existem na área — bom pra descobrir onde tu quer trabalhar."},
+   {id:"linux-unhatched", t:"🐧 Cisco — Linux, primeiro degrau (em andamento, 28/09)", type:"Curso", free:1,
     link:"https://www.netacad.com/courses/ndg-linux-unhatched",
-    d:"Primeiro degrau Linux da Cisco (30-40h curtas). Terminando AGORA. Assim que fechar, entra em sequência: Professor Messer Security+ + Cisco NDG Linux 1 (em paralelo).",
-    e:"Linux é requisito em ~80% das vagas de SOC/infra do radar. Depois dele: LPI Linux Essentials (exame) vira o comprovante."},
-   {id:"linux-1", t:"🐧 Cisco NDG Linux 1 (em sequência, com Messer em paralelo)", type:"Curso", free:1,
+    d:"Linux é um sistema operacional como o Windows, mas que roda quase Todos os servidores do planeta — e é a língua nativa de quem trabalha com segurança. Esse curso curtinho da Cisco é o primeiro degrau. Estás terminando AGORA.",
+    e:"Aprender Linux é pré-requisito em quase toda vaga da tua tabela. Terminando ele, segues pro Linux nível 1."},
+   {id:"linux-1", t:"🐧 Cisco — Linux, degrau 2 (em sequência)", type:"Curso", free:1,
     link:"https://www.netacad.com/courses/ndg-linux-1?courseLang=en-US",
-    d:"Aprofunda linha de comando, sistema de arquivos, scripts bash, permissões. Cobre boa parte da LPI Linux Essentials. Faz DEPOIS do Unhatched, em paralelo com o Messer.",
-    e:"Linux + Security+ juntos = o combo que o radar de vagas pede (Kyndryl Infra, Huntress, Canonical). Destrava a aba Linux do Treinador."},
-   {id:"pcep-done", t:"✅ Cisco Python Essentials 1 — CONCLUÍDO (badge na conta NetAcad)", type:"Curso", free:1, done:1,
+    d:"Aprofunda Linux: escrever comandos, organizar arquivos, criar pequenos programas, controlar quem pode acessar o quê. Faz DEPOIS do primeiro degrau, ao lado do curso do Messer.",
+    e:"Junta Linux com o Security+ = o pacote que as vagas da tua tabela pedem. Ao fim, o certificado oficial de Linux (pago) vira o comprovante."},
+   {id:"messer-secplus", t:"⭐ Security+ — curso completo de graça com o Professor Messer (a prioridade)", type:"Curso→Cert", free:1,
+    link:"https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/",
+    d:"Videoaula completa e GRÁTIS no YouTube que prepara pro exame do Security+ (exame ~US$400, pagas só quando estiveres pronto). ⚠️ ATENÇÃO COM A DATA: o Messer ensina a versão que vale até o dia 17 de novembro de 2026 — depois disso entra a versão nova (SY0-801). Vê o bloco de datas no fim da trilha. AINDA NÃO INICIADO — começa logo após fechar o Linux de degrau 1.",
+    e:"É a base de linguagem de todo o mercado: o que é uma falha, o que é um risco, como uma empresa se protege. Aqui os termos deste app viram familiares. Estuda grátis; paga só o exame."},
+   {id:"pcep-done", t:"✅ Cisco — Python, parte 1: CONCLUÍDO (selo na tua conta)", type:"Curso", free:1, done:1,
     link:"https://www.netacad.com/courses/python-essentials-1?courseLang=en-US",
-    d:"Badge emitido. Cobre 100% do conteúdo do exame PCEP. Próximo passo: agendar o exame PCEP (~US$59) OU ir direto pro Essentials 2 (ponte pro PCAP).",
-    e:"Primeiro cert de Python no currículo. O PCEP pago vira 'o papel' — o PCEP + Sec+ + Linux Essentials é o bloco de certs de out/2026."},
-   {id:"isc2-cc", t:"ISC2 — Certified in Cybersecurity (CC) — perdeu o grátis", type:"CERTIFICADO", free:0,
-    link:"https://www.isc2.org/certifications/cc",
-    d:"⚠️ O programa grátis 'One Million' FECHOU inscrições em 20/mai/2026. Agora: exame US$199 + US$50/ano (AMF recorrente). Sem o grátis, o Security+ vale mais o dinheiro. OPCIONAL/pular.",
-    e:"5 domínios (segurança/risco/acesso/rede/operações). Continua sendo cert reconhecida, mas como pago perde pro Security+ em custo-benefício. Só faz se quiser o 2º cert barato."},
-   {id:"tryhack-101", t:"TryHackMe — Cyber Security 101", type:"Prática", free:1,
-    link:"https://tryhackme.com/",
-    d:"Laboratório interativo no navegador. Trilha guiada, muita coisa grátis.",
-    e:"Mão na massa: terminal, ataques simples, defesa. Vicia (do bom) e ensina fazendo."},
- ]},
- {ph:"🐍 Python pré-matrícula — só o que os challenges cobram", tier:"base", items:[
-   {id:"py-base", t:"Python base — Python for Everybody (ou CS50P)", type:"Curso", free:1,
-    link:"https://www.py4e.com/",
-    d:"Grátis, do zero. Foca em: variáveis, loops, funções, listas, DICIONÁRIOS, classes, arquivos. Alternativa mais puxada: CS50P (cs50.harvard.edu/python).",
-    e:"É a base de TODAS as atribuições. Dicionário/classe = como tu vai representar tabela de roteamento."},
-   {id:"py-exercism", t:"Prática guiada — Exercism (trilha Python)", type:"Prática", free:1,
-    link:"https://exercism.org/tracks/python",
-    d:"Exercícios com correção automática + mentor, grátis. Simula o formato 'escreve código → máquina corrige' das atribuições.",
-    e:"Faz até ficar automático. É o mesmo tipo de avaliação do Coursera."},
-   {id:"py-socket", t:"Sockets — cliente/servidor TCP (Real Python + Beej)", type:"Tópico", free:1,
-    link:"https://realpython.com/python-sockets/",
-    d:"Módulo `socket` do Python: criar cliente e servidor. Complemento clássico: Beej's Guide (beej.us/guide/bgnet).",
-    e:"DESBLOQUEIA a atribuição de socket programming da Foundations. Item obrigatório."},
-   {id:"py-bytes", t:"Bytes/binário — struct + parsing de pacote", type:"Tópico", free:1,
-    link:"https://docs.python.org/3/library/struct.html",
-    d:"Ler/montar dados binários (`struct`, `bytes`, `bytearray`). Base pra analisar tráfego de rede.",
-    e:"DESBLOQUEIA a atribuição de análise de tráfego. Pacote de rede é binário."},
-   {id:"py-tls", t:"TLS/certificados — módulo ssl + cryptography", type:"Tópico", free:1,
-    link:"https://docs.python.org/3/library/ssl.html",
-    d:"Gerar/usar certificado, entender TLS em Python (módulos `ssl` e `cryptography`). Real Python tem guia.",
-    e:"DESBLOQUEIA a atribuição de TLS/HTTPS da Foundations."},
-   {id:"py-solo", t:"Treino SEM consulta (simula a prova proctorada)", type:"Prática", free:1,
-    link:"https://exercism.org/tracks/python",
-    d:"Refaz 3-4 exercícios de socket/struct do zero, cronometrado, SEM IA e SEM copiar. A prova final é proctorada — sozinho.",
-    e:"Esse é o teste real de que tu tira B+. Se conseguir aqui, está pronto pra matricular."},
-   {id:"py-cisco1", t:"✅ Cisco Python Essentials 1 — badge grátis (ponte pro PCEP)", type:"Curso", free:1, done:1,
-    link:"https://www.netacad.com/courses/python-essentials-1?courseLang=en-US",
-    d:"Grátis, na plataforma que tu já usa. Dá BADGE verificável e cobre 100% do exame PCEP. CONCLUÍDO 28/09 — badge na conta NetAcad.",
-    e:"O badge é comprovante leve; o PESO real está no PCEP que ele destrava. Agora: agendar o exame PCEP."},
-   {id:"py-pcep", t:"PCEP — Certified Entry-Level Python (exame ~US$59)", type:"Certificação", free:0,
+    d:"Python é a linguagem de programação mais usada em segurança automation (escrever programinhas que fazem o trabalho repetido). Curso concluído, selo emitido na tua conta. Cobre TODO o conteúdo do exame oficial de Python nível 1.",
+    e:"Primeiro título de Python no currículo. Agora o passo é agendar o exame oficial (~US$59) pra virar o papel."},
+   {id:"py-pcep", t:"PCEP — o exame oficial de Python nível 1 (~US$59)", type:"Certificação", free:0,
     link:"https://pythoninstitute.org/pcep",
-    d:"Certificação REAL de fundação do Python Institute (não é badge de curso). Pago, mas reconhecido. O Cisco Essentials 1 te prepara 100%.",
-    e:"Esse é o certificado de Python que VALE no CV. Badge Cisco = ponte; PCEP = o papel. Tira depois de passar no treino solo."},
- ]},
- {ph:"⭐ ÂNCORA — MS-CS CU Boulder (Coursera)", tier:"topo", items:[
-   {id:"ms-decide", t:"✓ TRAVADO: MS-CS · Pathway Network Systems", type:"Decisão", free:1, done:1,
-    link:"https://www.colorado.edu/cs/academics/online-programs/mscs-coursera",
-    d:"TRAVADO 18/09. MS-CS (tem trilha de cibersegurança de verdade + eletivas de IA) via Pathway NETWORK SYSTEMS (redes/Linux/cloud — casa com cibersegurança e teu fundo operacional).",
-    e:"$525/crédito · $15.750 os 30 créditos · pay-as-you-go · diploma não menciona Coursera/online. Admissão por desempenho, sem exigir diploma."},
-   {id:"ms-enroll", t:"⚡ ACELERADO: matricular as 3 na sessão Fall 2 (out→dez) → admissão DEZ/2026", type:"Marco", free:1,
-    link:"https://www.colorado.edu/cs/academics/online-programs/mscs-coursera/calendar",
-    d:"Matrícula abre 5/OUT · aula 19/out · entrega 11/DEZ. Com 5-8h/dia dá pra fazer as 3 juntas e ser admitido em dez/2026 (não abr/2027). ~US$1.575 as 3. Começa conta+onboarding (3-5h) em 5/out. SEM extensão.",
-    e:"Risco NÃO é tempo — é o B+ no código (Linux/Cloud têm Python: roteamento, socket, TLS) + a prova final PROCTORADA (sozinho, sem IA). Ataca Foundations 1º (rápida, sobrepõe Cisco), depois as 2 de código."},
-   {id:"ms-p1", t:"✓ TRAVADA 1/3 — Network Systems Foundations", type:"Disciplina (B+)", free:0,
-    link:"https://www.coursera.org/learn/network-systems-foundations",
-    d:"1ª do Pathway Network Systems (travado). B ou mais. Já conta como crédito do diploma.",
-    e:"Camadas de rede, IP, TLS, Python. Começa por esta."},
-   {id:"ms-p2", t:"✓ TRAVADA 2/3 — Linux Networking", type:"Disciplina (B+)", free:0,
-    link:"https://www.coursera.org/learn/npp-linux-networking",
-    d:"2ª do Pathway. B+. Faz DEPOIS da Foundations.", e:"Linux + rede na prática — pão-com-manteiga de quem defende infra."},
-   {id:"ms-p3", t:"✓ TRAVADA 3/3 — Cloud Networking", type:"Disciplina (B+)", free:0,
-    link:"https://www.coursera.org/learn/npp-cloud-networking",
-    d:"3ª do Pathway. B+. Faz por ÚLTIMO (depois de Foundations + Linux).", e:"Cloud networking — direto pra cloud security."},
-   {id:"ms-admit", t:"Admissão automática — alvo DEZ/2026 (B+ nas 3 + GPA ≥ 3.0)", type:"Marco", free:1,
-    link:"https://www.coursera.org/degrees/ms-computer-science-boulder/admissions",
-    d:"B+ nas 3 + GPA pathway ≥3.0 + GPA cumulativo ≥3.0 + indicar interesse = admitido. Sem transcript, GRE/TOEFL, carta ou taxa. Modo acelerado: admissão ~dez/2026.",
-    e:"Depois: 15 créditos de breadth + 15 de eletivas. Concentra em Security & Ethical Hacking + ML/GenAI/RL = o cruzamento IA×segurança."},
- ]},
- {ph:"Fase 1 — Prática hands-on (grátis, com certificado)", tier:"base", items:[
-   {id:"portswigger", t:"PortSwigger — Web Security Academy", type:"CERTIFICADO", free:1,
-    link:"https://portswigger.net/web-security",
-    d:"O MELHOR recurso de segurança web do mundo, 100% grátis, feito pela dona do Burp Suite. Emite certificado.",
-    e:"SQLi, XSS, SSRF, autenticação quebrada, na prática, com labs. Sozinho já te dá base séria de AppSec."},
-   {id:"thm-presec", t:"TryHackMe — Pre Security + Jr Penetration Tester", type:"Prática", free:1,
+    d:"O exame oficial do Python Institute. O selo da Cisco já te preparou 100% — o exame é que vira o papel no currículo.",
+    e:"Com esse papel tu diz 'tenho certificado oficial de Python' em qualquer entrevista. Agenda depois de passar no treino solo."},
+   {id:"isc2-cc", t:"ISC2 CC — outro certificado de segurança (perdeu o grátis)", type:"CERTIFICADO", free:0,
+    link:"https://www.isc2.org/certifications/cc",
+    d:"⚠️ Era de graça, o programa acabou em maio/2026. Agora: exame US$199 + assinatura anual. Como agora é pago, o Security+ vale muito mais o dinheiro. OPCIONAL — pode pular.",
+    e:"É reconhecido, mas fazendo os dois é pagar dois vezes pela mesma porta. Security+ primeiro, sempre."},
+   {id:"tryhack-101", t:"TryHackMe — laboratórios de segurança no navegador", type:"Prática", free:1,
     link:"https://tryhackme.com/",
-    d:"Trilhas estruturadas do básico ao pentest júnior.",
-    e:"Nmap, Metasploit, privilege escalation. Certificado de trilha ao fim."},
-   {id:"attack", t:"MITRE ATT&CK — treino grátis", type:"Leitura/Curso", free:1,
+    d:"Laboratório prático dentro do navegador: te dão computadores 'com problemas de segurança' e tu aprende a explorar e a defender. Trilha guiada, muita coisa grátis.",
+    e:"É aprender fazendo — vicia (do bom) e enche o currículo de prática real."},
+  ]},
+  {ph:"🐍 Python — o que o mestrado vai pedir de você", tier:"base", items:[
+   {id:"py-base", t:"Python base — Python for Everybody (grátis)", type:"Curso", free:1,
+    link:"https://www.py4e.com/",
+    d:"Grátis, do zero. O Dr. Chuck ensina: variáveis, laços, funções, listas, arquivos — tudo o que o mestrado vai assumir que sabes.",
+    e:"É a base de TODAS as tarefas do mestrado. Faz em paralelo com o resto — 30 min/dia já evolui."},
+   {id:"py-exercism", t:"Prática guiada — Exercism (correção automática de exercícios)", type:"Prática", free:1,
+    link:"https://exercism.org/tracks/python",
+    d:"Exercícios que a máquina corrige na hora, de graça, com dicas. Igual ao formato das tarefas do mestrado (tu entrega, a máquina corrige).",
+    e:"Faz até ficar automático. É o mesmo tipo de avaliação que tu vai encontrar no Coursera."},
+   {id:"py-solo", t:"Treino SEM consulta (simula a prova final proctorada do mestrado)", type:"Prática", free:1,
+    link:"https://exercism.org/tracks/python",
+    d:"Refaz 3-4 exercícios do começo, cronometrado, SEM IA e SEM copiar. A prova final do mestrado é vistoriada por câmera — tu estará sozinho.",
+    e:"Esse é o teste real de que tu tira B+. Se conseguir fazer bem aqui, tu está pronto pra matricular em qualquer disciplina."},
+  ]},
+  {ph:"⭐ ÂNCORA — Mestrado na Universidade do Colorado (CU Boulder)", tier:"topo", items:[
+   {id:"ms-decide", t:"✓ DECIDIDO: mestrado em Ciência da Computação, caminho de Redes", type:"Decisão", free:1, done:1,
+    link:"https://www.colorado.edu/cs/academics/online-programs/mscs-coursera",
+    d:"Decidido em 18/09. Mestrado online da Universidade do Colorado, com trilha de segurança de verdade + aulas de Inteligência Artificial. A porta de entrada é um caminho de 3 matérias sobre redes (alinhado com o que tu já sabe).",
+    e:"Preço claro: US$525 por matéria · US$15.750 o diploma todo · pagas conforme cursas. O diploma é idêntico ao do campus — não fala 'online'. E a admissão é por desempenho: você ENTRA FAZENDO."},
+   {id:"ms-enroll", t:"⏳ Matrícula: JANEIRO 2027 (tu decidiu — não a sessão de outubro)", type:"Marco", free:1,
+    link:"https://www.colorado.edu/cs/academics/online-programs/mscs-coursera/calendar",
+    d:"Tu decidiu começar o mestrado em JANEIRO/2027. Até lá: fecha o bloco de certificados (outubro) e começa os 3 estudos do caminho de entrada com calma. Janela de matrícula pra janela de janeiro abre em novembro/dezembro — o botão de alerta no site te avisa.",
+    e:"O mestrado é a porta de entrega das vagas de estágio (que exigem estar matriculado) e o alicerce do teu pedido de green card. Com calma vale mais que com pressa."},
+   {id:"ms-p1", t:"TURMA 1/3 — Fundamentos de redes (primeira matéria)", type:"Disciplina (nota B+)", free:0,
+    link:"https://www.coursera.org/learn/network-systems-foundations",
+    d:"A primeira matéria do caminho: como a internet funciona por dentro, de camada em camada. Nota B+ exigida — e a nota JÁ CONTA pro diploma.",
+    e:"Começa por esta: é a mais rápida e sobrepõe o que tu já aprendeu nos cursos da Cisco."},
+   {id:"ms-p2", t:"TURMA 2/3 — Linux e redes na prática", type:"Disciplina (nota B+)", free:0,
+    link:"https://www.coursera.org/learn/npp-linux-networking",
+    d:"A segunda matéria: Linux + redes ao mesmo tempo. Faz DEPOIS da primeira.",
+    e:"É a junção das duas coisas que tu estará treinando este outono — cai macio."},
+   {id:"ms-p3", t:"TURMA 3/3 — Redes na nuvem (faz por último)", type:"Disciplina (nota B+)", free:0,
+    link:"https://www.coursera.org/learn/npp-cloud-networking",
+    d:"A terceira: como as grandes empresas (Amazon, Microsoft, Google) rodam suas redes na nuvem. Faz POR ÚLTIMO.",
+    e:"Terminada a três com B+, o sistema te ADMITE no mestrado automaticamente. Sem GRE, sem carta, sem taxa."},
+   {id:"ms-admit", t:"Admissão no mestrado — teu marco de 2027", type:"Marco", free:1,
+    link:"https://www.coursera.org/degrees/ms-computer-science-boulder/admissions",
+    d:"B+ nas três matérias + média geral ≥3.0 = admitido. As três matérias contam como crédito do diploma — o tempo não é perdido.",
+    e:"Depois de admitido, focas nas aulas de SEGURANÇA + as de inteligência artificial = exatamente teu cruzamento."},
+  ]},
+  {ph:"🛠️ Fase 1 — Prática de verdade, de graça (com certificado)", tier:"base", items:[
+   {id:"portswigger", t:"PortSwigger — a escola de segurança de sites mais respeitada do mundo", type:"CERTIFICADO", free:1,
+    link:"https://portswigger.net/web-security",
+    d:"100% grátis, feita pela empresa que faz a ferramenta que TODA a indústria usa pra testar sites. Ensina como se invade um site mal-protegido — e como se protege. Emite certificado de cada bloco.",
+    e:"Cada falha que aprender aqui é uma falha real que tu vai buscar depois nos programas de recompensa (a via que paga por bug)."},
+   {id:"thm-presec", t:"TryHackMe — do zero ao caçador de falhas iniciante", type:"Prática", free:1,
+    link:"https://tryhackme.com/",
+    d:"Trilhas práticas guiadas: tu ataca e defends computadores de treino direto no navegador. Trilha 'Jr Penetration Tester' é a tua meta de prática.",
+    e:"Sem lab desses, não há 'experiência' pra falar em entrevista. Com ele, há."},
+   {id:"attack", t:"MITRE ATT&CK — o dicionário dos ataques (treino grátis)", type:"Leitura/Curso", free:1,
     link:"https://attack.mitre.org/",
-    d:"O dicionário mundial de táticas e técnicas de atacante. Todo blue team usa.",
-    e:"Vira teu mapa mental de 'como o inimigo age'. MITRE tem trilha de treino grátis."},
-   {id:"cisa", t:"CISA / OpenSecurityTraining2 — cursos gov grátis", type:"Curso", free:1,
+    d:"Catálogo mundial das formas de atacar, numeradas uma por uma. É a linguagem padrão que as empresas usam pra mapear ataques — e o teu lab de casa já está mapeado nele.",
+    e:"Vira teu mapa mental de 'como o inimigo age'. Todo mundo de defesa lê dele."},
+   {id:"cisa", t:"CISA — cursos de graça da agência de segurança dos EUA", type:"Curso", free:1,
     link:"https://www.cisa.gov/resources-tools/training",
-    d:"Treinamento profundo e gratuito de agência de segurança dos EUA + material acadêmico aberto.",
-    e:"Denso, técnico, de graça. Bom pra aprofundar onde o resto foi superficial."},
- ]},
- {ph:"Fase 2 — Especialização em IA/Agent Security (TEU DIFERENCIAL)", tier:"topo", items:[
-   {id:"owasp-llm", t:"OWASP Top 10 for LLM Applications", type:"Leitura", free:1,
+    d:"A agência federal de segurança dos EUA dá treinamento de graça — material pesado e técnico.",
+    e:"Bom pra aprofundar onde os cursos leves deixaram furo."},
+  ]},
+  {ph:"🤖 Fase 2 — Segurança de IA (teu diferencial — quase ninguém tem)", tier:"topo", items:[
+   {id:"owasp-llm", t:"OWASP — as 10 falhas mais graves de sistemas de IA", type:"Leitura", free:1,
     link:"https://genai.owasp.org/",
-    d:"As 10 falhas mais críticas de apps com LLM. Leitura OBRIGATÓRIA do teu nicho.",
-    e:"Prompt injection, vazamento de dados, envenenamento. Tu vai reconhecer coisas que já tratou no deputy."},
-   {id:"atlas", t:"MITRE ATLAS", type:"Leitura", free:1,
+    d:"Documento gratuito, o mais citado do mercado, listando o que pode dar errado num sistema de IA: enganar a IA pra ela obedecer o atacante, roubar segredo dela, envenenar os dados de treino.",
+    e:"É a leitura obrigatória do teu futuro campo de trabalho. Tu já tratou destes problemas na prática (teu porteiro de decisões) — agora sabes o NOME formal."},
+   {id:"atlas", t:"MITRE ATLAS — o dicionário de ataques contra IA", type:"Leitura", free:1,
     link:"https://atlas.mitre.org/",
-    d:"O 'ATT&CK da IA': táticas de ataque contra sistemas de machine learning, com casos reais.",
-    e:"Roubo de modelo, evasão, envenenamento. É o mapa do teu campo de batalha específico."},
-   {id:"nist-airmf", t:"NIST AI Risk Management Framework", type:"Leitura", free:1,
+    d:"A versão do dicionário ATT&CK, mas específica pra ataques contra sistemas de inteligência artificial — com casos reais documentados.",
+    e:"É o mapa do teu campo de batalha específico. Casos reais que tu vai citar em entrevista."},
+   {id:"nist-airmf", t:"NIST — o manual oficial do governo dos EUA de como governar risco de IA", type:"Leitura", free:1,
     link:"https://www.nist.gov/itl/ai-risk-management-framework",
-    d:"O framework de governança de IA que o mercado (e reguladores) vão exigir.",
-    e:"Governar/mapear/medir/gerir risco de IA. É o lado GRC do teu nicho — o que dá cargo por lei."},
-   {id:"lakera", t:"Lakera Gandalf + labs de prompt injection", type:"Prática", free:1,
+    d:"Manual do governo americano pra empresas gerirem o risco da própria IA. As leis (americana e europeia) se apoiam nele.",
+    e:"É o lado FORMAL do teu caminho (risco e conformidade) aplicado a IA — cargo que a lei exige que algum humano ocupe."},
+   {id:"lakera", t:"Jogo Gandalf — aprende a enganar uma IA na prática", type:"Prática", free:1,
     link:"https://gandalf.lakera.ai/",
-    d:"Jogo que ensina prompt injection tentando extrair a senha de um LLM.",
-    e:"Lúdico e afiado. Depois: red-team de LLM em HackTheBox / desafios de AI."},
-   {id:"ms-ai", t:"Microsoft Learn — AI security & SC-900", type:"Curso", free:1,
-    link:"https://learn.microsoft.com/",
-    d:"Módulos grátis de segurança de IA e fundamentos de segurança/identidade.",
-    e:"Boa introdução corporativa a como empresas grandes tratam risco de IA."},
- ]},
- {ph:"Fase 3 — Certificação que abre porta (pagas; estuda grátis antes)", tier:"topo", items:[
-   {id:"secplus", t:"CompTIA Security+ (exame ~US$400) — Messer ainda NÃO iniciado (entra após Linux Unhatched)", type:"CERTIFICADO", free:0,
-    link:"https://www.comptia.org/certifications/security",
-    d:"O crachá de entrada que o RH filtra. Estudo começa quando o Linux Unhatched fechar (Messer + Linux 1 em paralelo). Meta: exame até fim de outubro — com PCEP + Linux Essentials fecham o bloco de out/2026.",
-    e:"Depois dele, teu currículo passa por filtros automáticos que hoje te barram. 6 das 8 vagas de entrada do radar destravam SÓ com ele — inclusive as de GRC (MongoDB TPRM, System One)."},
-   {id:"oscp-or-cloud", t:"Escolha: OSCP (ofensiva) OU AWS/Azure Security (arquitetura)", type:"CERTIFICADO", free:0,
-    link:"https://www.offsec.com/courses/pen-200/",
-    d:"OSCP = a cert ofensiva mais respeitada do mundo. Cloud security = o caminho arquitetura/defesa.",
-    e:"Escolhe pelo que te acende: quebrar (OSCP) ou blindar (cloud). Ambos são sênior-de-verdade."},
-   {id:"portfolio", t:"Publicar + escrever sobre teu agent-security", type:"Portfólio", free:1,
+    d:"Jogo onde tu tenta convencer uma inteligência artificial a revelar a senha secreta dela. Ensina a falha nº1 de IA na prática — e é divertido.",
+    e:"Boa porta de prática. Mostra em 10 minutos por que a tua linha de trabalho existe."},
+   {id:"portfolio", t:"Publicar + escrever sobre o que já construíste (teu portfólio de segurança de agentes)", type:"Portfólio", free:1,
     link:"https://github.com/edusouzaxGV",
-    d:"Continuar o portfólio (deputy, agent-gates) e ESCREVER o raciocínio por trás. É tua credencial mais rara.",
-    e:"Um recrutador de AI security quer ver isto MAIS que um diploma. Tu já tem — é só narrar."},
- ]},
+    d:"Os sistemas de segurança pra agentes de IA que tu construiu (o porteiro de decisões, os portões) + ARTIGOS explicando o raciocínio. É tua credencial mais rara.",
+    e:"Um recrutador de segurança de IA quer ver isto MAIS que um diploma. Tu já tem — é só contar a história em texto."},
+  ]},
+  {ph:"🎖️ Fase 3 — Os exames que abrem porta (estuda grátis, paga o papel)", tier:"topo", items:[
+   {id:"secplus", t:"Security+ — o exame (~US$400) — o crachá que abre a porta", type:"CERTIFICADO", free:0,
+    link:"https://www.comptia.org/certifications/security",
+    d:"O certificado que o RH filtra. ⚠️ COM DATA NO CALENDÁRIO: a versão que o Messer ensina (SY0-701) vale até NOVEMBRO de 2026. PRA PEGAR A JANELA: estudo em outubro (após o Linux) e AGENDAR O EXAME PRA INÍCIO/MEIO DE NOVEMBRO ANTES DO DIA 17. Como reserva, a versão nova (SY0-801) fica de pé — o Messer já preparou material novo e a mudança é pequena.",
+    e:"6 das 8 vagas da tua tabela destravam SÓ com ele — inclusive as de risco/compliance teu."},
+   {id:"secplus-v8", t:"⚠️ MUDANÇA DO EXAME Security+ em NOV/2026 — o que fazer", type:"Marco", free:1,
+    link:"https://www.comptia.org/en-us/certifications/security/v8/",
+    d:"O exame do Security+ é atualizado a cada ~3 anos. A versão que vale HOJE (que o Messer ensina grátis) deixa de aplicar no dia 17 de NOVEMBRO de 2026 — entra a versão nova (SY0-801) com um tópico novo: risco de INTELIGÊNCIA ARTIFICIAL (exatamente o teu campo). TEU PLANO SEGURO: (1) fecha o Messer até INÍCIO de novembro; (2) Agenda o exame pra INÍCIO/MEIO de novembro (antes do dia 17); (3) Se precisar remarcar, a versão nova inclui teu tema (IA) na prova — não perde nada.",
+    e:"Não adiar o exame além do meio de novembro. Estudar a versão atual agora é mais rápido: material de graça consolidado, Messer completo, e as questões da versão nova são 95% iguais."},
+   {id:"oscp-or-cloud", t:"Mais adiante: especialização (escolha uma)", type:"CERTIFICADO", free:0,
+    link:"https://www.offsec.com/courses/pen-200/",
+    d:"Quando já estiveres trabalhando: OU o certificado mais respeitado de quem QUEBRA sistemas (offensivo) OU o de quem blindar sistemas na nuvem (defesa/arquitetura). Não decide agora.",
+    e:"É decisão de quando já estiveres dentro do mercado — e o empregador que paga é melhor."},
+  ]},
 ];
 
 /* ---------------- DADOS: GLOSSÁRIO 100 ---------------- */
@@ -517,25 +503,25 @@ const GLOSSARY = [
 ];
 
 /* ---------------- DADOS: CARREIRAS ---------------- */
-/* ESTRELA-NORTE travada com o Eduardo (2026-09-28): GRC primário, SOC secundário, SI/IA mesclado. */
+/* ESTRELA-NORTE travada com o Eduardo (2026-09-28): risco/compliance primário, monitoração secundária, inteligência/IA mescladas. */
 const CAREERS = [
- {n:"⭐ GRC — Governança, Risco & Compliance (TUA ESTRELA-NORTE)", tier:"S", star:1,
-  why:"É o profissional que aprendeu a falar de segurança na LINGUAGEM DE NEGÓCIO: faz a ponte entre o técnico e o board via risco, política, processo e metodologia. Cresce POR CAUSA da IA e da regulação (EU AI Act, NIST AI RMF, leis de dados) — o regulador exige um humano responsável por lei. Remoto por natureza (trabalha com documento, ferramenta e reunião, não com console 24/7), paga cedo, e não exige 'anos de console' pra entrar.",
-  note:"O QUE É: identificar, medir e comunicar risco; escrever política que a operação consegue cumprir; auditar contra frameworks (NIST CSF, ISO 27001, CIS); gerir risco de terceiros (TPRM); preparar a empresa pra SOC 2 / ISO 27001. O QUE FAZ NO DIA: gap analysis, risk register, política, auditoria, dashboard pro board. POR QUE VOCÊ: teu fundo investigativo (análise de evidência, relatório, cadeia de custódia) é exatamente a matéria-prima do GRC — auditoria é investigação formalizada."},
- {n:"⭐ Security Intelligence / Intelligence Analyst (MESCLADO com GRC)", tier:"S", star:1,
-  why:"O segundo pilar teu: inteligência de segurança (OSINT, HUMINT, threat intel) é onde teu passado de segurança pública entra DIRETO — e é a skill nº1 do cargo no CyberSeek (59% das vagas nem exigem bacharelado). MESCLAR com GRC é tua fórmula rara: inteligência alimenta o risco (quem te ameaça, com quê) → GRC traduz em decisão de negócio (priorizar, investir, cumprir).",
-  note:"MELD GRC × SI: threat intel como insumo do risk register · OSINT como evidência de due diligence de terceiro (TPRM) · NIST AI RMF + MITRE ATLAS como o framework da inteligência aplicada a IA. Ninguém domina os dois — quem mescla vira o 'special intelligence' que empresas pagam caro."},
- {n:"AI Governance / Governança de IA (o teu diferencial no topo do GRC)", tier:"S", star:1,
-  why:"O cruzamento dos teus dois pilares: GRC aplicado a sistemas de IA. Regulação (EU AI Act, NIST AI RMF, ISO/IEC 42001) criou um cargo que quase ninguém sabe exercer: governar risco de IA com método. Teu portfólio de agentes (deputy/agent-gates) já demonstra o tema na prática.",
-  note:"É o GRC do futuro: risk register pra modelos, política de uso, auditoria de conformidade de IA. AIGP (IAPP) + ISO 42001 + teu MS (eletivas de IA) = a trilogia."},
- {n:"🟡 SOC — Security Operations (SECUNDÁRIO: suporte, não primário)", tier:"A", sec:1,
-  why:"Fica como APOIO, não como carreira: 1) dá o vocabulário técnico que o GRC precisa pra ser levado a sério (o GRC que nunca viu um alerta não convence o time técnico); 2) algumas vagas de entrada remota de SOC aceitam 'estudando a cert' e pagam enquanto tu constrói o GRC; 3) o N1 de SOC está sendo automatizado — NÃO construir carreira nele.",
-  note:"USO ESTRATÉGICO: lab Wazuh/LetsDefend em casa = evidência prática pro currículo de GRC (quem escreve política e entende detecção é outro nível). Mas o destino é GRC — SOC é meio de caminho, não o fim."},
- {n:"Arquitetura de Segurança (Cloud + Zero Trust)", tier:"A", why:"Desenhar sistemas seguros exige julgamento que a IA assiste mas não assume.", note:"Cargo de sênior de verdade, altíssima demanda. Destino possível depois de GRC + cloud."},
- {n:"AppSec / Product Security", tier:"A", why:"IA gera código inseguro em escala — alguém tem que blindar.", note:"Threat modeling é skill de GRC também. Casa com teu perfil de builder."},
- {n:"DFIR — Forense e Resposta a Incidente", tier:"A", why:"Crise às 3h da manhã ninguém confia só na IA. Cadeia de custódia é jurídica.", note:"Conecta com tua veia investigativa — possível especialização da inteligência."},
- {n:"Offensive / Red Team (com IA red teaming)", tier:"B", why:"Não é o teu norte — ofensiva é ofício à parte.", note:"Deixa pro Treinador/portfólio. GRC não exige."},
- {n:"OT/ICS — Segurança Industrial", tier:"B", why:"Nicho de ouro, mas presencial/industrial — longe do teu plano remoto.", note:"Descartado por ora."},
+ {n:"⭐ RISCO & COMPLIANCE — segurança em linguagem de negócio (TUA ESTRELA-NORTE)", tier:"S", star:1,
+  why:"É o profissional que aprendeu a falar de segurança na LINGUAGEM DE NEGÓCIO: faz a ponte entre quem mexe nas máquinas e quem manda na empresa, traduzindo tudo em RISCO (o que pode dar errado, quanto custa, quem responde por isso). Cresce POR CAUSA da IA e das leis novas — o juiz/regulador exige um humano responsável por lei. É trabalho de documento, ferramenta e reunião (não de vigia de tela 24/7), por isso é remoto por natureza, paga cedo, e não exige anos de operação pra entrar.",
+  note:"O QUE FAZ NO DIA: descobrir onde a empresa está fraca e o que isso custaria se der problema; escrever as regras internas que a operação consegue cumprir; checar se a empresa segue as normas (as 'leis do clube': NIST, ISO 27001, CIS); avaliar o risco dos FORNECEDORES que acessam os dados da empresa; e preparar a empresa pra auditorias. POR QUE VOCÊ: teu fundo investigativo (análise de evidência, relatório, cadeia de custódia) é EXATAMENTE a matéria-prima — auditoria é investigação formalizada com papelada."},
+ {n:"⭐ INTELIGÊNCIA DE SEGURANÇA (mesclada com o risco)", tier:"S", star:1,
+  why:"O segundo pilar teu: investigar quem ameaça a empresa, como e com quê, usando fontes abertas e trabalho de campo. É onde teu passado de segurança pública entra DIRETO — e é a habilidade nº1 do cargo no mapa de vagas do governo americano (59% dessas vagas nem exigem diploma). MESCLAR com risco é tua fórmula rara: a inteligência alimenta o risco (quem ameaça, com quê) → o risco vira DECISÃO de negócio (priorizar, investir, cumprir).",
+  note:"NA PRÁTICA: informação de ameaça vira linha na tua lista de riscos · busca em fontes abertas vira evidência na avaliação de fornecedor · os manuais de IA (NIST + MITRE) são o framework da inteligência aplicada a IA. Ninguém domina os dois — quem mescla os dois é raro e caro."},
+ {n:"⭐ GOVERNO DE IA (teu diferencial no topo)", tier:"S", star:1,
+  why:"O cruzamento dos teus dois pilares: o trabalho de risco aplicado a sistemas de IA. As leis novas (americana e europeia) criaram um cargo que quase ninguém sabe exercer: governar o risco da própria IA com método. Teu portfólio de porteiros pra agentes de IA já demonstra o tema na prática.",
+  note:"É o risco/compliance do futuro: lista de riscos dos modelos de IA, regras de uso, auditoria de conformidade. O certificado de governança de IA (AIGP) + a norma internacional de IA (ISO 42001) + as aulas de IA do teu mestrado = a trilogia completa."},
+ {n:"🟡 OPERAÇÃO/monitoramento (SOC) — SECUNDÁRIO: suporte, não carreira", tier:"A", sec:1,
+  why:"Fica como APOIO, não como carreira: 1) dá o vocabulário de operação que o trabalho de risco precisa pra ser levado a sério (quem escreve política e nunca viu um alarme não convence o time técnico); 2) algumas vagas remotas de entrada aceitam 'estudando o certificado' e pagam enquanto tu constrói o principal; 3) o posto de vigia de alertas está sendo automatizado — NÃO construir carreira nele.",
+  note:"USO ESTRATÉGICO: o teu laboratório de casa (Wazuh — o radar de alarmes que já montaste) = evidência prática pro currículo de risco (quem entende detecção E escrita de política é outro nível). Mas o destino é o risco — operação é meio de caminho, não o fim."},
+ {n:"Arquitetura de Segurança", tier:"A", why:"Desenhar sistemas seguros exige julgamento que a IA assiste mas não assume.", note:"Cargo de sênior de verdade, altíssima demanda. Destino possível depois do risco + nuvem."},
+ {n:"Segurança de aplicativos (o que o programador esqueceu de proteger)", tier:"A", why:"IA gera código inseguro em escala — alguém tem que blindar.", note:"Casa com teu perfil de construtor. É caminho possível, não o teu norte."},
+ {n:"Investigação de incidentes (forense digital)", tier:"A", why:"Crise às 3h da manhã ninguém confia só na IA. A cadeia de provas é coisa de tribunal.", note:"Conecta com tua veia investigativa — possível especialização da inteligência."},
+ {n:"Equipe de ataque controlado (pentest)", tier:"B", why:"Não é o teu norte — é ofício à parte.", note:"Deixa pro Treinador/portfólio. Teu caminho principal não exige."},
+ {n:"Segurança industrial (usinas, fábricas)", tier:"B", why:"Nicho de ouro, mas presencial/industrial — longe do teu plano remoto.", note:"Descartado por ora."},
 
 ];
 
@@ -599,15 +585,15 @@ const FONTES = [
 
 /* ---------------- DADOS: VETOR DE DESTAQUE (CyberSeek) ---------------- */
 const SPOTLIGHT = {
-  role:"Security Intelligence / Intelligence Analyst",
-  openings:"14.863 vagas (12 meses, dados CyberSeek US)",
-  edu:[["59%","menos que bacharelado (Sub-BA)"],["36%","bacharelado"],["3%","pós-graduação"]],
-  matchSkills:["Human Intelligence (HUMINT) — top skill de cyber nº1","Law Enforcement — top skill nº5",
-    "OSINT (nº4)","Incident Response (nº3)","Cyber Threat Intelligence","Risk Analysis"],
-  titles:["Intelligence Analysts","Security Analysts","Special Agents","IT Security Analysts","SOC Analysts"],
-  certs:"CISSP · GIAC · CISM · CEH · CISA (avançados — empregador costuma pagar)",
-  why:"O cargo pede, em 1º lugar, EXATAMENTE o que tu fez por anos na segurança pública. HUMINT e Law Enforcement não se aprendem em curso — tu viveu. E 59% das vagas nem exigem bacharelado: com formação superior + segurança pública + certs, tu entra QUALIFICADO, não por baixo.",
-  salary:"~US$ 85–110 mil/ano (faixa aprox. mercado US; nº exato = caixa do cargo no CyberSeek)",
+  role:"Analista de Inteligência de Segurança",
+  openings:"14.863 vagas publicadas em 12 meses nos EUA (mapa de cargos do governo americano)",
+  edu:[["59%","aceitam MENOS que diploma de faculdade"],["36%","pedem diploma"],["3%","pedem pós-graduação"]],
+  matchSkills:["Trabalho de inteligência com pessoas (informação de campo) — a habilidade nº1 do cargo",
+    "Experiência policial — a nº5 do cargo","Investigação em fontes abertas (a nº4)","Resposta a incidentes (a nº3)","Inteligência de ameaças","Análise de risco"],
+  titles:["Analistas de Inteligência","Analistas de Segurança","Analistas de Segurança de TI","Analistas de SOC","Agentes investigativos"],
+  certs:"Os avançados (CISSP, GIAC, CISM, CISA) — geralmente quem contrata paga",
+  why:"O cargo pede, em 1º lugar, EXATAMENTE o que tu fez por anos na polícia. Trabalho de inteligência com pessoas e experiência policial não se aprendem em curso — tu viveu. E 59% das vagas nem exigem diploma de faculdade: com a tua formação + polícia + certificados, tu entra QUALIFICADO, não por baixo.",
+  salary:"~US$ 85–110 mil por ano (faixa aproximada do mercado americano)",
 };
 
 /* ---------------- BANCO COMPLETO DE CARGOS (CyberSeek) ----------------
@@ -789,7 +775,7 @@ function renderCareers(){
         <div class="it-desc">skills: ${r.skills}</div>
         <div class="it-exp"><b>Pra ocupar:</b> ${r.need}</div></div></div>`).join("");
     }).join("") + `</div>`;
-  el.innerHTML = spot + `<p class="note">🧭 <b>ESTRELA-NORTE (travada 28/09 com tu): GRC primário</b> — segurança em linguagem de negócio — com <b>Security Intelligence mesclado</b> (tu fundo investigativo alimenta o risco) e <b>SOC como suporte</b> (vocabulário técnico + evidência de lab, não carreira). ⭐ = teus pilares. Ranqueadas por valor × sobrevida à IA. Tier S = aposta mais segura pra 10+ anos.</p>` +
+  el.innerHTML = spot + `<p class="note">🧭 <b>ESTRELA-NORTE (travada 28/09 contigo): RISCO & COMPLIANCE primário</b> — segurança traduzida em linguagem de negócio — com <b>INTELIGÊNCIA DE SEGURANÇA mesclada</b> (teu fundo investigativo alimenta o risco) e <b>OPERAÇÃO como suporte</b> (vocabulário técnico + evidência de laboratório, não carreira). ⭐ = teus pilares. Ranqueadas por valor × sobrevida à IA. Tier S = aposta mais segura pra 10+ anos.</p>` +
    CAREERS.map(c=>`<div class="card" ${c.star?'style="border:2px solid var(--gold);background:#1c1608"':''}><div class="phase"><h3>${c.n}</h3>
      <span class="badge ${c.tier==='S'?'b-s':'b-a'}">TIER ${c.tier}</span>${c.sec?'<span class="badge">SECUNDÁRIO</span>':''}</div>
      <div class="it-desc"><b>Por quê sobrevive:</b> ${c.why}</div>
@@ -859,33 +845,33 @@ const CERTS=[
  {n:"Kubernetes CKA / CKS", org:"CNCF / Linux Foundation", branch:"☁️ Nuvem / DevSecOps", cost:"~US$395 cada", pay:"alto", train:0,
   when:"ramo DevSecOps", why:"Administrar/proteger containers (K8s). Requisito das vagas de DevSecOps. Curva grande — mais tarde."},
 
- // 📋 GRC / AUDITORIA — em SEQUÊNCIA INTELECTUAL (cada uma base da próxima)
- {n:"DEGRAU 1 · ISACA IT Risk Fundamentals / Cybersecurity Fundamentals", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$150 (exame)", pay:"—", train:0,
-  when:"ENTRADA GRC — AGORA (sem experiência)", why:"A primeira porta do GRC. Cert de FUNDAMENTOS sem NENHUMA trava de experiência: prova que sabes o vocabulário de risco, controles e conformidade. Serve de escada: quem passa nos Fundamentals ganha 12 créditos aplicáveis pro CGRC/CRISC depois. É o 'Security+ do GRC' — barata, rápida (2-4 semanas), e destrava o vocabulário das vagas de TPRM/risk analyst."},
- {n:"DEGRAU 2 · CompTIA Security+ (D5 = GRC)", org:"CompTIA", branch:"📋 GRC — SEQUÊNCIA (1→10)", cost:"~US$404", pay:"$35–48/h", train:1,
-  when:"out/2026 (Messer após Unhatched)", why:"Não é de GRC, mas É A BASE: o domínio 5 (Governança, Risco, Compliance) é literalmente a introdução ao GRC. Toda vaga de GRC pede Security+ como piso (MongoDB TPRM, System One). Sem ele, os filtros automáticos te barram ANTES de lerem teu GRC. Faz ANTES de qualquer GRC paga — é o alicerce conceitual de todas."},
- {n:"DEGRAU 3 · IAPP CIPP/US (privacidade US)", org:"IAPP", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$550 + US$275/ano AMF", pay:"alto", train:0,
-  when:"1º ramo técnico do GRC (nov-dez/2026)", why:"⭐ Deveria ter estrela — tem agora. A cert de privacidade nº1 do mercado US: prova que dominas as leis de dados americanas (CCPA/CPRA, HIPAA, GLBA, can-spam) e como governá-las. POR QUE NESTE PONTO: privacidade é o sub-ramo do GRC com mais vagas remotas nos EUA e o único que não exige anos de console. O corpo da prova é lei + prática de compliance — casa com teu perfil. AMF anual US$275 — entra no cálculo do custo real."},
- {n:"DEGRAU 4 · IAPP CIPM (gestão de privacidade)", org:"IAPP", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$550", pay:"alto", train:0,
-  when:"logo após CIPP/US", why:"Complemento operacional do CIPP: ENQUANTO o CIPP prova que sabes AS LEIS, o CIPM prova que sabes RODAR um programa de privacidade (inventário de dados, DPIA, resposta a vazamento, treinamento). Juntos formam o 'par clássico' que as vagas de privacy analyst/consultant listam. Faz o CIPM só se seguir privacidade — mas o par abre mais portas que cada um sozinho."},
- {n:"DEGRAU 5 · COBIT 2019 Foundation", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$185 (exame)", pay:"—", train:0,
-  when:"base de GOVERNANÇA (antes do CGRC)", why:"O framework de governança de TI mais citado do mundo: como o board dirige e controla a TI (metas, componentes, desempenho). É O VOCABULÁRIO que o CGRC e o CRISC pressupõem — quem pula o COBIT estuda governança sem mapa. Barata, conceitual, 1-2 semanas. Faz ANTES do CGRC: primeiro o 'como governar', depois o 'como aplicar risco'."},
- {n:"DEGRAU 6 · ISC2 CGRC (Certified Governance, Risk & Compliance)", org:"ISC2", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$599", pay:"$38–48/h", train:0,
-  when:"o CERT CENTRAL do teu ramo (1-2 anos)", why:"⭐ A cert que dá NOME à tua estrela-norte. Prova que sabes implantar e gerir um programa de GRC ponta a ponta: escopo, risk register, controles, auditoria, monitoramento contínuo (conformidade). É a cert citada nas vagas GRC do teu radar (System One, ASCII, Canonical Risk). ISC2 exige 1 ano de experiência em 2 dos 7 domínios — ou tu trabalha na área, ou compensa com educação. Faz DEPOIS de Security+ + COBIT + prática (teu lab + TPRM em casa)."},
- {n:"DEGRAU 7 · ISO/IEC 27001 Lead Implementer (PECB)", org:"PECB / BSI / LRQA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$500–1000 (curso+exame)", pay:"alto", train:0,
-  when:"quando estiveres trabalhando em GRC", why:"O 'passaporte de contrato B2B': ISO 27001 é a norma internacional de SGSI e a que mais aparece em requisição de cliente ('precisamos de fornecedor certificado'). Lead Implementer = sabes IMPLANTAR o sistema de gestão do zero. Escolhe LI primeiro (constrói) e LA depois (audita) — ou os dois com desconto no bundle. Melhor custo-benefício quando uma consultoria ou empregador paga."},
- {n:"DEGRAU 7 · ISO/IEC 27701 (extensão de privacidade do 27001)", org:"PECB", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$500-900", pay:"alto", train:0,
-  when:"após 27001 + CIPP", why:"O casamento das tuas duas frentes: estende o SGSI pra cobrir PII (privacidade). Quem tem 27001 LI + CIPP/US entende 27701 rapidinho — e 'SGSI+PIMS' é o pacote que consultorias vendem pra clientes grandes. Segunda norma na tua bancada."},
- {n:"DEGRAU 8 · ISO/IEC 42001 (Sistema de Gestão de IA) — o '27001 da IA'", org:"PECB", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$500–1000", pay:"alto", train:0,
-  when:"2027 — TEU DIFERENCIAL raro", why:"⭐ A norma de sistema de gestão de IA (AIMS), publicada fim de 2023 — a 'ISO 27001 da IA'. Quem domina CEDO vira referência escassa: o mercado de AI governance está nascendo AGORA e o padrão de certificação ainda é raro. É o par técnico do AIGP e o topo natural da tua sequência GRC + IA. Casar com o mestrado (eletivas de IA) e teu portfólio de agentes."},
- {n:"⭐ IAPP AIGP — AI Governance Professional (diferencial)", org:"IAPP", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$700 + US$275/ano AMF", pay:"alto", train:0,
-  when:"2027 — par do ISO 42001", why:"⭐ A principal cert de GOVERNANÇA DE IA do mundo: cobre frameworks de risco de IA (NIST AI RMF, EU AI Act), governança de modelos e responsabilidade legal. É onde teu GRC encontra teu nicho de IA — e onde quase ninguém tem. Faz DEPOIS de ter base GRC (não faz sentido AIGP sem saber risco). O teu portfólio de agent-gates vira o caso de estudo da prova... e da entrevista."},
- {n:"DEGRAU 9 · ISACA CRISC (risco enterprise)", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano AMF", pay:"alto", train:0,
-  when:"3+ anos de prática — gestão de risco", why:"A cert do GERENTE de risco: identifica, avalia, mitiga e MONITORA risco em nível enterprise (board/CFO). Exige 3 anos de experiência comprovada em 2 áreas de CRISC. É o degrau entre o CGRC (praticante) e o CISA (auditor) — prova maturidade de risco em escala. Título gated: faz a prova antes, título chega com os anos."},
- {n:"DEGRAU 10 · ISACA CISA (auditoria de SI)", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano AMF", pay:"US$154k+/ano", train:0,
-  when:"5 anos de prática — destino GRC", why:"⭐ O padrão-ouro da AUDITORIA de sistemas: o cargo 'IT Auditor' do CyberSeek pede ela por nome, e auditoria é o ramo do GRC que mais contrata nos EUA (big4 + corporação). Exige 5 anos de experiência em auditoria/segurança. Como o CRISC: prova antes (a prova vale 5 anos), título após os anos. É o topo da tua escada GRC antes do CISM."},
- {n:"ISACA CISM (gestão de segurança) — pós-GRC", org:"ISACA", branch:"📋 GRC — SEQUÊNCIA (1→8)", cost:"~US$575 + AMF", pay:"US$167k+/ano", train:0,
-  when:"5+ anos + gestão — destino final", why:"A cert do GERENTE de segurança (CISO track): programa, orçamento, alinhamento com negócio. Depois de GRC bem construído, CISM é a progressão natural pra liderança. Precisa 5 anos com 3 de gestão. Destino — não agende antes dos anos."},
+ // 📋 RISCO & COMPLIANCE — em SEQUÊNCIA (cada degrau é base do próximo)
+ {n:"DEGRAU 1 · Fundamentos de risco de TI (ISACA)", org:"ISACA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$150 (exame)", pay:"—", train:0,
+  when:"ENTRADA — AGORA (sem experiência)", why:"A primeira porta do teu ramo. Certificado de FUNDAMENTOS sem NENHUMA exigência de experiência: prova que sabes o vocabulário de risco, controles e regras. Barato, rápido (2-4 semanas de estudo), e é a porta mais fácil de todas."},
+ {n:"DEGRAU 2 · Security+ (o alicerce de tudo)", org:"CompTIA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$404", pay:"$35–48/h", train:1,
+  when:"out/2026 (curso do Messer após o Linux)", why:"Não é de risco/compliance, mas É A BASE: uma parte inteira dele é literalmente introdução a risco e cumplimiento — o vocabulário que teu caminho usa. Toda vaga da tua área pede ele como piso. Sem ele, o filtro automático te barra ANTES de ler o resto do currículo. Faz ANTES de qualquer certificado do ramo — é o alicerce de todas."},
+ {n:"DEGRAU 3 · CIPP/US — privacidade de dados nos EUA (IAPP)", org:"IAPP", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$550 + US$275/ano de assinatura", pay:"alto", train:0,
+  when:"1º ramo do teu caminho (nov-dez/2026)", why:"⭐ Deveria ter estrela — tem agora. O certificado nº1 de privacidade de dados do mercado americano: prova que dominas as leis de dados dos EUA (Califórnia, saúde, financeiro...) e como governá-las. POR QUE NESTE PONTO: privacidade é o sub-ramo com mais vagas remotas nos EUA, e é o único que não pede anos operando alertas. A prova é de LEI + prática — casa com teu perfil."},
+ {n:"DEGRAU 4 · CIPM — gestão de privacidade (IAPP)", org:"IAPP", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$550", pay:"alto", train:0,
+  when:"logo após o anterior", why:"O complemento operacional: ENQUANTO o CIPP prova que sabes AS LEIS, este prova que sabes RODAR um programa de privacidade (inventário de dados, análise de impacto, resposta a vazamento, treinamento de pessoal). Juntos são o par que as vagas citam."},
+ {n:"DEGRAU 5 · COBIT — o manual de como uma empresa dirige a TI (ISACA)", org:"ISACA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$185 (exame)", pay:"—", train:0,
+  when:"base de governança (antes do principal)", why:"O manual de governança de TI mais citado do mundo: como a diretoria dirige e controla a tecnologia da empresa (metas, desempenho, quem responde por o quê). É O VOCABULÁRIO que os certificados seguintes pressupõem — quem pula este estuda governança sem mapa. Barato, conceitual, 1-2 semanas."},
+ {n:"DEGRAU 6 · CGRC — o certificado de risco & conformidade (ISC2)", org:"ISC2", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$599", pay:"$38–48/h", train:0,
+  when:"o certificado CENTRAL teu (1-2 anos)", why:"⭐ O certificado que dá NOME à tua estrela-norte. Prova que sabes implantar e gerir um programa de risco e conformidade de ponta a ponta: descobrir lacunas, manter a lista de riscos da empresa, checar controles, preparar auditorias. É a certificado citada nas vagas de risco do teu radar (Canonical. System One). Faz DEPOIS do Security+ + COBIT + prática (teu laboratório de casa conta)."},
+ {n:"DEGRAU 7 · ISO 27001 — a norma internacional de segurança (implementador)", org:"PECB / BSI", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$500–1000 (curso+exame)", pay:"alto", train:0,
+  when:"quando estiveres trabalhando na área", why:"O 'passaporte de cliente grande': ISO 27001 é a norma internacional de segurança da informação que clientes exigem dos fornecedores ('precisamos de fornecedor certificado'). 'Lead Implementer' = sabes IMPLANTAR o sistema do zero. O ideal é quando uma consultoria ou empregador pagar."},
+ {n:"DEGRAU 7 · ISO 27701 — a mesma norma, estendida pra privacidade", org:"PECB", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$500-900", pay:"alto", train:0,
+  when:"após 27001 + CIPP", why:"O casamento das tuas duas frentes: estende a norma de segurança pra cobrir privacidade de dados pessoais. Quem já tem os dois anteriores entende rapidinho — e é o pacote que consultorias vendem pra clientes grandes."},
+ {n:"DEGRAU 8 · ISO 42001 — a norma internacional de IA (o '27001 da IA')", org:"PECB", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$500–1000", pay:"alto", train:0,
+  when:"2027 — TEU DIFERENCIAL raro", why:"⭐ A primeira norma internacional de gestão de IA do mundo (publicada em 2023). O mercado de governança de IA está NASCENDO AGORA — quem domina CEDO vira referência escassa. É o par técnico do certificado de governança de IA e o topo natural da tua sequência. Casar com as aulas de IA do mestrado e o teu portfólio."},
+ {n:"⭐ AIGP — o certificado de governança de IA (IAPP) — teu diferencial", org:"IAPP", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$700 + US$275/ano", pay:"alto", train:0,
+  when:"2027 — par do ISO 42001", why:"⭐ O principal certificado de GOVERNANÇA DE IA do mundo: cobre o manual americano de risco de IA, as leis novas, e a responsabilidade legal. É onde teu caminho principal encontra teu nicho de IA — e onde quase ninguém está. Faz DEPOIS de ter a base de risco (não faz sentido sem saber risco). Teu portfólio porteiros vira o caso de estudo da prova... e da entrevista."},
+ {n:"DEGRAU 9 · CRISC — gerência de risco da empresa inteira (ISACA)", org:"ISACA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano", pay:"alto", train:0,
+  when:"3+ anos de prática", why:"O certificado do GERENTE de risco: identifica, avalia, mitiga e监视a risco em nível de diretoria. Exige 3 anos de experiência comprovada. É o degrau entre o CGRC (fazedor) e o CISA (auditor). Podes fazer a prova antes — o título chega com os anos."},
+ {n:"DEGRAU 10 · CISA — auditoria de sistemas (ISACA)", org:"ISACA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano", pay:"US$154k+/ano", train:0,
+  when:"5 anos de prática — o destino", why:"⭐ O padrão-ouro da AUDITORIA de sistemas — o cargo 'auditor' tem nome próprio no mapa de vagas do governo americano, e auditoria é o ramo que mais contrata nos EUA (as grandes consultorias). Exige 5 anos de experiência p/ o título; a prova vale antes. É o topo da tua escada."},
+ {n:"CISM — gerência de segurança (o andar de cima)", org:"ISACA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$575", pay:"US$167k+/ano", train:0,
+  when:"5+ anos + gestão — destino final", why:"O certificado do GERENTE de segurança (caminho do diretor de segurança): programa, orçamento, alinhamento com o negócio. Precisa 5 anos, sendo 3 de gestão. Destino final — não agende antes dos anos."},
 
  // 💥 OFENSIVO / PENTEST
  {n:"CompTIA PenTest+", org:"CompTIA", branch:"💥 Ofensivo / Pentest — mais tarde", cost:"~US$404", pay:"$38–48/h", train:0,
@@ -934,21 +920,21 @@ function renderSkills(){
 }
 const VAGAS=[
  {t:"📖 Os LOCAIS explicados (o que cada um significa pra ti)", tag:"dica", cls:"",
-  d:"<b>'Remoto (Worldwide)' / 'Anywhere' / 'Global'</b> = contratam de QUALQUER país, do Brasil (via contractor/EOR — a tua Pixel Pro ADS LLC pode faturar). <b>'Remoto (Dallas)' / 'Remote, United States'</b> = remoto, mas só com DIREITO DE TRABALHO nos EUA (green card/cidadania) — <b>filtradas fora</b>. <b>'NY presencial'</b> = precisa MORAR/votar naquele lugar — <b>fora</b>. <b>'Patrocina visto'</b> = a empresa faz o visto pra ti (ex: Tymon, Canonical) — encaixa. A tabela agora só mostra as duas primeiras categorias."},
- {t:"✅ ENTRY WORLDWIDE — APLICAR (do Brasil, sem green card)", tag:"agora", cls:"free",
-  d:"Achadas na varredura profunda (23 boards Greenhouse/Ashby + Jobicy + SmartRecruiters — a varredura anterior só pegou poucos boards; esta rodou 40+ fontes): <b>Canonical tem a maior porta de entrada worldwide do mercado tech</b> — 5 vagas entry abertas AGORA. Por quê Canonical funciona pra ti: (a) contratam brasileiros há 20 anos como contractor local (nunca pedem 'authorized to work in US'); (b) pagam em moeda local, sem precisar de green card; (c) o programa 'Graduate' = EXPLICITAMENTE pra quem tem 0 experiência; (d) migração interna é facilitada — gente entra em Support/CS e migra pra Security, caminho real. Segundo: <b>Turing Investigations Analyst</b> (fraude/abuse, 100% global) = o melhor casamento com um fundo investigativo (investigação de evidência, cadeia de custódia, relatório formal). Terceiro: <b>Supabase Database Support (LATAM)</b> — open source, entry, LATAM timezone. Quarto: <b>Welo Scout Junior (PT-BR)</b> — emprego internacional imediato enquanto constróis a carreira cyber. Todas clicáveis na tabela; pagam em moeda local (tu fatura B2B via tua LLC, que resolve o contrato)."},
- {t:"⭐ GRC + IA WORLDWIDE — teu alvo 1-2 anos", tag:"sponsor/meta", cls:"free",
-  d:"<b>Canonical Security Risk Management Specialist</b> (GRC/risco, worldwide — a vaga da tua estrela-norte possível do BRASIL) · <b>Ubuntu Security Engineer</b> (worldwide) · <b>Tymon Global AI Security</b> (US$70–75/h, patrocina visto) · <b>OpenAI Agent Security</b> (destino sênior, patrocina + relocação). Destravam com: Security+ → COBIT → CGRC + MS (jan/2027) + SecAI+ + portfólio."},
- {t:"🛠️ MÃO NA MASSA — experiência REAL no currículo (o guia completo)", tag:"agora", cls:"free",
-  d:"<b>O problema:</b> vaga formal 'entry + remota + contrata do Brasil' é a categoria mais rara do mercado (empresas americanas preferem autorização já garantida — é matemática de RH/custos). <b>A solução não é insistir nessas vagas — é gerar experiência por vias paralelas que o mercado aceita como 'já trabalhei nisso'.</b> As 6, em ordem de força:<br><br><b>1) Google Summer of Code (GSoC)</b> — summerofcode.withgoogle.com. O MAIS FORTE. É um estágio remoto oficial do Google: ~US$1.500–6.600 pela temporada (12 semanas), você escolhe a organização mentor, trabalha num projeto real de open source COM MENTOR. OWASP (segurança web), Sigma (detecção), OpenVSP, Mozilla, PostgreSQL, Zephyr projetam 'ideas pages' todos os anos — e há projetos de segurança todos os anos. No CV vira: 'GSoC Contributor, OWASP Foundation — implemented X'. É EMPREGO no currículo, pago, e sem precisar de visto pois é 100% remoto. Cronologia: anunciado mar/abr, contribuições começam já no período de application (fechar 2-3 PRs antes de abril aumenta MUITO a chance de seleção). Tu estás no timing PERFEITO: Security+ em out → GSoC em mar/abr/2027 já com MS em curso → projeto no verão do hemisfério norte. <a href='https://summerofcode.withgoogle.com/' target='_blank'>abrir GSoC ↗</a><br><br><b>2) Outreachy</b> — outreachy.org. Estágio remoto pago ~US$7.000, 13 semanas, DUAS edições/ano (maio e dezembro). Foco open source, várias organizações de segurança participam. Público focado em grupos sub-representados em tech. Mesmo formato do GSoC: mentor + projeto real + pago. <a href='https://www.outreachy.org/' target='_blank'>abrir Outreachy ↗</a><br><br><b>3) Bug bounty (sem entrevista, sem CV aceito/rejeitado)</b> — HackerOne (hackerone.com/opportunities), Bugcrowd (bugcrowd.com), Intigriti (intigriti.com). Registra-se, escolhe um programa, caça bugs. Bug válido low-severity = US$50–200, médio = US$300–800. Cada bug pago vira linha no CV: 'Discovered and responsibly disclosed N vulnerabilities in Fortune 500 companies via HackerOne'. É o caminho mais RÁPIDO de entrada prática — e o teu perfil adversarial (segurança pública) combina com o métier. Começa com XSS/IDOR/lógica em programas que tenham escopo 'public, beginners friendly'. <a href='https://www.hackerone.com/' target='_blank'>abrir HackerOne ↗</a><br><br><b>4) Contribuição em projetos open-source de segurança</b> — o caminho mais subestimado. Wazuh (teu lab já é um bom ponto de entrada — doc, tradução, correção simples), Sigma (escrever regras de detecção — cada regra aceite = linha no CV + teu nome no changelog público), OWASP (projetos, capítulos, hackathons — e Network é mundial). Cada PR aceito no GitHub é público, auditável, com data. 'Merged 15 PRs in SigmaHQ, Wazuh, OWASP' fala MAIS que um curso. <a href='https://github.com/Wazuh/wazuh' target='_blank'>Wazuh ↗</a> · <a href='https://github.com/SigmaHQ/sigma' target='_blank'>Sigma ↗</a><br><br><b>5) Voluntariado técnico organizado</b> — OWASP local/global, hackathons de segurança, CTfs (CTFtime.org — ranking público). Menos impacto no CV que os anteriores, mas CTF ranking + artigo 'como resolvi esse CTF' = portfólio que recrutador lê.<br><br><b>6) O teu Wazuh home lab + ISO 27001 → CASE PÚBLICO</b> — tu JÁ TEM isso em _portfolio_soc (Wazuh 4.14.8 + Windows 11 + MITRE ATT&CK mapeado + baseline CIS/SCA). Transforma em: (a) README detalhado no GitHub com screenshots; (b) artigo 'How I built a SOC home lab mapped to MITRE ATT&CK'; (c) post no LinkedIn com o diagrama. Isso é EVIDÊNCIA de trabalho real — recrutadores de GRC valorizam exatamente este tipo de artefato."}
- {t:"🏢 A tua LLC americana (adendo que anotei)", tag:"notado", cls:"free",
-  d:"Tens conta americana e abririas uma LLC pra prestar serviço — <b>útil sim</b>: muitas vagas worldwide contratam como B2B/contractor (fatura pra empresa como contractor). Mas atenção: LLC americana NÃO dá visto nem autorização de trabalho presencial nos EUA — ela resolve o CONTRATO (B2B worldwide), não a imigração. O visto/green card continua vindo por: patrocínio da empresa (Tymon/Canonical/OpenAI) ou  (o mestrado + portfólio substanciam). Anotado no perfil."},
- {t:"🚫 FILTRADAS FORA do scanner (não percas tempo)", tag:"excluída", cls:"paid",
-  d:"O scanner descarta automaticamente: (1) cidadania/clearance (Booz, ASM, USAJOBS); (2) <b>US-remote sem sponsor</b> (Kyndryl, Expel, Huntress, Twilio, MongoDB, GitLab US, System One, ASCII, Beacon…) — exigem autorização americana; (3) <b>presencial US</b> (BCG NY, Toyota IN) — exigem morar lá. Só entra o que tu PODE exercer de onde estás."},
+  d:"<b>'Remoto (Worldwide)' / 'Anywhere' / 'Global'</b> = contratam de QUALQUER país, incluindo do Brasil — tu trabalha de casa, fatura como prestador de serviço (a tua empresa americana resolve o lado do contrato). <b>'Remoto (Dallas)' / 'Remote, United States'</b> = o trabalho é remoto, mas SÓ quem já tem PERMISSÃO DE TRABALHAR nos EUA (cartão de residente ou cidadania) — <b>tu não pode pegar essas ainda, ficam de fora</b>. <b>'NY presencial'</b> = precisa MORAR naquele lugar — <b>fora</b>. <b>'Patrocina visto'</b> = a empresa cuida do papel pra te levar legalmente (ex: Canonical, Tymon) — essas encaixam. A tua tabela só mostra o que tu pode exercer de onde estás."},
+ {t:"✅ VAGAS DE ENTRADA QUE CONTRATAM DO BRASIL — APLICAR", tag:"agora", cls:"free",
+  d:"Achadas numa varredura de mais de 40 fontes de vagas: <b>a Canonical (empresa do Ubuntu) tem a maior porta de entrada do mercado pra quem está no Brasil</b> — 5 vagas de nível inicial abertas AGORA. Por quê ela funciona contigo: (a) contratam gente do Brasil há 20 anos, como prestador de serviço local; (b) pagam em moeda local, sem precisar de cartão de residente; (c) o programa que chamam de 'Graduate' é EXPLICITAMENTE pra quem tem 0 experiência; (d) migrar por dentro é facilitado — muita gente entra no suporte e depois passa pra segurança. Em seguida: <b>Turing, Analista de Investigação</b> (fraude e abuso, 100% global) = o melhor casamento com o teu passado de investigador na polícia — investigar prova, prender relatório, cadeia de guarda de evidência é exatamente o ofício. Mais: <b>Supabase, Suporte de banco de dados (Américas)</b> e <b>Welo Global, Coordenador de Qualidade em PORTUGUÊS</b> — emprego internacional imediato enquanto constróis a carreira. Todas clicáveis na tabela."},
+ {t:"⭐ RISCO + IA MUNDIAL — teu alvo em 1-2 anos", tag:"sponsor/meta", cls:"free",
+  d:"<b>Canonical, Especialista em Gestão de Risco de Segurança</b> (risco/compliance, mundial — a vaga da tua estrela-norte possível DO BRASIL) · <b>Tymon Global, Segurança de IA</b> (US$70–75 por hora, a empresa PATROCINA o visto pra te levar) · <b>OpenAI, Segurança de Agentes</b> (destino, sênior, patrocina + muda de país). Destravam com: Security+ → COBIT → CGRC + mestrado (jan/2027) + portfólio."},
+ {t:"🛠️ MÃO NA MASSA — experiência de verdade no currículo (os 6 caminhos)", tag:"agora", cls:"free",
+  d:"<b>O problema:</b> vaga de emprego formal, de nível inicial, remota, que aceite alguém do Brasil é a categoria MAIS RARA do mercado — empresas americanas preferem quem já tem o papel de trabalhar lá, por custos. <b>A saída não é insistir nessas vagas — é gerar experiência por caminhos paralelos que o mercado aceita como 'já trabalhei nisso'.</b> Os seis, do mais forte pro mais leve:<br><br><b>1) Verão do Código do Google (GSoC)</b> — <a href='https://summerofcode.withgoogle.com/' target='_blank'>summerofcode.withgoogle.com ↗</a> — o mais forte. É um estágio remoto OFICIAL pago pelo Google: de US$1.500 a US$6.600 por 12 semanas, com um mentor acompanhando teu trabalho num projeto real. Organizações de segurança (OWASP, Sigma, PostgreSQL, Mozilla) participam TODO ano. No currículo vira 'estagiário remoto pela fundação tal, implementei tal coisa'. É EMPREGO no currículo, pago, 100% remoto — sem visto. As inscrições abrem em março/abril; quem já entregou umas modificações ANTES de abril tem chance muito maior de ser escolhido. Teu timing é perfeito: Security+ em outubro, inscrição em março de 2027 com o mestrado em curso, projeto no meio do ano.<br><br><b>2) Outreachy</b> — <a href='https://www.outreachy.org/' target='_blank'>outreachy.org ↗</a> — estágio remoto pago ~US$7.000 por 13 semanas, DUAS edições por ano (maio e dezembro). Mesmo formato: mentor + projeto real + pagamento.<br><br><b>3) Recompensa por falhas</b> — sites como <a href='https://www.hackerone.com/' target='_blank'>HackerOne ↗</a>, <a href='https://www.bugcrowd.com/' target='_blank'>Bugcrowd ↗</a> e <a href='https://www.intigriti.com/' target='_blank'>Intigriti ↗</a>: empresas deixam ABERTO um programa dizendo 'se achar falha no nosso sistema, te pagamos'. Falha grave paga de 300 a 800 dólares; leve, de 50 a 200. Sem entrevista, sem currículo rejeitado: te inscreve e caça. Cada falha paga vira linha no currículo: 'descobri e reportei X falhas em empresas grandes, de forma responsável'. O teu perfil adversarial de polícia casa com o ofício.<br><br><b>4) Contribuir com projetos de segurança de código aberto</b> — o projeto Wazuh (o sistema de alarmes do teu lab) e o Sigma (as 'receitas' de detecção) aceitam colaboração de qualquer pessoa, DE GRAÇA. Cada modificação tua que eles aceitarem fica pública, com teu nome e a data. 'Colaborador nos projetos Wazuh e Sigma' no currículo fala MAIS que qualquer curso pago. E é o degrau que te faz SER ESCOLHIDO nos estágios pagos do item 1 e 2.<br><br><b>5) Voluntariado técnico organizado</b> — capítulos do OWASP, competições de segurança no navegador (ranking público), eventos. Custo: só teu tempo. Dá rede de contatos + portfólio.<br><br><b>6) O teu laboratório de casa vira CASE PÚBLICO</b> — tu JÁ TEM o lab montado (o radar de alarmes Wazuh + máquina Windows + alarmes mapeados no dicionário de ataques + o documento ISO 27001). Falta NARRAR: (a) página bonita no teu GitHub com fotos do lab; (b) artigo 'como montei um centro de operações de segurança em casa, mapeado nos ataques reais'; (c) post no LinkedIn com o diagrama. Isto é EVIDÊNCIA de trabalho real — quem contrata pra teu ramo valoriza exatamente isto."},
+ {t:"🏢 A tua empresa americana (o adendo que anotei)", tag:"notado", cls:"free",
+  d:"Tens conta nos EUA e abririas uma empresa americana (LLC) pra prestar serviço — <b>útil sim</b>: muitas vagas mundiais contratam exatamente assim, como fornecedor/prestador — tu fatura pra tua empresa e a empresa deles paga a tua. Mas atenção: abrir empresa americana NÃO te dá PERMISSÃO DE MORAR nem de trabalhar presencialmente lá — ela resolve o CONTRATO, não a imigração. O cartão de residente continua vindo por: empresa que patrocina (Canonical, Tymon, OpenAI) ou o pedido por mérito (o mestrado + o teu portfólio são a substância do teu caso)."},
+ {t:"🚫 O que o robô de busca JÁ JOGA FORA (não percas tempo)", tag:"excluída", cls:"paid",
+  d:"O robô da busca diária descarta sozinho: (1) vagas que exigem CIDADANIA americana (segurança militar/governamental — Booz, ASM, USAJOBS); (2) vagas remotas que exigem PERMISSÃO DE TRABALHO nos EUA (Kyndryl, Expel, Huntress, Twilio, MongoDB, GitLab-EUA, System One...) — remoto não significa 'trabalhe de qualquer país'; (3) vagas PRESENCIAIS nos EUA (BCG, Toyota) — exigem morar lá. Só passa pra tua tabela o que tu PODE exercer de onde estás."},
  {t:"🇪🇺🇨🇦🇦🇺 Segunda a quarta opções de país", tag:"planos B", cls:"free",
-  d:"<b>Europa</b> (Alemanha/Dublin/Lisboa — GDPR teu diferencial; GitLab/Grafana/Elastic/Snyk) · <b>Canadá</b> (Express Entry pontua mestrado+inglês; GitLab CA, Shopify, 1Password) · <b>Austrália</b> (visa 189 lista cyber; Atlassian/Canva). Caminhos reais SEM green card."},
+  d:"Se o caminho americano demorar, há três portas reais que NÃO exigem cartão de residente americano: <b>Europa</b> (Alemanha/Dublin/Lisboa — empresas como GitLab, Grafana, Elastic, Snyk contratam do Brasil; e privacidade de dados europeia é teu diferencial: o certificado CIPP/E vale tanto quanto o americano) · <b>Canadá</b> (tem um sistema de pontos por idade/inglês/experiência — teu mestrado e teu inglês somam; GitLab-Canadá, Shopify, 1Password) · <b>Austrália</b> (tem lista oficial de profissões carentes onde SEGURANÇA DIGITAL está incluída; Atlassian, Canva). Todos os caminhos são reais e não dependem do papel americano."},
  {t:"🌐 Onde procurar (busca automática + manual)", tag:"dica", cls:"",
-  d:"O script varre <b>Jobicy + Remotive + RemoteOK + 17 boards Greenhouse/Ashby + curadoria</b> todo dia 08:00 (aba 🤖 Busca automática) — filtrando por <b>só o que tu pode trabalhar</b>. <b>Remote Rocketship</b>: filtro country 'Worldwide' + 'LatAm' + entry-level = teu melhor site manual."},
+  d:"O robô de busca varre <b>6 fontes de vagas todos os dias às 08:00</b> (vê a aba 🤖 Busca automática) — filtrando <b>só o que tu pode trabalhar do Brasil</b>. Pra busca manual, o melhor site é o <b>Remote Rocketship</b>: nos filtros, marcar país 'Worldwide' + 'LatAm' + nível 'entry' — é o site que mais acha vaga nova antes dos outros."},
 ];
 function renderVagas(){
   document.getElementById("vagasList").innerHTML = VAGAS.map(v=>
