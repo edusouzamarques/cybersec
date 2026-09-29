@@ -80,7 +80,7 @@
 <header>
   <div class="wrap" style="padding-bottom:0">
     <h1>🎯 Treinador CyberSec — Eduardo</h1>
-    <div class="sub">Te <b>guia, testa e corrige</b> rumo a Security+, Python (PCEP), Linux e Cloud. Roda offline, salva sozinho neste navegador. &nbsp;·&nbsp; <a href="assistente-cybersec.html">← voltar pro Assistente (trilha/carreira)</a></div>
+    <div class="sub"><script>document.write('v5.0 AULAS · '+(Date.now()%100000));</script> · Te <b>guia, testa e corrige</b> rumo a Security+, Python (PCEP), Linux e Cloud. Roda offline, salva sozinho neste navegador. &nbsp;·&nbsp; <a href="assistente-cybersec.html">← voltar pro Assistente (trilha/carreira)</a></div>
   </div>
 </header>
 <div class="wrap">
@@ -160,7 +160,7 @@
 </div>
 
 <script>
-const KEY="cybersec_trainer_eduardo_v1";
+const KEY="cybersec_trainer_eduardo_v2";
 
 /* ---------- TRILHAS + DOMÍNIOS ---------- */
 const TRACKS=[
@@ -1054,6 +1054,7 @@ function renderAulas(){
   const el=document.getElementById("aulaList");
   const elD=document.getElementById("aulaDetail");
   elD.classList.add("hide");el.classList.remove("hide");
+  try{
   const groups={};LESSONS.forEach(l=>{(groups[l.sec[0]] = groups[l.sec[0]]||[]).push(l)});
   el.innerHTML = Object.keys(groups).sort().map(sec=>{
     return `<div class="card"><h3 style="margin-top:0">📄 ${secName(sec)}</h3>` +
@@ -1065,6 +1066,8 @@ function renderAulas(){
         <div class="dpct">${pct.m}/${pct.t} dominadas</div></div>`;
     }).join("") + '</div>';
   }).join("");
+  if(!LESSONS.length) el.innerHTML='<div class="card note">Nenhuma aula ainda — o gerador automático vai preencher a cada 3h.</div>';
+  } catch(e){ el.innerHTML='<div class="card" style="border-color:var(--red)">⚠️ Erro ao renderizar aulas: '+e.message+'<br><span class="note">Abre o console (F12) e me manda o erro</span></div>'; }
 }
 function secName(n){return {0:"0 — Preparação da prova",1:"1 — General Security Concepts",2:"2 — Threats",3:"3 — Architecture",4:"4 — Security Operations",5:"5 — Program Management"}[n]||("Seção "+n)}
 function openAula(id){
