@@ -26,7 +26,7 @@
   .badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
   a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
   .note{color:var(--dim);font-size:12.5px}
-  .hide{display:none}
+  .hide{display:none!important}
   .kpi{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
   .kpi div{font-size:13px;color:var(--dim)} .kpi b{color:var(--ink);font-size:18px;display:block}
   .reset{float:right;font-size:11px;color:var(--dim);cursor:pointer;border:1px solid var(--line);padding:3px 8px;border-radius:6px}
@@ -77,6 +77,7 @@
 
   /* Modal de Glossário Rápido */
   #glossModal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px}
+  #glossModal.hide{display:none!important}
   .modal-box{background:var(--panel);border:1px solid var(--line);border-radius:12px;max-width:680px;width:100%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 12px 36px rgba(0,0,0,0.5)}
   .modal-header{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
   .modal-body{padding:14px 18px;overflow-y:auto;flex:1}
@@ -1432,14 +1433,69 @@ const Q=[
 
 /* ---------- GLOSSÁRIO por trilha ---------- */
 const GLOSS=[
+ {t:"secplus",term:"AES (Advanced Encryption Standard)",def:"Padrão mundial de criptografia simétrica em bloco (128/192/256 bits). Garante CONFIDENCIALIDADE em repouso (BitLocker) e trânsito (WPA3/VPN)."},
+ {t:"secplus",term:"SHA-256",def:"Algoritmo de hash de 256 bits (família SHA-2). Gera uma impressão digital irreversível de 64 caracteres hexadecimais para garantir INTEGRIDADE de arquivos e senhas."},
+ {t:"secplus",term:"TLS (Transport Layer Security)",def:"Protocolo criptográfico moderno para proteger comunicações em rede (ex: HTTPS, porta 443). Garante CONFIDENCIALIDADE e INTEGRIDADE em trânsito."},
+ {t:"secplus",term:"VPN (Virtual Private Network)",def:"Túnel de rede criptografado sobre a internet pública. Garante CONFIDENCIALIDADE conectando usuários remotos à rede corporativa."},
+ {t:"secplus",term:"Salt (Salting)",def:"Adição de sequência aleatória de caracteres a uma senha antes de gerar o hash. Impede Rainbow Tables e garante que senhas iguais gerem hashes distintos."},
+ {t:"secplus",term:"Data at rest (Em repouso)",def:"Dado estático armazenado em disco, banco de dados ou fita. Protegido primariamente por criptografia de disco completo (FDE) e ACLs."},
+ {t:"secplus",term:"Data in transit (Em trânsito)",def:"Dado trafegando por redes cabeadas, Wi-Fi ou pela internet. Protegido primariamente por TLS, HTTPS, IPsec e VPN."},
+ {t:"secplus",term:"Data in use (Em uso)",def:"Dado carregado na memória RAM ou processado pela CPU. Protegido por computação confidencial e enclaves seguros de memória."},
+ {t:"secplus",term:"Não-repúdio (Non-repudiation)",def:"Garantia irrefutável de que o autor de uma ação ou mensagem não pode negar sua autoria. Implementado via Assinatura Digital (chave privada)."},
+ {t:"secplus",term:"Assinatura Digital",def:"Hash do arquivo cifrado com a chave PRIVADA do remetente. Prova 3 coisas: Integridade + Autenticação do autor + Não-repúdio."},
+ {t:"secplus",term:"MFA (Multi-Factor Authentication)",def:"Autenticação por 2+ fatores distintos: algo que sabe (senha), tem (token), é (biometria), faz (gesto) ou onde está."},
+ {t:"secplus",term:"Zero Trust",def:"Arquitetura baseada em 'Nunca confie, sempre verifique'. Assume que a rede interna já está comprometida; exige autenticação contínua e micro-segmentação."},
+ {t:"secplus",term:"AAA",def:"Modelo de controle de acesso: Authentication (quem é), Authorization (o que pode acessar) e Accounting (log de auditoria do que fez)."},
+ {t:"secplus",term:"RADIUS",def:"Protocolo centralizado de autenticação AAA (UDP 1812/1813). Usado em redes Wi-Fi empresariais e portas de switches com 802.1X."},
+ {t:"secplus",term:"802.1X",def:"Padrão IEEE de controle de acesso a portas de rede (NAC). Bloqueia a porta física ou o Wi-Fi até que o usuário se autentique via RADIUS."},
+ {t:"secplus",term:"Gap Analysis (Análise de Lacunas)",def:"Comparação metódica entre a postura de segurança atual e um framework desejado (ex: NIST CSF), mapeando exatamente o que falta implementar."},
+ {t:"secplus",term:"DDoS (Distributed Denial of Service)",def:"Ataque coordenado que inunda servidores com tráfego massivo gerado por botnets para derrubar sua DISPONIBILIDADE."},
+ {t:"secplus",term:"RAID",def:"Arranjo de discos redundantes para tolerância a falhas (RAID 1, 5, 6) ou desempenho (RAID 0). Protege a DISPONIBILIDADE contra pane mecânica de HD."},
+ {t:"secplus",term:"RTO (Recovery Time Objective)",def:"Tempo máximo aceitável que um sistema pode ficar fora do ar após um desastre sem inviabilizar a organização."},
+ {t:"secplus",term:"RPO (Recovery Point Objective)",def:"Volume máximo de perda aceitável de dados medido em tempo (ex: se o backup é diário, o RPO é de até 24h de perda)."},
+ {t:"secplus",term:"SIEM",def:"Plataforma que centraliza, correlaciona e analisa logs de segurança em tempo real para detectar incidentes."},
+ {t:"secplus",term:"SOAR",def:"Plataforma de orquestração e resposta automatizada a incidentes através de playbooks, reduzindo o tempo de reação do SOC."},
+ {t:"secplus",term:"EDR / XDR",def:"Sistemas de detecção e resposta a ameaças no endpoint (EDR) e estendido pela rede, nuvem e identidades (XDR)."},
+ {t:"secplus",term:"PKI (Public Key Infrastructure)",def:"Infraestrutura de chaves públicas: sistema de políticas, CAs e certificados para autenticação e cifragem assimétrica."},
+ {t:"secplus",term:"CA (Autoridade Certificadora)",def:"Entidade confiável que assina digitalmente certificados para validar que uma chave pública pertence a determinado titular."},
+ {t:"secplus",term:"CRL & OCSP",def:"Mecanismos de revogação de certificados: CRL (lista periódica baixada) e OCSP (consulta em tempo real ao status do certificado)."},
+ {t:"secplus",term:"HSM",def:"Hardware Security Module: dispositivo físico inviolável dedicado a gerar e guardar chaves criptográficas corporativas de alta segurança."},
+ {t:"secplus",term:"TPM",def:"Trusted Platform Module: chip criptográfico na placa-mãe do PC que guarda chaves de boot seguro, medição de integridade e BitLocker."},
+ {t:"secplus",term:"SAML",def:"Padrão em XML para federar autenticação e autorização entre um Provedor de Identidade (IdP) e aplicações (SP) no SSO corporativo."},
+ {t:"secplus",term:"OAuth 2.0 & OIDC",def:"OAuth 2.0 é autorização por tokens; OIDC adiciona autenticação e identidade de usuário sobre o OAuth 2.0 via ID Token."},
+ {t:"secplus",term:"SSO (Single Sign-On)",def:"Mecanismo que permite ao usuário logar uma única vez e obter acesso imediato a múltiplos sistemas sem redigitar senha."},
+ {t:"secplus",term:"RBAC",def:"Role-Based Access Control: controle de acesso concedido com base no cargo/função do colaborador na empresa."},
+ {t:"secplus",term:"ABAC",def:"Attribute-Based Access Control: controle de acesso dinâmico baseado em múltiplos atributos (usuário, recurso, horário, IP)."},
+ {t:"secplus",term:"DAC",def:"Discretionary Access Control: o proprietário do arquivo tem total liberdade para conceder ou revogar permissões a outros."},
+ {t:"secplus",term:"MAC",def:"Mandatory Access Control: o sistema impõe permissões estritas baseadas em etiquetas de segurança (ex: Secreto), comum em militar."},
+ {t:"secplus",term:"Honeypot & Honeyfile",def:"Sistemas e arquivos isca criados propositalmente para enganar atacantes, registrar suas táticas e emitir alerta antecipado."},
+ {t:"secplus",term:"Air Gap",def:"Isolamento físico absoluto de uma máquina ou rede, sem qualquer conexão cabeada ou sem fio com o mundo externo."},
+ {t:"secplus",term:"DLP (Data Loss Prevention)",def:"Software que inspeciona e bloqueia a saída não autorizada de dados sigilosos por e-mail, pen drive ou web."},
+ {t:"secplus",term:"Phishing / Spear Phishing",def:"Phishing é engenharia social genérica por e-mail; Spear Phishing é personalizado e direcionado a um alvo específico."},
+ {t:"secplus",term:"Whaling",def:"Phishing de alta precisão focado exclusivamente na alta diretoria (CEOs, CFOs)."},
+ {t:"secplus",term:"Ransomware",def:"Malware que criptografa os arquivos da vítima e exige resgate para devolver o acesso aos dados."},
+ {t:"secplus",term:"Rootkit",def:"Malware de altíssimo privilégio que se infiltra no kernel do sistema operacional e se esconde de antivírus."},
+ {t:"secplus",term:"CSRF",def:"Cross-Site Request Forgery: induz o navegador logado da vítima a enviar ordens maliciosas a uma aplicação confiável."},
+ {t:"secplus",term:"XSS",def:"Cross-Site Scripting: injeção de scripts maliciosos (JS) em páginas web exibidas para outros usuários."},
+ {t:"secplus",term:"SQL Injection (SQLi)",def:"Injeção de comandos SQL em formulários para manipular ou extrair o banco de dados da aplicação."},
+ {t:"secplus",term:"Rainbow Table",def:"Tabela de hashes pré-computados para quebrar senhas instantaneamente; neutralizada pela técnica de Salting."},
+ {t:"secplus",term:"Password Spraying",def:"Testar poucas senhas comuns contra milhares de usuários diferentes para não bloquear contas no Active Directory."},
+ {t:"secplus",term:"Credential Stuffing",def:"Ataque automatizado que testa listas de usuários e senhas vazadas em outros sites contra novas aplicações."},
+ {t:"secplus",term:"MitM (Man-in-the-Middle)",def:"Interceptação ou alteração clandestina de mensagens entre duas partes que acreditam estar conversando diretamente."},
+ {t:"secplus",term:"ARP Poisoning",def:"Envio de pacotes ARP falsos na LAN para associar o MAC do atacante ao IP do roteador, interceptando o tráfego."},
+ {t:"secplus",term:"DNS Poisoning",def:"Corrupção do cache DNS para redirecionar usuários de um site legítimo para uma réplica maliciosa."},
+ {t:"python",term:"PCEP",def:"Certified Entry-Level Python Programmer: certificação oficial do Python Institute cobrindo sintaxe básica, loops, coleções e funções."},
+ {t:"python",term:"Mutável vs Imutável",def:"Mutáveis mudam no mesmo endereço (list, dict, set); Imutáveis não mudam de valor após criados (int, float, str, tuple)."},
+ {t:"python",term:"List Comprehension",def:"Sintaxe concisa para criar listas a partir de iteráveis: [x*2 for x in range(10) if x%2==0]."},
+ {t:"python",term:"Lambda",def:"Função anônima de linha única em Python: lambda x: x + 1."},
+ {t:"python",term:"*args e **kwargs",def:"*args recebe múltiplos argumentos posicionais em tupla; **kwargs recebe múltiplos argumentos nomeados em dicionário."},
+ {t:"linux",term:"chmod (Permissões)",def:"Altera permissões de leitura (4), escrita (2) e execução (1) para User, Group e Others. Ex: chmod 755 script.sh."},
+ {t:"linux",term:"chown",def:"Altera o proprietário e grupo de um arquivo ou diretório: chown usuario:grupo arquivo."},
+ {t:"linux",term:"grep",def:"Utilitário de linha de comando para buscar linhas que correspondam a um padrão de expressão regular em arquivos."},
+ {t:"linux",term:"systemctl",def:"Comando para gerenciar serviços e daemons no systemd: systemctl start|stop|status|restart servico."},
  {t:"secplus",term:"CIA (Confidencialidade, Integridade, Disponibilidade)",def:"O tripé da segurança. Todo controle serve a pelo menos um: manter segredo, evitar alteração indevida, garantir acesso quando preciso."},
- {t:"secplus",term:"Zero Trust",def:"'Nunca confie, sempre verifique.' Nenhum acesso é confiável por padrão, nem de dentro da rede."},
- {t:"secplus",term:"MFA",def:"Autenticação multifator: combina categorias diferentes (algo que sabe + tem + é). Barra a maioria dos roubos de senha."},
- {t:"secplus",term:"SIEM",def:"Junta e correlaciona logs de vários sistemas pra gerar alerta de ataque. Ferramenta central do analista SOC."},
  {t:"secplus",term:"On-path (MITM)",def:"Atacante fica no meio da comunicação lendo/alterando o tráfego entre duas partes."},
  {t:"secplus",term:"Zero-day",def:"Falha desconhecida do fabricante, sem correção disponível. Alto risco por não ter defesa pronta."},
- {t:"secplus",term:"RTO",def:"Tempo máximo que um serviço pode ficar fora do ar antes de causar dano inaceitável."},
- {t:"secplus",term:"RPO",def:"Quanto dado (janela de tempo desde o último backup) você tolera perder num desastre."},
  {t:"secplus",term:"Least privilege",def:"Menor privilégio: cada um recebe só o acesso mínimo necessário. Limita o estrago de uma conta comprometida."},
  {t:"secplus",term:"Hash",def:"'Impressão digital' de mão única de um dado. Serve pra checar integridade e guardar senha (não é reversível)."},
  {t:"secplus",term:"Infostealer",def:"Malware que rouba credenciais salvas (navegador, apps, cookies). Porta de entrada nº1 hoje — o crime compra o login vazado e entra sem 'hackear'."},
@@ -1450,15 +1506,11 @@ const GLOSS=[
  {t:"secplus",term:"MITRE ATT&CK",def:"Enciclopédia das táticas e técnicas (TTPs) dos atacantes. O mapa que o SOC usa pra classificar e caçar ameaça."},
  {t:"secplus",term:"Cyber Kill Chain",def:"Modelo das fases de um ataque (recon → entrega → exploração → instalação → C2 → ação). Cortar cedo = menos dano."},
  {t:"secplus",term:"EDR",def:"Detecção e resposta no endpoint (antivírus turbinado): vê comportamento suspeito no dispositivo e pode isolar/reverter."},
- {t:"secplus",term:"DLP",def:"Data Loss Prevention: impede dado sensível de sair da empresa (e-mail, USB, upload)."},
- {t:"secplus",term:"SOAR",def:"Automatiza a resposta do SOC: o SIEM detecta, o SOAR AGE sozinho (bloqueia IP, isola host, abre ticket)."},
- {t:"secplus",term:"SSO",def:"Single Sign-On: um login serve pra vários sistemas."},
  {t:"secplus",term:"NIST CSF",def:"Framework mestre dos EUA: Identificar, Proteger, Detectar, Responder, Recuperar. Citado em quase toda vaga."},
  {t:"secplus",term:"SOC 2 (≠ SOC)",def:"Relatório de auditoria de controles de uma empresa. NÃO confundir com SOC = o time de analistas (Security Operations Center)."},
  {t:"secplus",term:"HIPAA / GLBA / GDPR",def:"Leis de dados: HIPAA=saúde US, GLBA=financeiro US, GDPR=pessoais na UE. Base das vagas de GRC/compliance."},
  {t:"secplus",term:"DR / BCP",def:"Disaster Recovery / Business Continuity Plan: como voltar a operar após desastre. RTO (tempo) e RPO (dado) moram aqui."},
  {t:"secplus",term:"IDS / IPS",def:"IDS detecta e alerta intrusão; IPS fica no caminho e BLOQUEIA. O 'P' = prevenção."},
- {t:"secplus",term:"PKI",def:"Infraestrutura de chave pública: emite certificados digitais (o cadeado do HTTPS). Base da criptografia assimétrica e da assinatura."},
  {t:"secplus",term:"SAST / DAST / SCA",def:"Testes de software: SAST lê o código parado; DAST testa a app rodando; SCA acha falha nas bibliotecas de terceiros."},
  {t:"secplus",term:"ISO 27001 / 27701",def:"Norma internacional de gestão de segurança (SGSI); a 27701 é a extensão de privacidade (LGPD/GDPR). Exigidas em contrato B2B grande."},
  {t:"secplus",term:"CIS Controls",def:"18 controles de boas práticas priorizadas (Center for Internet Security). Guia prático que complementa o NIST."},
@@ -1472,9 +1524,7 @@ const GLOSS=[
  {t:"python",term:"input()",def:"Lê texto do usuário e SEMPRE retorna string. Converta com int() se precisar de número."},
  {t:"linux",term:"pwd",def:"Mostra a pasta atual (print working directory)."},
  {t:"linux",term:"ls",def:"Lista arquivos. -l = detalhes, -a = mostra ocultos."},
- {t:"linux",term:"chmod",def:"Muda permissões. Octal: 4=ler, 2=escrever, 1=executar. 7 = rwx (tudo)."},
  {t:"linux",term:"sudo",def:"Roda um comando como administrador (root). Use pontual, não vire root o tempo todo."},
- {t:"linux",term:"grep",def:"Procura texto dentro de arquivos. grep <termo> <arquivo>."},
  {t:"linux",term:"~ / /",def:"~ é a home do usuário; / é a raiz do sistema inteiro."},
  {t:"cloud",term:"IaaS / PaaS / SaaS",def:"Quanto o provedor gerencia: IaaS (só a infra), PaaS (plataforma pronta), SaaS (app pronto tipo Gmail)."},
  {t:"cloud",term:"Responsabilidade compartilhada",def:"Provedor protege A nuvem (hardware/datacenter); você protege NA nuvem (seus dados, acessos, configs)."},
@@ -1482,8 +1532,6 @@ const GLOSS=[
  {t:"cloud",term:"Região vs AZ",def:"Região = área geográfica; AZ = datacenter isolado dentro da Região. Espalhar entre AZs dá alta disponibilidade."},
  {t:"cloud",term:"At rest vs in transit",def:"Criptografia do dado parado no disco (at rest) vs viajando na rede (in transit, via TLS)."},
  {t:"cloud",term:"Load balancer",def:"Distribui o tráfego entre vários servidores. Dá escala e tolerância a falhas."},
- {t:"grc",term:"Cyber Kill Chain",def:"Modelo Lockheed Martin (7 etapas originais; versão moderna condensa em 5): Recon → Intrusão → Elevação → Movimento Lateral → Detonação. Defesa quebra os passos intermediários — não tenta adivinhar o malware."},
- {t:"grc",term:"MITRE ATT&CK",def:"Matriz de 14 táticas (Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, C2, Exfiltration, Impact, Reconnaissance, Resource Development) × ~600 técnicas (T1XXX). SOC moderno mapeia detecções em ATT&CK."},
  {t:"cysa",term:"LSASS dump",def:"Ataque à Local Security Authority Subsystem Service — processo Windows que guarda credenciais em memória. Mimikatz/procdump acessam pra roubar hashes/tickets Kerberos. Detecção: EventID 4656 + ProcessAccess a lsass.exe de binário não-MS."},
  {t:"cysa",term:"Lateral Movement",def:"Após comprometer 1 host, atacante usa credenciais roubadas pra pular a outros (SMB, RDP, WinRM, PsExec). Alvo final: Domain Controller. EventID Windows 4624 tipo 3 em host inesperado = suspeita."},
  {t:"grc",term:"Backup imutável (WORM)",def:"Write Once Read Many — backup que NÃO pode ser alterado/deletado por período fixo. Neutraliza ransomware que apaga backups online. Ex: AWS S3 Object Lock, Azure Immutable Blob, tape air-gap. Regra 3-2-1-1-0."},
@@ -1494,13 +1542,11 @@ const GLOSS=[
  {t:"secplus",term:"CAE (Continuous Access Evaluation)",def:"Recurso do Microsoft Entra (Azure AD) que revoga sessões em segundos após evento crítico (senha trocada, risco elevado, política mudada), sem esperar expiração natural do token OAuth (~1h). Componente-chave de Zero Trust."},
  {t:"cysa",term:"C2 (Command & Control)",def:"Canal de comunicação atacante↔host comprometido. Moderno usa portas 443 (HTTPS) e 53 (DNS) — passa por firewall/EDR/IDS. Defesa: inspeção TLS, DNS filtering, análise comportamental de tráfego."},
  {t:"cysa",term:"Wazuh Active Response",def:"Módulo do Wazuh que executa ações automáticas em resposta a alertas (bloqueia IP no firewall, isola endpoint, mata processo, executa script). Base de playbook SOAR grátis. Comando: firewall-drop, disable-account, restart-wazuh, custom scripts."},
- {t:"cysa",term:"SOAR",def:"Security Orchestration, Automation & Response. Playbooks automáticos que ligam SIEM+EDR+firewall+IAM. Ex.: LSASS access → isola endpoint (EDR) → revoga tokens (CAE) → bloqueia IP C2 (firewall) → notifica. Tempo: segundos vs horas do humano."},
  {t:"cysa",term:"N1 / N2 / N3 (SOC tiers)",def:"N1: triagem de alerta (playbook simples, muito automatizável — cargo em extinção). N2: investigação especializada (correlação multi-fonte, contexto). N3: forense/engenharia reversa/casos complexos. Portfolio pra US: pula N1, aponta pra N2+ com automação própria."},
  {t:"cysa",term:"FIM (File Integrity Monitoring)",def:"Monitora hash de arquivos críticos e alerta em qualquer alteração. Wazuh: módulo syscheck via ossec.conf. Casos reais: config de PDV, arquivo de sistema, executável, chave privada. Simples de configurar, alto valor de detecção."},
  {t:"grc",term:"EPS vs Endpoint (licenciamento SIEM)",def:"EPS-based (Events Per Second, Splunk/QRadar): cobra por volume de log. Empresa com Sysmon+DNS+netflow explode custo. Endpoint-based (Wazuh/CrowdStrike/ZOPHIM): fixo por máquina, incentiva telemetria rica. Impacta TCO drasticamente."},
- {t:"grc",term:"MSSP vs SOCaaS",def:"MSSP (Managed Security Service Provider): revende ferramenta de segurança + gestão. Muitas vezes 70-80% da receita é revenda de licença — modelo frágil. SOCaaS (SOC as a Service): serviço próprio de monitoramento 24×7, sem revenda. Modelo mais defensável e escalável."},
+ {t:"grc",term:"MSSP vs SOCaaS",def:"MSSP (Managed Security Service Provider): revende ferramenta de segurança + gestão. Muitas vezes 70-80% da receita é revenda de licença — modelo frágil. SOCaaS (SOC as a Service): serviço próprio de monitoramento 24×7, sem revenda. Modelo mais defensável e escalável."}
 ];
-
 /* ---------- ESTADO ---------- */
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
 function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
@@ -2247,75 +2293,6 @@ function startWeakDrill(){
   renderQ();
 }
 
-
-/* ---------- DICIONÁRIO COMPTIA EXPRESS (80+ TERMOS CHAVE) ---------- */
-const GLOSS = [
-  // Criptografia & Tríade CIA
-  {t:"secplus", term:"AES (Advanced Encryption Standard)", def:"Padrão mundial de criptografia simétrica em bloco (128/192/256 bits). Garante CONFIDENCIALIDADE em repouso (BitLocker) e trânsito (WPA3/VPN)."},
-  {t:"secplus", term:"SHA-256", def:"Algoritmo de hash de 256 bits (família SHA-2). Gera uma impressão digital irreversível de 64 caracteres hexadecimais para garantir INTEGRIDADE de arquivos e senhas."},
-  {t:"secplus", term:"TLS (Transport Layer Security)", def:"Protocolo criptográfico moderno para proteger comunicações em rede (ex: HTTPS, porta 443). Garante CONFIDENCIALIDADE e INTEGRIDADE em trânsito."},
-  {t:"secplus", term:"VPN (Virtual Private Network)", def:"Túnel de rede criptografado sobre a internet pública. Garante CONFIDENCIALIDADE conectando usuários remotos à rede corporativa."},
-  {t:"secplus", term:"Salt (Salting)", def:"Adição de sequência aleatória de caracteres a uma senha antes de gerar o hash. Impede Rainbow Tables e garante que senhas iguais gerem hashes distintos."},
-  {t:"secplus", term:"Data at rest (Em repouso)", def:"Dado estático armazenado em disco, banco de dados ou fita. Protegido primariamente por criptografia de disco completo (FDE) e ACLs."},
-  {t:"secplus", term:"Data in transit (Em trânsito)", def:"Dado trafegando por redes cabeadas, Wi-Fi ou pela internet. Protegido primariamente por TLS, HTTPS, IPsec e VPN."},
-  {t:"secplus", term:"Data in use (Em uso)", def:"Dado carregado na memória RAM ou processado pela CPU. Protegido por computação confidencial e enclaves seguros de memória."},
-  {t:"secplus", term:"Não-repúdio (Non-repudiation)", def:"Garantia irrefutável de que o autor de uma ação ou mensagem não pode negar sua autoria. Implementado via Assinatura Digital (chave privada)."},
-  {t:"secplus", term:"Assinatura Digital", def:"Hash do arquivo cifrado com a chave PRIVADA do remetente. Prova 3 coisas: Integridade + Autenticação do autor + Não-repúdio."},
-  {t:"secplus", term:"MFA (Multi-Factor Authentication)", def:"Autenticação por 2+ fatores distintos: algo que sabe (senha), tem (token), é (biometria), faz (gesto) ou onde está."},
-  {t:"secplus", term:"Zero Trust", def:"Arquitetura baseada em 'Nunca confie, sempre verifique'. Assume que a rede interna já está comprometida; exige autenticação contínua e micro-segmentação."},
-  {t:"secplus", term:"AAA", def:"Modelo de controle de acesso: Authentication (quem é), Authorization (o que pode acessar) e Accounting (log de auditoria do que fez)."},
-  {t:"secplus", term:"RADIUS", def:"Protocolo centralizado de autenticação AAA (UDP 1812/1813). Usado em redes Wi-Fi empresariais e portas de switches com 802.1X."},
-  {t:"secplus", term:"802.1X", def:"Padrão IEEE de controle de acesso a portas de rede (NAC). Bloqueia a porta física ou o Wi-Fi até que o usuário se autentique via RADIUS."},
-  {t:"secplus", term:"Gap Analysis (Análise de Lacunas)", def:"Comparação metódica entre a postura de segurança atual e um framework desejado (ex: NIST CSF), mapeando exatamente o que falta implementar."},
-  {t:"secplus", term:"DDoS (Distributed Denial of Service)", def:"Ataque coordenado que inunda servidores com tráfego massivo gerado por botnets para derrubar sua DISPONIBILIDADE."},
-  {t:"secplus", term:"RAID", def:"Arranjo de discos redundantes para tolerância a falhas (RAID 1, 5, 6) ou desempenho (RAID 0). Protege a DISPONIBILIDADE contra pane mecânica de HD."},
-  {t:"secplus", term:"RTO (Recovery Time Objective)", def:"Tempo máximo aceitável que um sistema pode ficar fora do ar após um desastre sem inviabilizar a organização."},
-  {t:"secplus", term:"RPO (Recovery Point Objective)", def:"Volume máximo de perda aceitável de dados medido em tempo (ex: se o backup é diário, o RPO é de até 24h de perda)."},
-  {t:"secplus", term:"SIEM", def:"Plataforma que centraliza, correlaciona e analisa logs de segurança em tempo real para detectar incidentes."},
-  {t:"secplus", term:"SOAR", def:"Plataforma de orquestração e resposta automatizada a incidentes através de playbooks, reduzindo o tempo de reação do SOC."},
-  {t:"secplus", term:"EDR / XDR", def:"Sistemas de detecção e resposta a ameaças no endpoint (EDR) e estendido pela rede, nuvem e identidades (XDR)."},
-  {t:"secplus", term:"PKI (Public Key Infrastructure)", def:"Infraestrutura de chaves públicas: sistema de políticas, CAs e certificados para autenticação e cifragem assimétrica."},
-  {t:"secplus", term:"CA (Autoridade Certificadora)", def:"Entidade confiável que assina digitalmente certificados para validar que uma chave pública pertence a determinado titular."},
-  {t:"secplus", term:"CRL & OCSP", def:"Mecanismos de revogação de certificados: CRL (lista periódica baixada) e OCSP (consulta em tempo real ao status do certificado)."},
-  {t:"secplus", term:"HSM", def:"Hardware Security Module: dispositivo físico inviolável dedicado a gerar e guardar chaves criptográficas corporativas de alta segurança."},
-  {t:"secplus", term:"TPM", def:"Trusted Platform Module: chip criptográfico na placa-mãe do PC que guarda chaves de boot seguro, medição de integridade e BitLocker."},
-  {t:"secplus", term:"SAML", def:"Padrão em XML para federar autenticação e autorização entre um Provedor de Identidade (IdP) e aplicações (SP) no SSO corporativo."},
-  {t:"secplus", term:"OAuth 2.0 & OIDC", def:"OAuth 2.0 é autorização por tokens; OIDC adiciona autenticação e identidade de usuário sobre o OAuth 2.0 via ID Token."},
-  {t:"secplus", term:"SSO (Single Sign-On)", def:"Mecanismo que permite ao usuário logar uma única vez e obter acesso imediato a múltiplos sistemas sem redigitar senha."},
-  {t:"secplus", term:"RBAC", def:"Role-Based Access Control: controle de acesso concedido com base no cargo/função do colaborador na empresa."},
-  {t:"secplus", term:"ABAC", def:"Attribute-Based Access Control: controle de acesso dinâmico baseado em múltiplos atributos (usuário, recurso, horário, IP)."},
-  {t:"secplus", term:"DAC", def:"Discretionary Access Control: o proprietário do arquivo tem total liberdade para conceder ou revogar permissões a outros."},
-  {t:"secplus", term:"MAC", def:"Mandatory Access Control: o sistema impõe permissões estritas baseadas em etiquetas de segurança (ex: Secreto), comum em militar."},
-  {t:"secplus", term:"Honeypot & Honeyfile", def:"Sistemas e arquivos isca criados propositalmente para enganar atacantes, registrar suas táticas e emitir alerta antecipado."},
-  {t:"secplus", term:"Air Gap", def:"Isolamento físico absoluto de uma máquina ou rede, sem qualquer conexão cabeada ou sem fio com o mundo externo."},
-  {t:"secplus", term:"DLP (Data Loss Prevention)", def:"Software que inspeciona e bloqueia a saída não autorizada de dados sigilosos por e-mail, pen drive ou web."},
-  {t:"secplus", term:"Phishing / Spear Phishing", def:"Phishing é engenharia social genérica por e-mail; Spear Phishing é personalizado e direcionado a um alvo específico."},
-  {t:"secplus", term:"Whaling", def:"Phishing de alta precisão focado exclusivamente na alta diretoria (CEOs, CFOs)."},
-  {t:"secplus", term:"Ransomware", def:"Malware que criptografa os arquivos da vítima e exige resgate para devolver o acesso aos dados."},
-  {t:"secplus", term:"Rootkit", def:"Malware de altíssimo privilégio que se infiltra no kernel do sistema operacional e se esconde de antivírus."},
-  {t:"secplus", term:"CSRF", def:"Cross-Site Request Forgery: induz o navegador logado da vítima a enviar ordens maliciosas a uma aplicação confiável."},
-  {t:"secplus", term:"XSS", def:"Cross-Site Scripting: injeção de scripts maliciosos (JS) em páginas web exibidas para outros usuários."},
-  {t:"secplus", term:"SQL Injection (SQLi)", def:"Injeção de comandos SQL em formulários para manipular ou extrair o banco de dados da aplicação."},
-  {t:"secplus", term:"Rainbow Table", def:"Tabela de hashes pré-computados para quebrar senhas instantaneamente; neutralizada pela técnica de Salting."},
-  {t:"secplus", term:"Password Spraying", def:"Testar poucas senhas comuns contra milhares de usuários diferentes para não bloquear contas no Active Directory."},
-  {t:"secplus", term:"Credential Stuffing", def:"Ataque automatizado que testa listas de usuários e senhas vazadas em outros sites contra novas aplicações."},
-  {t:"secplus", term:"MitM (Man-in-the-Middle)", def:"Interceptação ou alteração clandestina de mensagens entre duas partes que acreditam estar conversando diretamente."},
-  {t:"secplus", term:"ARP Poisoning", def:"Envio de pacotes ARP falsos na LAN para associar o MAC do atacante ao IP do roteador, interceptando o tráfego."},
-  {t:"secplus", term:"DNS Poisoning", def:"Corrupção do cache DNS para redirecionar usuários de um site legítimo para uma réplica maliciosa."},
-
-  // Python
-  {t:"python", term:"PCEP", def:"Certified Entry-Level Python Programmer: certificação oficial do Python Institute cobrindo sintaxe básica, loops, coleções e funções."},
-  {t:"python", term:"Mutável vs Imutável", def:"Mutáveis mudam no mesmo endereço (list, dict, set); Imutáveis não mudam de valor após criados (int, float, str, tuple)."},
-  {t:"python", term:"List Comprehension", def:"Sintaxe concisa para criar listas a partir de iteráveis: [x*2 for x in range(10) if x%2==0]."},
-  {t:"python", term:"Lambda", def:"Função anônima de linha única em Python: lambda x: x + 1."},
-  {t:"python", term:"*args e **kwargs", def:"*args recebe múltiplos argumentos posicionais em tupla; **kwargs recebe múltiplos argumentos nomeados em dicionário."},
-
-  // Linux
-  {t:"linux", term:"chmod (Permissões)", def:"Altera permissões de leitura (4), escrita (2) e execução (1) para User, Group e Others. Ex: chmod 755 script.sh."},
-  {t:"linux", term:"chown", def:"Altera o proprietário e grupo de um arquivo ou diretório: chown usuario:grupo arquivo."},
-  {t:"linux", term:"grep", def:"Utilitário de linha de comando para buscar linhas que correspondam a um padrão de expressão regular em arquivos."},
-  {t:"linux", term:"systemctl", def:"Comando para gerenciar serviços e daemons no systemd: systemctl start|stop|status|restart servico."}
-];
 
 /* ---------- GLOSSARIO ---------- */
 function renderGloss(){
