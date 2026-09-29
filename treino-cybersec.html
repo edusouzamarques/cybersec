@@ -1056,31 +1056,32 @@ function renderAulas(){
   elD.classList.add("hide");el.classList.remove("hide");
   const groups={};LESSONS.forEach(l=>{(groups[l.sec[0]] = groups[l.sec[0]]||[]).push(l)});
   el.innerHTML = Object.keys(groups).sort().map(sec=>{
-    return `<div class="card"><h3 style="margin-top:0">📄 Seção ${secLabel(sec)}</h3>` +
+    return `<div class="card"><h3 style="margin-top:0">📄 ${secName(sec)}</h3>` +
       groups[sec].map(l=>{
       const st=S.aula[l.id]||{};
-      const pct=qsOf(l.id);
+      const pct=aulaProg(l.id);
       return `<div class="dom" onclick="openAula('${l.id}')">
-        <div class="dname"><b>${l.sec}</b> · ${l.t}<div class="note">⏱ ${l.dur}${l.pdf?` · <a href='${l.pdf}' onclick=\"event.stopPropagation()\" target='_blank'>PDF ↗</a>`:''} ${st.watched?'· ✅assistido':''}</div></div>
+        <div class="dname"><b>${l.sec}</b> · ${l.t}<div class="note">⏱ ${l.dur}${l.pdf?` · <a href='${l.pdf}' onclick="event.stopPropagation()" target='_blank'>PDF ↗</a>`:''} ${st.watched?'· ✅ assistido':''}</div></div>
         <div class="dpct">${pct.m}/${pct.t} dominadas</div></div>`;
     }).join("") + '</div>';
   }).join("");
 }
-function sec(n){return {0:"0 — Preparação da prova",1:"1 — General Security Concepts",2:"2 — Threats",3:"3 — Architecture",4:"4 — Security Operations",5:"5 — Program Management"}[n]||("Seção "+n)}
+function secName(n){return {0:"0 — Preparação da prova",1:"1 — General Security Concepts",2:"2 — Threats",3:"3 — Architecture",4:"4 — Security Operations",5:"5 — Program Management"}[n]||("Seção "+n)}
 function openAula(id){
   const l=LESSONS.find(x=>x.id===id);if(!l)return;
   const el=document.getElementById("aulaList");el.classList.add("hide");
   const d=document.getElementById("aulaDetail");d.classList.remove("hide");
   const st=S.aula[id]||{};
   const qs=lessonQs(id);
+  const prog=aulaProg(id);
   d.innerHTML=`
     <div class="row"><button class="btn ghost" onclick="renderAulas()">‹ todas as aulas</button>
-      <b>${l.sec} · ${l.t} <span class="note">(${l.dur})</span></b></div>
+      <b>${l.sec} · ${l.t} <span class="note">(${l.dur}) ${prog.m}/${prog.t} dominadas</span></b></div>
     <div class="card">
       <div class="row" style="margin:0 0 10px">
         ${l.ytid?`<a class="btn" href="${YT_BASE}${l.ytid}" target="_blank">▶ vídeo no YouTube</a>`:''}
         ${l.pdf?`<a class="btn ghost" href="${l.pdf}" target="_blank">📄 PDF ↗</a>`:''}
-        <label style="font-size:14px;margin-left:8px"><input type="checkbox" ${st.watched?'checked':''} onchange="toggleAulaWatched('${id}',this.checked)"> assisti a aula</label>
+        <label style="font-size:14px;margin-left:8px"><input type="checkbox" ${st.watched?'checked':''} onchange="aulaWatch('${id}',this.checked)"> assisti a aula</label>
       </div>
       <h3 style="margin-top:12px">📖 Resumo</h3>
       <p>${l.res}</p>
@@ -1092,18 +1093,19 @@ function openAula(id){
         <b>✏️ ${qs.length} questões desta aula</b>
         <div><button class="btn" onclick="startAulaQuiz('${id}')">▶ Praticar as ${qs.length}</button>
              <button class="btn ghost" onclick="renderAulas()">‹ volta</button></div></div>
-      <div class="note">Aula ${l.sec}: questões com explicação completa, no formato da prova real.</div></div>`:''}
+      <div class="note">Aula ${l.sec}: questões com explicação completa, formato da prova real.</div></div>`:''}
   `;
 }
 function lessonQs(id){const ids=LESSON_QS[id]||[];return ids.map(x=>qById(x)).filter(Boolean)}
-function qsOf(id){const q=lessonQs(id);return {m:q.filter(x=>S.q[x.id]&&S.q[x.id].mastered).length,t:q.length}}
-function toggleAulaWatch(id){const st=S.aula[id]||{};st.watched=!st.watched;S.aula[id]=st;save(S);renderAulas();}
+function aulaProg(id){const q=lessonQs(id);return {m:q.filter(x=>S.q[x.id]&&S.q[x.id].mastered).length,t:q.length}}
+function aulaWatch(id,on){const st=S.aula[id]||{};st.watched=!!on;S.aula[id]=st;save(S);}
 function startAulaQuiz(id){
   const qs=lessonQs(id);
   shuffle(qs);
   quiz={track:qs[0]?qs[0].t:'secplus',dom:null,queue:qs,idx:0,answered:false,aula:id};
   document.getElementById("aulaDetail").classList.add("hide");
   document.getElementById("aulaList").classList.add("hide");
+  document.getElementById("aulas").classList.remove("hide");
   document.getElementById("quizWrap").classList.remove("hide");
   renderQ();
 }
@@ -1268,7 +1270,7 @@ function renderQuizEnd(){
     const l=LESSONS.find(x=>x.id===quiz.aula);
     w.innerHTML=`<div class="card" style="text-align:center">
       <div class="big">🎉</div><b>Rodada da aula ${l.sec} concluída!</b>
-      <div class="note" style="margin:8px 0">${l.t} · ${qsOf(l.id)}</div>
+      <div class="note" style="margin:8px 0">${l.t} · ${aulaProg(l.id).m}/${aulaProg(l.id).t} dominadas</div>
       <div class="row" style="justify-content:center">
         <button class="btn" onclick="startAulaQuiz('${l.id}')">↻ Praticar de novo</button>
         <button class="btn ghost" onclick="openAula('${l.id}')">‹ voltar pra aula</button>
