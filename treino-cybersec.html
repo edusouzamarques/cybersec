@@ -80,7 +80,7 @@
 <header>
   <div class="wrap" style="padding-bottom:0">
     <h1>🎯 Treinador CyberSec — Eduardo</h1>
-    <div class="sub"><script>document.write('v5.0 AULAS · '+(Date.now()%100000));</script> · Te <b>guia, testa e corrige</b> rumo a Security+, Python (PCEP), Linux e Cloud. Roda offline, salva sozinho neste navegador. &nbsp;·&nbsp; <a href="assistente-cybersec.html">← voltar pro Assistente (trilha/carreira)</a></div>
+    <div class="sub"><span class="badge" style="background:#1e3a2c;border-color:var(--acc);color:var(--acc);font-weight:700" id="appVerBadge">v5.1 AULAS · 10Q MESTRE</span> · Te <b>guia, testa e corrige</b> rumo a Security+, Python (PCEP), Linux e Cloud. Roda offline, salva sozinho neste navegador. &nbsp;·&nbsp; <a href="assistente-cybersec.html">← voltar pro Assistente (trilha/carreira)</a></div>
   </div>
 </header>
 <div class="wrap">
@@ -97,6 +97,7 @@
   <section id="aulas" class="hide">
     <div id="aulaList"></div>
     <div id="aulaDetail" class="hide"></div>
+    <div id="aulaQuizWrap" class="hide"></div>
   </section>
 
   <!-- HOME -->
@@ -214,6 +215,71 @@ const TRACKS=[
 /* ---------- BANCO DE QUESTÕES (autorais, verificadas) ---------- */
 /* q=pergunta, o=opções, c=índice correto, e=explicação */
 const Q=[
+
+  // ===== AULA 1.1 — SECURITY CONTROLS (Messer SY0-701) =====
+  {id:"ctrl1",t:"secplus",d:"d2",q:"Um administrador instala uma regra de firewall que bloqueia todo tráfego de entrada vindo de uma faixa de IP conhecida por ser maliciosa. Qual combinação classifica corretamente este controle?",
+   o:["Preventive · Technical","Detective · Technical","Preventive · Managerial","Deterrent · Technical"],c:0,
+   e:"Firewall é ferramenta tecnológica (Technical); a regra barra o pacote antes de entrar na rede (Preventive)."},
+  {id:"ctrl2",t:"secplus",d:"d2",q:"A empresa instala placas na entrada dizendo 'esta área está sendo gravada por câmeras de segurança'. Nenhum dispositivo físico novo foi adicionado. Qual é o propósito primordial deste controle?",
+   o:["Preventive","Detective","Deterrent","Compensating"],c:2,
+   e:"O aviso desanima e desencoraja a ação maliciosa (Deterrent), mas não impede fisicamente a entrada nem grava nada por si só."},
+  {id:"ctrl3",t:"secplus",d:"d4",q:"Depois de um ataque de ransomware, o time de TI apaga o disco da máquina e restaura os dados do backup de ontem. Este controle é:",
+   o:["Detective","Corrective","Preventive","Compensating"],c:1,
+   e:"A restauração do backup ocorre DEPOIS do incidente para restaurar o estado operacional do sistema (Corrective)."},
+  {id:"ctrl4",t:"secplus",d:"d2",q:"Um software crítico da empresa tem uma vulnerabilidade grave, mas o fornecedor só poderá enviar o patch em 2 meses. A solução temporária de bloquear a porta específica no firewall até o patch chegar é qual tipo de controle?",
+   o:["Corrective","Detective","Compensating","Preventive"],c:2,
+   e:"Compensating control: é uma contramedida alternativa temporária aplicada quando o controle principal/ideal (o patch do fabricante) é inviável no momento."},
+  {id:"ctrl5",t:"secplus",d:"d5",q:"A organização implementa a política de que NINGUÉM (nem o administrador do sistema) pode aprovar e executar um pagamento sozinho — sempre precisa de duas pessoas. Isso é:",
+   o:["Preventive control do tipo managerial (separation of duties)","Detective control do tipo technical","Compensating control do tipo operational (dupla guarda)","Directive control do tipo physical"],c:0,
+   e:"Separação de funções (separation of duties) é uma política administrativa/gerencial (Managerial) que previne fraudes e erros impedindo a ação unilateral (Preventive)."},
+  {id:"ctrl6",t:"secplus",d:"d4",q:"Guardas fazem rondas pelo prédio a cada hora. Quando um guarda descobre portas abertas que não deviam estar, reporta imediatamente. Este controle é:",
+   o:["Detective · Operational (patrulha)","Preventive · Physical (patrulha)","Corrective · Operational","Detective · Technical"],c:0,
+   e:"A patrulha de segurança faz parte dos procedimentos operacionais humanos (Operational) e atua identificando anomalias durante a inspeção (Detective)."},
+  {id:"ctrl7",t:"secplus",d:"d5",q:"A empresa escreve um documento oficial de política de segurança que define como funcionários devem tratar dados sensíveis. Qual o tipo + categoria?",
+   o:["Directive + Managerial","Preventive + Managerial","Directive + Technical","Corrective + Managerial"],c:1,
+   e:"Política de segurança orienta e evita o erro (Preventive) via processo administrativo e diretriz organizacional (Managerial)."},
+  {id:"ctrl8",t:"secplus",d:"d4",q:"Depois de um ataque bem-sucedido, o time de segurança monta um relatório do que aconteceu pra evitar repetição — inclusive atualizando o playbook. Qual controle é este?",
+   o:["Detective","Corrective — na categoria managerial (processo, documentação)","Preventive","Compensating"],c:1,
+   e:"Lições aprendidas e atualização de políticas após incidente é um controle corretivo (Corrective) no nível gerencial/processual (Managerial)."},
+  {id:"ctrl9",t:"secplus",d:"d2",q:"O datacenter instalou detector de movimento que dispara alarme e notifica os guardas quando há movimento fora do horário. Esta combinação:",
+   o:["Detective + Technical","Detective + Physical","Preventive + Physical","Deterrent + Technical"],c:1,
+   e:"Detectores de movimento e sensores volumétricos são dispositivos físicos (Physical) cuja função é detectar intrusões e emitir alertas (Detective)."},
+  {id:"ctrl10",t:"secplus",d:"d2",q:"Depois de um incidente, o time de segurança adiciona um módulo de antivírus adicional à borda da rede, porque o sistema legado não pode ter o patch aplicado. Este é um exemplo de:",
+   o:["Compensating control — uma alternativa porque o controle ideal não é possível","Corrective control — corrige o que já aconteceu","Preventive — barra o ataque antes","Deterrent — desanima o atacante"],c:0,
+   e:"Compensating: uso de outros meios para compensar a ausência de um controle primário (sistema operacional legado sem suporte a patches)."},
+
+  // ===== AULA 1.2 — THE CIA TRIAD (Messer SY0-701) =====
+  {id:"cia1",t:"secplus",d:"d1",q:"Um atacante intercepta e LÊ uma comunicação confidencial entre dois sistemas sem autorização. Que objetivo da tríade CIA foi diretamente comprometido?",
+   o:["Integridade","Confidencialidade","Disponibilidade","Não-repúdio"],c:1,
+   e:"Confidencialidade ('só quem pode, vê'): a leitura indevida por terceiro quebra o sigilo da informação."},
+  {id:"cia2",t:"secplus",d:"d1",q:"Um atacante INJETA código numa mensagem enviada a um banco, fazendo o banco executar uma transferência que o usuário original não ordenou. Que objetivo da tríade foi comprometido?",
+   o:["Confidencialidade","Integridade","Disponibilidade","Autenticação"],c:1,
+   e:"Integridade: o dado foi adulterado no trajeto, deixando de ser exato e confiável."},
+  {id:"cia3",t:"secplus",d:"d1",q:"Um servidor web de e-commerce fica completamente inacessível devido a um ataque de negação de serviço distribuído (DDoS). Que objetivo da tríade CIA foi comprometido?",
+   o:["Confidencialidade","Integridade","Disponibilidade","Autenticidade"],c:2,
+   e:"Disponibilidade: o serviço caiu e os clientes legítimos não conseguem acessar o sistema."},
+  {id:"cia4",t:"secplus",d:"d3",q:"O que uma função HASH criptográfica (como SHA-256) oferece e o que ela NÃO oferece?",
+   o:["Oferece integridade; NÃO dá confidencialidade (não cifra)","Oferece confidencialidade; NÃO dá integridade","Oferece disponibilidade; NÃO dá integridade","Oferece as 3 ao mesmo tempo"],c:0,
+   e:"Hash é unidirecional: gera uma impressão digital única para checar se o dado mudou (integridade), mas não esconde nem cifra o conteúdo."},
+  {id:"cia5",t:"secplus",d:"d3",q:"Qual controle criptográfico oferece simultaneamente: integridade do dado + autenticação do autor + não-repúdio (non-repudiation)?",
+   o:["Hash SHA-256 puro","Criptografia AES simétrica","Assinatura digital com chave privada","Backup offline em fita"],c:2,
+   e:"A assinatura digital cifra o hash com a chave privada do remetente, garantindo integridade + autenticidade + não-repúdio."},
+  {id:"cia6",t:"secplus",d:"d3",q:"Dados confidenciais estão sendo transmitidos entre um usuário remoto e o servidor corporativo pela internet. Qual estado do dado e proteção correspondente?",
+   o:["At rest — criptografia de disco BitLocker","In transit — túnel TLS / VPN IPsec","In use — enclaves seguros de CPU","Rest / transit / use — todas indistintas"],c:1,
+   e:"Dado em trânsito (in transit) trafega pela rede e deve ser protegido com TLS ou VPN."},
+  {id:"cia7",t:"secplus",d:"d3",q:"Uma empresa financeira precisa garantir perante auditoria judicial que um gerente não possa negar ter autorizado uma transferência bancária. Qual garantia técnica é exigida?",
+   o:["Criptografia AES","Não-repúdio (non-repudiation) via assinatura digital","Cluster de alta disponibilidade","Hash MD5 da mensagem"],c:1,
+   e:"Não-repúdio: impede que o autor negue a autoria da transação, pois apenas a sua chave privada exclusiva pôde gerar a assinatura."},
+  {id:"cia8",t:"secplus",d:"d3",q:"Uma aplicação web armazena senhas no banco de dados utilizando hash com salt (ex: bcrypt). Qual objetivo primordial da tríade isso protege e por quê?",
+   o:["Disponibilidade — agiliza o backup","Integridade — garante que o arquivo não corrompa","Confidencialidade — mesmo com vazamento do banco, invasores não leem as senhas claras","Autenticação — prova a identidade do usuário"],c:2,
+   e:"Confidencialidade: o hash com salt garante que o segredo (a senha) não seja revelado mesmo se a tabela for roubada."},
+  {id:"cia9",t:"secplus",d:"d1",q:"CENÁRIO: Durante uma rotina de manutenção noturna, um script em lote com erro de lógica altera indevidamente os campos de limite de crédito de 10.000 clientes, sem dolo ou ataque externo. Qual pilar da tríade CIA foi diretamente violado?",
+   o:["Confidencialidade","Integridade","Disponibilidade","Não-repúdio"],c:1,
+   e:"Integridade: a modificação incorreta dos dados contábeis corrompeu a exatidão e a integridade da base, independentemente de ter havido dolo."},
+  {id:"cia10",t:"secplus",d:"d2",q:"CENÁRIO: Um hospital implementa servidores de prontuário eletrônico com fontes de alimentação redundantes, gerador a diesel, replicação multi-site síncrona e balanceamento de carga automático. Essa arquitetura foi desenhada para priorizar:",
+   o:["Confidencialidade","Integridade","Disponibilidade","Não-repúdio"],c:2,
+   e:"Disponibilidade: no-breaks, geradores, replicação e redundância existem para assegurar que os médicos acessem os prontuários 24/7 sem interrupções."},
+
  // ===== SECURITY+ D1 — Ameaças =====
  {id:"s101",t:"secplus",d:"d1",q:"Um golpista manda e-mail SE PASSANDO pelo CEO e ordena que o financeiro faça uma transferência urgente. Que ataque é esse?",
   o:["BEC / CEO fraud (fraude do CEO)","Whaling","Vishing","Tailgating"],c:0,
@@ -1004,11 +1070,14 @@ const GLOSS=[
 
 /* ---------- ESTADO ---------- */
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
-function save(s){localStorage.setItem(KEY,JSON.stringify(s))}
+function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
 let S=load();
-// S.q[qid] = {seen, correct, streak, mastered}
-/* AULAS: progresso por vídeo = S.aula[lessonId] = {watched, pdf, quiz, passed, bestPct} */
-if(!S.aula) S.aula={};
+if(!S || typeof S !== "object") S = {};
+if(!S.q) S.q = {};
+if(!S.stats) S.stats = {answered:0, right:0, streak:0, best:0};
+if(!S.aula) S.aula = {};
+if(!S.last) S.last = null;
+save(S);
 
 /* ---------- AULAS (vídeo por vídeo — Professor Messer SY0-701) ---------- */
 const AULAS_BASE="https://www.professormesser.com/security-plus/sy0-701/";
@@ -1045,78 +1114,131 @@ const LESSONS=[
 
 /* Mapeamento questão por aula (por tema, puxando do banco Q existente) */
 const LESSON_QS={
- "L001":["s101","s102","s117","s201","s204","gq6","gq7","gq8","gq9","gq12"],
- "L002":["s302","s304","s141","gq23"],
+ "L001":["ctrl1","ctrl2","ctrl3","ctrl4","ctrl5","ctrl6","ctrl7","ctrl8","ctrl9","ctrl10"],
+ "L002":["cia1","cia2","cia3","cia4","cia5","cia6","cia7","cia8","cia9","cia10"],
  "L000":[]
 };
 
 function renderAulas(){
   const el=document.getElementById("aulaList");
   const elD=document.getElementById("aulaDetail");
-  elD.classList.add("hide");el.classList.remove("hide");
+  const qw=document.getElementById("aulaQuizWrap");
+  if(qw) qw.classList.add("hide");
+  if(elD) elD.classList.add("hide");
+  if(el) el.classList.remove("hide");
   try{
-  const groups={};LESSONS.forEach(l=>{(groups[l.sec[0]] = groups[l.sec[0]]||[]).push(l)});
-  el.innerHTML = Object.keys(groups).sort().map(sec=>{
-    return `<div class="card"><h3 style="margin-top:0">📄 ${secName(sec)}</h3>` +
-      groups[sec].map(l=>{
-      const st=S.aula[l.id]||{};
-      const pct=aulaProg(l.id);
-      return `<div class="dom" onclick="openAula('${l.id}')">
-        <div class="dname"><b>${l.sec}</b> · ${l.t}<div class="note">⏱ ${l.dur}${l.pdf?` · <a href='${l.pdf}' onclick="event.stopPropagation()" target='_blank'>PDF ↗</a>`:''} ${st.watched?'· ✅ assistido':''}</div></div>
-        <div class="dpct">${pct.m}/${pct.t} dominadas</div></div>`;
-    }).join("") + '</div>';
-  }).join("");
-  if(!LESSONS.length) el.innerHTML='<div class="card note">Nenhuma aula ainda — o gerador automático vai preencher a cada 3h.</div>';
-  } catch(e){ el.innerHTML='<div class="card" style="border-color:var(--red)">⚠️ Erro ao renderizar aulas: '+e.message+'<br><span class="note">Abre o console (F12) e me manda o erro</span></div>'; }
+    const groups={};LESSONS.forEach(l=>{(groups[l.sec[0]] = groups[l.sec[0]]||[]).push(l)});
+    el.innerHTML = Object.keys(groups).sort().map(sec=>{
+      return `<div class="card"><h3 style="margin-top:0">📄 ${secName(sec)}</h3>` +
+        groups[sec].map(l=>{
+        const st=S.aula[l.id]||{};
+        const pct=aulaProg(l.id);
+        const weakCount=aulaWeakQs(l.id).length;
+        return `<div class="dom" onclick="openAula('${l.id}')">
+          <div class="dname"><b>${l.sec}</b> · ${l.t}
+            <div class="note">⏱ ${l.dur}${l.pdf?` · <a href='${l.pdf}' onclick="event.stopPropagation()" target='_blank'>📄 PDF ↗</a>`:''} ${st.watched?'· ✅ assistido':''}${weakCount?` · <span style="color:var(--red)">🩹 ${weakCount} fracos</span>`:''}</div>
+          </div>
+          <div class="dpct">${pct.m}/${pct.t} dominadas</div>
+        </div>`;
+      }).join("") + '</div>';
+    }).join("");
+    if(!LESSONS.length) el.innerHTML='<div class="card note">Nenhuma aula ainda — o gerador automático vai preencher a cada 3h.</div>';
+  } catch(e){
+    console.error("Erro renderAulas:", e);
+    el.innerHTML='<div class="card" style="border-color:var(--red)">⚠️ Erro ao carregar aulas: '+e.message+'<br><button class="btn" style="margin-top:10px" onclick="renderAulas()">↻ Tentar novamente</button></div>';
+  }
 }
-function secName(n){return {0:"0 — Preparação da prova",1:"1 — General Security Concepts",2:"2 — Threats",3:"3 — Architecture",4:"4 — Security Operations",5:"5 — Program Management"}[n]||("Seção "+n)}
+function secName(n){return {0:"0 — Preparação da prova",1:"1 — General Security Concepts",2:"2 — Threats, Vulnerabilities & Mitigations",3:"3 — Security Architecture",4:"4 — Security Operations",5:"5 — Security Program Management"}[n]||("Seção "+n)}
+
+function lessonQs(id){const ids=LESSON_QS[id]||[];return ids.map(x=>qById(x)).filter(Boolean)}
+function aulaProg(id){const q=lessonQs(id);return {m:q.filter(x=>S.q[x.id]&&S.q[x.id].mastered).length,t:q.length}}
+function aulaWeakQs(id){const q=lessonQs(id);return q.filter(x=>{const r=S.q[x.id];return r&&r.wrongs>0&&!r.mastered;})}
+function aulaWatch(id,on){const st=S.aula[id]||{};st.watched=!!on;S.aula[id]=st;save(S);}
+
 function openAula(id){
   const l=LESSONS.find(x=>x.id===id);if(!l)return;
-  const el=document.getElementById("aulaList");el.classList.add("hide");
-  const d=document.getElementById("aulaDetail");d.classList.remove("hide");
+  const el=document.getElementById("aulaList");if(el) el.classList.add("hide");
+  const qw=document.getElementById("aulaQuizWrap");if(qw) qw.classList.add("hide");
+  const d=document.getElementById("aulaDetail");if(d) d.classList.remove("hide");
   const st=S.aula[id]||{};
   const qs=lessonQs(id);
   const prog=aulaProg(id);
+  const weak=aulaWeakQs(id);
+
+  let qListHtml = qs.map((q,idx)=>{
+    const rec=S.q[q.id];
+    let badge = '<span class="chip">⏳ Pendente</span>';
+    if(rec && rec.mastered) badge = '<span class="chip m">✅ Dominada (2x)</span>';
+    else if(rec && rec.wrongs>0) badge = '<span class="chip" style="color:var(--red);border-color:var(--red)">❌ Errou ('+rec.wrongs+'x)</span>';
+    return `<div style="padding:8px 10px;border-bottom:1px solid var(--line);font-size:13.5px;display:flex;justify-content:space-between;align-items:center">
+      <div><b>${idx+1}.</b> ${q.q.length>85?q.q.substring(0,85)+'...':q.q}</div>
+      <div>${badge}</div>
+    </div>`;
+  }).join("");
+
   d.innerHTML=`
-    <div class="row"><button class="btn ghost" onclick="renderAulas()">‹ todas as aulas</button>
-      <b>${l.sec} · ${l.t} <span class="note">(${l.dur}) ${prog.m}/${prog.t} dominadas</span></b></div>
+    <div class="row" style="margin-bottom:12px">
+      <button class="btn ghost" onclick="renderAulas()">‹ todas as aulas</button>
+      <b>${l.sec} · ${l.t} <span class="note">(${l.dur}) — ${prog.m}/${prog.t} dominadas</span></b>
+    </div>
     <div class="card">
       <div class="row" style="margin:0 0 10px">
-        ${l.ytid?`<a class="btn" href="${YT_BASE}${l.ytid}" target="_blank">▶ vídeo no YouTube</a>`:''}
-        ${l.pdf?`<a class="btn ghost" href="${l.pdf}" target="_blank">📄 PDF ↗</a>`:''}
-        <label style="font-size:14px;margin-left:8px"><input type="checkbox" ${st.watched?'checked':''} onchange="aulaWatch('${id}',this.checked)"> assisti a aula</label>
+        ${l.ytid?`<a class="btn" href="${YT_BASE}${l.ytid}" target="_blank">▶ Vídeo no YouTube</a>`:''}
+        ${l.pdf?`<a class="btn ghost" href="${l.pdf}" target="_blank">📄 Baixar PDF da Aula ↗</a>`:''}
+        <label style="font-size:14px;margin-left:8px;cursor:pointer"><input type="checkbox" ${st.watched?'checked':''} onchange="aulaWatch('${id}',this.checked)"> ✅ Marcar como assistida</label>
       </div>
-      <h3 style="margin-top:12px">📖 Resumo</h3>
-      <p>${l.res}</p>
-      <h3>💡 Highlights</h3>
+      <h3 style="margin-top:14px">📖 Resumo da Aula</h3>
+      <p style="line-height:1.6">${l.res}</p>
+      <h3>💡 Highlights & Pegadinhas</h3>
       <ul>${l.hi.map(h=>'<li>'+h+'</li>').join('')}</ul>
-      ${l.tips?`<div class="card" style="background:#1c1608;border-color:#5a4a12"><b style="color:var(--gold)">🎯 Dicas de prova</b><ul>${l.tips.map(t=>'<li>'+t+'</li>').join('')}</ul></div>`:''}
+      ${l.tips?`<div class="card" style="background:#1c1608;border-color:#5a4a12"><b style="color:var(--gold)">🎯 Dicas de Prova (Gatilhos CompTIA)</b><ul>${l.tips.map(t=>'<li>'+t+'</li>').join('')}</ul></div>`:''}
     </div>
-    ${qs.length?`<div class="card"><div class="row" style="justify-content:space-between">
-        <b>✏️ ${qs.length} questões desta aula</b>
-        <div><button class="btn" onclick="startAulaQuiz('${id}')">▶ Praticar as ${qs.length}</button>
-             <button class="btn ghost" onclick="renderAulas()">‹ volta</button></div></div>
-      <div class="note">Aula ${l.sec}: questões com explicação completa, formato da prova real.</div></div>`:''}
+
+    ${weak.length?`
+      <div class="card" style="border-color:var(--red);background:#1a0f0f">
+        <b style="color:var(--red)">🩹 Diagnóstico: Você tem ${weak.length} ponto(s) fraco(s) nesta aula</b>
+        <div class="note" style="margin:6px 0 10px">Questões que você errou recentemente e ainda não foram dominadas.</div>
+        <button class="btn" style="background:var(--red);border-color:var(--red);color:#fff" onclick="startAulaQuiz('${id}',true)">⚡ Treinar SÓ os ${weak.length} pontos fracos</button>
+      </div>
+    `:''}
+
+    ${qs.length?`
+      <div class="card">
+        <div class="row" style="justify-content:space-between;margin-bottom:10px">
+          <div>
+            <b>✏️ Treino Exaustivo: ${qs.length} Questões da Aula</b>
+            <div class="note">Questões de cenário no padrão da prova real, com gabarito explicado e repetição espaçada.</div>
+          </div>
+          <div class="row">
+            <button class="btn" onclick="startAulaQuiz('${id}',false)">▶ Praticar as ${qs.length} questões</button>
+            <button class="btn ghost" onclick="renderAulas()">‹ Voltar</button>
+          </div>
+        </div>
+        <div style="border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+          ${qListHtml}
+        </div>
+      </div>
+    `:''}
   `;
 }
-function lessonQs(id){const ids=LESSON_QS[id]||[];return ids.map(x=>qById(x)).filter(Boolean)}
-function aulaProg(id){const q=lessonQs(id);return {m:q.filter(x=>S.q[x.id]&&S.q[x.id].mastered).length,t:q.length}}
-function aulaWatch(id,on){const st=S.aula[id]||{};st.watched=!!on;S.aula[id]=st;save(S);}
-function startAulaQuiz(id){
-  const qs=lessonQs(id);
+
+function startAulaQuiz(id, onlyWeak=false){
+  let qs=lessonQs(id);
+  if(onlyWeak){
+    qs=qs.filter(x=>{const r=S.q[x.id];return r&&r.wrongs>0&&!r.mastered;});
+  }
+  if(!qs.length){
+    alert("Nenhuma questão pendente para praticar!");
+    return;
+  }
   shuffle(qs);
-  quiz={track:qs[0]?qs[0].t:'secplus',dom:null,queue:qs,idx:0,answered:false,aula:id};
-  document.getElementById("aulaDetail").classList.add("hide");
-  document.getElementById("aulaList").classList.add("hide");
-  document.getElementById("aulas").classList.remove("hide");
-  document.getElementById("quizWrap").classList.remove("hide");
+  quiz={track:qs[0]?qs[0].t:'secplus',dom:null,queue:qs,idx:0,answered:false,aula:id,onlyWeak:onlyWeak};
+  const elL=document.getElementById("aulaList");if(elL) elL.classList.add("hide");
+  const elD=document.getElementById("aulaDetail");if(elD) elD.classList.add("hide");
+  const elA=document.getElementById("aulas");if(elA) elA.classList.remove("hide");
+  const qw=document.getElementById("aulaQuizWrap");if(qw) qw.classList.remove("hide");
   renderQ();
 }
-/* alteração no renderQuizEnd: se veio de uma aula, retorna pra ela */
-if(!S.q) S.q={};
-if(!S.stats) S.stats={answered:0, right:0, streak:0, best:0};
-if(!S.last) S.last=null; // {track, dom}
-save(S);
 
 function qById(id){return Q.find(x=>x.id===id)}
 function qsOf(track,dom){return Q.filter(x=>x.t===track && (!dom||x.d===dom))}
@@ -1130,8 +1252,13 @@ const SEC=["home","aulas","praticar","simulado","fracos","gloss"];
 document.querySelectorAll(".tab").forEach(tb=>tb.onclick=()=>{
   document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
   tb.classList.add("on");
-  SEC.forEach(s=>document.getElementById(s).classList.add("hide"));
-  const t=tb.dataset.t; document.getElementById(t).classList.remove("hide");
+  SEC.forEach(s=>{
+    const el = document.getElementById(s);
+    if(el) el.classList.add("hide");
+  });
+  const t=tb.dataset.t;
+  const targetEl = document.getElementById(t);
+  if(targetEl) targetEl.classList.remove("hide");
   if(t==="home") renderHome();
   if(t==="aulas") renderAulas();
   if(t==="praticar") showTracks();
@@ -1227,7 +1354,7 @@ function scrGet(id){try{return (JSON.parse(localStorage.getItem('cybersec_scratc
 function scrSet(id,v){try{var o={};try{o=JSON.parse(localStorage.getItem('cybersec_scratch')||'{}')}catch(e){}o[id]=v;localStorage.setItem('cybersec_scratch',JSON.stringify(o));}catch(e){}}
 function scratchBox(id){return '<div style="margin-top:12px"><div class="note" style="margin-bottom:4px">✍️ Rascunho — teu papel e caneta: anota, faz o teste de mesa, escreve código pra achar a resposta (salva sozinho).</div><textarea class="scratch" spellcheck="false" oninput="scrSet(\''+id+'\',this.value)" placeholder="ex:&#10;7 / 2 = 3.5 (float)&#10;range(2,10,3) -> 2, 5, 8">'+esc(scrGet(id))+'</textarea></div>';}
 function renderQ(){
-  const w=document.getElementById("quizWrap");
+  const w = (quiz && quiz.aula) ? document.getElementById("aulaQuizWrap") : document.getElementById("quizWrap");
   if(quiz.idx>=quiz.queue.length){renderQuizEnd();return}
   const q=quiz.queue[quiz.idx];
   const t=TRACKS.find(x=>x.id===q.t);const d=t.doms.find(x=>x.id===q.d);
@@ -1267,17 +1394,23 @@ function answer(i){
 }
 function nextQ(){quiz.idx++;quiz.answered=false;renderQ();}
 function renderQuizEnd(){
-  const w=document.getElementById("quizWrap");
-  if(quiz.aula){
-    // veio do modo AULA: volta pra aula
+  const w = (quiz && quiz.aula) ? document.getElementById("aulaQuizWrap") : document.getElementById("quizWrap");
+  if(quiz && quiz.aula){
     const l=LESSONS.find(x=>x.id===quiz.aula);
-    w.innerHTML=`<div class="card" style="text-align:center">
-      <div class="big">🎉</div><b>Rodada da aula ${l.sec} concluída!</b>
-      <div class="note" style="margin:8px 0">${l.t} · ${aulaProg(l.id).m}/${aulaProg(l.id).t} dominadas</div>
-      <div class="row" style="justify-content:center">
-        <button class="btn" onclick="startAulaQuiz('${l.id}')">↻ Praticar de novo</button>
-        <button class="btn ghost" onclick="openAula('${l.id}')">‹ voltar pra aula</button>
-      </div></div>`;
+    const prog=aulaProg(l.id);
+    const weakCount=aulaWeakQs(l.id).length;
+    w.innerHTML=`<div class="card" style="text-align:center;padding:24px">
+      <div class="big">🎉</div>
+      <h2 style="margin:8px 0">Rodada da Aula ${l.sec} concluída!</h2>
+      <div class="note" style="font-size:14px;margin:8px 0"><b>${l.t}</b>: ${prog.m} de ${prog.t} questões dominadas</div>
+      ${weakCount?`<div class="card" style="border-color:var(--red);background:#1a0f0f;margin:12px auto;max-width:400px"><b style="color:var(--red)">Restam ${weakCount} pontos fracos nesta aula</b></div>`:''}
+      <div class="row" style="justify-content:center;margin-top:16px">
+        <button class="btn" onclick="startAulaQuiz('${l.id}',false)">↻ Praticar todas novamente</button>
+        ${weakCount?`<button class="btn" style="background:var(--red);border-color:var(--red);color:#fff" onclick="startAulaQuiz('${l.id}',true)">⚡ Treinar os ${weakCount} fracos</button>`:''}
+        <button class="btn ghost" onclick="openAula('${l.id}')">‹ Voltar para a aula</button>
+      </div>
+    </div>`;
+    renderHome();
     return;
   }
   const p=trackProg(quiz.track);
@@ -1297,63 +1430,298 @@ function renderSimSetup(){
   document.getElementById("simRun").classList.add("hide");
   document.getElementById("simResult").classList.add("hide");
   document.getElementById("simSetup").classList.remove("hide");
-  document.getElementById("simTracks").innerHTML=TRACKS.map(t=>
-    `<button class="btn ghost" onclick="startSim('${t.id}')">${t.icon} ${t.name}</button>`).join("");
+  const elTracks = document.getElementById("simTracks");
+  elTracks.innerHTML = `
+    <div style="width:100%;margin-bottom:16px;background:linear-gradient(180deg,#12241b,#0e1a14);border:1px solid var(--acc);border-radius:12px;padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div>
+          <span class="badge" style="background:#0f2018;color:var(--acc);font-weight:700">PADRÃO COMPTIA SY0-701</span>
+          <h2 style="margin:8px 0 4px;font-size:20px">🛡️ Simulado Oficial CompTIA Security+</h2>
+          <div class="note" style="font-size:13.5px;max-width:550px">
+            <b>90 questões</b> balanceadas pelos 5 domínios da prova oficial · <b>90 minutos cronometrados</b> · 
+            Escala oficial <b>100 a 900 pontos</b> (corte: <b>750</b>) · Revisão completa com explicação.
+          </div>
+        </div>
+        <button class="btn" style="padding:14px 24px;font-size:15px;margin-top:4px" onclick="startSim('secplus_full')">▶ Iniciar Simulado Real (90q / 90 min)</button>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:6px">
+      <b>Ou pratique mini-simulados rápidos por trilha específica:</b>
+    </div>
+  ` + TRACKS.map(t=>
+    `<button class="btn ghost" style="margin-top:8px" onclick="startSim('${t.id}')">${t.icon} ${t.name}</button>`).join("");
 }
 function startSim(track){
-  const list=qsOf(track).slice();shuffle(list);
-  sim={track,queue:list,idx:0,ans:[],secs:list.length*60};
+  let list = [];
+  let durationSecs = 0;
+  let isFull = (track === 'secplus_full');
+
+  if(isFull){
+    // Balanced 90 Security+ questions across 5 domains
+    const sQs = Q.filter(x=>x.t==='secplus');
+    const d1 = sQs.filter(x=>x.d==='d1'); shuffle(d1);
+    const d2 = sQs.filter(x=>x.d==='d2'); shuffle(d2);
+    const d3 = sQs.filter(x=>x.d==='d3'); shuffle(d3);
+    const d4 = sQs.filter(x=>x.d==='d4'); shuffle(d4);
+    const d5 = sQs.filter(x=>x.d==='d5'); shuffle(d5);
+    
+    // Target distribution of 90: D1~18, D2~18, D3~24, D4~18, D5~12
+    list = [
+      ...d1.slice(0, 18),
+      ...d2.slice(0, 18),
+      ...d3.slice(0, 24),
+      ...d4.slice(0, 18),
+      ...d5.slice(0, 12)
+    ];
+    // Fill remaining if any domain was short
+    if(list.length < 90){
+      const added = new Set(list.map(x=>x.id));
+      const remaining = sQs.filter(x=>!added.has(x.id));
+      shuffle(remaining);
+      list = list.concat(remaining.slice(0, 90 - list.length));
+    }
+    shuffle(list);
+    durationSecs = 90 * 60; // 90 min = 5400s
+  } else {
+    list = qsOf(track).slice();
+    shuffle(list);
+    durationSecs = list.length * 60;
+  }
+
+  sim = {
+    track: track,
+    isFull: isFull,
+    queue: list,
+    idx: 0,
+    ans: new Array(list.length).fill(null),
+    flagged: new Array(list.length).fill(false),
+    secs: durationSecs,
+    totalSecs: durationSecs
+  };
+
   document.getElementById("simSetup").classList.add("hide");
   document.getElementById("simResult").classList.add("hide");
   document.getElementById("simRun").classList.remove("hide");
-  if(simTimer)clearInterval(simTimer);
-  simTimer=setInterval(()=>{sim.secs--;const el=document.getElementById("simClock");
-    if(el){const m=Math.floor(sim.secs/60),s=sim.secs%60;el.textContent=`${m}:${String(s).padStart(2,'0')}`;}
-    if(sim.secs<=0){clearInterval(simTimer);finishSim();}},1000);
+
+  if(simTimer) clearInterval(simTimer);
+  simTimer = setInterval(()=>{
+    sim.secs--;
+    const el = document.getElementById("simClock");
+    if(el){
+      const m = Math.floor(sim.secs/60), s = sim.secs%60;
+      el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      if(sim.secs < 300) el.style.color = "var(--red)";
+      else el.style.color = "var(--gold)";
+    }
+    if(sim.secs <= 0){
+      clearInterval(simTimer);
+      alert("Tempo esgotado! Calculando nota final...");
+      finishSim();
+    }
+  }, 1000);
+
   renderSim();
 }
+
 function renderSim(){
   const w=document.getElementById("simRun");
-  if(sim.idx>=sim.queue.length){finishSim();return}
+  if(sim.idx>=sim.queue.length){
+    // At the end, prompt review
+    renderSimReviewGrid();
+    return;
+  }
   const q=sim.queue[sim.idx];
-  w.innerHTML=`<div class="qtop">
-      <span class="qtag">Simulado · ${TRACKS.find(t=>t.id===sim.track).name}</span>
-      <span class="qtimer">⏱️ <span id="simClock"></span></span></div>
+  const tName = sim.isFull ? "Simulado Oficial CompTIA Security+ (SY0-701)" : TRACKS.find(t=>t.id===sim.track).name;
+  const currAns = sim.ans[sim.idx];
+  const isFlagged = sim.flagged[sim.idx];
+
+  const m = Math.floor(sim.secs/60), s = sim.secs%60;
+  const timeStr = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+  w.innerHTML=`
+    <div class="qtop" style="border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px">
+      <div>
+        <span class="qtag"><b>${tName}</b></span>
+        <span class="prog" style="margin-left:10px">Questão <b>${sim.idx+1}</b> de <b>${sim.queue.length}</b></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <label style="cursor:pointer;font-size:13px;color:var(--dim)">
+          <input type="checkbox" ${isFlagged?'checked':''} onchange="simToggleFlag(this.checked)"> 🚩 Marcar para revisar
+        </label>
+        <span class="qtimer" style="font-size:16px">⏱️ <span id="simClock">${timeStr}</span></span>
+      </div>
+    </div>
+
     <div class="card">
-      <div class="prog">Questão ${sim.idx+1} de ${sim.queue.length}</div>
-      <div class="qtext">${fmt(q.q)}</div>
-      ${q.o.map((op,i)=>`<button class="opt" onclick="simAns(${i})"><span class="lk">${'ABCD'[i]}</span>${fmt(op)}</button>`).join("")}
+      <div class="qtext" style="font-size:16.5px;margin-bottom:16px">${fmt(q.q)}</div>
+      <div id="simOpts">
+        ${q.o.map((op,i)=>`
+          <button class="opt ${currAns===i?'correct':''}" onclick="simSelect(${i})">
+            <span class="lk">${'ABCD'[i]}</span>${fmt(op)}
+          </button>
+        `).join("")}
+      </div>
       ${scratchBox(q.id)}
-    </div>`;
-  const m=Math.floor(sim.secs/60),s=sim.secs%60;const c=document.getElementById("simClock");if(c)c.textContent=`${m}:${String(s).padStart(2,'0')}`;
+      <div class="row" style="justify-content:space-between;margin-top:16px">
+        <button class="btn ghost" ${sim.idx===0?'disabled':''} onclick="simGo(${sim.idx-1})">‹ Anterior</button>
+        <div class="row">
+          <button class="btn ghost" onclick="renderSimReviewGrid()">📋 Grade de Questões (${sim.ans.filter(x=>x!==null).length}/${sim.queue.length})</button>
+          ${sim.idx<sim.queue.length-1?`<button class="btn" onclick="simGo(${sim.idx+1})">Próxima ›</button>`:`<button class="btn" style="background:var(--acc);color:#04150d" onclick="renderSimReviewGrid()">Revisar e Finalizar ›</button>`}
+        </div>
+      </div>
+    </div>
+  `;
 }
-function simAns(i){sim.ans[sim.idx]=i;sim.idx++;renderSim();}
+
+function simSelect(choiceIdx){
+  sim.ans[sim.idx] = choiceIdx;
+  if(sim.idx < sim.queue.length - 1){
+    sim.idx++;
+    renderSim();
+  } else {
+    renderSimReviewGrid();
+  }
+}
+
+function simGo(targetIdx){
+  if(targetIdx>=0 && targetIdx<sim.queue.length){
+    sim.idx = targetIdx;
+    renderSim();
+  }
+}
+
+function simToggleFlag(on){
+  sim.flagged[sim.idx] = on;
+}
+
+function renderSimReviewGrid(){
+  const w=document.getElementById("simRun");
+  const answeredCount = sim.ans.filter(x=>x!==null).length;
+  const flaggedCount = sim.flagged.filter(x=>x).length;
+  const m = Math.floor(sim.secs/60), s = sim.secs%60;
+  const timeStr = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+  let gridItems = sim.queue.map((q,i)=>{
+    const isAns = sim.ans[i] !== null;
+    const isFl = sim.flagged[i];
+    let bg = "var(--panel2)";
+    let border = "var(--line)";
+    if(isFl) { border = "var(--gold)"; bg = "#26200a"; }
+    else if(isAns) { border = "var(--acc)"; bg = "#0f241a"; }
+    return `<div onclick="simGo(${i})" style="cursor:pointer;border:1px solid ${border};background:${bg};border-radius:6px;padding:8px 4px;text-align:center;font-size:12px;font-weight:700">
+      ${isFl?'🚩 ':''}${i+1}
+    </div>`;
+  }).join("");
+
+  w.innerHTML = `
+    <div class="qtop" style="border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px">
+      <span class="qtag"><b>Revisão Geral do Simulado</b></span>
+      <span class="qtimer">⏱️ <span id="simClock">${timeStr}</span></span>
+    </div>
+    <div class="card">
+      <h3>Resumo de Respostas: ${answeredCount} de ${sim.queue.length} respondidas</h3>
+      <div class="note" style="margin-bottom:14px">
+        Verde = respondida · Amarelo = marcada para revisão · Cinza = em branco. Clique em qualquer número para voltar à questão.
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px;max-height:360px;overflow-y:auto;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg)">
+        ${gridItems}
+      </div>
+      <div class="row" style="justify-content:space-between;margin-top:20px">
+        <button class="btn ghost" onclick="simGo(${sim.idx < sim.queue.length ? sim.idx : 0})">‹ Voltar para as Questões</button>
+        <button class="btn" style="background:var(--acc);color:#04150d;padding:12px 24px;font-size:15px" onclick="if(confirm('Deseja realmente entregar o simulado agora e ver a nota?')){finishSim()}">🏁 Entregar e Ver Nota Final</button>
+      </div>
+    </div>
+  `;
+}
+
 function finishSim(){
-  if(simTimer)clearInterval(simTimer);
+  if(simTimer) clearInterval(simTimer);
   document.getElementById("simRun").classList.add("hide");
-  const res=document.getElementById("simResult");res.classList.remove("hide");
-  let right=0;const rows=sim.queue.map((q,idx)=>{const a=sim.ans[idx];const ok=(a===q.c);if(ok)right++;
-    // grava no progresso tbm
+  const res = document.getElementById("simResult");
+  res.classList.remove("hide");
+
+  let right=0;
+  const domainStats = {};
+
+  const rows = sim.queue.map((q,idx)=>{
+    const a = sim.ans[idx];
+    const ok = (a === q.c);
+    if(ok) right++;
+
+    // Domain tracking
+    const dom = q.d || 'd1';
+    if(!domainStats[dom]) domainStats[dom] = {right:0, tot:0};
+    domainStats[dom].tot++;
+    if(ok) domainStats[dom].right++;
+
+    // Save state
     const r=S.q[q.id]||{seen:0,correct:0,wrongs:0,streak:0,mastered:false};
     r.seen++;S.stats.answered++;
     if(ok){r.correct++;r.streak++;S.stats.right++;if(r.streak>=2)r.mastered=true;}
     else{r.wrongs++;r.streak=0;}
     S.q[q.id]=r;
-    return `<div class="item" style="display:block;border-left:3px solid ${ok?'var(--acc)':'var(--red)'}">
-      <div style="font-weight:600">${ok?'✅':'❌'} ${fmt(q.q)}</div>
-      <div class="note" style="margin-top:4px">Certa: <b>${'ABCD'[q.c]}) ${fmt(q.o[q.c])}</b>${a==null?' · (não respondida)':(ok?'':` · você marcou ${'ABCD'[a]}`)}</div>
-      <div class="it-exp" style="font-size:12.5px;color:var(--dim);margin-top:5px;border-left:2px solid var(--line);padding-left:8px">${fmt(q.e)}</div>
-    </div>`}).join("");
-  S.stats.streak=0;save(S);
-  const total=sim.queue.length;const pct=Math.round(right/total*100);
-  const pass=pct>=80;
-  res.innerHTML=`<div class="card" style="text-align:center;border-color:${pass?'var(--acc)':'var(--red)'}">
-      <div class="big" style="color:${pass?'var(--acc)':'var(--red)'}">${pct}%</div>
-      <b>${right}/${total} certas — ${pass?'PASSOU (≥80%) ✅':'ainda não (<80%)'}</b>
-      <div class="note" style="margin:6px 0">${pass?'No nível de aprovação. Continua reforçando os fracos.':'Revisa as erradas abaixo e refaz. A prova real exige ~80%.'}</div>
-      <button class="btn" onclick="renderSimSetup()">↺ novo simulado</button>
-    </div>
-    <h3 style="margin:16px 0 4px">Revisão</h3>${rows}`;
+
+    return `<div class="item" style="display:block;border-left:4px solid ${ok?'var(--acc)':'var(--red)'};background:var(--panel);border-radius:8px;padding:12px 14px;margin:10px 0">
+      <div style="font-weight:600;font-size:14.5px">${idx+1}. ${ok?'✅':'❌'} ${fmt(q.q)}</div>
+      <div class="note" style="margin-top:6px">Resposta certa: <b style="color:var(--acc)">${'ABCD'[q.c]}) ${fmt(q.o[q.c])}</b>${a==null?' · <span style="color:var(--gold)">(não respondida)</span>':(ok?'':` · <span style="color:var(--red)">você marcou ${'ABCD'[a]}) ${fmt(q.o[a])}</span>`)}</div>
+      <div class="it-exp" style="font-size:13px;color:var(--dim);margin-top:6px;border-left:2px solid var(--line);padding-left:8px;line-height:1.5">${fmt(q.e)}</div>
+    </div>`;
+  }).join("");
+
+  S.stats.streak=0;
+  save(S);
+
+  const total = sim.queue.length;
+  const pct = Math.round(right/total*100);
+
+  let scoreDisplay = "";
+  if(sim.isFull){
+    // Official CompTIA scale: 100 to 900, pass is 750
+    const comptiaScore = Math.round(100 + (right/total) * 800);
+    const passed = comptiaScore >= 750;
+
+    let domBreakdown = Object.keys(domainStats).sort().map(d=>{
+      const st = domainStats[d];
+      const dName = secName(d.replace('d',''));
+      const dPct = Math.round(st.right/st.tot*100);
+      return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px">
+        <span><b>${dName}</b></span>
+        <span>${st.right}/${st.tot} (${dPct}%)</span>
+      </div>`;
+    }).join("");
+
+    scoreDisplay = `
+      <div class="card" style="text-align:center;padding:26px;border:2px solid ${passed?'var(--acc)':'var(--red)'};background:${passed?'#0f241a':'#241010'}">
+        <span class="badge" style="font-size:12px;background:transparent;border-color:${passed?'var(--acc)':'var(--red)'};color:${passed?'var(--acc)':'var(--red)'};font-weight:700">COMPTIA SY0-701 SCORE</span>
+        <div class="big" style="font-size:56px;margin:8px 0;color:${passed?'var(--acc)':'var(--red)'}">${comptiaScore} <span style="font-size:22px;color:var(--dim)">/ 900</span></div>
+        <h2 style="margin:4px 0">${passed?'APROVADO! 🎉':'NÃO APROVADO ⚠️'}</h2>
+        <div class="note" style="font-size:14px;margin:6px 0">Você acertou <b>${right} de ${total}</b> questões (${pct}% de aproveitamento). Nota mínima para passar: <b>750 pontos</b>.</div>
+        
+        <div style="text-align:left;max-width:500px;margin:18px auto 0;background:var(--panel2);padding:14px;border-radius:8px;border:1px solid var(--line)">
+          <b style="display:block;margin-bottom:8px">Desempenho por Domínio da Prova:</b>
+          ${domBreakdown}
+        </div>
+
+        <button class="btn" style="margin-top:20px;padding:12px 24px" onclick="renderSimSetup()">↺ Realizar Novo Simulado</button>
+      </div>
+    `;
+  } else {
+    const passed = pct >= 80;
+    scoreDisplay = `
+      <div class="card" style="text-align:center;padding:22px;border-color:${passed?'var(--acc)':'var(--red)'}">
+        <div class="big" style="color:${passed?'var(--acc)':'var(--red)'}">${pct}%</div>
+        <b>${right}/${total} acertos — ${passed?'PASSOU (≥80%) ✅':'NÃO PASSOU (<80%) ⚠️'}</b>
+        <div class="note" style="margin:6px 0">${passed?'Excelente aproveitamento no tópico!':'Revise os erros abaixo e tente novamente.'}</div>
+        <button class="btn" style="margin-top:12px" onclick="renderSimSetup()">↺ Novo Simulado</button>
+      </div>
+    `;
+  }
+
+  res.innerHTML = `
+    ${scoreDisplay}
+    <h3 style="margin:24px 0 8px">📋 Revisão Completa das ${total} Questões</h3>
+    ${rows}
+  `;
   renderHome();
 }
 
