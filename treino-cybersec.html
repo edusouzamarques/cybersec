@@ -79,8 +79,8 @@
   .chip.m{color:var(--acc);border-color:var(--acc)}
 
   /* Modal de Glossário Rápido */
-  #glossModal, #syncModal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px}
-  #glossModal.hide, #syncModal.hide{display:none!important}
+  #glossModal, #syncModal, #lessonGlossModal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px}
+  #glossModal.hide, #syncModal.hide, #lessonGlossModal.hide{display:none!important}
   .modal-box{background:var(--panel);border:1px solid var(--line);border-radius:12px;max-width:680px;width:100%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 12px 36px rgba(0,0,0,0.5)}
   .modal-header{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
   .modal-body{padding:14px 18px;overflow-y:auto;flex:1}
@@ -190,7 +190,21 @@
   </div>
 </div>
 
-  <!-- GLOSSARIO -->
+  <!-- MODAL GLOSSÁRIO DA AULA (TERMOS CRÍTICOS) -->
+<div id="lessonGlossModal" class="hide" onclick="if(event.target===this)closeLessonGlossModal()">
+  <div class="modal-box" style="max-width:760px">
+    <div class="modal-header">
+      <div id="lessonGlossHeader" style="display:flex;align-items:center;gap:8px">
+        <span class="chip m" style="margin:0">🎯 Glossário do Vídeo</span>
+        <b style="font-size:16px;color:var(--acc)" id="lessonGlossTitle">Termos Críticos da Aula</b>
+      </div>
+      <button class="btn ghost" style="padding:4px 10px" onclick="closeLessonGlossModal()">✕ Fechar</button>
+    </div>
+    <div class="modal-body" id="lessonGlossContent"></div>
+  </div>
+</div>
+
+<!-- GLOSSARIO -->
   <section id="gloss" class="hide">
     <input class="search" id="gsearch" placeholder="🔎 buscar termo (ex: SIEM, RTO, chmod, IAM)...">
     <div id="glist"></div>
@@ -66763,7 +66777,7 @@ function openAula(id){ window._activeAulaDetailId = id;
         <button class="btn ghost" onclick="openGlossModal()">📖 Dicionário de Siglas</button>
         <label style="font-size:14px;margin-left:8px;cursor:pointer"><input type="checkbox" ${st.watched?'checked':''} onchange="aulaWatch('${id}',this.checked)"> ✅ Marcar como assistida</label>
       </div>
-      ${(typeof LESSON_TERMS !== "undefined" && LESSON_TERMS[id] && LESSON_TERMS[id].length) ? `<div class="box" style="margin:12px 0;border:1px solid #1f3044;background:#101822;border-radius:8px;padding:12px 14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h4 style="margin:0;color:var(--acc)">🎯 Glossário Crítico do Vídeo (${LESSON_TERMS[id].length} termos)</h4><button class="btn ghost" style="padding:2px 8px;font-size:11px" onclick="openLessonGlossModal('${id}')">Ver Completo ↗</button></div><div style="display:flex;flex-wrap:wrap;gap:6px">${LESSON_TERMS[id].map(t=>`<span class="chip" style="cursor:pointer;background:#162436;border-color:#2e4460;color:#9ec5fe" onclick="openLessonGlossModal('${id}')">📌 ${t.term||t.acronym}</span>`).join("")}</div></div>` : ""} <h3 style="margin-top:14px">📖 Resumo da Aula</h3>
+      ${(typeof LESSON_TERMS !== "undefined" && LESSON_TERMS[id] && LESSON_TERMS[id].length) ? `<div class="box" style="margin:12px 0;border:1px solid #1f3044;background:#101822;border-radius:8px;padding:14px 16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px"><h4 style="margin:0;color:var(--acc);font-size:15px;display:flex;align-items:center;gap:6px">🎯 Glossário Crítico do Vídeo <span class="chip m" style="font-size:11px">${LESSON_TERMS[id].length} termos</span></h4><div style="display:flex;gap:6px"><button class="btn ghost" style="padding:3px 10px;font-size:11.5px;color:var(--acc);border-color:var(--acc)" onclick="toggleInlineGloss('${id}')" id="btnToggleGloss_${id}">👁️ Ver Explicações ▾</button><button class="btn ghost" style="padding:3px 10px;font-size:11.5px" onclick="openLessonGlossModal('${id}')">Ver em Janela ↗</button></div></div><div style="display:flex;flex-wrap:wrap;gap:6px">${LESSON_TERMS[id].map(t=>`<span class="chip" style="cursor:pointer;background:#162436;border-color:#2e4460;color:#9ec5fe;transition:.2s" onclick="openLessonGlossModal('${id}','${t.term||t.acronym}')" title="Clique para ver detalhes">📌 ${t.term||t.acronym}</span>`).join("")}</div><div id="inlineGloss_${id}" class="hide" style="margin-top:14px;display:flex;flex-direction:column;gap:10px;border-top:1px solid #1f3044;padding-top:14px">${LESSON_TERMS[id].map(item => { const isPT = (window.QUIZ_LANG === "PT"); const title = isPT ? (item.term_pt || item.term) : item.term; const sub = (isPT && item.term !== item.term_pt) ? '<span style="color:var(--dim);font-size:12px"> (' + item.term + ')</span>' : ''; const def = isPT ? (item.def_pt || item.def_en || item.def || '') : (item.def_en || item.def_pt || item.def || ''); const tip = item.exam_tip || item.trap || ''; const cat = item.category ? '<span class="chip" style="font-size:10px;padding:1px 6px">' + item.category + '</span>' : ''; return '<div style="background:#131c28;border:1px solid #223448;border-radius:8px;padding:12px 14px"><div style="display:flex;justify-content:space-between;align-items:baseline"><b style="color:#a0c4ff;font-size:14px">' + title + sub + '</b>' + cat + '</div><p style="margin:6px 0 8px;font-size:13px;line-height:1.45;color:#e2e8f0">' + def + '</p>' + (tip ? '<div style="background:#1c2419;border-left:3px solid var(--acc);padding:6px 10px;font-size:12px;color:#b8e0c8;border-radius:0 6px 6px 0"><b>🚨 Dica / Pegadinha CompTIA:</b> ' + tip + '</div>' : '') + '</div>'; }).join("")}</div></div>` : ""} <h3 style="margin-top:14px">📖 Resumo da Aula</h3>
       <p style="line-height:1.6">${l.res}</p>
       <h3>💡 Highlights & Pegadinhas</h3>
       <ul>${l.hi.map(h=>'<li>'+h+'</li>').join('')}</ul>
@@ -67646,7 +67660,21 @@ document.getElementById("gsearch").addEventListener("input",renderGloss);
 
 /* ---------- MODAL GLOSSARIO EXPRESS ---------- */
 
-function openLessonGlossModal(aulaId) {
+function toggleInlineGloss(id) {
+  const el = document.getElementById("inlineGloss_" + id);
+  const btn = document.getElementById("btnToggleGloss_" + id);
+  if (!el) return;
+  const isHidden = el.classList.contains("hide");
+  if (isHidden) {
+    el.classList.remove("hide");
+    if (btn) btn.innerHTML = "▲ Recolher Explicações";
+  } else {
+    el.classList.add("hide");
+    if (btn) btn.innerHTML = "👁️ Ver Explicações ▾";
+  }
+}
+
+function openLessonGlossModal(aulaId, highlightTerm) {
   const l = (typeof LESSONS !== "undefined" ? LESSONS.find(x => x.id === aulaId) : null) || { t: "Aula", sec: "" };
   const terms = (typeof LESSON_TERMS !== "undefined" && LESSON_TERMS[aulaId]) ? LESSON_TERMS[aulaId] : [];
   
@@ -67654,23 +67682,27 @@ function openLessonGlossModal(aulaId) {
   if (!m) {
     m = document.createElement("div");
     m.id = "lessonGlossModal";
-    m.className = "modal";
-    m.innerHTML = '<div class="modal-card" style="max-width:720px;max-height:85vh;overflow-y:auto;position:relative"><button class="modal-close" onclick="closeLessonGlossModal()">×</button><div id="lessonGlossContent"></div></div>';
+    m.className = "hide";
+    m.onclick = function(e){ if (e.target === this) closeLessonGlossModal(); };
+    m.innerHTML = '<div class="modal-box" style="max-width:760px"><div class="modal-header"><div id="lessonGlossHeader" style="display:flex;align-items:center;gap:8px"><span class="chip m" style="margin:0">🎯 Glossário do Vídeo</span><b style="font-size:16px;color:var(--acc)" id="lessonGlossTitle">Termos Críticos da Aula</b></div><button class="btn ghost" style="padding:4px 10px" onclick="closeLessonGlossModal()">✕ Fechar</button></div><div class="modal-body" id="lessonGlossContent"></div></div>';
     document.body.appendChild(m);
+  }
+  
+  const titleEl = document.getElementById("lessonGlossTitle");
+  if (titleEl) {
+    titleEl.innerText = (l.sec ? l.sec + ' · ' : '') + (l.t || 'Termos Críticos da Aula');
   }
   
   const isPT = (window.QUIZ_LANG === "PT");
   const cnt = document.getElementById("lessonGlossContent");
+  if (!cnt) return;
+
   if (!terms.length) {
-    cnt.innerHTML = '<div style="margin-bottom:12px"><h3 style="margin:0 0 4px">🎯 Termos Críticos · ' + l.sec + ' - ' + l.t + '</h3><p class="note">Nenhum termo exclusivo registrado para este vídeo. Consulte o <a href="javascript:void(0)" onclick="closeLessonGlossModal();openGlossModal()">Dicionário Global</a>.</p></div>';
+    cnt.innerHTML = '<div style="margin-bottom:12px"><p class="note">Nenhum termo exclusivo registrado para este vídeo. Consulte o <a href="javascript:void(0)" onclick="closeLessonGlossModal();openGlossModal()">Dicionário Global</a>.</p></div>';
   } else {
-    cnt.innerHTML = '<div style="margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:12px;display:flex;justify-content:space-between;align-items:center">' +
-      '<div>' +
-        '<span class="chip m" style="margin-bottom:6px">🎯 Glossário Contextual do Vídeo</span>' +
-        '<h3 style="margin:4px 0 2px;color:var(--acc)">' + l.sec + ' · ' + l.t + '</h3>' +
-        '<div class="note">' + terms.length + ' termos e siglas fundamentais para as questões desta aula</div>' +
-      '</div>' +
-      '<button class="btn ghost" style="font-size:12px" onclick="closeLessonGlossModal();openGlossModal()">Abrir Global ↗</button>' +
+    cnt.innerHTML = '<div style="margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
+      '<div class="note">' + terms.length + ' termos e siglas fundamentais para as questões desta aula</div>' +
+      '<button class="btn ghost" style="font-size:12px;padding:4px 10px" onclick="closeLessonGlossModal();openGlossModal()">📖 Dicionário Geral ↗</button>' +
     '</div>' +
     '<div style="display:flex;flex-direction:column;gap:12px">' +
       terms.map(item => {
@@ -67679,7 +67711,8 @@ function openLessonGlossModal(aulaId) {
         const def = isPT ? (item.def_pt || item.def_en || item.def || '') : (item.def_en || item.def_pt || item.def || '');
         const tip = item.exam_tip || item.trap || '';
         const cat = item.category ? '<span class="chip" style="font-size:11px;padding:2px 6px">' + item.category + '</span>' : '';
-        return '<div style="background:#131c28;border:1px solid #223448;border-radius:8px;padding:12px 14px">' +
+        const isTarget = highlightTerm && (item.term === highlightTerm || item.acronym === highlightTerm);
+        return '<div style="background:' + (isTarget ? '#192b3d' : '#131c28') + ';border:1px solid ' + (isTarget ? 'var(--acc)' : '#223448') + ';border-radius:8px;padding:12px 14px;box-shadow:' + (isTarget ? '0 0 12px rgba(16,185,129,0.2)' : 'none') + '">' +
           '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">' +
             '<b style="font-size:15px;color:#a0c4ff">' + title + sub + '</b>' + cat +
           '</div>' +
@@ -67691,10 +67724,20 @@ function openLessonGlossModal(aulaId) {
   }
   m.classList.remove("hide");
 }
+
 function closeLessonGlossModal() {
   const m = document.getElementById("lessonGlossModal");
   if (m) m.classList.add("hide");
 }
+
+// Fechamento com tecla Escape
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    closeLessonGlossModal();
+    if (typeof closeGlossModal === "function") closeGlossModal();
+    if (typeof closeSyncModal === "function") closeSyncModal();
+  }
+});
 
 function openGlossModal(term){
   const m=document.getElementById("glossModal");
