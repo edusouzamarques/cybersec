@@ -26691,178 +26691,178 @@ const Q=[
   {
     "id": "l119_q3",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.6), an analyst evaluates the following technical requirement: 'Train BY ROLE: executives receive whaling; finance receives BEC.' What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A multinational company has executives who travel frequently and delegate email triage to executive assistants. A recent attack impersonated a board member and asked the CEO to open a malicious document about a confidential acquisition. Current training is the same for all employees. Which training approach best addresses this threat?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Implement the corresponding solution: Train BY ROLE: executives receive whaling; finance receives BEC...",
-      "Allow shared access among administrators using generic credentials"
+      "Train only the IT service desk on password reset procedures.",
+      "Provide whaling-focused awareness training to executives and their assistants, covering impersonation, urgency, and verification.",
+      "Require all employees to complete an annual generic phishing module.",
+      "Give third-party vendors access to the company learning portal."
     ],
-    "c": 2,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): Train BY ROLE: executives receive whaling; finance receives BEC. Role-based security awareness training tailors content to the specific threats and responsibilities of different job functions, such as whaling attacks targeting executives and Business Email Compromise (BEC) targeting finance departments.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and violates compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: 'Treina POR FUNÇÃO: executivo recebe whaling; financeiro BEC'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 1,
+    "e": "Whaling targets senior executives and those who support them, such as assistants. Training should be role-based and cover impersonation, pressure tactics, and verification of sensitive requests. Generic annual training and unrelated role modules do not address executive-specific exposure.",
+    "q_pt": "Uma empresa multinacional tem executivos que viajam com frequência e delegam a triagem de e-mails a assistentes executivos. Um ataque recente se passou por um membro do conselho e pediu ao CEO que abrisse um documento malicioso sobre uma aquisição confidencial. O treinamento atual é o mesmo para todos os funcionários. Qual abordagem de treinamento melhor aborda essa ameaça?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Implementar a solução correspondente: Treina POR FUNÇÃO: executivo recebe whaling; financeiro BEC...",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Treinar apenas o service desk de TI sobre procedimentos de redefinição de senha.",
+      "Fornecer treinamento de conscientização focado em whaling para executivos e seus assistentes, cobrindo impersonação, urgência e verificação.",
+      "Exigir que todos os funcionários concluam um módulo genérico anual de phishing.",
+      "Dar a fornecedores terceirizados acesso ao portal de aprendizagem da empresa."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): Treina POR FUNÇÃO: executivo recebe whaling; financeiro BEC.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Whaling tem como alvo executivos seniores e quem os apoia, como assistentes. O treinamento deve ser baseado em função e cobrir impersonação, táticas de pressão e verificação de solicitações sensíveis. Treinamento genérico anual e módulos de funções não relacionadas não abordam a exposição específica de executivos."
   },
   {
     "id": "l119_q4",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.6), an analyst evaluates the following technical requirement: 'Frequency: onboarding + periodic + after incident.' What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A manufacturing firm allows a supplier's support engineers to remotely access maintenance systems. One supplier employee reused a compromised password, and the attacker used that account to move laterally. The contract requires security compliance but does not specify awareness training. What should the firm implement for third-party risk?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Implement the corresponding solution: Frequency: onboarding + periodic + after incident...",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials"
+      "Require third-party personnel with system access to complete company security awareness training before access and on a recurring basis.",
+      "Add supplier email addresses to the company's internal security newsletter.",
+      "Disable multifactor authentication for supplier accounts to reduce support calls.",
+      "Invite supplier employees to the internal Capture the Flag competition only."
     ],
-    "c": 1,
-    "e": "<b>✅ Why it's correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): Frequency: onboarding + periodic + after incident. This ensures that users receive security awareness training when they join the organization, at regular intervals, and after any security incident to reinforce lessons learned and prevent recurrence.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detect incidents and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who made critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: 'Frequência: contratação + periódico + após incidente'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 0,
+    "e": "Third parties with access should receive security awareness training appropriate to their access, including credential handling and reporting, before access and periodically. A newsletter is not tracked training, disabling MFA weakens security, and CTF alone is not a comprehensive control.",
+    "q_pt": "Uma empresa de manufatura permite que engenheiros de suporte de um fornecedor acessem remotamente sistemas de manutenção. Um funcionário do fornecedor reutilizou uma senha comprometida, e o atacante usou essa conta para se mover lateralmente. O contrato exige conformidade de segurança, mas não especifica treinamento de conscientização. O que a empresa deve implementar para o risco de terceiros?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Implementar a solução correspondente: Frequência: contratação + periódico + após incidente...",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Exigir que o pessoal terceirizado com acesso a sistemas conclua o treinamento de conscientização de segurança da empresa antes do acesso e de forma recorrente.",
+      "Adicionar endereços de e-mail de fornecedores à newsletter interna de segurança da empresa.",
+      "Desativar a autenticação multifator para contas de fornecedores para reduzir chamados de suporte.",
+      "Convidar funcionários de fornecedores apenas para a competição interna de Capture the Flag."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): Frequência: contratação + periódico + após incidente.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Terceiros com acesso devem receber treinamento de conscientização de segurança adequado ao seu acesso, incluindo manuseio de credenciais e reporte, antes do acesso e periodicamente. Uma newsletter não é treinamento rastreável, desativar MFA enfraquece a segurança, e CTF sozinho não é um controle abrangente."
   },
   {
     "id": "l119_q5",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.6), an analyst evaluates the following technical requirement: 'training customized based on job role' = role-based awareness training. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "After a phishing campaign led to ransomware on several endpoints, the incident response team found that employees in two departments had not received security training in over 18 months. Leadership wants to reduce the chance of recurrence. Which action is most appropriate?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Implement the corresponding solution: 'training customized based on job role' = role-based awareness training...",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials"
+      "Wait until the next annual training cycle to avoid disrupting operations.",
+      "Send a one-time email warning employees to be more careful with attachments.",
+      "Conduct post-incident training for affected departments and update the awareness program based on lessons learned.",
+      "Terminate all employees who interacted with the phishing email."
     ],
-    "c": 1,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): 'training customized based on job role' = role-based awareness training. Role-based awareness training tailors security education to the specific responsibilities and risks associated with an employee's job function, making it more relevant and effective.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: This directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and violates compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user behavior and do not block automated attacks, injections, or runtime malware.<br>• <i>Allow shared access among administrators using generic credentials</i>: This destroys individual accountability and non-repudiation. It makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: ''training customized based on job role'=role-based awareness training'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 2,
+    "e": "Post-incident training should be delivered promptly to reinforce lessons from the event and improve future response. Waiting, sending only a warning, or relying on punishment does not build lasting awareness or address the control gap.",
+    "q_pt": "Após uma campanha de phishing levar a ransomware em vários endpoints, a equipe de resposta a incidentes descobriu que funcionários de dois departamentos não recebiam treinamento de segurança há mais de 18 meses. A liderança quer reduzir a chance de recorrência. Qual ação é mais apropriada?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Implementar a solução correspondente: 'training customized based on job role'=role-based awareness training...",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Esperar até o próximo ciclo anual de treinamento para evitar interromper as operações.",
+      "Enviar um e-mail único alertando os funcionários para tomarem mais cuidado com anexos.",
+      "Realizar treinamento pós-incidente para os departamentos afetados e atualizar o programa de conscientização com base nas lições aprendidas.",
+      "Demitir todos os funcionários que interagiram com o e-mail de phishing."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): 'training customized based on job role'=role-based awareness training.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "O treinamento pós-incidente deve ser entregue prontamente para reforçar as lições do evento e melhorar a resposta futura. Esperar, enviar apenas um aviso ou confiar em punição não constrói conscientização duradoura nem aborda a lacuna de controle."
   },
   {
     "id": "l119_q6",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.6), an analyst evaluates the following technical requirement: ''executive receives specific whaling training' = role-based customization'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A security manager wants to improve the practical skills of the internal IT and security staff. The current online slides explain attack techniques but do not let staff practice detection or response in a safe environment. Which training method best meets this goal?",
     "o": [
-      "Implement the corresponding solution: 'executive receives specific whaling training' = role-based customization...",
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials"
+      "Require staff to read the incident response plan and sign an acknowledgment.",
+      "Replace all awareness training with quarterly phishing simulations.",
+      "Provide executive whaling training to the IT staff.",
+      "Organize a Capture the Flag exercise with scenarios mapped to internal systems, threats, and response procedures."
     ],
-    "c": 0,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): 'executive receives specific whaling training' = role-based customization. Role-based training tailors security awareness to specific job roles, such as executives who are prime targets for whaling attacks.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or runtime malware.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: ''executivo recebe o treinamento específico de whaling'=customização por papel.'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 3,
+    "e": "CTF exercises provide hands-on, safe practice for technical staff and can reinforce detection, analysis, and response skills. Reading a plan, phishing simulations alone, or mismatched executive training do not provide the same practical technical development.",
+    "q_pt": "Um gerente de segurança quer melhorar as habilidades práticas da equipe interna de TI e segurança. Os slides online atuais explicam técnicas de ataque, mas não permitem que a equipe pratique detecção ou resposta em um ambiente seguro. Qual método de treinamento melhor atende a esse objetivo?",
     "o_pt": [
-      "Implementar a solução correspondente: 'executivo recebe o treinamento específico de whaling'=customização por pap...",
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Exigir que a equipe leia o plano de resposta a incidentes e assine um termo de ciência.",
+      "Substituir todo o treinamento de conscientização por simulações trimestrais de phishing.",
+      "Fornecer treinamento de whaling executivo para a equipe de TI.",
+      "Organizar um exercício de Capture the Flag com cenários mapeados para sistemas internos, ameaças e procedimentos de resposta."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): 'executivo recebe o treinamento específico de whaling'=customização por papel..<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Exercícios de CTF fornecem prática hands-on segura para equipe técnica e podem reforçar detecção, análise e resposta. Ler um plano, simulações de phishing isoladas ou treinamento executivo incompatível não oferecem o mesmo desenvolvimento técnico prático."
   },
   {
     "id": "l119_q7",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ (SY0-701, Section 5.6) exam, an analyst evaluates the following technical requirement: 'Train BY ROLE: executives receive whaling; finance receives BEC'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A software company provides security awareness training only during onboarding. After two years, phishing simulation click rates have steadily increased, and employees report they do not remember reporting procedures. Which program change should be made?",
     "o": [
-      "Implement the corresponding solution: Train BY ROLE: executives receive whaling; finance receives BEC...",
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators with generic credentials"
+      "Retrain employees only after a major security incident occurs.",
+      "Implement recurring awareness training at least annually, supplemented by periodic short campaigns and reminders.",
+      "Send the security policy once a year for signature without additional instruction.",
+      "Increase email filtering rules and reduce the need for employee awareness."
     ],
-    "c": 0,
-    "e": "<b>✅ Why it's correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): Train BY ROLE: executives receive whaling; finance receives BEC.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and violates compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators with generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: 'Treina POR FUNÇÃO: executivo recebe whaling; financeiro BEC'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 1,
+    "e": "Security awareness requires continuous reinforcement. Recurring training plus periodic campaigns helps maintain knowledge and reporting habits. Training only after incidents, policy signatures, or technical controls alone do not address human-risk retention.",
+    "q_pt": "Uma empresa de software fornece treinamento de conscientização de segurança apenas durante o onboarding. Após dois anos, as taxas de cliques em simulações de phishing aumentaram constantemente, e funcionários relatam que não se lembram dos procedimentos de reporte. Qual mudança no programa deve ser feita?",
     "o_pt": [
-      "Implementar a solução correspondente: Treina POR FUNÇÃO: executivo recebe whaling; financeiro BEC...",
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Retreinar funcionários apenas após a ocorrência de um incidente de segurança grave.",
+      "Implementar treinamento de conscientização recorrente pelo menos anualmente, complementado por campanhas curtas e lembretes periódicos.",
+      "Enviar a política de segurança uma vez por ano para assinatura, sem instrução adicional.",
+      "Aumentar regras de filtragem de e-mail e reduzir a necessidade de conscientização dos funcionários."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): Treina POR FUNÇÃO: executivo recebe whaling; financeiro BEC.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "A conscientização de segurança exige reforço contínuo. Treinamento recorrente mais campanhas periódicas ajudam a manter conhecimento e hábitos de reporte. Treinar apenas após incidentes, assinaturas de políticas ou controles técnicos isolados não abordam a retenção do risco humano."
   },
   {
     "id": "l119_q8",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.6), an analyst evaluates the following technical requirement: 'Frequency: onboarding + periodic + after incident'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "The CEO asks the security team to make awareness training more relevant. Executives receive highly targeted emails about mergers, legal matters, and wire transfers, but the current mandatory module uses examples about office clean desks and generic spam. Which approach best customizes training for this group?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators with generic credentials",
-      "Implement the corresponding solution: Frequency: onboarding + periodic + after incident..."
+      "Keep the same generic module for all employees to ensure consistency.",
+      "Exempt executives from training because they have executive assistants.",
+      "Provide only finance-specific BEC training to the CEO and board.",
+      "Deliver role-based executive training focused on whaling, social engineering, and secure reporting channels."
     ],
     "c": 3,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): Frequency: onboarding + periodic + after incident. Effective security awareness training must be conducted at key intervals: when employees are hired (onboarding), at regular intervals (periodic), and after a security incident to reinforce lessons learned.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to incident detection and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user behavior and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators with generic credentials</i>: Destroys individual accountability and non-repudiation. It makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: 'Frequência: contratação + periódico + após incidente'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "e": "Executive training should reflect the whaling and social engineering threats they face. Role-based content improves relevance and retention. Generic content, exemptions, and finance-only training do not cover the broader executive threat profile.",
+    "q_pt": "O CEO pede à equipe de segurança para tornar o treinamento de conscientização mais relevante. Executivos recebem e-mails altamente direcionados sobre fusões, questões jurídicas e transferências bancárias, mas o módulo obrigatório atual usa exemplos sobre mesa limpa e spam genérico. Qual abordagem melhor personaliza o treinamento para esse grupo?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas",
-      "Implementar a solução correspondente: Frequência: contratação + periódico + após incidente..."
+      "Manter o mesmo módulo genérico para todos os funcionários para garantir consistência.",
+      "Isentar executivos do treinamento porque eles têm assistentes executivos.",
+      "Fornecer apenas treinamento de BEC específico para finanças ao CEO e ao conselho.",
+      "Fornecer treinamento executivo baseado em função, focado em whaling, engenharia social e canais seguros de reporte."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): Frequência: contratação + periódico + após incidente.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "O treinamento executivo deve refletir as ameaças de whaling e engenharia social que eles enfrentam. Conteúdo baseado em função melhora relevância e retenção. Conteúdo genérico, isenções e treinamento apenas financeiro não cobrem o perfil mais amplo de ameaças executivas."
   },
   {
     "id": "l119_q9",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.6), an analyst evaluates the following technical requirement: 'training customized based on job role' = role-based awareness training. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A global company has employees across many time zones. In-person security awareness sessions at headquarters have low attendance, and branch offices receive inconsistent messages. The security team needs a scalable method with completion tracking. Which delivery method should be used?",
     "o": [
-      "Temporarily disable audit logs to speed up system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials",
-      "Implement the corresponding solution: 'training customized based on job role' = role-based awareness training..."
+      "Mandatory in-person sessions at headquarters recorded and posted on a shared drive.",
+      "A single security email sent to all employees at the start of each year.",
+      "Email-based microlearning modules with online self-paced courses and automated reminders.",
+      "Delegating all training to local managers without centralized materials."
     ],
-    "c": 3,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): 'training customized based on job role' = role-based awareness training. Role-based awareness training tailors security education to the specific responsibilities and risks associated with an employee's job function. The appropriate control is to implement the corresponding solution, which ensures that employees receive relevant training to mitigate role-specific threats.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to speed up system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to incident detection and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user behavior and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. It makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: ''training customized based on job role'=role-based awareness training'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 2,
+    "e": "Online self-paced modules with tracking and email reminders provide scalable, consistent delivery across time zones and allow completion monitoring. HQ-only sessions, a single email, or unmanaged delegation do not ensure consistent tracked training.",
+    "q_pt": "Uma empresa global tem funcionários em vários fusos horários. Sessões presenciais de conscientização de segurança na matriz têm baixa presença, e filiais recebem mensagens inconsistentes. A equipe de segurança precisa de um método escalável com rastreamento de conclusão. Qual método de entrega deve ser usado?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas",
-      "Implementar a solução correspondente: 'training customized based on job role'=role-based awareness training..."
+      "Sessões presenciais obrigatórias na matriz, gravadas e publicadas em um drive compartilhado.",
+      "Um único e-mail de segurança enviado a todos os funcionários no início de cada ano.",
+      "Módulos de microaprendizagem por e-mail com cursos online autoinstrucionais e lembretes automatizados.",
+      "Delegar todo o treinamento aos gestores locais sem materiais centralizados."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): 'training customized based on job role'=role-based awareness training.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Módulos online autoinstrucionais com rastreamento e lembretes por e-mail fornecem entrega escalável e consistente entre fusos horários e permitem monitorar a conclusão. Sessões apenas na matriz, um único e-mail ou delegação sem gestão não garantem treinamento consistente e rastreável."
   },
   {
     "id": "l119_q10",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (User Training): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.6), an analyst evaluates the following technical requirement: 'executive receives specific whaling training' = role-based customization. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "An attacker called the IT service desk, claimed to be a traveling executive, and convinced a technician to reset multifactor authentication for an account. The attacker then accessed email. The service desk has only completed general annual awareness training. Which training should be prioritized?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials",
-      "Implement the corresponding solution: 'executive receives specific whaling training' = role-based customization..."
+      "Additional whaling awareness for all executives and board members.",
+      "Role-based training for service desk staff on identity verification, social engineering, and MFA reset procedures.",
+      "Finance-specific BEC training for the accounting department.",
+      "A Capture the Flag event for software developers focused on web exploitation."
     ],
-    "c": 3,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.6 (User Training): 'executive receives specific whaling training' = role-based customization. Role-based training tailors security awareness to the specific risks and responsibilities of different roles. Executives are prime targets for whaling (CEO fraud), so they need specialized training.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to incident detection and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user conduct and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. It makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (User Training): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.6), um analista avalia o seguinte requisito técnico: ''executivo recebe o treinamento específico de whaling'=customização por papel.'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 1,
+    "e": "The service desk was targeted through social engineering and a sensitive identity procedure. Role-based training should focus on verifying identities, resisting pressure, and following MFA reset controls. Other audience-specific trainings do not address the service desk workflow.",
+    "q_pt": "Um atacante ligou para o service desk de TI, alegou ser um executivo em viagem e convenceu um técnico a redefinir a autenticação multifator de uma conta. O atacante então acessou o e-mail. O service desk concluiu apenas o treinamento anual genérico de conscientização. Qual treinamento deve ser priorizado?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas",
-      "Implementar a solução correspondente: 'executivo recebe o treinamento específico de whaling'=customização por pap..."
+      "Conscientização adicional sobre whaling para todos os executivos e membros do conselho.",
+      "Treinamento baseado em função para a equipe do service desk sobre verificação de identidade, engenharia social e procedimentos de redefinição de MFA.",
+      "Treinamento de BEC específico para finanças para o departamento de contabilidade.",
+      "Um evento de Capture the Flag para desenvolvedores de software focado em exploração web."
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.6 (User Training): 'executivo recebe o treinamento específico de whaling'=customização por papel..<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "O service desk foi alvo de engenharia social e um procedimento sensível de identidade. O treinamento baseado em função deve focar em verificar identidades, resistir à pressão e seguir controles de redefinição de MFA. Outros treinamentos específicos de público não abordam o fluxo de trabalho do service desk."
   },
   {
     "id": "l118_q3",
@@ -27043,222 +27043,222 @@ const Q=[
   {
     "id": "l117_q1",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'Pentest: EVIDENCES real exploitation — complements formal audit'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "An e-commerce company hires a security firm to assess its internet-facing web application and mail gateway. The testers are not given credentials, internal network access, or documentation, and they launch attacks from cloud-hosted systems to mimic an anonymous adversary. Which penetration testing perspective is being used?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Implement the corresponding solution: Pentest: EVIDENCES real exploitation — complements formal audit...",
-      "Allow shared access among administrators with generic credentials"
+      "External perspective",
+      "Internal perspective",
+      "Full credential perspective",
+      "Physical perspective"
     ],
-    "c": 2,
-    "e": "<b>✅ Why it's correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): Pentest: EVIDENCES real exploitation — complements formal audit.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators with generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: 'Pentest: EVIDENCIA exploitation real — complementa a auditoria formal'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 0,
+    "e": "External perspective simulates an attacker outside the organization’s perimeter. The testers start from the internet, have no valid credentials or internal access, and target externally exposed services. Internal perspective would begin inside the network; full credential would provide accounts and documentation; physical perspective focuses on physical controls.",
+    "q_pt": "Uma empresa de comércio eletrônico contrata uma empresa de segurança para avaliar seu aplicativo web voltado para a internet e seu gateway de e-mail. Os testadores não recebem credenciais, acesso à rede interna ou documentação, e lançam ataques a partir de sistemas hospedados na nuvem para imitar um adversário anônimo. Qual perspectiva de teste de penetração está sendo usada?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Implementar a solução correspondente: Pentest: EVIDENCIA exploitation real — complementa a auditoria formal...",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Perspectiva externa",
+      "Perspectiva interna",
+      "Perspectiva de credencial completa",
+      "Perspectiva física"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): Pentest: EVIDENCIA exploitation real — complementa a auditoria formal.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "A perspectiva externa simula um atacante fora do perímetro da organização. Os testadores começam pela internet, não têm credenciais válidas nem acesso interno e visam serviços expostos externamente. A perspectiva interna começaria dentro da rede; a credencial completa forneceria contas e documentação; a perspectiva física foca controles físicos."
   },
   {
     "id": "l117_q2",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'Perspectives: external (from outside), internal (from inside), full credential.' What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A financial institution wants to know what a malicious contractor could do after plugging a laptop into an unused conference room Ethernet port. The tester is given a network drop but no user accounts or system documentation. Which perspective does this represent?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Implement the corresponding solution: Perspectives: external (from outside), internal (from inside), full credential...",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators with generic credentials"
+      "External perspective",
+      "Internal perspective",
+      "Full credential perspective",
+      "Supply chain perspective"
     ],
     "c": 1,
-    "e": "<b>✅ Why it's correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): Perspectives: external (from outside), internal (from inside), full credential. These perspectives define the vantage point of the penetration test: external testing simulates an outside attacker, internal testing simulates an insider threat or compromised internal host, and full credential testing uses valid credentials to assess what an authenticated user can access. Understanding these perspectives is essential for scoping and interpreting penetration test results.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and violates compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user conduct and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators with generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: 'Perspectives: external (de fora), internal (de dentro), full credencial'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "e": "Internal perspective simulates an attacker or insider who already has network access from inside the organization. Because the tester has a network drop but no valid accounts or documentation, this is an internal, uncredentialed test. External would start from the internet; full credential would include accounts; supply chain is not one of the standard perspectives.",
+    "q_pt": "Uma instituição financeira quer saber o que um contratado mal-intencionado poderia fazer após conectar um laptop a uma porta Ethernet não utilizada em uma sala de conferências. O testador recebe um ponto de rede, mas nenhuma conta de usuário ou documentação do sistema. Qual perspectiva isso representa?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Implementar a solução correspondente: Perspectives: external (de fora), internal (de dentro), full credencial...",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Perspectiva externa",
+      "Perspectiva interna",
+      "Perspectiva de credencial completa",
+      "Perspectiva de cadeia de suprimentos"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): Perspectives: external (de fora), internal (de dentro), full credencial.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "A perspectiva interna simula um atacante ou insider que já tem acesso à rede de dentro da organização. Como o testador tem um ponto de rede, mas nenhuma conta válida ou documentação, este é um teste interno sem credenciais. A externa começaria pela internet; a credencial completa incluiria contas; cadeia de suprimentos não é uma das perspectivas padrão."
   },
   {
     "id": "l117_q3",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: ''external perspective attempting to exploit from outside'=external pentest'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "During an engagement, the client provides the tester with a standard employee user account, a corporate laptop, and normal building access. The goal is to determine whether the account can be abused to reach sensitive systems. Which perspective is this?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Implement the corresponding solution: 'external perspective attempting to exploit from outside'=external pentest...",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators with generic credentials"
+      "External perspective",
+      "Internal perspective",
+      "Full credential perspective",
+      "Passive reconnaissance"
     ],
-    "c": 1,
-    "e": "<b>✅ Why it's correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): 'external perspective attempting to exploit from outside'=external pentest.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators with generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: ''external perspective attempting to exploit from outside'=external pentest'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 2,
+    "e": "Full credential perspective, also called fully trusted or credentialed testing, provides valid credentials and often detailed access to test insider privilege abuse and lateral movement. External testing starts from outside; internal testing may have network access but no credentials; passive reconnaissance is a technique, not a perspective.",
+    "q_pt": "Durante um engajamento, o cliente fornece ao testador uma conta de usuário padrão de funcionário, um laptop corporativo e acesso normal ao prédio. O objetivo é determinar se a conta pode ser usada indevidamente para alcançar sistemas sensíveis. Qual perspectiva é esta?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Implementar a solução correspondente: 'external perspective attempting to exploit from outside'=external pentest...",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Perspectiva externa",
+      "Perspectiva interna",
+      "Perspectiva de credencial completa",
+      "Reconhecimento passivo"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): 'external perspective attempting to exploit from outside'=external pentest.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "A perspectiva de credencial completa, também chamada de teste totalmente confiável ou com credenciais, fornece credenciais válidas e frequentemente acesso detalhado para testar abuso de privilégios de insider e movimento lateral. O teste externo começa de fora; o interno pode ter acesso à rede, mas sem credenciais; reconhecimento passivo é uma técnica, não uma perspectiva."
   },
   {
     "id": "l117_q4",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: ''they hire a pentester to try to break in from outside'=external pentest.' What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "Before any active scanning, a tester reviews the target's public DNS records, technology job postings, vendor case studies, and employee social media profiles to identify technologies and personnel. Which technique is being used?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Implement the corresponding solution: 'they hire a pentester to try to break in from outside'=external pentest...",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials"
+      "OSINT",
+      "Vulnerability scanning",
+      "Password spraying",
+      "Packet capture"
     ],
-    "c": 1,
-    "e": "<b>✅ Why it's correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): An external penetration test involves hiring a pentester to attempt to breach the organization's perimeter from outside, simulating an external attacker's perspective.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to incident detection and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user conduct and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: ''contratam pentester pra tentar invadir de fora'=external pentest.'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 0,
+    "e": "OSINT (Open Source Intelligence) is the collection and analysis of publicly available information. Reviewing DNS records, job postings, case studies, and social media helps build a target profile before active testing. Vulnerability scanning, password spraying, and packet capture are active or traffic-based techniques.",
+    "q_pt": "Antes de qualquer varredura ativa, um testador analisa registros DNS públicos, anúncios de vagas de tecnologia, estudos de caso de fornecedores e perfis de funcionários em redes sociais para identificar tecnologias e pessoal. Qual técnica está sendo usada?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Implementar a solução correspondente: 'contratam pentester pra tentar invadir de fora'=external pentest....",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "OSINT",
+      "Varredura de vulnerabilidades",
+      "Password spraying",
+      "Captura de pacotes"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): 'contratam pentester pra tentar invadir de fora'=external pentest..<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "OSINT (Open Source Intelligence) é a coleta e análise de informações disponíveis publicamente. Analisar registros DNS, vagas, estudos de caso e redes sociais ajuda a criar um perfil do alvo antes do teste ativo. Varredura de vulnerabilidades, password spraying e captura de pacotes são técnicas ativas ou baseadas em tráfego."
   },
   {
     "id": "l117_q5",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'Pentest: EVIDENCES real exploitation — complements formal audit'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "An attacker calls the service desk and claims to be a traveling executive who lost a multi-factor authentication token. The attacker uses details from a recent company press release to sound convincing and asks for the token to be reset. Which penetration testing technique is illustrated?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Implement the corresponding solution: Pentest: EVIDENCES real exploitation — complements formal audit...",
-      "Allow shared access among administrators using generic credentials"
+      "Open source intelligence",
+      "Social engineering",
+      "Network enumeration",
+      "Vulnerability exploitation"
     ],
-    "c": 2,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): Pentest: EVIDENCES real exploitation — complements formal audit. A penetration test actively exploits vulnerabilities to demonstrate real-world impact, providing evidence that complements a formal audit, which typically checks compliance rather than exploitation.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user conduct and do not block automated attacks, injections, or runtime malware.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. It makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: 'Pentest: EVIDENCIA exploitation real — complementa a auditoria formal'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 1,
+    "e": "Social engineering manipulates people into bypassing security controls. The attacker uses a voice call and a believable pretext to persuade the help desk to reset MFA. OSINT may support the pretext, but the technique used to gain access is social engineering. Network enumeration and vulnerability exploitation target systems, not people.",
+    "q_pt": "Um atacante liga para o service desk e afirma ser um executivo em viagem que perdeu um token de autenticação multifator. O atacante usa detalhes de um comunicado à imprensa recente da empresa para parecer convincente e pede a redefinição do token. Qual técnica de teste de penetração está ilustrada?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Implementar a solução correspondente: Pentest: EVIDENCIA exploitation real — complementa a auditoria formal...",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Open source intelligence",
+      "Engenharia social",
+      "Enumeração de rede",
+      "Exploração de vulnerabilidade"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): Pentest: EVIDENCIA exploitation real — complementa a auditoria formal.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Engenharia social manipula pessoas para contornar controles de segurança. O atacante usa uma chamada de voz e um pretexto convincente para persuadir o service desk a redefinir o MFA. OSINT pode apoiar o pretexto, mas a técnica usada para obter acesso é engenharia social. Enumeração de rede e exploração de vulnerabilidade visam sistemas, não pessoas."
   },
   {
     "id": "l117_q6",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'Perspectives: external (from outside), internal (from inside), full credential'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "After a penetration test, the tester discovers a critical remote code execution flaw in a vendor's product used by many customers. The client confirms it is not their custom code. What should the tester do next?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators with generic credentials",
-      "Implement the corresponding solution: Perspectives: external (from outside), internal (from inside), full credential..."
+      "Publish the exploit on a public forum immediately to force a fix",
+      "Notify the vendor privately and allow a reasonable remediation period before disclosure",
+      "Report it only to the client and take no further action",
+      "Add the exploit to the final client report but do not contact the vendor"
     ],
-    "c": 3,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): Perspectives: external (from outside), internal (from inside), full credential.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or runtime malware.<br>• <i>Allow shared access among administrators with generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who made critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: 'Perspectives: external (de fora), internal (de dentro), full credencial'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 1,
+    "e": "Responsible disclosure means privately notifying the affected vendor, giving a reasonable remediation window, and coordinating any public release. Publishing immediately can expose customers; reporting only to the client may leave other users at risk; omitting vendor contact fails to address the product flaw.",
+    "q_pt": "Após um teste de penetração, o testador descobre uma falha crítica de execução remota de código no produto de um fornecedor usado por muitos clientes. O cliente confirma que não é seu código personalizado. O que o testador deve fazer em seguida?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas",
-      "Implementar a solução correspondente: Perspectives: external (de fora), internal (de dentro), full credencial..."
+      "Publicar o exploit em um fórum público imediatamente para forçar uma correção",
+      "Notificar o fornecedor privadamente e permitir um prazo razoável de correção antes da divulgação",
+      "Reportar apenas ao cliente e não tomar mais nenhuma ação",
+      "Adicionar o exploit ao relatório final do cliente, mas não contatar o fornecedor"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): Perspectives: external (de fora), internal (de dentro), full credencial.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Divulgação responsável significa notificar privadamente o fornecedor afetado, dar um prazo razoável para correção e coordenar qualquer divulgação pública. Publicar imediatamente pode expor clientes; reportar apenas ao cliente pode deixar outros usuários em risco; omitir o contato com o fornecedor não resolve a falha do produto."
   },
   {
     "id": "l117_q7",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'external perspective attempting to exploit from outside = external pentest.' What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A company completed a formal compliance audit that identified missing security patches on servers. The CISO wants to demonstrate whether an attacker could actually exploit those missing patches to compromise the domain. Which activity best meets this objective?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials",
-      "Implement the corresponding solution: 'external perspective attempting to exploit from outside' = external pentest..."
+      "Another compliance audit",
+      "Penetration test",
+      "Risk assessment",
+      "Vulnerability scan"
     ],
-    "c": 3,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): An external penetration test simulates an attacker from outside the organization's network perimeter, attempting to exploit externally exposed assets. It differs from internal, blind, or double-blind tests.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to incident detection and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user conduct and do not block automated attacks, injections, or runtime malware.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: ''external perspective attempting to exploit from outside'=external pentest'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 1,
+    "e": "A penetration test is more technical than an audit and attempts to exploit weaknesses to demonstrate real impact. An audit is more formal and checks compliance; a risk assessment evaluates likelihood and impact; a vulnerability scan identifies missing patches but does not usually exploit them.",
+    "q_pt": "Uma empresa concluiu uma auditoria formal de conformidade que identificou patches de segurança ausentes em servidores. O CISO quer demonstrar se um atacante poderia realmente explorar esses patches ausentes para comprometer o domínio. Qual atividade atende melhor a esse objetivo?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas",
-      "Implementar a solução correspondente: 'external perspective attempting to exploit from outside'=external pentest..."
+      "Outra auditoria de conformidade",
+      "Teste de penetração",
+      "Avaliação de risco",
+      "Varredura de vulnerabilidades"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): 'external perspective attempting to exploit from outside'=external pentest.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Um teste de penetração é mais técnico que uma auditoria e tenta explorar fraquezas para demonstrar impacto real. Uma auditoria é mais formal e verifica conformidade; uma avaliação de risco estima probabilidade e impacto; uma varredura de vulnerabilidades identifica patches ausentes, mas geralmente não os explora."
   },
   {
     "id": "l117_q8",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'they hire a pentester to try to break in from outside' = external pentest. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A tester is hired to assess a web application. The tester first queries public WHOIS records, certificate transparency logs, and search engines to learn about the organization's infrastructure without sending traffic directly to the target. Which phase of a penetration test is this?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials",
-      "Implement the corresponding solution: 'they hire a pentester to try to break in from outside' = external pentest."
+      "Reconnaissance",
+      "Exploitation",
+      "Reporting",
+      "Post-exploitation"
     ],
-    "c": 3,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): 'they hire a pentester to try to break in from outside' = external pentest. An external penetration test is a sanctioned, scoped attack simulation conducted from outside the organization's perimeter to identify exploitable vulnerabilities in internet-facing assets before real adversaries do.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to incident detection and it breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user conduct and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. It makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: ''contratam pentester pra tentar invadir de fora'=external pentest.'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 0,
+    "e": "Reconnaissance is the information-gathering phase before exploitation. Using WHOIS, certificate transparency logs, and search engines without directly touching the target is passive reconnaissance/OSINT. Exploitation involves attacks; reporting documents findings; post-exploitation occurs after a compromise.",
+    "q_pt": "Um testador é contratado para avaliar um aplicativo web. O testador primeiro consulta registros públicos WHOIS, logs de transparência de certificados e mecanismos de busca para aprender sobre a infraestrutura da organização sem enviar tráfego diretamente ao alvo. Qual fase de um teste de penetração é esta?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas",
-      "Implementar a solução correspondente: 'contratam pentester pra tentar invadir de fora'=external pentest...."
+      "Reconhecimento",
+      "Exploração",
+      "Relatório",
+      "Pós-exploração"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): 'contratam pentester pra tentar invadir de fora'=external pentest..<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Reconhecimento é a fase de coleta de informações antes da exploração. Usar WHOIS, logs de transparência de certificados e mecanismos de busca sem tocar diretamente o alvo é reconhecimento passivo/OSINT. Exploração envolve ataques; relatório documenta descobertas; pós-exploração ocorre após um comprometimento."
   },
   {
     "id": "l117_q9",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'Pentest: EVIDENCES real exploitation — complements formal audit.' What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "An organization wants the most realistic test of its defenses against an intruder who has already obtained valid credentials for a low-privileged help desk account and knows the internal network layout. The testers are given those credentials, network diagrams, and source code. Which perspective is being used?",
     "o": [
-      "Implement the corresponding solution: Pentest: EVIDENCES real exploitation — complements formal audit...",
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Allow shared access among administrators using generic credentials"
+      "External perspective",
+      "Internal perspective",
+      "Full credential perspective",
+      "Black-box perspective"
     ],
-    "c": 0,
-    "e": "<b>✅ Why it's correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): Penetration testing provides evidence of real exploitation attempts, complementing formal audits by demonstrating actual security weaknesses through controlled attacks.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to incident detection and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls that rely solely on user conduct and do not block automated attacks, injections, or malware at runtime.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: 'Pentest: EVIDENCIA exploitation real — complementa a auditoria formal'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 2,
+    "e": "Full credential perspective provides valid credentials and often detailed knowledge such as diagrams and source code. This simulates a trusted insider or an attacker who has already compromised an account. Internal perspective may begin inside the network but does not necessarily include credentials; external starts outside; black-box provides little or no knowledge.",
+    "q_pt": "Uma organização quer o teste mais realista de suas defesas contra um invasor que já obteve credenciais válidas de uma conta de help desk com privilégios baixos e conhece o layout da rede interna. Os testadores recebem essas credenciais, diagramas de rede e código-fonte. Qual perspectiva está sendo usada?",
     "o_pt": [
-      "Implementar a solução correspondente: Pentest: EVIDENCIA exploitation real — complementa a auditoria formal...",
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Perspectiva externa",
+      "Perspectiva interna",
+      "Perspectiva de credencial completa",
+      "Perspectiva de caixa-preta"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): Pentest: EVIDENCIA exploitation real — complementa a auditoria formal.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "A perspectiva de credencial completa fornece credenciais válidas e, frequentemente, conhecimento detalhado, como diagramas e código-fonte. Isso simula um insider confiável ou um atacante que já comprometeu uma conta. A perspectiva interna pode começar dentro da rede, mas não necessariamente inclui credenciais; a externa começa de fora; a caixa-preta fornece pouco ou nenhum conhecimento."
   },
   {
     "id": "l117_q10",
     "t": "secplus",
-    "d": "d1",
-    "q": "Corporate scenario (Penetration Tests): During a security review and compliance audit aligned with the CompTIA Security+ exam (SY0-701, Section 5.5), an analyst evaluates the following technical requirement: 'Perspectives: external (from outside), internal (from inside), full credential'. What is the best recommendation or applicable control classification?",
+    "d": "d5",
+    "q": "A penetration tester is authorized to test a client's public web application. During testing, the tester finds a vulnerability that exposes customer data. The client asks the tester to immediately post details to a public mailing list so other companies can check their systems. What should the tester recommend?",
     "o": [
-      "Temporarily disable audit logs to accelerate system throughput",
-      "Replace preventive technical controls with informal terms of adherence",
-      "Implement the corresponding solution: Perspectives: external (from outside), internal (from inside), full credential",
-      "Allow shared access among administrators using generic credentials"
+      "Coordinate private disclosure with the client, allow remediation, then publish sanitized details if appropriate",
+      "Post the full exploit and customer data immediately because the client gave permission",
+      "Notify the public before notifying the client so users can protect themselves",
+      "Remove the finding from the report and keep the exploit private indefinitely"
     ],
-    "c": 2,
-    "e": "<b>✅ Why it is correct:</b> According to the official CompTIA Security+ (SY0-701) exam objectives for lesson 5.5 (Penetration Tests): Perspectives: external (from outside), internal (from inside), full credential. These perspectives define the attacker's starting point and access level during a penetration test.<br><br><b>❌ Why the others are wrong:</b><br>• <i>Temporarily disable audit logs to accelerate system throughput</i>: Directly violates the Accounting pillar and forensic traceability. Without logs, the team is blind to detecting incidents and breaks compliance standards (PCI DSS, ISO 27001).<br>• <i>Replace preventive technical controls with informal terms of adherence</i>: Informal terms are administrative controls, rely solely on user conduct, and do not block automated attacks, injections, or runtime malware.<br>• <i>Allow shared access among administrators using generic credentials</i>: Destroys individual accountability and non-repudiation. Makes it impossible to prove who performed critical changes or malicious commands.",
-    "q_pt": "Cenário corporativo (Penetration Tests): Durante uma revisão de segurança e auditoria de conformidade com o exame CompTIA Security+ (SY0-701, Seção 5.5), um analista avalia o seguinte requisito técnico: 'Perspectives: external (de fora), internal (de dentro), full credencial'. Qual é a melhor recomendação ou classificação de controle aplicável?",
+    "c": 0,
+    "e": "Responsible disclosure requires reporting the issue privately, giving the affected party time to remediate, and coordinating any public release. Immediate public posting can expose customer data and increase risk. The tester should recommend coordinated disclosure rather than unauthorized or harmful release.",
+    "q_pt": "Um testador de penetração está autorizado a testar o aplicativo web público de um cliente. Durante o teste, o testador encontra uma vulnerabilidade que expõe dados de clientes. O cliente pede que o testador publique imediatamente os detalhes em uma lista de discussão pública para que outras empresas possam verificar seus sistemas. O que o testador deve recomendar?",
     "o_pt": [
-      "Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema",
-      "Substituir controles técnicos preventivos por termos de adesão informais",
-      "Implementar a solução correspondente: Perspectives: external (de fora), internal (de dentro), full credencial...",
-      "Permitir acesso compartilhado entre administradores com credenciais genéricas"
+      "Coordenar a divulgação privada com o cliente, permitir a correção e depois publicar detalhes sanitizados se apropriado",
+      "Publicar o exploit completo e os dados dos clientes imediatamente porque o cliente deu permissão",
+      "Notificar o público antes de notificar o cliente para que os usuários possam se proteger",
+      "Remover a descoberta do relatório e manter o exploit privado indefinidamente"
     ],
-    "e_pt": "<b>✅ Por que está certa:</b> Conforme os objetivos oficiais do exame CompTIA Security+ (SY0-701) para a aula 5.5 (Penetration Tests): Perspectives: external (de fora), internal (de dentro), full credencial.<br><br><b>❌ Por que as outras estão erradas:</b><br>• <i>Desativar temporariamente os logs de auditoria para acelerar o throughput do sistema</i>: Viola frontalmente o pilar de Accounting e a rastreabilidade forense. Sem logs, a equipe fica cega para detectar incidentes e quebra normas de conformidade (PCI DSS, ISO 27001).<br>• <i>Substituir controles técnicos preventivos por termos de adesão informais</i>: Termos informais são controles administrativos, dependem exclusivamente da conduta do usuário e não bloqueiam ataques automatizados, injeções ou malwares em tempo de execução.<br>• <i>Permitir acesso compartilhado entre administradores com credenciais genéricas</i>: Destrói a responsabilização individual (Accountability) e o Não-repúdio. Torna impossível comprovar quem realizou alterações críticas ou comandos maliciosos."
+    "e_pt": "Divulgação responsável exige reportar o problema privadamente, dar tempo à parte afetada para corrigir e coordenar qualquer divulgação pública. Publicação pública imediata pode expor dados de clientes e aumentar o risco. O testador deve recomendar divulgação coordenada em vez de liberação não autorizada ou prejudicial."
   },
   {
     "id": "l116_q2",
@@ -63692,6 +63692,50 @@ const Q=[
       "O Escritório de Direitos Civis do HHS, porque regula a HIPAA"
     ],
     "e_pt": "Sob a HIPAA, a entidade coberta é responsável por notificar os indivíduos afetados em caso de violação. Um associado de negócios deve notificar a entidade coberta, mas a entidade coberta geralmente fornece a notificação individual."
+  },
+  {
+    "id": "l119_q1",
+    "t": "secplus",
+    "d": "d5",
+    "q": "A fast-growing company assigns email and application accounts to new hires on their first morning. Security awareness training is only offered during a monthly session, so some new employees work for weeks without it. A recent review shows that a new hire clicked a credential-harvesting link during the first week. Which control should the security team implement to reduce this risk?",
+    "o": [
+      "Require new hires to complete onboarding security training before email and application access is provisioned.",
+      "Send a monthly security newsletter to all staff and rely on managers to reinforce key points.",
+      "Delay security awareness training until the employee has passed the probation period.",
+      "Publish the acceptable use policy on the intranet and ask employees to review it when convenient."
+    ],
+    "c": 0,
+    "e": "Onboarding security training should occur before or at the time access is granted, especially for email and core applications. It establishes secure behavior early. Newsletters, delayed training, and passive policy posting do not provide timely, tracked onboarding instruction.",
+    "q_pt": "Uma empresa em rápido crescimento atribui contas de e-mail e aplicações a novos funcionários na primeira manhã. O treinamento de conscientização de segurança só é oferecido em uma sessão mensal, então alguns novos funcionários trabalham por semanas sem ele. Uma revisão recente mostra que um novo funcionário clicou em um link de coleta de credenciais durante a primeira semana. Qual controle a equipe de segurança deve implementar para reduzir esse risco?",
+    "o_pt": [
+      "Exigir que novos funcionários concluam o treinamento de segurança de onboarding antes que o acesso ao e-mail e às aplicações seja provisionado.",
+      "Enviar uma newsletter mensal de segurança a todos os funcionários e confiar nos gestores para reforçar os pontos principais.",
+      "Adiar o treinamento de conscientização de segurança até que o funcionário passe no período de experiência.",
+      "Publicar a política de uso aceitável na intranet e pedir que os funcionários a revisem quando for conveniente."
+    ],
+    "e_pt": "O treinamento de segurança no onboarding deve ocorrer antes ou no momento da concessão de acesso, especialmente para e-mail e aplicações principais. Ele estabelece comportamento seguro desde o início. Newsletters, treinamento atrasado e publicação passiva de políticas não fornecem instrução oportuna e rastreável."
+  },
+  {
+    "id": "l119_q2",
+    "t": "secplus",
+    "d": "d5",
+    "q": "The finance department at a retailer follows a generic annual security awareness module. A fraudster recently impersonated the CFO by email and requested an urgent wire transfer to a new bank account. The finance employee did not verify the request through a second channel. Which training improvement should the security team prioritize?",
+    "o": [
+      "Provide whaling awareness only to the board of directors and executive assistants.",
+      "Run a Capture the Flag event for software developers to improve secure coding.",
+      "Deliver role-based training for finance staff on business email compromise, urgent payment fraud, and out-of-band verification procedures.",
+      "Require all vendors to sign an acceptable use policy before remote access."
+    ],
+    "c": 2,
+    "e": "Finance staff need role-specific BEC training, including verification of payment changes through a separate trusted channel. Whaling training is for executives, CTF is for technical staff, and a vendor policy does not address finance workflow.",
+    "q_pt": "O departamento financeiro de uma varejista segue um módulo genérico anual de conscientização de segurança. Recentemente, um fraudador se passou pelo CFO por e-mail e solicitou uma transferência bancária urgente para uma nova conta. O funcionário do financeiro não verificou a solicitação por um segundo canal. Qual melhoria de treinamento a equipe de segurança deve priorizar?",
+    "o_pt": [
+      "Fornecer conscientização sobre whaling apenas ao conselho de administração e assistentes executivos.",
+      "Executar um evento Capture the Flag para desenvolvedores de software melhorar a codificação segura.",
+      "Fornecer treinamento baseado em função para a equipe financeira sobre business email compromise, fraude de pagamento urgente e procedimentos de verificação fora da banda.",
+      "Exigir que todos os fornecedores assinem uma política de uso aceitável antes do acesso remoto."
+    ],
+    "e_pt": "A equipe financeira precisa de treinamento específico sobre BEC, incluindo verificação de mudanças de pagamento por um canal separado e confiável. Treinamento de whaling é para executivos, CTF para equipe técnica, e política de fornecedor não aborda o fluxo financeiro."
   }
 ]
 
@@ -65207,7 +65251,7 @@ const LESSONS=[
 ];
 
 /* Mapeamento questão por aula (por tema, puxando do banco Q existente) */
-const LESSON_QS={"L119":["s105","gq22","l119_q3","l119_q4","l119_q5","l119_q6","l119_q7","l119_q8","l119_q9","l119_q10","l119_q11","l119_q12","l119_q13","l119_q14","l119_q15","l119_q16","l119_q17","l119_q18","l119_q19","l119_q20"],"L118":["s105","gq22","l118_q3","l118_q4","l118_q5","l118_q6","l118_q7","l118_q8","l118_q9","l118_q10","l118_q11","l118_q12","l118_q13","l118_q14","l118_q15","l118_q16","l118_q17","l118_q18","l118_q19","l118_q20"],"L117":["l117_q1","l117_q2","l117_q3","l117_q4","l117_q5","l117_q6","l117_q7","l117_q8","l117_q9","l117_q10","l117_q11","l117_q12","l117_q13","l117_q14","l117_q15","l117_q16","l117_q17","l117_q18","l117_q19","l117_q20"],"L116":["s124","l116_q2","l116_q3","l116_q4","l116_q5","l116_q6","l116_q7","l116_q8","l116_q9","l116_q10","l116_q11","l116_q12","l116_q13","l116_q14","l116_q15","l116_q16","l116_q17","l116_q18","l116_q19","l116_q20"],"L115":["l115_q1","l115_q2","l115_q3","l115_q4","l115_q5","l115_q6","l115_q7","l115_q8","l115_q9","l115_q10"],"L114":["gq20","gq21","s119","l114_q4","l114_q5","l114_q6","l114_q7","l114_q8","l114_q9","l114_q10","l114_q11","l114_q12","l114_q13","l114_q14","l114_q15","l114_q16","l114_q17","l114_q18","l114_q19","l114_q20"],"L113":["l113_q1","l113_q2","l113_q3","l113_q4","l113_q5","l113_q6","l113_q7","l113_q8","l113_q9","l113_q10"],"L112":["l112_q1","l112_q2","l112_q3","l112_q4","l112_q5","l112_q6","l112_q7","l112_q8","l112_q9","l112_q10","l112_q11","l112_q12","l112_q13","l112_q14","l112_q15","l112_q16","l112_q17","l112_q18","l112_q19","l112_q20"],"L111":["l111_q1","l111_q2","l111_q3","l111_q4","l111_q5","l111_q6","l111_q7","l111_q8","l111_q9","l111_q10"],"L110":["l110_q1","l110_q2","l110_q3","l110_q4","l110_q5","l110_q6","l110_q7","l110_q8","l110_q9","l110_q10"],"L109":["l109_q1","l109_q2","l109_q3","l109_q4","l109_q5","l109_q6","l109_q7","l109_q8","l109_q9","l109_q10"],"L108":["l108_q1","l108_q2","l108_q3","l108_q4","l108_q5","l108_q6","l108_q7","l108_q8","l108_q9","l108_q10"],"L107":["l107_q1","l107_q2","l107_q3","l107_q4","l107_q5","l107_q6","l107_q7","l107_q8","l107_q9","l107_q10"],"L106":["l106_q1","l106_q2","l106_q3","l106_q4","l106_q5","l106_q6","l106_q7","l106_q8","l106_q9","l106_q10"],"L105":["l105_q1","l105_q2","l105_q3","l105_q4","l105_q5","l105_q6","l105_q7","l105_q8","l105_q9","l105_q10"],"L104":["l104_q1","l104_q2","l104_q3","l104_q4","l104_q5","l104_q6","l104_q7","l104_q8","l104_q9","l104_q10"],"L103":["l103_q1","l103_q2","l103_q3","l103_q4","l103_q5","l103_q6","l103_q7","l103_q8","l103_q9","l103_q10"],"L102":["l102_q1","l102_q2","l102_q3","l102_q4","l102_q5","l102_q6","l102_q7","l102_q8","l102_q9","l102_q10"],"L101":["l101_q1","l101_q2","l101_q3","l101_q4","l101_q5","l101_q6","l101_q7","l101_q8","l101_q9","l101_q10"],"L100":["gq12","l100_q2","l100_q3","l100_q4","l100_q5","l100_q6","l100_q7","l100_q8","l100_q9","l100_q10","l100_q11","l100_q12","l100_q13","l100_q14","l100_q15","l100_q16","l100_q17","l100_q18","l100_q19","l100_q20"],"L099":["l099_q1","l099_q2","l099_q3","l099_q4","l099_q5","l099_q6","l099_q7","l099_q8","l099_q9","l099_q10"],"L098":["s131","l098_q2","l098_q3","l098_q4","l098_q5","l098_q6","l098_q7","l098_q8","l098_q9","l098_q10","l098_q11","l098_q12","l098_q13","l098_q14","l098_q15","l098_q16","l098_q17","l098_q18","l098_q19","l098_q20"],"L097":["l097_q1","l097_q2","l097_q3","l097_q4","l097_q5","l097_q6","l097_q7","l097_q8","l097_q9","l097_q10"],"L096":["l096_q1","l096_q2","l096_q3","l096_q4","l096_q5","l096_q6","l096_q7","l096_q8","l096_q9","l096_q10"],"L095":["l095_q1","l095_q2","l095_q3","l095_q4","l095_q5","l095_q6","l095_q7","l095_q8","l095_q9","l095_q10"],"L094":["l094_q1","l094_q2","l094_q3","l094_q4","l094_q5","l094_q6","l094_q7","l094_q8","l094_q9","l094_q10"],"L093":["l093_q1","l093_q2","l093_q3","l093_q4","l093_q5","l093_q6","l093_q7","l093_q8","l093_q9","l093_q10"],"L092":["l092_q1","l092_q2","l092_q3","l092_q4","l092_q5","l092_q6","l092_q7","l092_q8","l092_q9","l092_q10"],"L091":["l091_q1","l091_q2","l091_q3","l091_q4","l091_q5","l091_q6","l091_q7","l091_q8","l091_q9","l091_q10"],"L090":["s301","gq5","l090_q3","l090_q4","l090_q5","l090_q6","l090_q7","l090_q8","l090_q9","l090_q10","l090_q11","l090_q12","l090_q13","l090_q14","l090_q15","l090_q16","l090_q17","l090_q18","l090_q19","l090_q20"],"L089":["l089_q1","l089_q2","l089_q3","l089_q4","l089_q5","l089_q6","l089_q7","l089_q8","l089_q9","l089_q10"],"L088":["l088_q1","l088_q2","l088_q3","l088_q4","l088_q5","l088_q6","l088_q7","l088_q8","l088_q9","l088_q10"],"L087":["l087_q1","l087_q2","l087_q3","l087_q4","l087_q5","l087_q6","l087_q7","l087_q8","l087_q9","l087_q10"],"L086":["l086_q1","l086_q2","l086_q3","l086_q4","l086_q5","l086_q6","l086_q7","l086_q8","l086_q9","l086_q10"],"L085":["l085_q1","l085_q2","l085_q3","l085_q4","l085_q5","l085_q6","l085_q7","l085_q8","l085_q9","l085_q10"],"L084":["l084_q1","l084_q2","l084_q3","l084_q4","l084_q5","l084_q6","l084_q7","l084_q8","l084_q9","l084_q10","l084_q11","l084_q12","l084_q13","l084_q14","l084_q15","l084_q16","l084_q17","l084_q18","l084_q19","l084_q20"],"L083":["l083_q1","l083_q2","l083_q3","l083_q4","l083_q5","l083_q6","l083_q7","l083_q8","l083_q9","l083_q10"],"L082":["l082_q1","l082_q2","l082_q3","l082_q4","l082_q5","l082_q6","l082_q7","l082_q8","l082_q9","l082_q10"],"L081":["l081_q1","l081_q2","l081_q3","l081_q4","l081_q5","l081_q6","l081_q7","l081_q8","l081_q9","l081_q10"],"L080":["gq14","gq15","l080_q3","l080_q4","l080_q5","l080_q6","l080_q7","l080_q8","l080_q9","l080_q10","l080_q11","l080_q12","l080_q13","l080_q14","l080_q15","l080_q16","l080_q17","l080_q18","l080_q19","l080_q20"],"L079":["l079_q1","l079_q2","l079_q3","l079_q4","l079_q5","l079_q6","l079_q7","l079_q8","l079_q9","l079_q10"],"L078":["s106","s132","l078_q3","l078_q4","l078_q5","l078_q6","l078_q7","l078_q8","l078_q9","l078_q10","l078_q11","l078_q12","l078_q13","l078_q14","l078_q15","l078_q16","l078_q17","l078_q18","l078_q19","l078_q20"],"L077":["l077_q1","l077_q2","l077_q3","l077_q4","l077_q5","l077_q6","l077_q7","l077_q8","l077_q9","l077_q10"],"L076":["l076_q1","l076_q2","l076_q3","l076_q4","l076_q5","l076_q6","l076_q7","l076_q8","l076_q9","l076_q10"],"L075":["l075_q1","l075_q2","l075_q3","l075_q4","l075_q5","l075_q6","l075_q7","l075_q8","l075_q9","l075_q10"],"L074":["l074_q1","l074_q2","l074_q3","l074_q4","l074_q5","l074_q6","l074_q7","l074_q8","l074_q9","l074_q10"],"L073":["l073_q1","l073_q2","l073_q3","l073_q4","l073_q5","l073_q6","l073_q7","l073_q8","l073_q9","l073_q10"],"L072":["gq70","gq56","l072_q3","l072_q4","l072_q5","l072_q6","l072_q7","l072_q8","l072_q9","l072_q10","l072_q11","l072_q12","l072_q13","l072_q14","l072_q15","l072_q16","l072_q17","l072_q18","l072_q19","l072_q20"],"L071":["l071_q1","l071_q2","l071_q3","l071_q4","l071_q5","l071_q6","l071_q7","l071_q8","l071_q9","l071_q10"],"L070":["l070_q1","l070_q2","l070_q3","l070_q4","l070_q5","l070_q6","l070_q7","l070_q8","l070_q9","l070_q10"],"L069":["l069_q1","l069_q2","l069_q3","l069_q4","l069_q5","l069_q6","l069_q7","l069_q8","l069_q9","l069_q10"],"L068":["s116","c116","l068_q3","l068_q4","l068_q5","l068_q6","l068_q7","l068_q8","l068_q9","l068_q10","l068_q11","l068_q12","l068_q13","l068_q14","l068_q15","l068_q16","l068_q17","l068_q18","l068_q19","l068_q20"],"L067":["l067_q1","l067_q2","l067_q3","l067_q4","l067_q5","l067_q6","l067_q7","l067_q8","l067_q9","l067_q10"],"L066":["c103","s116","l066_q3","l066_q4","l066_q5","l066_q6","l066_q7","l066_q8","l066_q9","l066_q10","l066_q11","l066_q12","l066_q13","l066_q14","l066_q15","l066_q16","l066_q17","l066_q18","l066_q19","l066_q20"],"L065":["l065_q1","l065_q2","l065_q3","l065_q4","l065_q5","l065_q6","l065_q7","l065_q8","l065_q9","l065_q10"],"L064":["gq7","s121","gq8","l064_q4","l064_q5","l064_q6","l064_q7","l064_q8","l064_q9","l064_q10","l064_q11","l064_q12","l064_q13","l064_q14","l064_q15","l064_q16","l064_q17","l064_q18","l064_q19","l064_q20"],"L063":["l063_q1","l063_q2","l063_q3","l063_q4","l063_q5","l063_q6","l063_q7","l063_q8","l063_q9","l063_q10"],"L062":["l062_q1","l062_q2","l062_q3","l062_q4","l062_q5","l062_q6","l062_q7","l062_q8","l062_q9","l062_q10"],"L061":["l061_q1","l061_q2","l061_q3","l061_q4","l061_q5","l061_q6","l061_q7","l061_q8","l061_q9","l061_q10"],"L060":["s203","c101","gq51","l060_q4","l060_q5","l060_q6","l060_q7","l060_q8","l060_q9","l060_q10","l060_q11","l060_q12","l060_q13","l060_q14","l060_q15","l060_q16","l060_q17","l060_q18","l060_q19","l060_q20"],"L059":["l059_q1","l059_q2","l059_q3","l059_q4","l059_q5","l059_q6","l059_q7","l059_q8","l059_q9","l059_q10"],"L058":["s137","l058_q2","l058_q3","l058_q4","l058_q5","l058_q6","l058_q7","l058_q8","l058_q9","l058_q10","l058_q11","l058_q12","l058_q13","l058_q14","l058_q15","l058_q16","l058_q17","l058_q18","l058_q19","l058_q20"],"L057":["l057_q1","l057_q2","l057_q3","l057_q4","l057_q5","l057_q6","l057_q7","l057_q8","l057_q9","l057_q10"],"L056":["c101","c102","gq51","gq54","c103","l056_q6","l056_q7","l056_q8","l056_q9","l056_q10","l056_q11","l056_q12","l056_q13","l056_q14","l056_q15","l056_q16","l056_q17","l056_q18","l056_q19","l056_q20"],"L055":["l055_q1","l055_q2","l055_q3","l055_q4","l055_q5","l055_q6","l055_q7","l055_q8","l055_q9","l055_q10"],"L054":["l054_q1","l054_q2","l054_q3","l054_q4","l054_q5","l054_q6","l054_q7","l054_q8","l054_q9","l054_q10"],"L053":["l053_q1","l053_q2","l053_q3","l053_q4","l053_q5","l053_q6","l053_q7","l053_q8","l053_q9","l053_q10"],"L052":["l052_q1","l052_q2","l052_q3","l052_q4","l052_q5","l052_q6","l052_q7","l052_q8","l052_q9","l052_q10"],"L051":["l051_q1","l051_q2","l051_q3","l051_q4","l051_q5","l051_q6","l051_q7","l051_q8","l051_q9","l051_q10"],"L050":["s141","s305","l050_q3","l050_q4","l050_q5","l050_q6","l050_q7","l050_q8","l050_q9","l050_q10","l050_q11","l050_q12","l050_q13","l050_q14","l050_q15","l050_q16","l050_q17","l050_q18","l050_q19","l050_q20"],"L049":["l049_q1","l049_q2","l049_q3","l049_q4","l049_q5","l049_q6","l049_q7","l049_q8","l049_q9","l049_q10"],"L048":["gq1","s102","l048_q3","l048_q4","l048_q5","l048_q6","l048_q7","l048_q8","l048_q9","l048_q10","l048_q11","l048_q12","l048_q13","l048_q14","l048_q15","l048_q16","l048_q17","l048_q18","l048_q19","l048_q20"],"L047":["l047_q1","l047_q2","l047_q3","l047_q4","l047_q5","l047_q6","l047_q7","l047_q8","l047_q9","l047_q10"],"L046":["s104","gq10","l046_q3","l046_q4","l046_q5","l046_q6","l046_q7","l046_q8","l046_q9","l046_q10","l046_q11","l046_q12","l046_q13","l046_q14","l046_q15","l046_q16","l046_q17","l046_q18","l046_q19","l046_q20"],"L045":["l045_q1","l045_q2","l045_q3","l045_q4","l045_q5","l045_q6","l045_q7","l045_q8","l045_q9","l045_q10"],"L044":["l044_q1","l044_q2","l044_q3","l044_q4","l044_q5","l044_q6","l044_q7","l044_q8","l044_q9","l044_q10"],"L043":["l043_q1","l043_q2","l043_q3","l043_q4","l043_q5","l043_q6","l043_q7","l043_q8","l043_q9","l043_q10"],"L042":["gq25","s135","l042_q3","l042_q4","l042_q5","l042_q6","l042_q7","l042_q8","l042_q9","l042_q10","l042_q11","l042_q12","l042_q13","l042_q14","l042_q15","l042_q16","l042_q17","l042_q18","l042_q19","l042_q20"],"L041":["l041_q1","l041_q2","l041_q3","l041_q4","l041_q5","l041_q6","l041_q7","l041_q8","l041_q9","l041_q10"],"L040":["l040_q1","l040_q2","l040_q3","l040_q4","l040_q5","l040_q6","l040_q7","l040_q8","l040_q9","l040_q10"],"L039":["l039_q1","l039_q2","l039_q3","l039_q4","l039_q5","l039_q6","l039_q7","l039_q8","l039_q9","l039_q10"],"L038":["s102","gq1","s110","s117","l038_q5","l038_q6","l038_q7","l038_q8","l038_q9","l038_q10","l038_q11","l038_q12","l038_q13","l038_q14","l038_q15","l038_q16","l038_q17","l038_q18","l038_q19","l038_q20"],"L037":["l037_q1","l037_q2","l037_q3","l037_q4","l037_q5","l037_q6","l037_q7","l037_q8","l037_q9","l037_q10"],"L036":["l036_q1","l036_q2","l036_q3","l036_q4","l036_q5","l036_q6","l036_q7","l036_q8","l036_q9","l036_q10"],"L035":["l035_q1","l035_q2","l035_q3","l035_q4","l035_q5","l035_q6","l035_q7","l035_q8","l035_q9","l035_q10"],"L034":["s133","l034_q2","l034_q3","l034_q4","l034_q5","l034_q6","l034_q7","l034_q8","l034_q9","l034_q10","l034_q11","l034_q12","l034_q13","l034_q14","l034_q15","l034_q16","l034_q17","l034_q18","l034_q19","l034_q20"],"L033":["l033_q1","l033_q2","l033_q3","l033_q4","l033_q5","l033_q6","l033_q7","l033_q8","l033_q9","l033_q10"],"L032":["l032_q1","l032_q2","l032_q3","l032_q4","l032_q5","l032_q6","l032_q7","l032_q8","l032_q9","l032_q10","l032_q11","l032_q12","l032_q13","l032_q14","l032_q15","l032_q16","l032_q17","l032_q18","l032_q19","l032_q20"],"L031":["l031_q1","l031_q2","l031_q3","l031_q4","l031_q5","l031_q6","l031_q7","l031_q8","l031_q9","l031_q10"],"L030":["l030_q1","l030_q2","l030_q3","l030_q4","l030_q5","l030_q6","l030_q7","l030_q8","l030_q9","l030_q10"],"L029":["l029_q1","l029_q2","l029_q3","l029_q4","l029_q5","l029_q6","l029_q7","l029_q8","l029_q9","l029_q10"],"L028":["s103","gq10","l028_q3","l028_q4","l028_q5","l028_q6","l028_q7","l028_q8","l028_q9","l028_q10","l028_q11","l028_q12","l028_q13","l028_q14","l028_q15","l028_q16","l028_q17","l028_q18","l028_q19","l028_q20"],"L027":["l027_q1","l027_q2","l027_q3","l027_q4","l027_q5","l027_q6","l027_q7","l027_q8","l027_q9","l027_q10"],"L026":["l026_q1","l026_q2","l026_q3","l026_q4","l026_q5","l026_q6","l026_q7","l026_q8","l026_q9","l026_q10"],"L025":["l025_q1","l025_q2","l025_q3","l025_q4","l025_q5","l025_q6","l025_q7","l025_q8","l025_q9","l025_q10"],"L024":["s110","l024_q2","l024_q3","l024_q4","l024_q5","l024_q6","l024_q7","l024_q8","l024_q9","l024_q10","l024_q11","l024_q12","l024_q13","l024_q14","l024_q15","l024_q16","l024_q17","l024_q18","l024_q19","l024_q20"],"L023":["l023_q1","l023_q2","l023_q3","l023_q4","l023_q5","l023_q6","l023_q7","l023_q8","l023_q9","l023_q10"],"L022":["l022_q1","l022_q2","l022_q3","l022_q4","l022_q5","l022_q6","l022_q7","l022_q8","l022_q9","l022_q10"],"L021":["l021_q1","l021_q2","l021_q3","l021_q4","l021_q5","l021_q6","l021_q7","l021_q8","l021_q9","l021_q10"],"L020":["l020_q1","l020_q2","l020_q3","l020_q4","l020_q5","l020_q6","l020_q7","l020_q8","l020_q9","l020_q10"],"L019":["l019_q1","l019_q2","l019_q3","l019_q4","l019_q5","l019_q6","l019_q7","l019_q8","l019_q9","l019_q10"],"L018":["l018_q1","l018_q2","l018_q3","l018_q4","l018_q5","l018_q6","l018_q7","l018_q8","l018_q9","l018_q10"],"L017":["l017_q1","l017_q2","l017_q3","l017_q4","l017_q5","l017_q6","l017_q7","l017_q8","l017_q9","l017_q10"],"L016":["s305","gq24","l016_q3","l016_q4","l016_q5","l016_q6","l016_q7","l016_q8","l016_q9","l016_q10","l016_q11","l016_q12","l016_q13","l016_q14","l016_q15","l016_q16","l016_q17","l016_q18","l016_q19","l016_q20"],"L015":["l015_q1","l015_q2","l015_q3","l015_q4","l015_q5","l015_q6","l015_q7","l015_q8","l015_q9","l015_q10"],"L014":["s116","c116","l014_q3","l014_q4","l014_q5","l014_q6","l014_q7","l014_q8","l014_q9","l014_q10","l014_q11","l014_q12","l014_q13","l014_q14","l014_q15","l014_q16","l014_q17","l014_q18","l014_q19","l014_q20"],"L013":["l013_q1","l013_q2","l013_q3","l013_q4","l013_q5","l013_q6","l013_q7","l013_q8","l013_q9","l013_q10"],"L012":["s140","gq23","s302","l012_q4","l012_q5","l012_q6","l012_q7","l012_q8","l012_q9","l012_q10","l012_q11","l012_q12","l012_q13","l012_q14","l012_q15","l012_q16","l012_q17","l012_q18","l012_q19","l012_q20"],"L011":["l011_q1","l011_q2","l011_q3","l011_q4","l011_q5","l011_q6","l011_q7","l011_q8","l011_q9","l011_q10"],"L010":["l010_q1","l010_q2","l010_q3","l010_q4","l010_q5","l010_q6","l010_q7","l010_q8","l010_q9","l010_q10"],"L009":["l009_q1","l009_q2","l009_q3","l009_q4","l009_q5","l009_q6","l009_q7","l009_q8","l009_q9","l009_q10"],"L008":["l008_q1","l008_q2","l008_q3","l008_q4","l008_q5","l008_q6","l008_q7","l008_q8","l008_q9","l008_q10"],"L007":["l007_q1","l007_q2","l007_q3","l007_q4","l007_q5","l007_q6","l007_q7","l007_q8","l007_q9","l007_q10"],"L006":["zt1","zt2","zt3","zt4","zt5","zt6","zt7","zt8","zt9","zt10","l006_q11","l006_q12","l006_q13","l006_q14","l006_q15","l006_q16","l006_q17","l006_q18","l006_q19","l006_q20"],"L005":["l005_q1","l005_q2","l005_q3","l005_q4","l005_q5","l005_q6","l005_q7","l005_q8","l005_q9","l005_q10"],"L004":["l004_q1","l004_q2","l004_q3","l004_q4","l004_q5","l004_q6","l004_q7","l004_q8","l004_q9","l004_q10"],"L003":["l003_q1","l003_q2","l003_q3","l003_q4","l003_q5","l003_q6","l003_q7","l003_q8","l003_q9","l003_q10"],"L001":["l001_q1","l001_q2","l001_q3","l001_q4","l001_q5","l001_q6","l001_q7","l001_q8","l001_q9","l001_q10"],"L002":["l002_q1","l002_q2","l002_q3","l002_q4","l002_q5","l002_q6","l002_q7","l002_q8","l002_q9","l002_q10"],"L000":["l000_q1","l000_q2","l000_q3","l000_q4","l000_q5","l000_q6","l000_q7","l000_q8","l000_q9","l000_q10"]};
+const LESSON_QS={"L119":["l119_q1","l119_q2","l119_q3","l119_q4","l119_q5","l119_q6","l119_q7","l119_q8","l119_q9","l119_q10"],"L118":["s105","gq22","l118_q3","l118_q4","l118_q5","l118_q6","l118_q7","l118_q8","l118_q9","l118_q10","l118_q11","l118_q12","l118_q13","l118_q14","l118_q15","l118_q16","l118_q17","l118_q18","l118_q19","l118_q20"],"L117":["l117_q1","l117_q2","l117_q3","l117_q4","l117_q5","l117_q6","l117_q7","l117_q8","l117_q9","l117_q10"],"L116":["s124","l116_q2","l116_q3","l116_q4","l116_q5","l116_q6","l116_q7","l116_q8","l116_q9","l116_q10","l116_q11","l116_q12","l116_q13","l116_q14","l116_q15","l116_q16","l116_q17","l116_q18","l116_q19","l116_q20"],"L115":["l115_q1","l115_q2","l115_q3","l115_q4","l115_q5","l115_q6","l115_q7","l115_q8","l115_q9","l115_q10"],"L114":["gq20","gq21","s119","l114_q4","l114_q5","l114_q6","l114_q7","l114_q8","l114_q9","l114_q10","l114_q11","l114_q12","l114_q13","l114_q14","l114_q15","l114_q16","l114_q17","l114_q18","l114_q19","l114_q20"],"L113":["l113_q1","l113_q2","l113_q3","l113_q4","l113_q5","l113_q6","l113_q7","l113_q8","l113_q9","l113_q10"],"L112":["l112_q1","l112_q2","l112_q3","l112_q4","l112_q5","l112_q6","l112_q7","l112_q8","l112_q9","l112_q10","l112_q11","l112_q12","l112_q13","l112_q14","l112_q15","l112_q16","l112_q17","l112_q18","l112_q19","l112_q20"],"L111":["l111_q1","l111_q2","l111_q3","l111_q4","l111_q5","l111_q6","l111_q7","l111_q8","l111_q9","l111_q10"],"L110":["l110_q1","l110_q2","l110_q3","l110_q4","l110_q5","l110_q6","l110_q7","l110_q8","l110_q9","l110_q10"],"L109":["l109_q1","l109_q2","l109_q3","l109_q4","l109_q5","l109_q6","l109_q7","l109_q8","l109_q9","l109_q10"],"L108":["l108_q1","l108_q2","l108_q3","l108_q4","l108_q5","l108_q6","l108_q7","l108_q8","l108_q9","l108_q10"],"L107":["l107_q1","l107_q2","l107_q3","l107_q4","l107_q5","l107_q6","l107_q7","l107_q8","l107_q9","l107_q10"],"L106":["l106_q1","l106_q2","l106_q3","l106_q4","l106_q5","l106_q6","l106_q7","l106_q8","l106_q9","l106_q10"],"L105":["l105_q1","l105_q2","l105_q3","l105_q4","l105_q5","l105_q6","l105_q7","l105_q8","l105_q9","l105_q10"],"L104":["l104_q1","l104_q2","l104_q3","l104_q4","l104_q5","l104_q6","l104_q7","l104_q8","l104_q9","l104_q10"],"L103":["l103_q1","l103_q2","l103_q3","l103_q4","l103_q5","l103_q6","l103_q7","l103_q8","l103_q9","l103_q10"],"L102":["l102_q1","l102_q2","l102_q3","l102_q4","l102_q5","l102_q6","l102_q7","l102_q8","l102_q9","l102_q10"],"L101":["l101_q1","l101_q2","l101_q3","l101_q4","l101_q5","l101_q6","l101_q7","l101_q8","l101_q9","l101_q10"],"L100":["gq12","l100_q2","l100_q3","l100_q4","l100_q5","l100_q6","l100_q7","l100_q8","l100_q9","l100_q10","l100_q11","l100_q12","l100_q13","l100_q14","l100_q15","l100_q16","l100_q17","l100_q18","l100_q19","l100_q20"],"L099":["l099_q1","l099_q2","l099_q3","l099_q4","l099_q5","l099_q6","l099_q7","l099_q8","l099_q9","l099_q10"],"L098":["s131","l098_q2","l098_q3","l098_q4","l098_q5","l098_q6","l098_q7","l098_q8","l098_q9","l098_q10","l098_q11","l098_q12","l098_q13","l098_q14","l098_q15","l098_q16","l098_q17","l098_q18","l098_q19","l098_q20"],"L097":["l097_q1","l097_q2","l097_q3","l097_q4","l097_q5","l097_q6","l097_q7","l097_q8","l097_q9","l097_q10"],"L096":["l096_q1","l096_q2","l096_q3","l096_q4","l096_q5","l096_q6","l096_q7","l096_q8","l096_q9","l096_q10"],"L095":["l095_q1","l095_q2","l095_q3","l095_q4","l095_q5","l095_q6","l095_q7","l095_q8","l095_q9","l095_q10"],"L094":["l094_q1","l094_q2","l094_q3","l094_q4","l094_q5","l094_q6","l094_q7","l094_q8","l094_q9","l094_q10"],"L093":["l093_q1","l093_q2","l093_q3","l093_q4","l093_q5","l093_q6","l093_q7","l093_q8","l093_q9","l093_q10"],"L092":["l092_q1","l092_q2","l092_q3","l092_q4","l092_q5","l092_q6","l092_q7","l092_q8","l092_q9","l092_q10"],"L091":["l091_q1","l091_q2","l091_q3","l091_q4","l091_q5","l091_q6","l091_q7","l091_q8","l091_q9","l091_q10"],"L090":["s301","gq5","l090_q3","l090_q4","l090_q5","l090_q6","l090_q7","l090_q8","l090_q9","l090_q10","l090_q11","l090_q12","l090_q13","l090_q14","l090_q15","l090_q16","l090_q17","l090_q18","l090_q19","l090_q20"],"L089":["l089_q1","l089_q2","l089_q3","l089_q4","l089_q5","l089_q6","l089_q7","l089_q8","l089_q9","l089_q10"],"L088":["l088_q1","l088_q2","l088_q3","l088_q4","l088_q5","l088_q6","l088_q7","l088_q8","l088_q9","l088_q10"],"L087":["l087_q1","l087_q2","l087_q3","l087_q4","l087_q5","l087_q6","l087_q7","l087_q8","l087_q9","l087_q10"],"L086":["l086_q1","l086_q2","l086_q3","l086_q4","l086_q5","l086_q6","l086_q7","l086_q8","l086_q9","l086_q10"],"L085":["l085_q1","l085_q2","l085_q3","l085_q4","l085_q5","l085_q6","l085_q7","l085_q8","l085_q9","l085_q10"],"L084":["l084_q1","l084_q2","l084_q3","l084_q4","l084_q5","l084_q6","l084_q7","l084_q8","l084_q9","l084_q10","l084_q11","l084_q12","l084_q13","l084_q14","l084_q15","l084_q16","l084_q17","l084_q18","l084_q19","l084_q20"],"L083":["l083_q1","l083_q2","l083_q3","l083_q4","l083_q5","l083_q6","l083_q7","l083_q8","l083_q9","l083_q10"],"L082":["l082_q1","l082_q2","l082_q3","l082_q4","l082_q5","l082_q6","l082_q7","l082_q8","l082_q9","l082_q10"],"L081":["l081_q1","l081_q2","l081_q3","l081_q4","l081_q5","l081_q6","l081_q7","l081_q8","l081_q9","l081_q10"],"L080":["gq14","gq15","l080_q3","l080_q4","l080_q5","l080_q6","l080_q7","l080_q8","l080_q9","l080_q10","l080_q11","l080_q12","l080_q13","l080_q14","l080_q15","l080_q16","l080_q17","l080_q18","l080_q19","l080_q20"],"L079":["l079_q1","l079_q2","l079_q3","l079_q4","l079_q5","l079_q6","l079_q7","l079_q8","l079_q9","l079_q10"],"L078":["s106","s132","l078_q3","l078_q4","l078_q5","l078_q6","l078_q7","l078_q8","l078_q9","l078_q10","l078_q11","l078_q12","l078_q13","l078_q14","l078_q15","l078_q16","l078_q17","l078_q18","l078_q19","l078_q20"],"L077":["l077_q1","l077_q2","l077_q3","l077_q4","l077_q5","l077_q6","l077_q7","l077_q8","l077_q9","l077_q10"],"L076":["l076_q1","l076_q2","l076_q3","l076_q4","l076_q5","l076_q6","l076_q7","l076_q8","l076_q9","l076_q10"],"L075":["l075_q1","l075_q2","l075_q3","l075_q4","l075_q5","l075_q6","l075_q7","l075_q8","l075_q9","l075_q10"],"L074":["l074_q1","l074_q2","l074_q3","l074_q4","l074_q5","l074_q6","l074_q7","l074_q8","l074_q9","l074_q10"],"L073":["l073_q1","l073_q2","l073_q3","l073_q4","l073_q5","l073_q6","l073_q7","l073_q8","l073_q9","l073_q10"],"L072":["gq70","gq56","l072_q3","l072_q4","l072_q5","l072_q6","l072_q7","l072_q8","l072_q9","l072_q10","l072_q11","l072_q12","l072_q13","l072_q14","l072_q15","l072_q16","l072_q17","l072_q18","l072_q19","l072_q20"],"L071":["l071_q1","l071_q2","l071_q3","l071_q4","l071_q5","l071_q6","l071_q7","l071_q8","l071_q9","l071_q10"],"L070":["l070_q1","l070_q2","l070_q3","l070_q4","l070_q5","l070_q6","l070_q7","l070_q8","l070_q9","l070_q10"],"L069":["l069_q1","l069_q2","l069_q3","l069_q4","l069_q5","l069_q6","l069_q7","l069_q8","l069_q9","l069_q10"],"L068":["s116","c116","l068_q3","l068_q4","l068_q5","l068_q6","l068_q7","l068_q8","l068_q9","l068_q10","l068_q11","l068_q12","l068_q13","l068_q14","l068_q15","l068_q16","l068_q17","l068_q18","l068_q19","l068_q20"],"L067":["l067_q1","l067_q2","l067_q3","l067_q4","l067_q5","l067_q6","l067_q7","l067_q8","l067_q9","l067_q10"],"L066":["c103","s116","l066_q3","l066_q4","l066_q5","l066_q6","l066_q7","l066_q8","l066_q9","l066_q10","l066_q11","l066_q12","l066_q13","l066_q14","l066_q15","l066_q16","l066_q17","l066_q18","l066_q19","l066_q20"],"L065":["l065_q1","l065_q2","l065_q3","l065_q4","l065_q5","l065_q6","l065_q7","l065_q8","l065_q9","l065_q10"],"L064":["gq7","s121","gq8","l064_q4","l064_q5","l064_q6","l064_q7","l064_q8","l064_q9","l064_q10","l064_q11","l064_q12","l064_q13","l064_q14","l064_q15","l064_q16","l064_q17","l064_q18","l064_q19","l064_q20"],"L063":["l063_q1","l063_q2","l063_q3","l063_q4","l063_q5","l063_q6","l063_q7","l063_q8","l063_q9","l063_q10"],"L062":["l062_q1","l062_q2","l062_q3","l062_q4","l062_q5","l062_q6","l062_q7","l062_q8","l062_q9","l062_q10"],"L061":["l061_q1","l061_q2","l061_q3","l061_q4","l061_q5","l061_q6","l061_q7","l061_q8","l061_q9","l061_q10"],"L060":["s203","c101","gq51","l060_q4","l060_q5","l060_q6","l060_q7","l060_q8","l060_q9","l060_q10","l060_q11","l060_q12","l060_q13","l060_q14","l060_q15","l060_q16","l060_q17","l060_q18","l060_q19","l060_q20"],"L059":["l059_q1","l059_q2","l059_q3","l059_q4","l059_q5","l059_q6","l059_q7","l059_q8","l059_q9","l059_q10"],"L058":["s137","l058_q2","l058_q3","l058_q4","l058_q5","l058_q6","l058_q7","l058_q8","l058_q9","l058_q10","l058_q11","l058_q12","l058_q13","l058_q14","l058_q15","l058_q16","l058_q17","l058_q18","l058_q19","l058_q20"],"L057":["l057_q1","l057_q2","l057_q3","l057_q4","l057_q5","l057_q6","l057_q7","l057_q8","l057_q9","l057_q10"],"L056":["c101","c102","gq51","gq54","c103","l056_q6","l056_q7","l056_q8","l056_q9","l056_q10","l056_q11","l056_q12","l056_q13","l056_q14","l056_q15","l056_q16","l056_q17","l056_q18","l056_q19","l056_q20"],"L055":["l055_q1","l055_q2","l055_q3","l055_q4","l055_q5","l055_q6","l055_q7","l055_q8","l055_q9","l055_q10"],"L054":["l054_q1","l054_q2","l054_q3","l054_q4","l054_q5","l054_q6","l054_q7","l054_q8","l054_q9","l054_q10"],"L053":["l053_q1","l053_q2","l053_q3","l053_q4","l053_q5","l053_q6","l053_q7","l053_q8","l053_q9","l053_q10"],"L052":["l052_q1","l052_q2","l052_q3","l052_q4","l052_q5","l052_q6","l052_q7","l052_q8","l052_q9","l052_q10"],"L051":["l051_q1","l051_q2","l051_q3","l051_q4","l051_q5","l051_q6","l051_q7","l051_q8","l051_q9","l051_q10"],"L050":["s141","s305","l050_q3","l050_q4","l050_q5","l050_q6","l050_q7","l050_q8","l050_q9","l050_q10","l050_q11","l050_q12","l050_q13","l050_q14","l050_q15","l050_q16","l050_q17","l050_q18","l050_q19","l050_q20"],"L049":["l049_q1","l049_q2","l049_q3","l049_q4","l049_q5","l049_q6","l049_q7","l049_q8","l049_q9","l049_q10"],"L048":["gq1","s102","l048_q3","l048_q4","l048_q5","l048_q6","l048_q7","l048_q8","l048_q9","l048_q10","l048_q11","l048_q12","l048_q13","l048_q14","l048_q15","l048_q16","l048_q17","l048_q18","l048_q19","l048_q20"],"L047":["l047_q1","l047_q2","l047_q3","l047_q4","l047_q5","l047_q6","l047_q7","l047_q8","l047_q9","l047_q10"],"L046":["s104","gq10","l046_q3","l046_q4","l046_q5","l046_q6","l046_q7","l046_q8","l046_q9","l046_q10","l046_q11","l046_q12","l046_q13","l046_q14","l046_q15","l046_q16","l046_q17","l046_q18","l046_q19","l046_q20"],"L045":["l045_q1","l045_q2","l045_q3","l045_q4","l045_q5","l045_q6","l045_q7","l045_q8","l045_q9","l045_q10"],"L044":["l044_q1","l044_q2","l044_q3","l044_q4","l044_q5","l044_q6","l044_q7","l044_q8","l044_q9","l044_q10"],"L043":["l043_q1","l043_q2","l043_q3","l043_q4","l043_q5","l043_q6","l043_q7","l043_q8","l043_q9","l043_q10"],"L042":["gq25","s135","l042_q3","l042_q4","l042_q5","l042_q6","l042_q7","l042_q8","l042_q9","l042_q10","l042_q11","l042_q12","l042_q13","l042_q14","l042_q15","l042_q16","l042_q17","l042_q18","l042_q19","l042_q20"],"L041":["l041_q1","l041_q2","l041_q3","l041_q4","l041_q5","l041_q6","l041_q7","l041_q8","l041_q9","l041_q10"],"L040":["l040_q1","l040_q2","l040_q3","l040_q4","l040_q5","l040_q6","l040_q7","l040_q8","l040_q9","l040_q10"],"L039":["l039_q1","l039_q2","l039_q3","l039_q4","l039_q5","l039_q6","l039_q7","l039_q8","l039_q9","l039_q10"],"L038":["s102","gq1","s110","s117","l038_q5","l038_q6","l038_q7","l038_q8","l038_q9","l038_q10","l038_q11","l038_q12","l038_q13","l038_q14","l038_q15","l038_q16","l038_q17","l038_q18","l038_q19","l038_q20"],"L037":["l037_q1","l037_q2","l037_q3","l037_q4","l037_q5","l037_q6","l037_q7","l037_q8","l037_q9","l037_q10"],"L036":["l036_q1","l036_q2","l036_q3","l036_q4","l036_q5","l036_q6","l036_q7","l036_q8","l036_q9","l036_q10"],"L035":["l035_q1","l035_q2","l035_q3","l035_q4","l035_q5","l035_q6","l035_q7","l035_q8","l035_q9","l035_q10"],"L034":["s133","l034_q2","l034_q3","l034_q4","l034_q5","l034_q6","l034_q7","l034_q8","l034_q9","l034_q10","l034_q11","l034_q12","l034_q13","l034_q14","l034_q15","l034_q16","l034_q17","l034_q18","l034_q19","l034_q20"],"L033":["l033_q1","l033_q2","l033_q3","l033_q4","l033_q5","l033_q6","l033_q7","l033_q8","l033_q9","l033_q10"],"L032":["l032_q1","l032_q2","l032_q3","l032_q4","l032_q5","l032_q6","l032_q7","l032_q8","l032_q9","l032_q10","l032_q11","l032_q12","l032_q13","l032_q14","l032_q15","l032_q16","l032_q17","l032_q18","l032_q19","l032_q20"],"L031":["l031_q1","l031_q2","l031_q3","l031_q4","l031_q5","l031_q6","l031_q7","l031_q8","l031_q9","l031_q10"],"L030":["l030_q1","l030_q2","l030_q3","l030_q4","l030_q5","l030_q6","l030_q7","l030_q8","l030_q9","l030_q10"],"L029":["l029_q1","l029_q2","l029_q3","l029_q4","l029_q5","l029_q6","l029_q7","l029_q8","l029_q9","l029_q10"],"L028":["s103","gq10","l028_q3","l028_q4","l028_q5","l028_q6","l028_q7","l028_q8","l028_q9","l028_q10","l028_q11","l028_q12","l028_q13","l028_q14","l028_q15","l028_q16","l028_q17","l028_q18","l028_q19","l028_q20"],"L027":["l027_q1","l027_q2","l027_q3","l027_q4","l027_q5","l027_q6","l027_q7","l027_q8","l027_q9","l027_q10"],"L026":["l026_q1","l026_q2","l026_q3","l026_q4","l026_q5","l026_q6","l026_q7","l026_q8","l026_q9","l026_q10"],"L025":["l025_q1","l025_q2","l025_q3","l025_q4","l025_q5","l025_q6","l025_q7","l025_q8","l025_q9","l025_q10"],"L024":["s110","l024_q2","l024_q3","l024_q4","l024_q5","l024_q6","l024_q7","l024_q8","l024_q9","l024_q10","l024_q11","l024_q12","l024_q13","l024_q14","l024_q15","l024_q16","l024_q17","l024_q18","l024_q19","l024_q20"],"L023":["l023_q1","l023_q2","l023_q3","l023_q4","l023_q5","l023_q6","l023_q7","l023_q8","l023_q9","l023_q10"],"L022":["l022_q1","l022_q2","l022_q3","l022_q4","l022_q5","l022_q6","l022_q7","l022_q8","l022_q9","l022_q10"],"L021":["l021_q1","l021_q2","l021_q3","l021_q4","l021_q5","l021_q6","l021_q7","l021_q8","l021_q9","l021_q10"],"L020":["l020_q1","l020_q2","l020_q3","l020_q4","l020_q5","l020_q6","l020_q7","l020_q8","l020_q9","l020_q10"],"L019":["l019_q1","l019_q2","l019_q3","l019_q4","l019_q5","l019_q6","l019_q7","l019_q8","l019_q9","l019_q10"],"L018":["l018_q1","l018_q2","l018_q3","l018_q4","l018_q5","l018_q6","l018_q7","l018_q8","l018_q9","l018_q10"],"L017":["l017_q1","l017_q2","l017_q3","l017_q4","l017_q5","l017_q6","l017_q7","l017_q8","l017_q9","l017_q10"],"L016":["s305","gq24","l016_q3","l016_q4","l016_q5","l016_q6","l016_q7","l016_q8","l016_q9","l016_q10","l016_q11","l016_q12","l016_q13","l016_q14","l016_q15","l016_q16","l016_q17","l016_q18","l016_q19","l016_q20"],"L015":["l015_q1","l015_q2","l015_q3","l015_q4","l015_q5","l015_q6","l015_q7","l015_q8","l015_q9","l015_q10"],"L014":["s116","c116","l014_q3","l014_q4","l014_q5","l014_q6","l014_q7","l014_q8","l014_q9","l014_q10","l014_q11","l014_q12","l014_q13","l014_q14","l014_q15","l014_q16","l014_q17","l014_q18","l014_q19","l014_q20"],"L013":["l013_q1","l013_q2","l013_q3","l013_q4","l013_q5","l013_q6","l013_q7","l013_q8","l013_q9","l013_q10"],"L012":["s140","gq23","s302","l012_q4","l012_q5","l012_q6","l012_q7","l012_q8","l012_q9","l012_q10","l012_q11","l012_q12","l012_q13","l012_q14","l012_q15","l012_q16","l012_q17","l012_q18","l012_q19","l012_q20"],"L011":["l011_q1","l011_q2","l011_q3","l011_q4","l011_q5","l011_q6","l011_q7","l011_q8","l011_q9","l011_q10"],"L010":["l010_q1","l010_q2","l010_q3","l010_q4","l010_q5","l010_q6","l010_q7","l010_q8","l010_q9","l010_q10"],"L009":["l009_q1","l009_q2","l009_q3","l009_q4","l009_q5","l009_q6","l009_q7","l009_q8","l009_q9","l009_q10"],"L008":["l008_q1","l008_q2","l008_q3","l008_q4","l008_q5","l008_q6","l008_q7","l008_q8","l008_q9","l008_q10"],"L007":["l007_q1","l007_q2","l007_q3","l007_q4","l007_q5","l007_q6","l007_q7","l007_q8","l007_q9","l007_q10"],"L006":["zt1","zt2","zt3","zt4","zt5","zt6","zt7","zt8","zt9","zt10","l006_q11","l006_q12","l006_q13","l006_q14","l006_q15","l006_q16","l006_q17","l006_q18","l006_q19","l006_q20"],"L005":["l005_q1","l005_q2","l005_q3","l005_q4","l005_q5","l005_q6","l005_q7","l005_q8","l005_q9","l005_q10"],"L004":["l004_q1","l004_q2","l004_q3","l004_q4","l004_q5","l004_q6","l004_q7","l004_q8","l004_q9","l004_q10"],"L003":["l003_q1","l003_q2","l003_q3","l003_q4","l003_q5","l003_q6","l003_q7","l003_q8","l003_q9","l003_q10"],"L001":["l001_q1","l001_q2","l001_q3","l001_q4","l001_q5","l001_q6","l001_q7","l001_q8","l001_q9","l001_q10"],"L002":["l002_q1","l002_q2","l002_q3","l002_q4","l002_q5","l002_q6","l002_q7","l002_q8","l002_q9","l002_q10"],"L000":["l000_q1","l000_q2","l000_q3","l000_q4","l000_q5","l000_q6","l000_q7","l000_q8","l000_q9","l000_q10"]};
 
 function renderAulas(){ window._activeAulaDetailId = null;
   const el=document.getElementById("aulaList");
