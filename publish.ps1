@@ -8,6 +8,7 @@ Set-Location $site
 # 1. copia o que mudou
 Copy-Item "$ws\assistente-cybersec.html" "$site\assistente-cybersec.html" -Force
 Copy-Item "$ws\treino-cybersec.html"     "$site\treino-cybersec.html"     -Force
+Copy-Item "$ws\dell_user_progress.json" "$site\user_progress.json"       -Force
 Copy-Item "$ws\_jobscan\vagas_data.js"   "$site\_jobscan\vagas_data.js"   -Force
 Copy-Item "$ws\_jobscan\jobs_seed.json"  "$site\_jobscan\jobs_seed.json"  -Force
 

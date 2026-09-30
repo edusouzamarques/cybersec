@@ -1,0 +1,308 @@
+{
+  "aula": {
+    "L002": {
+      "watched": true
+    },
+    "L001": {
+      "watched": true
+    },
+    "L003": {
+      "watched": true
+    },
+    "L004": {
+      "watched": true
+    },
+    "L005": {
+      "watched": true
+    }
+  },
+  "q": {
+    "ctrl4": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "ctrl9": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "ctrl3": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "ctrl6": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "ctrl5": {
+      "seen": 3,
+      "correct": 2,
+      "wrongs": 1,
+      "streak": 2,
+      "mastered": true
+    },
+    "ctrl7": {
+      "seen": 3,
+      "correct": 2,
+      "wrongs": 1,
+      "streak": 2,
+      "mastered": true
+    },
+    "ctrl2": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "ctrl8": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "ctrl1": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "ctrl10": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia3": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia7": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia1": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia2": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia8": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia9": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia5": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia10": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia6": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "cia4": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr6": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr8": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr3": {
+      "seen": 3,
+      "correct": 2,
+      "wrongs": 1,
+      "streak": 2,
+      "mastered": true
+    },
+    "nr9": {
+      "seen": 3,
+      "correct": 2,
+      "wrongs": 1,
+      "streak": 2,
+      "mastered": true
+    },
+    "nr1": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr5": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr7": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr4": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr10": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "nr2": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa9": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa8": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa5": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa6": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa4": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa3": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa10": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa1": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa7": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    },
+    "aaa2": {
+      "seen": 1,
+      "correct": 1,
+      "wrongs": 0,
+      "streak": 1,
+      "mastered": false
+    }
+  },
+  "stats": {
+    "answered": 48,
+    "right": 44,
+    "streak": 20,
+    "best": 20
+  },
+  "last": null
+}
