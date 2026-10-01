@@ -4,8 +4,8 @@ Fontes: curadoria Dice (jobs_seed.json, mantida à mão/sessão) + APIs abertas 
 Indeed/Monster/LinkedIn não entram (WAF/geo). Anti-gate-morto: grava data de atualização visível no app."""
 import json, os, re, time, urllib.request, datetime
 
-BASE = r"C:/Users/ivign/CYBERSEC/_jobscan"
-APP  = r"C:/Users/ivign/CYBERSEC"
+BASE = os.path.dirname(os.path.abspath(__file__))
+APP  = os.path.dirname(BASE)
 
 ROLE_WORDS = ["security","cyber","soc analyst","siem","vulnerab","grc","incident","threat",
               "infosec","penetration","pentest","appsec","devsecops","detection","malware",
