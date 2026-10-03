@@ -193,7 +193,9 @@ const CREDS_KEY = "cybersec_creds_v1";
 let creds = JSON.parse(localStorage.getItem(CREDS_KEY) || "{}");
 const CRED_DEFS = [
   ["secplus","Security+"],["cloud","Cloud (AWS/AZ/SC-900)"],["network","Network+"],
-  ["pcep","Certificado de Python (PCEP)"],["linux","Certificado de Linux"],["cysa","CySA+"],["secai","SecAI+"],["cgrc","Certificado de Risco (CGRC)"]
+  ["pcep","Certificado de Python (PCEP)"],["linux","Certificado de Linux"],
+  ["qualys","Qualys (VMDR / Policy Audit / ETM)"],["splunk","Splunk SIEM"],["ms_sec","Microsoft Applied Skills"],
+  ["cysa","CySA+"],["secai","SecAI+"],["cgrc","Certificado de Risco (CGRC)"]
 ];
 const CRED_LABEL = Object.fromEntries(CRED_DEFS);
 function toggleCred(k){ creds[k]=!creds[k]; localStorage.setItem(CREDS_KEY, JSON.stringify(creds)); renderCreds(); renderJobsLive(); }
@@ -359,6 +361,26 @@ const ROADMAP = [
     link:"https://www.cisa.gov/resources-tools/training",
     d:"A agência federal de segurança dos EUA dá treinamento de graça — material pesado e técnico.",
     e:"Bom pra aprofundar onde os cursos leves deixaram furo."},
+   {id:"qualys-vmdr", t:"Qualys VMDR + CSAM — Gestão de Vulnerabilidades & Ativos Enterprise (100% Grátis)", type:"CERTIFICADO", free:1,
+    link:"https://www.qualys.com/training/",
+    d:"Treinamento oficial com laboratório real na nuvem e certificações oficiais da Qualys (NASDAQ: QLYS). Cobre descoberta de ativos com Cloud Agent, varredura de vulnerabilidades, priorização e fluxos de resposta/remediação.",
+    e:"⭐ O padrão corporativo em mais de 10.000 grandes empresas e bancos. No currículo, comprova operação prática da console que o mercado enterprise usa no dia a dia."},
+   {id:"qualys-policy-etm", t:"Qualys Policy Audit & Enterprise TruRisk (ETM) — Auditoria Técnica CIS & Risco de Negócio", type:"CERTIFICADO", free:1,
+    link:"https://www.qualys.com/training/",
+    d:"Auditoria técnica automatizada de baselines contra CIS Benchmarks e DISA-STIG + cálculo quantitativo de postura de risco de negócio com o motor TruRisk. Cursos e certificações oficiais 100% gratuitos.",
+    e:"⭐ O elo de ouro com teu foco em GRC: prova que tu não é apenas teórico de normas (ISO/NIST), mas sabe rodar auditoria técnica automatizada em servidores Linux/Windows."},
+   {id:"splunk-free", t:"Splunk Training & Fundamentals — O SIEM mais usado do mundo (Grátis)", type:"Curso→Cert", free:1,
+    link:"https://www.splunk.com/en_us/training/free-courses/overview.html",
+    d:"Cursos oficiais gratuitos da Splunk: navegação de dados, buscas com SPL (Search Processing Language), criação de relatórios e dashboards de segurança para SOC.",
+    e:"Toda vaga de monitoramento/SOC remota cita Splunk. Ter certificado ou badge Splunk mata a exigência de SIEM das vagas em dólar/euro."},
+   {id:"ms-applied-skills", t:"Microsoft Applied Skills — Laboratórios Reais de Segurança no Azure (Grátis)", type:"CERTIFICADO", free:1,
+    link:"https://learn.microsoft.com/credentials/applied-skills/",
+    d:"Credenciais práticas oficiais da Microsoft validadas em ambiente de laboratório ao vivo: Sentinel (SIEM/SOAR), Defender for Endpoint e Purview (DLP e proteção de dados).",
+    e:"Diferencial oficial Microsoft verificável no LinkedIn/Credly sem custo de exame, demonstrando operação prática em nuvem corporativa."},
+   {id:"api-sec-uni", t:"API Security University (Salt Security) — Padrão OWASP API Top 10 (Grátis)", type:"CERTIFICADO", free:1,
+    link:"https://www.apisecuniversity.com/",
+    d:"Cursos e certificações oficiais gratuitas com badges Credly focadas em segurança de APIs REST/GraphQL e OWASP API Security Top 10.",
+    e:"As aplicações modernas vivem em APIs. Vagas remotas em dólar/euro valorizam enormemente quem sabe proteger e auditar APIs."},
   ]},
   {ph:"🤖 Fase 2 — Segurança de IA (teu diferencial — quase ninguém tem)", tier:"topo", items:[
    {id:"owasp-llm", t:"OWASP — as 10 falhas mais graves de sistemas de IA", type:"Leitura", free:1,
@@ -581,6 +603,18 @@ const FONTES = [
  {p:"Professor Messer", best:"Security+ completo em vídeo, grátis",
   link:"https://www.professormesser.com/",
   cursos:"CompTIA Security+ SY0-701 — estuda grátis, paga só o exame"},
+ {p:"⭐ Qualys Training & Certification Hub", best:"Vulnerabilidades, Risco e Auditoria CIS 100% grátis com certificado oficial",
+  link:"https://www.qualys.com/training/",
+  cursos:"VMDR (Vulnerability Management, Detection & Response) · Policy Compliance / Policy Audit (CIS Benchmarks) · Enterprise TruRisk Management (ETM) · CSAM · PCI Compliance. Todos com labs na nuvem e certificações gratuitas."},
+ {p:"Splunk Free Training", best:"O SIEM mais usado do mundo corporativo — cursos oficiais gratuitos",
+  link:"https://www.splunk.com/en_us/training/free-courses/overview.html",
+  cursos:"Splunk Fundamentals 1 · Busca e relatórios em SPL · Criação de alertas e dashboards de SOC"},
+ {p:"Microsoft Learn Applied Skills", best:"Credenciais práticas baseadas em labs interativos no Azure",
+  link:"https://learn.microsoft.com/credentials/applied-skills/",
+  cursos:"Sentinel (SIEM/SOAR) · Defender for Endpoint (XDR) · Microsoft Purview (DLP e proteção de dados)"},
+ {p:"API Security University (Salt Security)", best:"Ataque e defesa em APIs com foco em OWASP API Top 10",
+  link:"https://www.apisecuniversity.com/",
+  cursos:"API Security Fundamentals · OWASP API Top 10 · API Security Practitioner (com certificação e badge Credly grátis)"},
 ];
 
 /* ---------------- DADOS: VETOR DE DESTAQUE (CyberSeek) ---------------- */
@@ -778,7 +812,7 @@ function renderCareers(){
   
   const hibridoBlock = `<div class="card" style="border:2px solid var(--acc);background:linear-gradient(180deg,#12241b,#0e1a14);margin-bottom:14px">
     <div class="phase"><h3 style="color:var(--acc);margin:0">🏛️ O Funil Estratégico Híbrido: Trilha 4 (Porta de Entrada) + Trilha 1 (Ouro de IA)</h3></div>
-    <p class="note" style="margin-top:6px">Consolidado pelo tribunal multi-modelo (Minimax M3, Kimi K3, Nemotron 3 Ultra 550B, GLM 5.3): a combinação mais rápida e blindada de entrada nos EUA para quem tem 13,5 anos de segurança pública e portfólio autoral.</p>
+    <p class="note" style="margin-top:6px">Consolidado pelo tribunal multi-modelo (Minimax M3, Kimi K3, Nemotron 3 Ultra 550B, GLM 5.3): a combinação mais rápida e blindada de entrada nos EUA para quem tem anos de segurança pública e portfólio autoral.</p>
     
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
       <div class="item" style="border-color:#356b52;background:rgba(18,24,33,0.8)">
@@ -786,7 +820,7 @@ function renderCareers(){
           <div class="it-title" style="color:var(--blue)">🚪 A PORTA DE ENTRADA: Trilha 4 (Enterprise GRC & TPRM)</div>
           <div class="it-desc" style="margin-top:6px">
             <b>Por que entra por aqui:</b> Volume massivo de vagas abertas nos EUA, processos padronizados (SOC 2, questionários SIG/CAIQ, auditoria de fornecedores).<br>
-            <b>A ponte PMMG + ComEx:</b> Análise de risco de terceiros na cadeia de suprimentos (<b>SCRM</b>), controles de exportação (<b>EAR / ITAR</b>), sanções internacionais (<b>OFAC</b>) e disciplina de cadeia de custódia.
+            <b>A ponte segurança pública + ComEx:</b> Análise de risco de terceiros na cadeia de suprimentos (<b>SCRM</b>), controles de exportação (<b>EAR / ITAR</b>), sanções internacionais (<b>OFAC</b>) e disciplina de cadeia de custódia.
           </div>
         </div>
       </div>
@@ -835,7 +869,7 @@ function renderCareers(){
           <div class="it-title" style="display:flex;justify-content:space-between"><span>Trilha 4: Enterprise GRC & Third-Party Risk Management (TPRM)</span><span class="pill free">US$ 70k ➔ US$ 220k+</span></div>
           <div class="it-meta"><span class="pill paid">Certs: CompTIA Security+ · CTPRP (Shared Assessments) · ISO 27001 LI</span><span class="badge b-s">TIER S (ENTRADA)</span></div>
           <div class="it-desc"><b>Foco:</b> Gestão de risco de fornecedores na cadeia de suprimentos (SCRM), relatórios SOC 2 Tipo II, ServiceNow IRM, AuditBoard.</div>
-          <div class="it-exp"><b>Seu trunfo:</b> Porta de entrada com maior volume bruto de vagas nos EUA. Encaixe direto para Supply Chain + Comércio Exterior + PMMG.</div>
+          <div class="it-exp"><b>Seu trunfo:</b> Porta de entrada com maior volume bruto de vagas nos EUA. Encaixe direto para Supply Chain + Comércio Exterior + segurança pública.</div>
         </div>
       </div>
       <div class="item" style="background:var(--panel2)">
@@ -940,6 +974,24 @@ function renderFontes(){
       <div class="it-desc">${f.cursos}</div></div></div>`).join("");
 }
 const CERTS=[
+  // 🛠️ VENDORS ENTERPRISE — 100% GRÁTIS COM CERTIFICADO OFICIAL & LABS
+  {n:"Qualys Certified Specialist — VMDR", org:"Qualys (NASDAQ: QLYS)", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS", pay:"$35–50/h", train:1,
+   when:"Imediato (em paralelo ao Sec+)", why:"⭐ Carro-chefe mundial de gestão de vulnerabilidades. Treinamento oficial com laboratório prático na nuvem e exame grátis. Presente em mais de 10.000 grandes corporações."},
+  {n:"Qualys Certified Specialist — Policy Audit (Compliance)", org:"Qualys", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS", pay:"$38–55/h", train:1,
+   when:"Trilha GRC / Sec+ D5", why:"⭐ Auditoria técnica automatizada de baselines (CIS Benchmarks e DISA-STIG). Prova que tu sabes auditar servidores de verdade, não só ler papel de norma."},
+  {n:"Qualys Certified Specialist — Enterprise TruRisk (ETM)", org:"Qualys", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS", pay:"alto", train:1,
+   when:"Trilha Risco / Governança", why:"⭐ Traduz vulnerabilidades técnicas em postura de risco de negócio para diretoria/C-level. Conecta com tua tese de Cyber Risk e AI Governance."},
+  {n:"Qualys Certified Specialist — CSAM & PCI Compliance", org:"Qualys", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS", pay:"—", train:0,
+   when:"Complemento prático", why:"Inventário de ativos, superfície externa (EASM) e escaneamento certificado ASV para padrão financeiro de cartões PCI-DSS."},
+  {n:"Splunk Core Certified / Splunk Fundamentals", org:"Splunk", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS (cursos)", pay:"$40–55/h", train:1,
+   when:"Base de SOC/SIEM", why:"O SIEM mais citado nas vagas remotas do mundo. Os cursos oficiais introdutórios de SPL e busca de dados são gratuitos no portal da Splunk."},
+  {n:"Microsoft Applied Skills (Sentinel & Defender & Purview)", org:"Microsoft", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS", pay:"$38–50/h", train:1,
+   when:"Junto com Cloud / SC-900", why:"Credenciais práticas baseadas em laboratório interativo real no Azure. Comprova operação de SIEM (Sentinel), Endpoint (Defender) e DLP (Purview)."},
+  {n:"API Security Certified Practitioner (OWASP API Top 10)", org:"API Security University", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS", pay:"alto", train:0,
+   when:"Especialização AppSec", why:"Cursos e certificações grátis com badge Credly focados na maior superfície de ataque moderna: APIs e microsserviços."},
+  {n:"Fortinet Certified Associate (FCA) Cybersecurity", org:"Fortinet", branch:"🛠️ VENDORS ENTERPRISE (100% Grátis & Labs Reais)", cost:"GRÁTIS", pay:"—", train:0,
+   when:"Opcional de rede/firewall", why:"Treinamento oficial gratuito da maior fabricante de firewalls do mundo. Fundamentos de arquitetura de segurança e operações de rede."},
+
  // 🧱 NÚCLEO
  {n:"Vanta Auditor Academy + Drata Certified", org:"Vanta / Drata", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"—", train:1,
   when:"pré-mestrado (finais de semana)", why:"⭐ Automação de GRC na prática: como 90% das startups dos EUA auditam SOC 2 e ISO 27001. Cursos e certificados 100% gratuitos. Prova de ferramenta viva."},
