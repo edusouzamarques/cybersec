@@ -282,7 +282,16 @@ function renderJobsLive(){
       else link = `<a href="https://www.google.com/search?q=${encodeURIComponent(j.role+' '+j.company+' '+j.loc+' job')}" target="_blank">${j.role}</a>`;
       const rawIdx = (window.JOBS_LIVE || []).indexOf(j);
       return `<tr title="${(j.note||'').replace(/"/g,'')}">
-        <td style="padding:6px;border-bottom:1px solid var(--line)">${link}${spo}</td>
+        <td style="padding:6px;border-bottom:1px solid var(--line)">
+          ${link}${spo}
+          <div style="margin-top:3px;font-size:11px">
+            <span style="color:var(--acc)" title="Proximidade do teu destino final">🎯 Destino: <b>${j.dest||4}/5</b></span> · 
+            <span style="color:#60a5fa" title="Adaptabilidade à jornada de estudo">📚 Estudo: <b>${j.study||4}/5</b></span>
+          </div>
+          <div style="font-size:11px;color:#9ca3af;margin-top:2px;line-height:1.3" title="Tarefas diárias que o cargo performa">
+            🛠️ <i>${j.tasks || 'Atendimento e suporte técnico especializado.'}</i>
+          </div>
+        </td>
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.company}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.loc}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.pay||'—'}</td>
@@ -1226,7 +1235,16 @@ function openApplyCopilot(idx) {
 
   document.getElementById("cpJobMeta").innerHTML = `
     <div>📍 <b>Local:</b> ${j.loc} · 💼 <b>Nível:</b> ${j.level.toUpperCase()} · 💵 <b>Faixa:</b> ${j.pay || 'A combinar'}</div>
-    <div>${j.sponsor ? '<span class="pill free">Patrocina Visto</span>' : '<span class="pill">Remoto Global</span>'} <span class="pill">${j.source || 'Greenhouse'}</span></div>
+    <div style="margin:4px 0">${j.sponsor ? '<span class="pill free">Patrocina Visto</span>' : '<span class="pill">Remoto Global</span>'} <span class="pill">${j.source || 'Greenhouse'}</span></div>
+    <div style="margin-top:8px;background:#0d1f16;padding:10px;border-radius:8px;border:1px solid #1e4a32">
+      <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;font-weight:700">
+        <span style="color:var(--acc)">🎯 Proximidade do Destino: ${'⭐'.repeat(j.dest || 4)} (${j.dest || 4}/5)</span>
+        <span style="color:#60a5fa">📚 Adaptação ao Estudo: ${'⭐'.repeat(j.study || 4)} (${j.study || 4}/5)</span>
+      </div>
+      <div style="margin-top:6px;font-size:12px;color:#d1d5db;line-height:1.4">
+        <b>🛠️ O que faz no dia a dia:</b> ${j.tasks || 'Atendimento técnico e operações especializadas.'}
+      </div>
+    </div>
   `;
 
   // Gera dados personalizados para a vaga
