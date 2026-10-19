@@ -9,7 +9,10 @@
     "source": "Greenhouse",
     "geo": "worldwide",
     "url": "https://job-boards.greenhouse.io/canonical/jobs/6448444",
-    "req": ["linux", "secplus"],
+    "req": [
+      "linux",
+      "secplus"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -28,7 +31,10 @@
     "source": "Greenhouse",
     "geo": "worldwide",
     "url": "https://job-boards.greenhouse.io/canonical/jobs/8249005",
-    "req": ["secplus", "linux"],
+    "req": [
+      "secplus",
+      "linux"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -47,7 +53,10 @@
     "source": "Greenhouse",
     "geo": "worldwide",
     "url": "https://job-boards.greenhouse.io/canonical/jobs/5643282",
-    "req": ["linux", "secplus"],
+    "req": [
+      "linux",
+      "secplus"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -66,7 +75,9 @@
     "source": "Greenhouse",
     "geo": "worldwide",
     "url": "https://job-boards.greenhouse.io/canonical/jobs/5370815",
-    "req": ["linux"],
+    "req": [
+      "linux"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -85,7 +96,10 @@
     "source": "Greenhouse",
     "geo": "worldwide",
     "url": "https://job-boards.greenhouse.io/canonical/jobs/8172937",
-    "req": ["pcep", "secplus"],
+    "req": [
+      "pcep",
+      "secplus"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -104,7 +118,9 @@
     "source": "Greenhouse",
     "geo": "worldwide",
     "url": "https://job-boards.greenhouse.io/canonical/jobs/8008666",
-    "req": ["secplus"],
+    "req": [
+      "secplus"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -123,7 +139,10 @@
     "source": "Ashby",
     "geo": "worldwide",
     "url": "https://jobs.ashbyhq.com/supabase/e4e3ccb7-7b7d-42a2-be0f-26cbb5ae4abd",
-    "req": ["secplus", "linux"],
+    "req": [
+      "secplus",
+      "linux"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -142,7 +161,10 @@
     "source": "Ashby",
     "geo": "worldwide",
     "url": "https://jobs.ashbyhq.com/supabase/f18b1173-51c3-4ff6-bcda-89f8111931f4",
-    "req": ["secplus", "linux"],
+    "req": [
+      "secplus",
+      "linux"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -150,25 +172,6 @@
     "study": 4,
     "tasks": "Atender chamados de desenvolvedores com erros no banco de dados Postgres, analisar consultas lentas, verificar permissões e diagnosticar problemas de conexão.",
     "note": "⭐ SUPORTE TÉCNICO BANCO DE DADOS: Postgres e Linux, remoto nas Américas (inclui Brasil)."
-  },
-  {
-    "id": "turing-compliance",
-    "role": "Compliance Analyst",
-    "company": "Turing",
-    "loc": "Remoto (Brazil)",
-    "pay": "~US$40-70k (local)",
-    "level": "entry",
-    "source": "Greenhouse",
-    "geo": "worldwide",
-    "url": "https://job-boards.greenhouse.io/turing/jobs/6228299004",
-    "req": ["secplus"],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 4,
-    "study": 5,
-    "tasks": "Investigar suspeitas de fraude e adulteração em contas, cruzar registros de acessos e identidades, coletar evidências e emitir laudos conclusivos de conformidade.",
-    "note": "⭐ CONTRATAÇÃO DIRETA NO BRASIL: análise de conformidade, integridade e fraudes em empresa dos EUA, 100% remoto no Brasil."
   },
   {
     "id": "can-grad-csm",
@@ -180,7 +183,9 @@
     "source": "Greenhouse",
     "geo": "worldwide",
     "url": "https://job-boards.greenhouse.io/canonical/jobs/6103331",
-    "req": ["secplus"],
+    "req": [
+      "secplus"
+    ],
     "clearance": false,
     "sponsor": false,
     "student": false,
@@ -226,5 +231,366 @@
     "study": 5,
     "tasks": "Revisar amostras de dados e qualidade de buscas em português, preencher formulários de auditoria de dados e validar aderência às diretrizes da empresa.",
     "note": "Vaga júnior em português para empresa estrangeira: controle de qualidade de dados. Entrada imediata com contrato internacional."
+  },
+  {
+    "id": "crowdstrike-soc-analyst",
+    "role": "Security Operations Center Analyst (LATAM)",
+    "company": "CrowdStrike",
+    "loc": "Remoto (Brasil / LATAM)",
+    "pay": "~US$55-75k (local)",
+    "level": "entry",
+    "source": "Workday",
+    "geo": "worldwide",
+    "url": "https://careers.crowdstrike.com/",
+    "req": [
+      "secplus",
+      "linux"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Monitorar alertas em tempo real no console CrowdStrike Falcon, analisar telemetria de endpoints, triar possíveis intrusões e acionar protocolos de contenção.",
+    "note": "⭐ SOC NÍVEL 1: Operação e contratação remota LATAM no Brasil. Escala de monitoramento com treinamento na plataforma líder de EDR."
+  },
+  {
+    "id": "trendmicro-threat-analyst",
+    "role": "Threat & Technical Support Analyst",
+    "company": "Trend Micro",
+    "loc": "Remoto (Brasil)",
+    "pay": "~US$45-65k",
+    "level": "júnior",
+    "source": "Careers",
+    "geo": "worldwide",
+    "url": "https://www.trendmicro.com/en_us/about/careers.html",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Atender incidentes e chamados técnicos de clientes corporativos, coletar amostras de arquivos infectados e validar regras de proteção.",
+    "note": "⭐ SUPORTE DE AMEAÇAS: Escritório e operação remota no Brasil. Suporte a antivírus corporativo e detecção de malware."
+  },
+  {
+    "id": "arcticwolf-soc-triage",
+    "role": "Cybersecurity Engineer I (SOC Triage)",
+    "company": "Arctic Wolf",
+    "loc": "Remoto Global (Deel / B2B)",
+    "pay": "~US$50-70k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://arcticwolf.com/careers/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Triar alertas de segurança vindos de clientes médios, validar falsos positivos, isolar computadores comprometidos e repassar orientações de mitigação.",
+    "note": "⭐ MDR TIER 1: Programa nível I para profissionais com certificação inicial e inglês fluente. Contratação remota internacional."
+  },
+  {
+    "id": "redhat-assoc-support",
+    "role": "Associate Technical Support Engineer (RHEL)",
+    "company": "Red Hat",
+    "loc": "Remoto (Brasil / LATAM)",
+    "pay": "~US$50-70k",
+    "level": "entry",
+    "source": "Workday",
+    "geo": "worldwide",
+    "url": "https://www.redhat.com/en/jobs",
+    "req": [
+      "linux",
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Acessar servidores de clientes via terminal SSH, diagnosticar erros de inicialização, analisar logs do kernel e orientar correções no Red Hat Enterprise Linux.",
+    "note": "⭐ RED HAT ASSOCIATE: Nível formal de entrada (0 a 2 anos) com mentoria técnica contínua. Contratação remota no Brasil."
+  },
+  {
+    "id": "docker-support-eng-1",
+    "role": "Support Engineer I (Containers & Cloud)",
+    "company": "Docker",
+    "loc": "Remoto Global / LATAM",
+    "pay": "~US$55-75k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://www.docker.com/careers/",
+    "req": [
+      "linux"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 5,
+    "tasks": "Ajudar desenvolvedores do mundo todo a resolver problemas de execução de contêineres, erros de permissão de volumes e configuração de redes virtuais.",
+    "note": "⭐ DOCKER ENTRY: Suporte técnico de nível 1 em empresa 100% remota com pagamento em moeda forte via Deel."
+  },
+  {
+    "id": "grafana-assoc-support",
+    "role": "Associate Support Engineer (Observability)",
+    "company": "Grafana Labs",
+    "loc": "Home based - Worldwide",
+    "pay": "~US$55-75k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://grafana.com/about/careers/",
+    "req": [
+      "linux"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 5,
+    "tasks": "Investigar por que painéis de métricas e alertas de servidores não estão coletando dados, testar consultas de logs e orientar clientes corporativos.",
+    "note": "⭐ 100% DISTRIBUÍDA: Grafana contrata globalmente no Brasil via Deel. Foco em logs e métricas de infraestrutura."
+  },
+  {
+    "id": "suse-jr-support",
+    "role": "Junior Technical Support Engineer (Linux)",
+    "company": "SUSE",
+    "loc": "Remoto (Americas / Global)",
+    "pay": "~US$50-65k",
+    "level": "júnior",
+    "source": "SmartRecruiters",
+    "geo": "worldwide",
+    "url": "https://www.suse.com/company/careers/",
+    "req": [
+      "linux"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Atender clientes corporativos com problemas em servidores SUSE Linux Enterprise, analisar dumps de memória e aplicar pacotes de correção.",
+    "note": "⭐ SUSE JÚNIOR: Multinacional de software livre com suporte técnico remoto e pagamento em moeda forte."
+  },
+  {
+    "id": "scaleai-trust-safety-entry",
+    "role": "Trust & Safety Analyst (Entry Level)",
+    "company": "Scale AI",
+    "loc": "Home based - Worldwide",
+    "pay": "~US$45-65k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://boards.greenhouse.io/scaleai",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Analisar tentativas de abuso e injeção de prompt em modelos de inteligência artificial, redigir laudos técnicos de violação e calibrar filtros de segurança.",
+    "note": "⭐ INVESTIGAÇÃO EM IA: Valoriza perfis com background em segurança pública/investigação. Pagamento em USD via Deel."
+  },
+  {
+    "id": "sumsub-fraud-analyst",
+    "role": "Fraud & Abuse Analyst (Junior)",
+    "company": "Sumsub",
+    "loc": "Home based - Worldwide",
+    "pay": "~US$45-60k / GBP",
+    "level": "entry",
+    "source": "Lever",
+    "geo": "worldwide",
+    "url": "https://jobs.lever.co/sumsub",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Investigar alertas de documentos falsificados, uso de inteligência artificial (deepfakes) em validação de identidade e contas de laranjas.",
+    "note": "⭐ FRAUDE & PERÍCIA: Encaixe perfeito com tua experiência de 13 anos em inquéritos e coleta de evidências. Contrato em moeda forte."
+  },
+  {
+    "id": "persona-ts-specialist",
+    "role": "Trust & Safety Specialist (Entry)",
+    "company": "Persona",
+    "loc": "Home based - Worldwide",
+    "pay": "~US$50-65k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://boards.greenhouse.io/persona",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Revisar fluxos de verificação de identidade marcados como alto risco, cruzar dados públicos e tomar decisão sobre bloqueio preventivo de fraudadores.",
+    "note": "⭐ IDENTIDADE DIGITAL: Plataforma global de prevenção a fraudes de identidade, contratação remota e remuneração em USD."
+  },
+  {
+    "id": "digitalocean-cloud-support",
+    "role": "Junior Cloud Platform Support Engineer",
+    "company": "DigitalOcean",
+    "loc": "Remoto (LATAM / Brasil)",
+    "pay": "~US$50-70k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://www.digitalocean.com/careers/",
+    "req": [
+      "linux",
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Atender chamados de clientes com servidores virtuais (Droplets) inacessíveis, verificar regras de firewall de nuvem e diagnosticar falhas de DNS.",
+    "note": "⭐ NUVEM SIMPLES: DigitalOcean contrata na América Latina via Deel com pagamento em dólar. Excelente ambiente para praticar redes e Linux."
+  },
+  {
+    "id": "planetscale-cloud-support",
+    "role": "Junior Cloud Platform Support Engineer",
+    "company": "PlanetScale",
+    "loc": "Remoto (LATAM / Americas)",
+    "pay": "~US$55-75k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://planetscale.com/careers/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Monitorar clusters de banco de dados em nuvem, analisar lentidão de conexões e orientar desenvolvedores sobre configurações seguras.",
+    "note": "⭐ BANCO DE DADOS EM NUVEM: Vaga remota nas Américas pagando em dólar com contrato internacional."
+  },
+  {
+    "id": "cockroach-cloud-support",
+    "role": "Junior Cloud Support Engineer",
+    "company": "Cockroach Labs",
+    "loc": "Remoto (Americas)",
+    "pay": "~US$55-70k",
+    "level": "júnior",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://www.cockroachlabs.com/careers/",
+    "req": [
+      "linux",
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Diagnosticar falhas de comunicação entre nós de banco de dados distribuído, inspecionar logs de erro e orientar procedimentos de recuperação.",
+    "note": "⭐ SISTEMAS DISTRIBUÍDOS: Empresa líder em banco de dados distribuído, equipe global remota e pagamento em USD."
+  },
+  {
+    "id": "coalfire-jr-grc",
+    "role": "GRC Analyst (Junior)",
+    "company": "Coalfire",
+    "loc": "Remoto Global (Deel)",
+    "pay": "~US$45-55k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://www.coalfire.com/careers",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Auxiliar na coleta de evidências para auditorias de segurança cibernética, conferir se os controles de acesso estão ativos e redigir relatórios técnicos.",
+    "note": "⭐ AUDITORIA & GRC: Consultoria referência global em auditoria técnica. Conexão direta com teu rigor de investigação e conformidade."
+  },
+  {
+    "id": "align-jr-compliance",
+    "role": "Security Compliance Analyst (Junior)",
+    "company": "A-LIGN",
+    "loc": "Remoto Global",
+    "pay": "~US$40-50k",
+    "level": "entry",
+    "source": "Lever",
+    "geo": "worldwide",
+    "url": "https://www.a-lign.com/careers",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Conferir relatórios de auditoria SOC 2 e ISO 27001, entrevistar gestores sobre processos de senhas e backups, e apontar inconformidades documentais.",
+    "note": "⭐ CONFORMIDADE TÉCNICA: Porta de entrada para auditoria internacional com treinamento interno e trabalho 100% remoto."
+  },
+  {
+    "id": "drata-jr-compliance-ops",
+    "role": "Security Operations & Compliance Analyst (Junior)",
+    "company": "Drata",
+    "loc": "Remoto Global (Deel)",
+    "pay": "~US$50-60k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://drata.com/careers",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Analisar as integrações dos clientes com a plataforma de conformidade, verificar se os testes de segurança estão passando e tirar dúvidas técnicas.",
+    "note": "⭐ AUTOMAÇÃO DE GRC: A startup que mais cresce no mundo em auditoria contínua, contrata remotamente via Deel com salário em USD."
+  },
+  {
+    "id": "vanta-jr-compliance",
+    "role": "Compliance Analyst (Junior)",
+    "company": "Vanta",
+    "loc": "Remoto Global (Deel)",
+    "pay": "~US$45-55k",
+    "level": "entry",
+    "source": "Greenhouse",
+    "geo": "worldwide",
+    "url": "https://vanta.com/careers",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Configurar perfis de risco de empresas clientes, validar conformidade com normas como SOC 2 e ISO 27001 e produzir relatórios executivos.",
+    "note": "⭐ LÍDER DE MERCADO GRC: Plataforma líder em conformidade de segurança para startups americanas, pagamento em dólar."
   }
 ]
