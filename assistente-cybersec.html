@@ -213,7 +213,10 @@
   </section>
 </div>
 
-<script src="_jobscan/vagas_data.js"></script>
+<script>
+  // Carrega sempre a versão mais recente gerada no Dell, sem cache preso no navegador
+  document.write('<script src="_jobscan/vagas_data.js?v=' + Date.now() + '"><\\/script>');
+</script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
 let done = JSON.parse(localStorage.getItem(KEY) || "{}");
