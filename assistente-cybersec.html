@@ -69,6 +69,12 @@
   .copilot-qa-a{color:#c9d6e2;white-space:pre-wrap;font-size:13px}
   .copilot-footer{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:var(--panel2);flex-wrap:wrap;gap:10px}
   .reset{float:right;font-size:11px;color:var(--dim);cursor:pointer;border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+  .qcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0;transition:border-color .2s,box-shadow .2s}
+  .qcard:hover{border-color:var(--acc2)}
+  .qcard.mastered{border-color:#1e4a32;background:linear-gradient(180deg,#12241b,#0e1a14);box-shadow:0 0 12px rgba(61,220,151,0.08)}
+  .q-pill{padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel2);color:var(--dim);cursor:pointer;font-size:12.5px;transition:.15s;user-select:none}
+  .q-pill:hover{border-color:var(--acc);color:var(--ink)}
+  .q-pill.on{color:#04150d;background:var(--acc);border-color:var(--acc);font-weight:700}
 </style>
 </head>
 <body>
@@ -99,6 +105,7 @@
     <div class="tab" data-t="ms">🎓 MS CU Boulder</div>
     <div class="tab" data-t="certs">🎖️ Certificados</div>
     <div class="tab" data-t="vagas">💼 Vagas US (mercado real)</div>
+    <div class="tab" data-t="entrevistas">🎤 Simulador de Entrevistas (30)</div>
     <div class="tab" data-t="autoscan">🤖 Busca automática</div>
     <div class="tab" data-t="fontes">📚 Onde estudar grátis</div>
     <div class="tab sync-badge" id="syncStatusTab" onclick="openSyncModal()" style="margin-left:auto;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);padding:6px 12px;border-radius:20px" title="Sincronização em Nuvem Multi-Dispositivo (Clique para gerenciar)">
@@ -211,9 +218,50 @@
       <p class="note">Regra: <b>não invista no degrau de baixo</b> (o que a IA automatiza). Use a base só como alicerce e suba rápido pro topo, onde o teu portfólio de <i>agent-gates / deputy</i> já te posiciona.</p>
     </div>
   </section>
+
+  <section id="entrevistas" class="hide">
+    <div class="card next">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
+        <div>
+          <h3 style="margin:0 0 6px">🎤 Simulador & Treino Prático para Entrevistas de Emprego</h3>
+          <p class="note" style="margin:0;line-height:1.5">
+            Baseado nas simulações e roteiros reais dos maiores canais do YouTube: <b>CareerVidz (Richard McMunn)</b>, <b>Simply Cyber (Gerald Auger)</b>, <b>Day Cyberwox</b>, <b>Josh Madakor</b> e <b>NetworkChuck</b>. Treine falando em voz alta com a fórmula ideal, oculte a resposta para testar tua memória e copia o modelo em inglês quando precisar.
+          </p>
+        </div>
+      </div>
+      <div class="kpi" style="margin-top:14px">
+        <div><b id="entTotalQ">30</b> perguntas no banco</div>
+        <div><b id="entMasteredQ" style="color:var(--acc)">0</b> dominadas</div>
+        <div><b id="entPctQ" style="color:var(--acc)">0%</b> de fixação</div>
+        <div><b id="entActiveFilter">Todas</b> categoria ativa</div>
+      </div>
+    </div>
+
+    <!-- Barra de busca e filtros -->
+    <div class="card" style="padding:14px 18px">
+      <input class="search" id="entSearch" placeholder="🔎 Buscar por pergunta, termo ou tecnologia... (ex: DNS, STAR, fraqueza, systemctl, incidente, IP, RAM, ping)" style="margin-top:0">
+      
+      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px" id="entCatPills">
+        <!-- Pílulas de filtro geradas via JavaScript -->
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">
+        <div style="font-size:12.5px;color:var(--dim)" id="entCountInfo">Exibindo 30 perguntas</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="reset" onclick="revealAllEntrevistas(true)" style="padding:5px 12px;cursor:pointer">👁️ Revelar Todas</button>
+          <button class="reset" onclick="revealAllEntrevistas(false)" style="padding:5px 12px;cursor:pointer">🙈 Ocultar Todas</button>
+          <button class="reset" onclick="resetEntrevistaFilters()" style="padding:5px 12px;cursor:pointer">↺ Limpar Busca</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de Cards -->
+    <div id="entrevistasList"></div>
+  </section>
 </div>
 
 <script src="_jobscan/vagas_data.js?v=20261019_1840"></script>
+<script src="_jobscan/entrevistas_data.js?v=20261019_2100"></script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
 let done = JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -817,6 +865,7 @@ function cloudPush() {
 
       remotePayload.tracker = Object.assign(remotePayload.tracker || {}, done);
       remotePayload.creds = Object.assign(remotePayload.creds || {}, creds);
+      remotePayload.entrevistas_mastered = Object.assign(remotePayload.entrevistas_mastered || {}, (typeof entrevistasMastered !== "undefined" ? entrevistasMastered : {}));
       remotePayload.last_updated_tracker = Date.now();
 
       const res = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
@@ -879,15 +928,24 @@ async function initCloudSync(force) {
         if (v && !creds[k]) { creds[k] = true; changed = true; }
       }
     }
+    if (remoteData.entrevistas_mastered && typeof remoteData.entrevistas_mastered === 'object' && typeof entrevistasMastered !== 'undefined') {
+      for (const [k, v] of Object.entries(remoteData.entrevistas_mastered)) {
+        if (v && !entrevistasMastered[k]) { entrevistasMastered[k] = true; changed = true; }
+      }
+    }
 
     save();
     localStorage.setItem(CREDS_KEY, JSON.stringify(creds));
+    if (typeof entrevistasMastered !== 'undefined') {
+      localStorage.setItem(ENTREVISTAS_KEY, JSON.stringify(entrevistasMastered));
+    }
     localStorage.setItem('cybersec_assistente_last_sync', Date.now());
     setSyncStatus('synced', '☁️ Nuvem Ativa');
 
     if (changed || force) {
       try { renderAll(); } catch(e){}
       try { renderCreds(); renderJobsLive(); } catch(e){}
+      try { renderEntrevistas(); } catch(e){}
     }
   } else {
     setSyncStatus(token ? 'synced' : 'idle', token ? '☁️ Nuvem Ativa' : '☁️ Local');
@@ -909,7 +967,8 @@ function openSyncModal() {
   if (summary) {
     const items = allItems();
     const dn = items.filter(isDone).length;
-    summary.innerHTML = `📊 Trilha: <b>${dn}/${items.length} itens concluídos</b> · <b>${Object.keys(creds).filter(k=>creds[k]).length} certificados marcados</b>`;
+    const entCount = (typeof entrevistasMastered !== 'undefined') ? Object.keys(entrevistasMastered).filter(k=>entrevistasMastered[k]).length : 0;
+    summary.innerHTML = `📊 Trilha: <b>${dn}/${items.length} itens</b> · <b>${Object.keys(creds).filter(k=>creds[k]).length} certs</b> · 🎤 <b>${entCount}/30 perguntas dominadas</b>`;
   }
 }
 
@@ -1199,13 +1258,289 @@ function renderScan(){
     `<div class="item"><div class="it-body"><div class="it-title">${s[0]} <span class="note">— ${s[1]}</span></div>
      <div class="it-desc">${s[2]}</div></div></div>`).join("");
 }
-function renderAll(){ renderPainel(); renderTrilha(); renderCareers(); renderFunnel(); renderMS(); renderTripod(); renderCerts(); renderSkills(); renderCreds(); renderJobsLive(); renderVagas(); renderScan(); renderFontes(); renderGloss(document.getElementById("gsearch").value); }
+/* ---------- SIMULADOR & TREINO DE ENTREVISTAS ---------- */
+const ENTREVISTAS_KEY = "cybersec_entrevistas_mastered_v1";
+let entrevistasMastered = JSON.parse(localStorage.getItem(ENTREVISTAS_KEY) || "{}");
+let activeEntrevistaCat = "all";
+let activeEntrevistaSearch = "";
+let revealedEntrevistas = {};
+
+const CAT_LABELS = {
+  all: "🌟 Todas",
+  behavioral: "🗣️ Comportamental & RH",
+  networking: "🌐 Redes & Protocolos",
+  linux: "🐧 Linux & Suporte",
+  soc: "🛡️ Cibersegurança & SOC",
+  reverse: "💼 Perguntas para o Entrevistador"
+};
+
+function getEntrevistasList() {
+  return window.ENTREVISTAS_DATA || [];
+}
+
+function toggleEntrevistaMastered(id) {
+  entrevistasMastered[id] = !entrevistasMastered[id];
+  localStorage.setItem(ENTREVISTAS_KEY, JSON.stringify(entrevistasMastered));
+  renderEntrevistasKPI();
+  const card = document.getElementById("qcard-" + id);
+  const cb = document.getElementById("qcb-" + id);
+  const lbl = document.getElementById("qlbl-" + id);
+  if (card && cb) {
+    if (entrevistasMastered[id]) {
+      card.classList.add("mastered");
+      cb.checked = true;
+      if (lbl) { lbl.textContent = "✅ Dominada"; lbl.style.color = "var(--acc)"; lbl.style.fontWeight = "700"; }
+    } else {
+      card.classList.remove("mastered");
+      cb.checked = false;
+      if (lbl) { lbl.textContent = "Marcar como Dominada"; lbl.style.color = ""; lbl.style.fontWeight = ""; }
+    }
+  }
+  if (typeof cloudPush === "function") cloudPush();
+}
+
+function toggleEntrevistaReveal(id) {
+  revealedEntrevistas[id] = !revealedEntrevistas[id];
+  const box = document.getElementById("qans-" + id);
+  const btn = document.getElementById("qbtn-" + id);
+  if (box && btn) {
+    if (revealedEntrevistas[id]) {
+      box.classList.remove("hide");
+      btn.innerHTML = "🙈 Ocultar Resposta";
+      btn.style.borderColor = "var(--dim)";
+      btn.style.color = "var(--dim)";
+      btn.style.background = "transparent";
+    } else {
+      box.classList.add("hide");
+      btn.innerHTML = "👁️ Revelar Resposta Ideal (Inglês + Português)";
+      btn.style.borderColor = "var(--acc)";
+      btn.style.color = "var(--acc)";
+      btn.style.background = "rgba(61,220,151,0.06)";
+    }
+  }
+}
+
+function revealAllEntrevistas(reveal) {
+  const list = getEntrevistasList();
+  list.forEach(q => {
+    revealedEntrevistas[q.id] = reveal;
+  });
+  renderEntrevistasList();
+}
+
+function copyEntrevistaAnswer(id) {
+  const list = getEntrevistasList();
+  const q = list.find(item => item.id === id);
+  if (!q) return;
+  navigator.clipboard.writeText(q.answer_en).then(() => {
+    const btn = document.getElementById("qcopy-" + id);
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = "✅ Copiado!";
+      btn.style.background = "#1e3a2c";
+      btn.style.color = "var(--acc)";
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.style.background = "";
+        btn.style.color = "";
+      }, 2000);
+    }
+  }).catch(err => {
+    console.warn("Clipboard copy failed:", err);
+  });
+}
+
+function setEntrevistaCat(cat) {
+  activeEntrevistaCat = cat;
+  renderEntrevistasCatPills();
+  renderEntrevistasList();
+  renderEntrevistasKPI();
+}
+
+function resetEntrevistaFilters() {
+  activeEntrevistaCat = "all";
+  activeEntrevistaSearch = "";
+  const inp = document.getElementById("entSearch");
+  if (inp) inp.value = "";
+  renderEntrevistasCatPills();
+  renderEntrevistasList();
+  renderEntrevistasKPI();
+}
+
+function renderEntrevistasKPI() {
+  const list = getEntrevistasList();
+  const total = list.length;
+  const mastered = list.filter(q => entrevistasMastered[q.id]).length;
+  const pct = total ? Math.round((mastered / total) * 100) : 0;
+
+  const totalEl = document.getElementById("entTotalQ");
+  const masteredEl = document.getElementById("entMasteredQ");
+  const pctEl = document.getElementById("entPctQ");
+  const actEl = document.getElementById("entActiveFilter");
+
+  if (totalEl) totalEl.textContent = total;
+  if (masteredEl) masteredEl.textContent = mastered;
+  if (pctEl) pctEl.textContent = pct + "%";
+  if (actEl) actEl.textContent = CAT_LABELS[activeEntrevistaCat] || "Todas";
+}
+
+function renderEntrevistasCatPills() {
+  const pillsBox = document.getElementById("entCatPills");
+  if (!pillsBox) return;
+  const list = getEntrevistasList();
+
+  const categories = [
+    { key: "all", label: "🌟 Todas" },
+    { key: "behavioral", label: "🗣️ Comportamental & RH" },
+    { key: "networking", label: "🌐 Redes & Protocolos" },
+    { key: "linux", label: "🐧 Linux & Suporte" },
+    { key: "soc", label: "🛡️ Cibersegurança & SOC" },
+    { key: "reverse", label: "💼 Perguntas para o Entrevistador" }
+  ];
+
+  pillsBox.innerHTML = categories.map(c => {
+    const count = c.key === "all" ? list.length : list.filter(q => q.cat === c.key).length;
+    const isAct = activeEntrevistaCat === c.key;
+    return `<span class="q-pill ${isAct ? 'on' : ''}" onclick="setEntrevistaCat('${c.key}')">${c.label} (${count})</span>`;
+  }).join("");
+}
+
+function renderEntrevistasList() {
+  const listBox = document.getElementById("entrevistasList");
+  const countInfo = document.getElementById("entCountInfo");
+  if (!listBox) return;
+
+  const list = getEntrevistasList();
+  const qFilter = activeEntrevistaSearch.trim().toLowerCase();
+
+  const filtered = list.filter(q => {
+    const matchCat = activeEntrevistaCat === "all" || q.cat === activeEntrevistaCat;
+    if (!matchCat) return false;
+    if (!qFilter) return true;
+    return (
+      (q.title_en || "").toLowerCase().includes(qFilter) ||
+      (q.title_pt || "").toLowerCase().includes(qFilter) ||
+      (q.intent || "").toLowerCase().includes(qFilter) ||
+      (q.formula || "").toLowerCase().includes(qFilter) ||
+      (q.answer_en || "").toLowerCase().includes(qFilter) ||
+      (q.guide_pt || "").toLowerCase().includes(qFilter) ||
+      (q.source || "").toLowerCase().includes(qFilter)
+    );
+  });
+
+  if (countInfo) {
+    countInfo.innerHTML = `Exibindo <b>${filtered.length}</b> de <b>${list.length}</b> perguntas${activeEntrevistaCat !== 'all' ? ` · Categoria: <b>${CAT_LABELS[activeEntrevistaCat]}</b>` : ''}${qFilter ? ` · Busca: "<i>${qFilter}</i>"` : ''}`;
+  }
+
+  if (filtered.length === 0) {
+    listBox.innerHTML = `
+      <div class="card" style="text-align:center;padding:32px 20px">
+        <b style="font-size:16px;color:var(--dim)">Nenhuma pergunta encontrada com o termo "${activeEntrevistaSearch}"</b>
+        <p class="note" style="margin-top:6px">Tente buscar por termos como "DNS", "STAR", "fraqueza", "systemctl", "incidente", "IP" ou redefina os filtros.</p>
+        <button class="btn ghost" onclick="resetEntrevistaFilters()" style="margin-top:12px;padding:6px 14px">↺ Limpar Filtros e Busca</button>
+      </div>`;
+    return;
+  }
+
+  listBox.innerHTML = filtered.map((q, idx) => {
+    const isMastered = !!entrevistasMastered[q.id];
+    const isRevealed = !!revealedEntrevistas[q.id];
+    return `
+      <div class="card qcard ${isMastered ? 'mastered' : ''}" id="qcard-${q.id}">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+            <span class="pill" style="border-color:var(--purple);color:var(--purple);font-weight:600">${q.catName}</span>
+            <span class="pill">${q.difficulty}</span>
+            <span class="pill free">📺 ${q.source}</span>
+          </div>
+          <label style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;cursor:pointer;color:var(--dim)">
+            <input type="checkbox" id="qcb-${q.id}" ${isMastered ? 'checked' : ''} onchange="toggleEntrevistaMastered('${q.id}')" style="accent-color:var(--acc);width:16px;height:16px">
+            <span id="qlbl-${q.id}" style="${isMastered ? 'color:var(--acc);font-weight:700' : ''}">${isMastered ? '✅ Dominada' : 'Marcar como Dominada'}</span>
+          </label>
+        </div>
+
+        <div style="margin:6px 0 12px">
+          <div style="font-size:16px;font-weight:700;color:var(--acc);line-height:1.4">Q${idx + 1}: ${q.title_en}</div>
+          <div style="font-size:13.5px;color:var(--dim);margin-top:4px">🇧🇷 <i>${q.title_pt}</i></div>
+        </div>
+
+        <div style="background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px;line-height:1.5">
+          <div style="margin-bottom:8px">
+            <b style="color:#60a5fa">🎯 O que o entrevistador REALMENTE avalia:</b>
+            <div style="color:#d1d5db;margin-top:2px">${q.intent}</div>
+          </div>
+          <div style="margin-bottom:8px">
+            <b style="color:var(--red)">⚠️ Armadilha comum (NUNCA fale isto):</b>
+            <div style="color:#fca5a5;margin-top:2px">${q.trap}</div>
+          </div>
+          <div>
+            <b style="color:var(--gold)">💡 Fórmula / Estrutura da Resposta:</b>
+            <div style="color:#fef08a;margin-top:2px">${q.formula}</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <button class="reset" id="qbtn-${q.id}" onclick="toggleEntrevistaReveal('${q.id}')" style="float:none;width:100%;padding:10px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;border-color:${isRevealed ? 'var(--line)' : 'var(--acc)'};color:${isRevealed ? 'var(--dim)' : 'var(--acc)'};background:${isRevealed ? 'transparent' : 'rgba(61,220,151,0.06)'}">
+            ${isRevealed ? '🙈 Ocultar Resposta Ideal' : '👁️ Revelar Resposta Ideal (Inglês + Português)'}
+          </button>
+        </div>
+
+        <div id="qans-${q.id}" class="${isRevealed ? '' : 'hide'}" style="margin-top:14px">
+          <div style="background:#0d141d;border:1px solid #1e3042;border-radius:8px;padding:14px;margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+              <b style="color:var(--acc);font-size:13px">💬 Resposta Modelo em Inglês (Pronúncia & Fala Fluente):</b>
+              <button class="reset" id="qcopy-${q.id}" onclick="copyEntrevistaAnswer('${q.id}')" style="float:none;padding:4px 10px;font-size:12px;cursor:pointer">📋 Copiar Resposta em Inglês</button>
+            </div>
+            <div style="color:#e6edf3;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.65;white-space:pre-wrap;user-select:all">${q.answer_en}</div>
+          </div>
+
+          <div style="background:#131c17;border:1px solid #1e4231;border-radius:8px;padding:14px">
+            <b style="color:var(--acc);font-size:13px;display:block;margin-bottom:6px">🇧🇷 Guia de Raciocínio & Roteiro em Português:</b>
+            <div style="color:#d1fae5;font-size:13px;line-height:1.6;white-space:pre-wrap">${q.guide_pt}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderEntrevistas() {
+  renderEntrevistasCatPills();
+  renderEntrevistasList();
+  renderEntrevistasKPI();
+  const searchInput = document.getElementById("entSearch");
+  if (searchInput && !searchInput.dataset.bound) {
+    searchInput.dataset.bound = "true";
+    searchInput.addEventListener("input", e => {
+      activeEntrevistaSearch = e.target.value;
+      renderEntrevistasList();
+    });
+  }
+}
+
+function renderAll(){
+  renderPainel();
+  renderTrilha();
+  renderCareers();
+  renderFunnel();
+  renderMS();
+  renderTripod();
+  renderCerts();
+  renderSkills();
+  renderCreds();
+  renderJobsLive();
+  renderVagas();
+  renderScan();
+  renderFontes();
+  renderGloss(document.getElementById("gsearch").value);
+  renderEntrevistas();
+}
 
 document.querySelectorAll(".tab").forEach(t=>{
   t.onclick=()=>{
     document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
     t.classList.add("on");
-    ["painel","trilha","glossario","carreiras","funil","ms","certs","vagas","autoscan","fontes"].forEach(s=>
+    ["painel","trilha","glossario","carreiras","funil","ms","certs","vagas","entrevistas","autoscan","fontes"].forEach(s=>
       document.getElementById(s).classList.toggle("hide", s!==t.dataset.t));
   };
 });
