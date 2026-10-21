@@ -109,6 +109,7 @@
     <div class="tab" data-t="entrevistas">🎤 Simulador de Entrevistas (30)</div>
     <div class="tab" data-t="autoscan">🤖 Busca automática</div>
     <div class="tab" data-t="fontes">📚 Onde estudar grátis</div>
+    <a href="treino-cybersec.html" class="tab-link" style="padding:8px 14px;border:1px solid var(--blue);border-radius:999px;background:rgba(74,163,255,0.12);color:var(--blue);font-weight:700;text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:6px" title="Abrir o simulador de questões e aulas">🎯 Treinador (Questões & Aulas) ↗</a>
     <div class="tab sync-badge" id="syncStatusTab" onclick="openSyncModal()" style="margin-left:auto;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);padding:6px 12px;border-radius:20px" title="Sincronização em Nuvem Multi-Dispositivo (Clique para gerenciar)">
       <span id="syncDot" style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 6px #10b981"></span>
       <span id="syncText" style="font-weight:600;color:var(--acc)">☁️ Nuvem Ativa</span>
@@ -272,7 +273,8 @@ const CREDS_KEY = "cybersec_creds_v1";
 let creds = JSON.parse(localStorage.getItem(CREDS_KEY) || "{}");
 const CRED_DEFS = [
   ["secplus","Security+"],["cloud","Cloud (AWS/AZ/SC-900)"],["network","Network+"],
-  ["pcep","Certificado de Python (PCEP)"],["linux","Certificado de Linux"],["cysa","CySA+"],["secai","SecAI+"],["cgrc","Certificado de Risco (CGRC)"]
+  ["pcep","Certificado de Python (PCEP)"],["linux","Certificado de Linux"],
+  ["qualys","Qualys (VMDR / Policy Audit / ETM)"],["splunk","Splunk SIEM"],["cysa","CySA+"],["secai","SecAI+"],["cgrc","Certificado de Risco (CGRC)"]
 ];
 const CRED_LABEL = Object.fromEntries(CRED_DEFS);
 function toggleCred(k){ creds[k]=!creds[k]; localStorage.setItem(CREDS_KEY, JSON.stringify(creds)); renderCreds(); renderJobsLive(); }
@@ -380,6 +382,14 @@ const ROADMAP = [
     link:"https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/",
     d:"Videoaula completa e GRÁTIS no YouTube que prepara pro exame do Security+ (exame ~US$400, pagas só quando estiveres pronto). 📅 VALIDADE OFICIAL: A prova oficial CompTIA Security+ SY0-701 permanece válida e ativa para realização até 11 de JUNHO DE 2027 (fonte oficial comptia.org), garantindo mais de 8 meses de folga para prestar a prova sem correria. EM ANDAMENTO NO TREINADOR: Aulas 0.1 até 1.4 PKI concluídas com simuladores práticos de PBQ e questões! NÚMEROS REAIS: são 121 videoaulas, ~12,5 horas de vídeo no total. Com 5h/dia de estudo focado (assistindo no 1,25x + anotando + treinando no app), fecha o curso inteiro em ~10-12 dias. MÉTODO RECOMENDADO: anotação própria depois de cada aula + treinador deste app + simulados pagos no fim (vê o plano completo no bloco 'Como estudar' da aba 🎖️ Certificados).",
     e:"É a base de linguagem de todo o mercado: o que é uma falha, o que é um risco, como uma empresa se protege. Aqui os termos deste app viram familiares. Estuda grátis; paga só o exame."},
+   {id:"qualys-vmdr", t:"⭐ Qualys VMDR — Gestão de Vulnerabilidades Enterprise (100% Grátis & Lab Real)", type:"CERTIFICADO", free:1,
+    link:"https://www.qualys.com/training/",
+    d:"Treinamento oficial com laboratório real na nuvem e certificações oficiais da Qualys (NASDAQ: QLYS). Cobre descoberta de ativos com Cloud Agent, varredura de vulnerabilidades, priorização e fluxos de resposta/remediação. 100% gratuito.",
+    e:"⭐ O padrão corporativo em mais de 10.000 grandes empresas e bancos. No currículo, comprova operação prática da console que o mercado enterprise usa no dia a dia. Complemento prático essencial para os Domínios 2 e 4 do Security+."},
+   {id:"qualys-policy-etm", t:"⭐ Qualys Policy Audit & Enterprise TruRisk (ETM) — Auditoria Técnica CIS & Risco", type:"CERTIFICADO", free:1,
+    link:"https://www.qualys.com/training/",
+    d:"Auditoria técnica automatizada de baselines contra CIS Benchmarks e DISA-STIG + cálculo quantitativo de postura de risco de negócio com o motor TruRisk. Cursos e certificações oficiais 100% gratuitos.",
+    e:"⭐ O elo de ouro com teu foco em GRC: prova que tu não é apenas teórico de normas (ISO/NIST), mas sabe rodar auditoria técnica automatizada em servidores Linux/Windows."},
    {id:"pcep-done", t:"✅ Cisco — Python, parte 1: CONCLUÍDO (selo na tua conta)", type:"Curso", free:1, done:1,
     link:"https://www.netacad.com/courses/python-essentials-1?courseLang=en-US",
     d:"Python é a linguagem de programação mais usada em segurança automation (escrever programinhas que fazem o trabalho repetido). Curso concluído, selo emitido na tua conta. Cobre TODO o conteúdo do exame oficial de Python nível 1.",
@@ -622,6 +632,9 @@ const CAREERS = [
 
 /* ---------------- DADOS: FONTES GRÁTIS ---------------- */
 const FONTES = [
+ {p:"⭐ Qualys Training & Certification Hub", best:"Vulnerabilidades, Risco e Auditoria CIS 100% grátis com certificado oficial",
+  link:"https://www.qualys.com/training/",
+  cursos:"VMDR (Vulnerability Management, Detection & Response) · Policy Compliance / Policy Audit (CIS Benchmarks) · Enterprise TruRisk Management (ETM) · CSAM · PCI Compliance. Todos com labs na nuvem e certificações gratuitas."},
  {p:"Cisco NetAcad ⭐ (tu já usa)", best:"Python + redes + cyber, tudo grátis, mesma plataforma",
   link:"https://www.netacad.com/catalog",
   cursos:"Python Essentials 1 & 2 (alinhado ao cert PCEP) · Networking Essentials · NDG Linux Essentials · Cybersecurity Essentials · Ethical Hacker · CyberOps Associate"},
@@ -1102,7 +1115,15 @@ function renderFontes(){
 const CERTS=[
  // 🧱 NÚCLEO
  {n:"CompTIA Security+ (SY0-701)", org:"CompTIA", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$404", pay:"$35–48/h", train:1,
-  when:"PRIORIDADE 1", why:"O filtro de RH. Em quase toda vaga. Destrava SOC e Vulnerability Mgmt júnior. Só ela já vale $35–48/h."},
+  when:"PRIORIDADE 1 (Estudo no Treinador)", why:"O filtro de RH. Em quase toda vaga. Destrava SOC e Vulnerability Mgmt júnior. Só ela já vale $35–48/h."},
+ {n:"⭐ Qualys Certified Specialist — VMDR", org:"Qualys (NASDAQ: QLYS)", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$35–50/h", train:1,
+  when:"PRIORIDADE IMEDIATA (em paralelo ao Sec+)", why:"⭐ Carro-chefe mundial de gestão de vulnerabilidades. Treinamento oficial com laboratório prático na nuvem e exame grátis. Presente em mais de 10.000 grandes corporações. Alinhamento 1:1 com Sec+ Domínios 2 e 4."},
+ {n:"⭐ Qualys Certified Specialist — Policy Audit (Compliance)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$38–55/h", train:1,
+  when:"PRIORIDADE IMEDIATA (Trilha GRC & Auditoria)", why:"⭐ Auditoria técnica automatizada de baselines (CIS Benchmarks e DISA-STIG). Prova que tu sabes auditar servidores de verdade, não só ler papel de norma."},
+ {n:"⭐ Qualys Certified Specialist — Enterprise TruRisk (ETM)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"alto", train:1,
+  when:"PRIORIDADE IMEDIATA (Trilha Risco / Governança)", why:"⭐ Traduz vulnerabilidades técnicas em postura de risco de negócio para diretoria/C-level. Conecta com tua tese de Cyber Risk e AI Governance."},
+ {n:"Vanta Auditor Academy + Drata Certified", org:"Vanta / Drata", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"—", train:1,
+  when:"pré-mestrado (finais de semana)", why:"⭐ Automação de GRC na prática: como 90% das startups dos EUA auditam SOC 2 e ISO 27001. Cursos e certificados 100% gratuitos. Prova de ferramenta viva."},
  {n:"CompTIA Network+", org:"CompTIA", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$358", pay:"—", train:0,
   when:"opcional, base de redes", why:"Fundamento de redes (TCP/IP, portas). Ajuda no Security+ e em SOC. Opcional se tu já domina rede."},
  {n:"Cloud fundamentos — AWS CLF-C02 · Azure AZ-900 · MS SC-900", org:"AWS / Microsoft", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$100", pay:"—", train:1,
@@ -1537,9 +1558,9 @@ function renderAll(){
   renderEntrevistas();
 }
 
-document.querySelectorAll(".tab").forEach(t=>{
+document.querySelectorAll(".tab[data-t]").forEach(t=>{
   t.onclick=()=>{
-    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+    document.querySelectorAll(".tab[data-t]").forEach(x=>x.classList.remove("on"));
     t.classList.add("on");
     ["painel","trilha","glossario","carreiras","funil","ms","certs","vagas","entrevistas","autoscan","fontes"].forEach(s=>
       document.getElementById(s).classList.toggle("hide", s!==t.dataset.t));
