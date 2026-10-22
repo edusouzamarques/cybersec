@@ -2262,12 +2262,17 @@ function renderQ(){
   const ok = (quiz._chosenDisplayIdx === correctDisplayIdx);
 
   w.innerHTML=`
-    <div class="qtop">
-      <button class="btn ghost" onclick="exitQuiz()" style="padding:4px 12px;font-size:12.5px;margin-right:12px;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border-color:var(--line);color:var(--txt)">‹ Voltar para Aula</button>
+    <div class="qtop" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <button class="btn ghost" onclick="exitQuiz()" style="padding:4px 12px;font-size:12.5px;margin-right:8px;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border-color:var(--line);color:var(--txt)">‹ Voltar para Aula</button>
       <span class="qtag">${t.icon} ${t.name} · ${d.name}</span>
-      <span class="prog">${quiz.idx+1}/${quiz.queue.length} ${mst?'· ✅ dominada':''}</span>
+      <span class="prog" style="font-weight:600;color:var(--acc)">Questão ${quiz.idx+1} de ${quiz.queue.length} (${Math.round(((quiz.idx + (quiz.answered ? 1 : 0)) / quiz.queue.length) * 100)}%) ${mst?'· ✅ dominada':''}</span>
+      ${(quiz && quiz.aula) ? `<span class="chip" style="background:#162436;border-color:#2e4460;color:#9ec5fe;font-size:11.5px;padding:3px 8px">📚 Curso: Aula ${(LESSONS.findIndex(x=>x.id===quiz.aula)+1)}/120 (${Math.round(((LESSONS.findIndex(x=>x.id===quiz.aula)+1)/120)*100)}%)</span>` : ''}
       ${(quiz && quiz.aula && typeof LESSON_TERMS !== "undefined" && LESSON_TERMS[quiz.aula] && LESSON_TERMS[quiz.aula].length) ? `<button class="btn ghost" style="padding:4px 10px;font-size:12px;margin-left:auto;border-color:var(--acc);color:var(--acc);font-weight:bold" onclick="openLessonGlossModal('${quiz.aula}')">🎯 Termos da Aula (${LESSON_TERMS[quiz.aula].length})</button>` : `<button class="btn ghost" style="padding:4px 10px;font-size:12px;margin-left:auto" onclick="openGlossModal()">📖 Dicionário de Siglas</button>`}
       <button class="btn ghost" style="padding:4px 10px;font-size:12px;margin-left:8px;font-weight:bold" onclick="toggleQuizLang()">🌐 ${window.QUIZ_LANG==='PT'?'🇧🇷 PT':'🇺🇸 EN'}</button>
+    </div>
+    <!-- BARRA DE PROGRESSO VISUAL -->
+    <div style="background:#0e151e;border:1px solid var(--line);border-radius:999px;padding:2px;margin-bottom:14px;box-shadow:inset 0 1px 3px rgba(0,0,0,0.5)">
+      <div id="quizProgressBarFill" style="height:8px;border-radius:999px;background:linear-gradient(90deg, #3ddc97, #4aa3ff);width:${Math.round(((quiz.idx + (quiz.answered ? 1 : 0)) / quiz.queue.length) * 100)}%;transition:width 0.35s cubic-bezier(0.4, 0, 0.2, 1)"></div>
     </div>
     <div class="card">
       <div class="qtext">${fmt(activeQText)}</div>
@@ -2334,6 +2339,10 @@ function answer(displayIdx){
     ${fmt(activeExp)}
     ${!ok?'<br><span class="note">Registrada em 🩹 Pontos Fracos. Ela será cobrada no Mini-Simulado da Seção para testar retenção.</span>':''}
   </div>`;
+  const pb = document.getElementById("quizProgressBarFill");
+  if(pb && quiz && quiz.queue) {
+    pb.style.width = Math.round(((quiz.idx + 1) / quiz.queue.length) * 100) + "%";
+  }
   document.getElementById("qnav").innerHTML=`<button class="btn" onclick="nextQ()">Próxima ›</button>`;
 }
 
