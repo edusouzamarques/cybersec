@@ -370,12 +370,8 @@ function renderJobsLive(){
     '<th style="text-align:center;border-bottom:1px solid var(--line);padding:6px">Copiloto IA</th></tr>'+
     shown.map(({j,fit})=>{
       const spo = j.sponsor ? ' <span class="pill free">sponsor</span>' : '';
-      // link clicável na vaga (direto na fonte com URL 100% verificada)
-      let link;
-      if (j.url) link = `<a href="${j.url}" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
-      else if ((j.source||"").toLowerCase()==="dice") link = `<a href="https://www.dice.com/jobs?q=${encodeURIComponent(j.company+' '+j.role.split(' ').slice(0,3).join(' '))}&location=United%20States" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
-      else if ((j.source||"").toLowerCase()==="ashby") link = `<a href="https://jobs.ashbyhq.com/${encodeURIComponent(j.company.toLowerCase().replace(/[^a-z0-9]/g,''))}" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
-      else link = `<a href="https://job-boards.greenhouse.io/${encodeURIComponent(j.company.toLowerCase().replace(/[^a-z0-9]/g,''))}" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
+      // link clicável direto na vaga (100% verificado)
+      const link = j.url ? `<a href="${j.url}" target="_blank" rel="noopener noreferrer">${j.role}</a>` : `<b>${j.role}</b>`;
       const rawIdx = (window.JOBS_LIVE || []).indexOf(j);
       return `<tr title="${(j.note||'').replace(/"/g,'')}">
         <td style="padding:6px;border-bottom:1px solid var(--line)">
@@ -528,19 +524,19 @@ const ROADMAP = [
     d:"Jogo onde tu tenta convencer uma inteligência artificial a revelar a senha secreta dela. Ensina a falha nº1 de IA na prática — e é divertido.",
     e:"Boa porta de prática. Mostra em 10 minutos por que a tua linha de trabalho existe."},
    {id:"portfolio", t:"Publicar + escrever sobre o que já construíste (teu portfólio de segurança de agentes)", type:"Portfólio", free:1,
-    link:"https://github.com/edusouzaxGV",
+    link:"https://github.com/edusouzamarques",
     d:"Os sistemas de segurança pra agentes de IA que tu construiu (o porteiro de decisões, os portões) + ARTIGOS explicando o raciocínio. É tua credencial mais rara.",
     e:"Um recrutador de segurança de IA quer ver isto MAIS que um diploma. Tu já tem — é só contar a história em texto."},
   ]},
   {ph:"🎖️ Fase 3 — Os exames que abrem porta (estuda grátis, paga o papel)", tier:"topo", items:[
    {id:"secplus", t:"Security+ — o exame (~US$400) — o crachá que abre a porta", type:"CERTIFICADO", free:0,
     link:"https://www.comptia.org/certifications/security",
-    d:"O certificado que o RH filtra. ⚠️ COM DATA NO CALENDÁRIO: a versão que o Messer ensina (SY0-701) vale até NOVEMBRO de 2026. PRA PEGAR A JANELA: estudo em outubro (após o Linux) e AGENDAR O EXAME PRA INÍCIO/MEIO DE NOVEMBRO ANTES DO DIA 17. Como reserva, a versão nova (SY0-801) fica de pé — o Messer já preparou material novo e a mudança é pequena.",
-    e:"6 das 8 vagas da tua tabela destravam SÓ com ele — inclusive as de risco/compliance teu."},
-   {id:"secplus-v8", t:"⚠️ MUDANÇA DO EXAME Security+ em NOV/2026 — o que fazer", type:"Marco", free:1,
-    link:"https://www.comptia.org/en-us/certifications/security/v8/",
-    d:"O exame do Security+ é atualizado a cada ~3 anos. A versão que vale HOJE (que o Messer ensina grátis) deixa de aplicar no dia 17 de NOVEMBRO de 2026 — entra a versão nova (SY0-801) com um tópico novo: risco de INTELIGÊNCIA ARTIFICIAL (exatamente o teu campo). TEU PLANO SEGURO: (1) fecha o Messer até INÍCIO de novembro; (2) Agenda o exame pra INÍCIO/MEIO de novembro (antes do dia 17); (3) Se precisar remarcar, a versão nova inclui teu tema (IA) na prova — não perde nada.",
-    e:"Não adiar o exame além do meio de novembro. Estudar a versão atual agora é mais rápido: material de graça consolidado, Messer completo, e as questões da versão nova são 95% iguais."},
+    d:"O certificado que o RH filtra. 📅 VALIDADE CONFIRMADA: A versão SY0-701 que o Professor Messer ensina permanece ativa até 11 de JUNHO DE 2027 (fonte oficial comptia.org), garantindo mais de 8 meses de folga para estudar com calma, praticar no Treinador e garantir o voucher com retake da Udemy.",
+    e:"A base de linguagem de quase todas as vagas da tua tabela — destrava SOC, GRC e suporte júnior."},
+   {id:"secplus-v8", t:"📅 Calendário Oficial CompTIA Security+ (Ativo até 2027)", type:"Marco", free:1,
+    link:"https://www.comptia.org/certifications/security",
+    d:"A prova oficial CompTIA Security+ SY0-701 foi lançada em novembro/2023 e tem ciclo de vida oficial de 3 anos e meio, ficando ativa para realização até 11 de JUNHO DE 2027. TEU PLANO TRANQUILO: (1) fecha as aulas do Messer no Treinador; (2) treina as 30 perguntas de entrevista e simulados; (3) compra o voucher com retake na Udemy e agenda a prova com folga total.",
+    e:"Sem correria de prazo apertado: foco em aprender o conteúdo com profundidade e fixar os termos técnicos."},
    {id:"oscp-or-cloud", t:"Mais adiante: especialização (escolha uma)", type:"CERTIFICADO", free:0,
     link:"https://www.offsec.com/courses/pen-200/",
     d:"Quando já estiveres trabalhando: OU o certificado mais respeitado de quem QUEBRA sistemas (offensivo) OU o de quem blindar sistemas na nuvem (defesa/arquitetura). Não decide agora.",
