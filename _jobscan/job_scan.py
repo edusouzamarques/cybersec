@@ -60,11 +60,25 @@ def is_cyber(title, desc=""):
         return False
     return True
 
-def level_of(title):
+def level_of(title, desc=""):
     t = (title or "").lower()
+    d = (desc or "").lower()
+    
+    # 1. Checagem rigorosa de anos de experiência no corpo da vaga
+    years_m = re.findall(r'(\d+)\+?\s*(?:-\s*\d+\+?)?\s*years?(?:\s+of)?(?:\s+relevant|\s+professional|\s+direct|\s+in|\s+experience)?', d)
+    if years_m:
+        years = [int(x) for x in years_m if int(x) <= 20]
+        max_y = max(years) if years else 0
+        if max_y >= 5: return "senior"
+        if max_y >= 3: return "pleno"
+        
     if any(w in t for w in ["intern","internship"]): return "estágio"
-    if any(w in t for w in ["junior","jr ","associate","entry","early career","i "]): return "entry"
-    if any(w in t for w in ["senior","sr ","lead","principal","staff","manager","director","architect"]): return "senior"
+    if any(w in t for w in ["senior","sr ","lead","principal","staff","director","architect"]): return "senior"
+    if any(w in t for w in ["junior","jr ","entry","early career","graduate"]): return "entry"
+    if "associate" in t:
+        if "manager" in t: return "pleno"
+        return "entry"
+    if "manager" in t: return "senior"
     return "pleno"
 
 def fetch(url, ua=False):
@@ -91,7 +105,7 @@ try:
                 "company": comp[:30],
                 "loc": loc[:24],
                 "pay": "—",
-                "level": level_of(pos),
+                "level": level_of(pos, desc),
                 "source": "Jobicy",
                 "req": ["secplus"],
                 "clearance": False,
@@ -119,7 +133,7 @@ try:
                 "company": comp[:30],
                 "loc": (j.get("location") or "Remoto")[:24],
                 "pay": "—",
-                "level": level_of(pos),
+                "level": level_of(pos, desc),
                 "source": "RemoteOK",
                 "req": ["secplus"],
                 "clearance": False,
