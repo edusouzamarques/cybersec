@@ -109,7 +109,7 @@
     <div class="tab" data-t="funil">🎯 Funil da raridade</div>
     <div class="tab" data-t="ms">🎓 MS CU Boulder</div>
     <div class="tab" data-t="certs">🎖️ Certificados</div>
-    <div class="tab" data-t="vagas">💼 Vagas US (mercado real)</div>
+    <div class="tab" data-t="vagas">💼 Radar de Vagas (BR & Global)</div>
     <div class="tab" data-t="entrevistas">🎤 Simulador de Entrevistas (30)</div>
     <div class="tab" data-t="autoscan">🤖 Busca automática</div>
     <div class="tab" data-t="fontes">📚 Onde estudar grátis</div>
@@ -219,9 +219,10 @@
   </section>
 
   <section id="vagas" class="hide">
-    <div class="card"><h3 style="margin-top:0">💼 Vagas US — tabela viva (ciente do teu nível)</h3>
-    <p class="note">Vagas que <b>contratam do BRASIL hoje</b> (worldwide/global/sponsor) — o scanner descarta automaticamente US-remote (pede autorização americana) e cidadania/clearance. <b>Perfil: entry level, morando no Brasil, sem green card ainda — tudo (empresa US + mestrado) substancia o green card.</b> A varredura roda sozinha TODA manhã 08:00. <span id="jobsUpd"></span></p>
+    <div class="card"><h3 style="margin-top:0">💼 Radar de Vagas — Nacional (R$) & Global ($)</h3>
+    <p class="note">Vagas verificadas que <b>contratam no BRASIL hoje</b> (mercado nacional em R$ CLT e internacional remoto em USD/EUR) — o scanner descarta automaticamente vagas zumbi de agregador e exigências de cidadania americana. <b>Perfil: transição para Cibersegurança & GRC.</b> <span id="jobsUpd"></span></p>
     <div id="credsBox" style="margin-top:8px"></div>
+    <div id="marketFilterBox" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"></div>
     </div>
     <div id="jobsInsight" class="card next" style="display:none"></div>
     <div id="jobsLive"></div>
@@ -338,6 +339,24 @@ function jobFit(j){
   if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (do Brasil)"};
   return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
 }
+let currentMarketFilter = 'all';
+function setMarketFilter(m){
+  currentMarketFilter = m;
+  renderMarketFilters();
+  renderJobsLive();
+}
+function renderMarketFilters(){
+  const el=document.getElementById("marketFilterBox"); if(!el) return;
+  const filters = [
+    {id:'all', label:'🌐 Todas as Vagas'},
+    {id:'brl', label:'🇧🇷 Brasil (Reais / CLT)'},
+    {id:'usd', label:'💵 Global (USD / EUR)'},
+    {id:'grc', label:'🛡️ GRC & Governança'},
+    {id:'entry', label:'🎯 Entrada / Júnior'}
+  ];
+  el.innerHTML = "<b style='font-size:13px;width:100%;margin-bottom:2px;display:block'>Filtrar por mercado e foco:</b>" +
+    filters.map(f=>`<span class="tab ${currentMarketFilter===f.id?'on':''}" style="cursor:pointer" onclick="setMarketFilter('${f.id}')">${f.label}</span>`).join("");
+}
 function renderJobsLive(){
   const box=document.getElementById("jobsLive"); if(!box) return;
   const jobs = (window.JOBS_LIVE||[]);
@@ -346,8 +365,25 @@ function renderJobsLive(){
   const ins=document.getElementById("jobsInsight");
   if(ins && window.JOBS_INSIGHT){ ins.style.display="block"; ins.innerHTML=`<b>💡 ${window.JOBS_INSIGHT}</b>`; }
   if(!jobs.length){ box.innerHTML='<div class="card note">Sem dados ainda — roda <code>_jobscan/job_scan.py</code>.</div>'; return; }
+  renderMarketFilters();
+
+  let filtered = jobs;
+  if(currentMarketFilter === 'brl'){
+    filtered = jobs.filter(j => j.geo === 'brasil' || (j.pay && j.pay.includes('R$')) || (j.loc && j.loc.toLowerCase().includes('brasil')));
+  } else if(currentMarketFilter === 'usd'){
+    filtered = jobs.filter(j => !(j.geo === 'brasil' || (j.pay && j.pay.includes('R$'))));
+  } else if(currentMarketFilter === 'grc'){
+    filtered = jobs.filter(j => {
+      const r = (j.role||'').toLowerCase();
+      const n = (j.note||'').toLowerCase();
+      return r.includes('grc') || r.includes('risk') || r.includes('compliance') || r.includes('audit') || n.includes('grc');
+    });
+  } else if(currentMarketFilter === 'entry'){
+    filtered = jobs.filter(j => j.level === 'entry' || j.level === 'estágio');
+  }
+
   // ordena: aplicáveis primeiro
-  const scored=jobs.map(j=>({j,fit:jobFit(j)}));
+  const scored=filtered.map(j=>({j,fit:jobFit(j)}));
   const rank=f=>{
     const t=f.txt;
     if(t.startsWith("✅")) return 0;              // aplicar AGORA (do Brasil)
@@ -364,7 +400,7 @@ function renderJobsLive(){
     '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Vaga</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Empresa</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Local</th>'+
-    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">$</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Moeda / Faixa</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Nível</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Situação</th>'+
     '<th style="text-align:center;border-bottom:1px solid var(--line);padding:6px">Copiloto IA</th></tr>'+
@@ -1756,7 +1792,79 @@ function generateCopilotPackage(j) {
   let qa = [];
   let keywords = [];
 
-  if (isCanonical && isSupport) {
+  const isBrazil = (j.geo === 'brasil') || (j.pay && j.pay.includes('R$')) || (j.loc && j.loc.toLowerCase().includes('brasil') && !isCanonical);
+
+  if (isBrazil) {
+    if (isRisk) {
+      cover = `Prezada equipe de recrutamento da ${comp},
+
+Apresento minha candidatura para a vaga de ${role}. Trago uma trajetória consolidada de mais de 13 anos em investigações complexas, análise de evidências e rigor procedimental na segurança pública, combinada com formação técnica contínua em Cibersegurança, Governança, Riscos e Conformidade (GRC).
+
+Minha vivência profissional desenvolveu forte disciplina analítica na identificação de anomalias, cadeia de custódia documental e auditoria de processos sob normas rigorosas. No âmbito de segurança da informação, foco na aplicação prática de controles de segurança (famílias NIST CSF e ISO 27001), gestão de riscos operacionais e de terceiros (TPRM), e organização de evidências de conformidade. Minha base técnica inclui familiaridade com administração Linux, redes (TCP/IP, DNS, WAF) e automação em Python, além de estar em preparação ativa para a certificação CompTIA Security+.
+
+A oportunidade na ${comp} representa o ambiente ideal para aplicar minha maturidade investigativa, ética e visão estratégica de processos para apoiar a sustentação de controles eficazes, auditorias internas e a proteção dos ativos organizacionais.
+
+Estou à disposição para apresentar em detalhes como minha experiência transferível e dedicação técnica agregarão valor direto à equipe de GRC da ${comp}.
+
+Atenciosamente,
+Eduardo de Souza Marques
+GitHub: github.com/edusouzamarques
+LinkedIn: linkedin.com/in/eduardodesouzamarques`;
+
+      qa = [
+        {
+          q: `Por que você tem interesse na posição de ${role} na ${comp}?`,
+          a: `Vejo na ${comp} a oportunidade de aplicar minha disciplina investigativa e foco em conformidade em um ambiente estruturado. Minha motivação é atuar como ponte entre os requisitos de segurança e as necessidades do negócio, garantindo que controles, políticas e evidências sejam sustentados com clareza e precisão.`
+        },
+        {
+          q: "Como sua trajetória profissional anterior contribui para a área de GRC e conformidade?",
+          a: "GRC é essencialmente auditoria e verificação baseada em evidências. Minha experiência de mais de uma década lidando com procedimentos estritos, cadeia de custódia e relatórios técnicos desenvolveu atenção absoluta a detalhes e capacidade de identificar lacunas de processo que outros deixam passar."
+        },
+        {
+          q: "Como você lida com a organização de evidências e auditorias de controles?",
+          a: "Mantenho rastreabilidade total: identifico o controle no framework (ex: controle de acesso, backup, MFA), mapeio o responsável, coleto amostragens de logs ou configurações e formato a documentação de maneira clara e auditável para que qualquer auditor interno ou externo consiga validar o cumprimento sem atrito."
+        }
+      ];
+
+      keywords = [
+        "Governança, Riscos e Conformidade (GRC)", "NIST CSF", "ISO/IEC 27001", "SOC 2",
+        "Auditoria de Controles", "Coleta de Evidências", "Gestão de Riscos (TPRM)",
+        "CompTIA Security+", "Políticas de Segurança da Informação", "Cadeia de Custódia",
+        "Análise de Vulnerabilidades", "Mapeamento de Processos"
+      ];
+    } else {
+      // Outras vagas nacionais (SOC Tier 1 / Observabilidade / Suporte Técnico)
+      cover = `Prezada equipe de recrutamento da ${comp},
+
+Apresento minha candidatura para a vaga de ${role}. Uno uma sólida formação de 13+ anos em investigação, disciplina analítica e resolução de incidentes sob pressão a uma capacitação prática rigorosa em Cibersegurança, redes e monitoramento de sistemas.
+
+Possuo conhecimentos aplicados em fundamentos de redes (roteamento, firewall, DNS), sistemas operacionais Linux, triagem de eventos de segurança (SIEM) e princípios da certificação CompTIA Security+. Meu histórico profissional consolidou uma mentalidade metódica de investigação de anomalias: isolar variáveis, correlacionar registros/logs, validar hipóteses e documentar planos de ação preventivos.
+
+Estou altamente motivado para integrar o time da ${comp}, contribuindo com confiabilidade, postura ética e aprendizado contínuo para a segurança operacional da empresa.
+
+Atenciosamente,
+Eduardo de Souza Marques
+GitHub: github.com/edusouzamarques
+LinkedIn: linkedin.com/in/eduardodesouzamarques`;
+
+      qa = [
+        {
+          q: `Por que deseja atuar como ${role} na ${comp}?`,
+          a: `Busco uma empresa dinâmica onde possa aplicar minha dedicação à investigação de anomalias e segurança operacional. A ${comp} oferece o cenário ideal para crescer tecnicamente colaborando com a proteção da infraestrutura e dos clientes.`
+        },
+        {
+          q: "Como você investiga um alerta de segurança ou incidente no sistema?",
+          a: "Sigo um processo estruturado: primeiro qualifico o alerta para descartar falsos positivos; em seguida, reúno artefatos contextuais (logs de autenticação, tráfego de rede, timestamps); identifico o escopo do impacto e documento a trilha de remediação e prevenção com rigor técnico."
+        }
+      ];
+
+      keywords = [
+        "CompTIA Security+", "Triagem de Alertas", "SIEM & Monitoramento",
+        "Análise de Logs", "Linux", "Redes TCP/IP & Firewall",
+        "Resposta a Incidentes", "Investigação de Anomalias", "Python / Automação"
+      ];
+    }
+  } else if (isCanonical && isSupport) {
     cover = `Dear Hiring Team at Canonical,
 
 I am writing to express my strong enthusiasm for the ${role} position at Canonical. With a disciplined foundation of 13+ years in complex investigations, evidence analysis, and crisis decision-making in public safety, combined with rigorous technical training in Linux systems administration and network security, I bring an analytical and resilient mindset to Canonical's global support organization.

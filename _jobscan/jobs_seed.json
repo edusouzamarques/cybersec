@@ -1,5 +1,110 @@
 [
   {
+    "id": "orbite-grc-jr",
+    "role": "Analista de GRC Júnior — Governança, Riscos e Segurança",
+    "company": "Orbite Consulting",
+    "loc": "Remoto (Brasil)",
+    "pay": "R$ 5.000–7.000 (CLT)",
+    "level": "entry",
+    "source": "Orbite ATS",
+    "geo": "brasil",
+    "url": "https://news.orbite-ats.com.br/carreiras/046cb3ce05c78d7",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Organizar políticas, controles e evidências de segurança da informação; apoiar levantamentos de riscos e planos de ação; conferir questionários e requisitos com áreas internas.",
+    "note": "⭐ VAGA GRC JÚNIOR CLT (BRASIL): 100% remota. Salário R$ 5k-7k CLT. Transição ideal: aproveita seu histórico investigativo, documental e procedural da PMMG para auditoria e conformidade."
+  },
+  {
+    "id": "softexpert-grc-jr",
+    "role": "Analista GRC Júnior - Segurança da Informação",
+    "company": "SoftExpert",
+    "loc": "Remoto (Brasil)",
+    "pay": "~R$ 4.500–6.500 (CLT)",
+    "level": "entry",
+    "source": "SoftExpert",
+    "geo": "brasil",
+    "url": "https://www.techjobs.space/vagas/analista-grc-junior-seguranca-da-informacao-670a24bb20",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Acompanhar riscos e controles de segurança, coletar e analisar evidências para auditorias internas/externas, testar controles e atualizar políticas e normas.",
+    "note": "⭐ GRC JÚNIOR NA SOFTEXPERT: Uma das líderes de mercado em software de governança e compliance no Brasil. Excelente porta de entrada."
+  },
+  {
+    "id": "flintworks-ai-sec-jr",
+    "role": "AI Cybersecurity Analyst — Junior (SOC Tier 1)",
+    "company": "Flintworks",
+    "loc": "Remoto (Brasil)",
+    "pay": "A combinar (R$)",
+    "level": "entry",
+    "source": "Flintworks",
+    "geo": "brasil",
+    "url": "https://flintworks.ai/pt-br/jobs/ai-cybersecurity-analyst-junior-brasil/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 5,
+    "tasks": "Monitoramento de incidentes SOC Tier 1, triagem de alertas, investigação de anomalias e análise de vulnerabilidades em sistemas de IA.",
+    "note": "⭐ BANCO DE TALENTOS SOC TIER 1 + IA: Aberto para residentes no Brasil (0-2 anos). Altíssimo alinhamento com seu perfil híbrido de IA e Cibersegurança."
+  },
+  {
+    "id": "spread-sec-jr",
+    "role": "Analista de Segurança da Informação Júnior",
+    "company": "Spread Tecnologia",
+    "loc": "Remoto (Brasil)",
+    "pay": "~R$ 4.000–5.500 (CLT)",
+    "level": "entry",
+    "source": "Gupy Spread",
+    "geo": "brasil",
+    "url": "https://spread.gupy.io/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Monitoramento de alertas em SIEM, observabilidade de segurança, resposta inicial a incidentes e triagem de vulnerabilidades.",
+    "note": "Vaga nacional CLT 100% remota em consultoria de tecnologia."
+  },
+  {
+    "id": "stravorus-jr-pentest",
+    "role": "Junior Penetration Tester / Security Report Writer",
+    "company": "Stravorus",
+    "loc": "Remote (Global / BR)",
+    "pay": "~US$ 35-50k (Contractor)",
+    "level": "entry",
+    "source": "Direct Email",
+    "geo": "worldwide",
+    "url": "https://www.stravorus.com/careers",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Testes de invasão em aplicações web/APIs, análise de vulnerabilidades e elaboração minuciosa de relatórios executivos em inglês.",
+    "note": "⭐ BOUTIQUE GLOBAL: Aceita candidatos do Brasil via contractor. Envio direto de CV e portfólio para careers@stravorus.com."
+  },
+  {
     "id": "can-assoc-linux",
     "role": "Associate Linux Support Engineer",
     "company": "Canonical",
