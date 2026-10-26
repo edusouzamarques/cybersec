@@ -78,6 +78,7 @@
   .q-pill.on{color:#04150d;background:var(--acc);border-color:var(--acc);font-weight:700}
 </style>
   <script src="_jobscan/entrevistas_data.js"></script>
+  <script src="_jobscan/bussola_data.js"></script>
 </head>
 <body>
 <header>
@@ -103,6 +104,7 @@
 <div class="wrap">
   <div class="tabs">
     <div class="tab on" data-t="painel">📊 Painel</div>
+    <div class="tab" data-t="bussola" style="border-color:var(--gold);color:var(--gold);background:rgba(255,210,63,0.08);font-weight:700">🧭 Bússola Semanal GRC (Ed. #1)</div>
     <div class="tab" data-t="trilha">🧭 Trilha</div>
     <div class="tab" data-t="glossario">📖 Glossário (100)</div>
     <div class="tab" data-t="carreiras">💼 Carreiras</div>
@@ -179,6 +181,8 @@
     </div>
     <div id="phaseBars"></div>
   </section>
+
+  <section id="bussola" class="hide"></section>
 
   <section id="trilha" class="hide"></section>
 
@@ -1637,18 +1641,424 @@ function renderAll(){
   renderFontes();
   renderGloss(document.getElementById("gsearch").value);
   renderEntrevistas();
+  renderBussola();
 }
 
 document.querySelectorAll(".tab[data-t]").forEach(t=>{
   t.onclick=()=>{
     document.querySelectorAll(".tab[data-t]").forEach(x=>x.classList.remove("on"));
     t.classList.add("on");
-    ["painel","trilha","glossario","carreiras","funil","ms","certs","vagas","entrevistas","autoscan","fontes"].forEach(s=>
-      document.getElementById(s).classList.toggle("hide", s!==t.dataset.t));
+    ["painel","bussola","trilha","glossario","carreiras","funil","ms","certs","vagas","entrevistas","autoscan","fontes"].forEach(s=>{
+      const el = document.getElementById(s);
+      if(el) el.classList.toggle("hide", s!==t.dataset.t);
+    });
+    if(t.dataset.t === 'bussola') renderBussola();
   };
 });
 document.getElementById("gsearch").addEventListener("input",e=>renderGloss(e.target.value));
 renderAll();
+
+/* ---------- BÚSSOLA SEMANAL GRC (POLY COURT & RADAR) ---------- */
+let activeBussolaSubTab = 'poly';
+
+function renderBussola() {
+  const container = document.getElementById("bussola");
+  if (!container) return;
+
+  const data = window.BUSSOLA_DATA;
+  if (!data || !data.edicao_atual) {
+    container.innerHTML = `
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <h3 style="color:var(--gold);margin-top:0">🧭 Bússola Semanal em Calibração</h3>
+        <p style="color:var(--dim)">O arquivo <code>_jobscan/bussola_data.js</code> ainda não foi carregado ou está sendo processado pelo cron.</p>
+        <button class="btn" onclick="location.reload()">🔄 Recarregar Página</button>
+      </div>`;
+    return;
+  }
+
+  const ed = data.edicao_atual;
+  const poly = ed.poly_court || {};
+  const radar = ed.radar_regulatorio || [];
+  const barometro = ed.barometro_mercado || {};
+  const tarefas = ed.tarefas_7_dias || [];
+  const historico = data.historico || [];
+
+  // Tarefas salvas em localStorage
+  let savedTasks = {};
+  try {
+    savedTasks = JSON.parse(localStorage.getItem("bussola_tasks_status") || "{}");
+  } catch(e) {}
+
+  const completedCount = tarefas.filter(t => savedTasks[t.id]).length;
+  const progressPct = tarefas.length ? Math.round((completedCount / tarefas.length) * 100) : 0;
+
+  let subTabContent = '';
+
+  if (activeBussolaSubTab === 'poly') {
+    subTabContent = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+        <div>
+          <h3 style="margin:0;font-size:16px;color:var(--ink)">⚖️ Parecer do Tribunal POLY Court (NVIDIA NIM Consensus)</h3>
+          <div style="font-size:12.5px;color:var(--dim);margin-top:2px">Avaliação sem filtros gerada pelo conselho de modelos <b>Nemotron 550B Ultra</b> e <b>Nemotron 120B Super</b></div>
+        </div>
+        <span class="badge" style="color:var(--gold);border-color:var(--gold);font-weight:700">Consenso: ${ed.score_prontidao}</span>
+      </div>
+
+      <!-- Juiz 1 -->
+      <div class="card" style="border-left:4px solid var(--acc);background:linear-gradient(180deg,#0f1a14,#0b0f14);margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div>
+            <span class="pill" style="color:var(--acc);border-color:var(--acc);font-size:11px;font-weight:700">🎖️ JUIZ 1 — CISO & ESTRATEGISTA SÊNIOR GRC</span>
+            <h4 style="margin:6px 0 0;font-size:14.5px;color:var(--ink)">${poly.juiz_estrategista?.titulo || 'Visão Estratégica & Mercado'}</h4>
+          </div>
+          <span class="badge" style="color:var(--dim)">${poly.juiz_estrategista?.modelo || 'NVIDIA Nemotron 550B'}</span>
+        </div>
+        <div style="font-size:13.5px;line-height:1.65;color:#d1dce6;white-space:pre-wrap">${formatBussolaText(poly.juiz_estrategista?.texto || '')}</div>
+      </div>
+
+      <!-- Juiz 2 -->
+      <div class="card" style="border-left:4px solid var(--red);background:linear-gradient(180deg,#1c1214,#0b0f14);margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div>
+            <span class="pill" style="color:var(--red);border-color:var(--red);font-size:11px;font-weight:700">🛡️ JUIZ 2 — AUDITOR CÉTICO & THREAT INTEL LEAD</span>
+            <h4 style="margin:6px 0 0;font-size:14.5px;color:var(--ink)">${poly.juiz_auditor?.titulo || 'Auditoria de Riscos & Alerta de Armadilhas'}</h4>
+          </div>
+          <span class="badge" style="color:var(--dim)">${poly.juiz_auditor?.modelo || 'NVIDIA Nemotron 120B'}</span>
+        </div>
+        <div style="font-size:13.5px;line-height:1.65;color:#e6c9cc;white-space:pre-wrap">${formatBussolaText(poly.juiz_auditor?.texto || '')}</div>
+      </div>
+
+      <!-- Juiz 3 -->
+      <div class="card" style="border-left:4px solid var(--blue);background:linear-gradient(180deg,#0f1622,#0b0f14);margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div>
+            <span class="pill" style="color:var(--blue);border-color:var(--blue);font-size:11px;font-weight:700">⚡ JUIZ 3 — GERENTE OPERACIONAL & COACH TÁTICO</span>
+            <h4 style="margin:6px 0 0;font-size:14.5px;color:var(--ink)">${poly.juiz_tatico?.titulo || 'Ordem de Marcha & Sprint 7 Dias'}</h4>
+          </div>
+          <span class="badge" style="color:var(--dim)">${poly.juiz_tatico?.modelo || 'NVIDIA Nemotron 550B'}</span>
+        </div>
+        <div style="font-size:13.5px;line-height:1.65;color:#c9dcf0;white-space:pre-wrap">${formatBussolaText(poly.juiz_tatico?.texto || '')}</div>
+      </div>
+
+      <!-- Caixa de Consenso -->
+      <div class="card" style="border-color:var(--gold);background:linear-gradient(180deg,#1c180d,#0b0f14)">
+        <b style="color:var(--gold);display:flex;align-items:center;gap:6px;font-size:14px">🏆 Veredito Consensual Ponderado do Tribunal</b>
+        <p style="font-size:13.5px;color:#f0e4c8;margin:8px 0 0;line-height:1.6">${poly.consenso_geral || 'Foco absoluto na execução de GRC + Security+.'}</p>
+      </div>
+    `;
+  } else if (activeBussolaSubTab === 'plano') {
+    subTabContent = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div>
+          <h3 style="margin:0;font-size:16px;color:var(--ink)">🎯 Sprint Tático dos Próximos 7 Dias</h3>
+          <div style="font-size:12.5px;color:var(--dim);margin-top:2px">Metas operacionais para o período de <b>${ed.data_publicacao}</b> a <b>${ed.proxima_atualizacao}</b></div>
+        </div>
+        <div style="text-align:right">
+          <span style="font-size:13px;font-weight:700;color:${progressPct === 100 ? 'var(--acc)' : 'var(--gold)'}">${completedCount} de ${tarefas.length} concluídas (${progressPct}%)</span>
+        </div>
+      </div>
+
+      <div class="bar" style="height:12px;margin-bottom:20px">
+        <div class="fill" style="width:${progressPct}%;background:${progressPct === 100 ? 'var(--acc)' : 'linear-gradient(90deg,var(--gold),var(--acc))'}"></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        ${tarefas.map(t => {
+          const isDone = !!savedTasks[t.id];
+          return `
+            <div class="item ${isDone ? 'done' : ''}" style="border-color:${isDone ? '#1e3a2c' : 'var(--line)'};background:${isDone ? '#0c1510' : 'var(--panel2)'};padding:14px">
+              <input type="checkbox" id="chk_${t.id}" ${isDone ? 'checked' : ''} onchange="toggleBussolaTask('${t.id}')">
+              <div class="it-body" style="cursor:pointer" onclick="document.getElementById('chk_${t.id}').click()">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+                  <span class="pill ${isDone ? 'free' : 'paid'}" style="font-size:11px">${t.cat}</span>
+                  ${isDone ? '<span class="badge b-a" style="font-size:10.5px">✓ Concluído</span>' : '<span class="badge" style="font-size:10.5px">Pendente</span>'}
+                </div>
+                <div class="it-title ${isDone ? 'done' : ''}" style="margin:6px 0 4px;font-size:14.5px;color:${isDone ? 'var(--dim)' : 'var(--ink)'}">${t.titulo}</div>
+                <div class="it-desc" style="font-size:13px;color:${isDone ? '#778899' : '#c3cdd6'}">${t.desc}</div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <button class="reset" onclick="resetBussolaTasks()">🔄 Resetar Progresso da Semana</button>
+        <span style="font-size:12px;color:var(--dim)">Progresso salvo automaticamente neste dispositivo</span>
+      </div>
+    `;
+  } else if (activeBussolaSubTab === 'radar') {
+    subTabContent = `
+      <div style="margin-bottom:16px">
+        <h3 style="margin:0;font-size:16px;color:var(--ink)">🛰️ Radar Regulatório & Movimentações Oficiais (Ground Truth)</h3>
+        <div style="font-size:12.5px;color:var(--dim);margin-top:2px">Fontes auditadas sem alucinação: NIST CSF 2.0, ISO 27001:2022, ANPD Res. 15/2024 e EU DORA / SEC</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">
+        ${radar.map(r => `
+          <div class="card" style="margin:0;border-color:#202e3e;background:var(--panel2);display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <span class="pill" style="color:var(--blue);border-color:var(--blue);font-size:11px;font-weight:700">${r.orgao}</span>
+                <span class="badge" style="color:var(--acc);border-color:var(--acc)">Vigência Ativa</span>
+              </div>
+              <h4 style="margin:4px 0 8px;font-size:14.5px;color:var(--ink)">${r.tema}</h4>
+              <p style="font-size:13px;color:#c0ccd8;line-height:1.55;margin:0 0 12px">${r.impacto}</p>
+            </div>
+            <div style="padding:10px;background:#0b1118;border-left:3px solid var(--acc);border-radius:4px;font-size:12.5px;color:var(--ink)">
+              <b style="color:var(--acc);display:block;margin-bottom:2px">🎯 Sua Ação Diferencial:</b>
+              ${r.acao_eduardo}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="card" style="margin-top:16px;background:#0d1822;border-color:#1b3248">
+        <b style="color:var(--blue);font-size:13.5px">🛡️ Como o seu GRC Lab cobre esses 4 pilares:</b>
+        <p style="font-size:12.5px;color:var(--dim);margin:6px 0 10px;line-height:1.5">
+          O repositório <code>grc-lab</code> que você publicou no GitHub Pages possui a matriz <code>02_control_mapping_matrix.md</code> (cruzando NIST CSF 2.0 GV com ISO 27001:2022 A.5 a A.8 e SOC 2), além de avaliação formal de fornecedores TPRM (DORA / SEC) e plano de evidências de auditoria (ANPD).
+        </p>
+        <a href="grc-lab.html" target="_blank" class="btn" style="padding:6px 14px;font-size:12px;background:#182e42;border:1px solid var(--blue);color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+          🛡️ Abrir Dashboard do GRC Lab ↗
+        </a>
+      </div>
+    `;
+  } else if (activeBussolaSubTab === 'barometro') {
+    subTabContent = `
+      <div style="margin-bottom:16px">
+        <h3 style="margin:0;font-size:16px;color:var(--ink)">💼 Barômetro Salarial & Radar de Vagas de Entrada</h3>
+        <div style="font-size:12.5px;color:var(--dim);margin-top:2px">Mapeamento em tempo real do mercado corporativo para profissionais juniores em GRC e Segurança</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:16px">
+        <div class="card" style="margin:0;background:var(--panel2);border-color:var(--line)">
+          <span style="font-size:12px;color:var(--dim)">Vagas no Radar Ativo</span>
+          <b style="font-size:22px;color:var(--ink);display:block;margin:4px 0">${barometro.vagas_analisadas || 53}</b>
+          <span style="font-size:11.5px;color:var(--acc)">${barometro.vagas_grc_riscos || 8} posições de GRC & Riscos</span>
+        </div>
+        <div class="card" style="margin:0;background:var(--panel2);border-color:#1e3a2c">
+          <span style="font-size:12px;color:var(--dim)">Faixa Entrada Brasil (CLT)</span>
+          <b style="font-size:20px;color:var(--acc);display:block;margin:4px 0">${barometro.faixa_brasil_clt || 'R$ 4.500–7.500'}</b>
+          <span style="font-size:11.5px;color:var(--dim)">100% Remoto com benefícios</span>
+        </div>
+        <div class="card" style="margin:0;background:var(--panel2);border-color:#1e2d42">
+          <span style="font-size:12px;color:var(--dim)">Faixa Entrada Global (Contractor)</span>
+          <b style="font-size:20px;color:var(--blue);display:block;margin:4px 0">${barometro.faixa_global_usd || 'US$ 40k–65k'}</b>
+          <span style="font-size:11.5px;color:var(--dim)">~R$ 18k–28k / mês s/ visto</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--gold);background:var(--panel2);margin-bottom:16px">
+        <b style="color:var(--gold);font-size:13.5px">💡 Pulso do Mercado da Semana</b>
+        <p style="font-size:13px;color:#d5dee6;line-height:1.6;margin:6px 0 0">${barometro.destaque_da_semana || ''}</p>
+      </div>
+
+      <h4 style="margin:18px 0 10px;font-size:14px;color:var(--ink)">🎯 Vagas Mais Alinhadas Para Submissão Esta Semana</h4>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="item" style="align-items:center;justify-content:space-between">
+          <div style="flex:1">
+            <div style="display:flex;gap:8px;align-items:center">
+              <b style="color:var(--ink);font-size:14px">Orbite Consulting — Analista de GRC Júnior</b>
+              <span class="pill free">CLT R$ 5k-7k</span>
+            </div>
+            <div style="font-size:12px;color:var(--dim);margin-top:3px">Gestão de políticas, questionários e matriz de riscos. 100% remota.</div>
+          </div>
+          <button class="btn" style="padding:6px 12px;font-size:12px" onclick="openApplyCopilot(0)">🚀 Abrir Copiloto IA</button>
+        </div>
+
+        <div class="item" style="align-items:center;justify-content:space-between">
+          <div style="flex:1">
+            <div style="display:flex;gap:8px;align-items:center">
+              <b style="color:var(--ink);font-size:14px">SoftExpert — Analista GRC Júnior (Segurança da Informação)</b>
+              <span class="pill free">CLT ~R$ 4.5k-6.5k</span>
+            </div>
+            <div style="font-size:12px;color:var(--dim);margin-top:3px">Líder brasileira em software de governança. Coleta de evidências e auditorias.</div>
+          </div>
+          <button class="btn" style="padding:6px 12px;font-size:12px" onclick="openApplyCopilot(1)">🚀 Abrir Copiloto IA</button>
+        </div>
+
+        <div class="item" style="align-items:center;justify-content:space-between">
+          <div style="flex:1">
+            <div style="display:flex;gap:8px;align-items:center">
+              <b style="color:var(--ink);font-size:14px">Flintworks — AI Cybersecurity Analyst Junior (SOC / Risco)</b>
+              <span class="pill paid">R$ A combinar</span>
+            </div>
+            <div style="font-size:12px;color:var(--dim);margin-top:3px">Monitoramento SOC + Análise de vulnerabilidades em modelos de IA.</div>
+          </div>
+          <button class="btn" style="padding:6px 12px;font-size:12px" onclick="openApplyCopilot(2)">🚀 Abrir Copiloto IA</button>
+        </div>
+      </div>
+    `;
+  } else if (activeBussolaSubTab === 'dica') {
+    subTabContent = `
+      <div style="margin-bottom:16px">
+        <h3 style="margin:0;font-size:16px;color:var(--ink)">💡 Dica de Ouro para Entrevistas de GRC</h3>
+        <div style="font-size:12.5px;color:var(--dim);margin-top:2px">Argumentos prontos para responder às perguntas mais difíceis de gestores técnicos e recrutadores</div>
+      </div>
+
+      <div class="card" style="border:1px solid var(--gold);background:linear-gradient(180deg,#1c180e,#0e141c);padding:22px;border-radius:12px;margin-bottom:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span style="font-size:24px">🎯</span>
+          <div>
+            <b style="color:var(--gold);font-size:15px">Pergunta Clássica do Gestor:</b>
+            <div style="color:#e6edf3;font-size:14px;font-style:italic">"Como você prioriza riscos na prática e gerencia risco de fornecedores terceiros (TPRM)?"</div>
+          </div>
+        </div>
+
+        <div style="background:#090d12;border-left:4px solid var(--gold);padding:14px 18px;border-radius:6px;font-size:13.5px;color:#f0e4c8;line-height:1.7;margin:14px 0">
+          ${ed.dica_de_ouro}
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px">
+          <span style="font-size:12px;color:var(--dim)">Doutrina: <b>Cadeia de Custódia Forense + NIST CSF 2.0 + Qualys TruRisk</b></span>
+          <button class="btn ghost" style="padding:6px 12px;font-size:12px" onclick="navigator.clipboard.writeText('${ed.dica_de_ouro.replace(/'/g, "\\'")}'); alert('Dica copiada para a área de transferência!');">📋 Copiar Resposta</button>
+        </div>
+      </div>
+
+      <div class="card" style="background:var(--panel2)">
+        <h4 style="margin:0 0 8px;font-size:14px;color:var(--acc)">🧠 Por que essa resposta é imbatível?</h4>
+        <ul style="font-size:13px;color:var(--dim);margin:0;padding-left:18px;line-height:1.6">
+          <li><b>Elimina o jargão vazio:</b> Conecta a probabilidade x impacto diretamente a dinheiro, ativos críticos e conformidade legal (LGPD/DORA).</li>
+          <li><b>Usa o seu diferencial da PMMG:</b> A metáfora da "cadeia de custódia da evidência" faz os auditores sorrirem, pois o maior sofrimento deles é gente que não sabe documentar prova.</li>
+          <li><b>Cita ferramentas reais:</b> Mostra domínio de conceitos modernos de TruRisk Score e catálogos como CISA KEV e EPSS.</li>
+        </ul>
+      </div>
+    `;
+  } else if (activeBussolaSubTab === 'historico') {
+    subTabContent = `
+      <div style="margin-bottom:16px">
+        <h3 style="margin:0;font-size:16px;color:var(--ink)">📚 Arquivo Histórico de Edições</h3>
+        <div style="font-size:12.5px;color:var(--dim);margin-top:2px">Acompanhe a sua evolução e recalibração estratégica semana a semana</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="card" style="margin:0;border-color:var(--acc);background:var(--panel2)">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+            <div>
+              <b style="color:var(--acc);font-size:14.5px">${ed.titulo} (Edição Atual)</b>
+              <div style="font-size:12px;color:var(--dim);margin-top:2px">Publicado em: ${ed.data_publicacao} · Score: ${ed.score_prontidao}</div>
+            </div>
+            <span class="badge b-a">Ativa</span>
+          </div>
+          <p style="font-size:13px;color:#c3cdd6;margin:8px 0 0;line-height:1.55">${ed.resumo_executivo}</p>
+        </div>
+
+        ${historico.length ? historico.map(h => `
+          <div class="card" style="margin:0;border-color:var(--line);background:var(--panel2)">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <div>
+                <b style="color:var(--ink);font-size:14px">${h.titulo}</b>
+                <div style="font-size:12px;color:var(--dim);margin-top:2px">Publicado em: ${h.data_publicacao}</div>
+              </div>
+              <span class="badge" style="color:var(--dim)">Arquivada</span>
+            </div>
+            <p style="font-size:12.5px;color:var(--dim);margin:6px 0 0">${h.resumo_executivo}</p>
+          </div>
+        `).join('') : `
+          <div style="padding:20px;text-align:center;color:var(--dim);font-size:13px;border:1px dashed var(--line);border-radius:8px">
+            Esta é a primeira edição oficial da Bússola Semanal. As edições arquivadas aparecerão aqui automaticamente a cada nova segunda-feira!
+          </div>
+        `}
+      </div>
+    `;
+  }
+
+  container.innerHTML = `
+    <!-- BANNER TOPO DA BÚSSOLA -->
+    <div class="card" style="border-color:#3a2e12;background:linear-gradient(180deg,#18140a,#0b0f14);padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div style="flex:1;min-width:300px">
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+            <span class="pill" style="color:var(--gold);border-color:var(--gold);font-weight:700;font-size:11.5px">🧭 BÚSSOLA SEMANAL GRC & CYBERSEC</span>
+            <span class="badge" style="color:var(--acc);border-color:var(--acc)">${ed.status_bussola}</span>
+            <span class="badge" style="color:var(--dim)">Atualizado: ${data.ultima_atualizacao}</span>
+          </div>
+          <h2 style="margin:0;font-size:20px;letter-spacing:.3px;color:var(--ink)">${ed.titulo}</h2>
+          <div style="font-size:13px;color:var(--dim);margin-top:6px;line-height:1.5">
+            ${ed.resumo_executivo}
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <div style="padding:8px 14px;background:#141b24;border:1px solid #233448;border-radius:10px;text-align:center">
+            <span style="font-size:11px;color:var(--dim);display:block">Score de Prontidão</span>
+            <b style="font-size:20px;color:var(--gold)">${ed.score_prontidao}</b>
+          </div>
+          <div style="padding:8px 14px;background:#141b24;border:1px solid #233448;border-radius:10px;text-align:center">
+            <span style="font-size:11px;color:var(--dim);display:block">Próximo Boletim</span>
+            <b style="font-size:14px;color:var(--blue)">${ed.proxima_atualizacao}</b>
+            <span style="font-size:10px;color:var(--dim);display:block">08:30 (Cron)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPIs rápidos -->
+      <div class="kpi" style="margin-top:16px;padding-top:14px;border-top:1px solid #252012">
+        <div>Trilha Alvo: <b style="font-size:13.5px;color:var(--ink)">GRC & AI Safety</b></div>
+        <div>Próxima Cert: <b style="font-size:13.5px;color:var(--acc)">Security+ SY0-701</b></div>
+        <div>Mestrado: <b style="font-size:13.5px;color:var(--purple)">CU Boulder (Jan/27)</b></div>
+        <div>Vagas Mapeadas: <b style="font-size:13.5px;color:var(--blue)">${barometro.vagas_analisadas || 53} vagas</b></div>
+        <div>Sprint 7 Dias: <b style="font-size:13.5px;color:${progressPct === 100 ? 'var(--acc)' : 'var(--gold)'}">${completedCount}/${tarefas.length} entregas (${progressPct}%)</b></div>
+      </div>
+    </div>
+
+    <!-- SUB-TABS DA BÚSSOLA -->
+    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin:16px 0;border-bottom:1px solid var(--line)">
+      <button class="copilot-tab ${activeBussolaSubTab === 'poly' ? 'on' : ''}" onclick="switchBussolaSubTab('poly')" style="display:inline-flex;align-items:center;gap:6px">
+        ⚖️ Parecer POLY Court (NVIDIA NIM)
+      </button>
+      <button class="copilot-tab ${activeBussolaSubTab === 'plano' ? 'on' : ''}" onclick="switchBussolaSubTab('plano')" style="display:inline-flex;align-items:center;gap:6px">
+        🎯 Sprint Tático 7 Dias (${completedCount}/${tarefas.length})
+      </button>
+      <button class="copilot-tab ${activeBussolaSubTab === 'radar' ? 'on' : ''}" onclick="switchBussolaSubTab('radar')" style="display:inline-flex;align-items:center;gap:6px">
+        🛰️ Radar Regulatório (NIST / ISO / ANPD)
+      </button>
+      <button class="copilot-tab ${activeBussolaSubTab === 'barometro' ? 'on' : ''}" onclick="switchBussolaSubTab('barometro')" style="display:inline-flex;align-items:center;gap:6px">
+        💼 Barômetro Vagas & Salários
+      </button>
+      <button class="copilot-tab ${activeBussolaSubTab === 'dica' ? 'on' : ''}" onclick="switchBussolaSubTab('dica')" style="display:inline-flex;align-items:center;gap:6px">
+        💡 Dica de Ouro Entrevistas
+      </button>
+      <button class="copilot-tab ${activeBussolaSubTab === 'historico' ? 'on' : ''}" onclick="switchBussolaSubTab('historico')" style="display:inline-flex;align-items:center;gap:6px">
+        📚 Arquivo de Edições
+      </button>
+    </div>
+
+    <!-- CORPO DA SUB-ABA ATIVA -->
+    <div>
+      ${subTabContent}
+    </div>
+  `;
+}
+
+function switchBussolaSubTab(tabName) {
+  activeBussolaSubTab = tabName;
+  renderBussola();
+}
+
+function toggleBussolaTask(taskId) {
+  let savedTasks = {};
+  try {
+    savedTasks = JSON.parse(localStorage.getItem("bussola_tasks_status") || "{}");
+  } catch(e) {}
+
+  savedTasks[taskId] = !savedTasks[taskId];
+  localStorage.setItem("bussola_tasks_status", JSON.stringify(savedTasks));
+  renderBussola();
+}
+
+function resetBussolaTasks() {
+  if (confirm("Deseja realmente resetar o progresso das tarefas desta semana?")) {
+    localStorage.removeItem("bussola_tasks_status");
+    renderBussola();
+  }
+}
+
+function formatBussolaText(txt) {
+  if (!txt) return '';
+  let html = txt
+    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+    .replace(/\*(.*?)\*/g, '<i>$1</i>');
+  return html;
+}
 
 /* ---------- COPILOTO DE CANDIDATURA IA (ESTILO AIAPPLY) ---------- */
 let activeCopilotJob = null;
