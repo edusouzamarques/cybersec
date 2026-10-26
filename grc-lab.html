@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🛡️ Enterprise GRC & Security Assurance Lab — NIST CSF 2.0 & ISO 27001</title>
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#121821; --panel2:#0e141c; --ink:#e6edf3; --dim:#8b98a5;
+    --line:#22303c; --acc:#3ddc97; --blue:#4aa3ff; --red:#ff5d5d; --gold:#ffd23f;
+    --purple:#b98cff; --card-hover:#16212e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.55 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{padding:22px 28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0f1622,#0b0f14)}
+  .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px}
+  .breadcrumb{font-size:12.5px;color:var(--dim)}
+  .header-actions{display:flex;gap:8px;align-items:center}
+  .btn-link{padding:6px 12px;border:1px solid var(--line);border-radius:20px;font-size:12px;color:var(--dim);background:var(--panel2);display:inline-flex;align-items:center;gap:6px;font-weight:600;text-decoration:none}
+  .btn-link:hover{border-color:var(--acc);color:var(--acc);text-decoration:none}
+  h1{margin:0;font-size:24px;color:#fff;display:flex;align-items:center;gap:10px}
+  .sub{color:var(--dim);font-size:13.5px;margin-top:6px;max-width:900px}
+  .tabs-bar{display:flex;gap:8px;padding:14px 28px;background:var(--panel2);border-bottom:1px solid var(--line);overflow-x:auto}
+  .tab{padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--dim);cursor:pointer;font-size:13px;white-space:nowrap;font-weight:600}
+  .tab:hover{border-color:var(--blue);color:#fff}
+  .tab.on{color:#04150d;background:var(--acc);border-color:var(--acc);font-weight:700}
+  main{max-width:1300px;margin:0 auto;padding:22px 28px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+  .card h2{margin:0 0 10px 0;font-size:17px;color:#fff;display:flex;align-items:center;gap:8px}
+  .grid-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px}
+  .stat-card{background:linear-gradient(180deg,#151f2b,#0f1622);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .stat-val{font-size:26px;font-weight:800;color:#fff;margin:4px 0}
+  .stat-sub{font-size:12px;color:var(--dim)}
+  .badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);font-weight:600;display:inline-block}
+  .badge-crit{background:rgba(255,93,93,0.15);color:var(--red);border-color:rgba(255,93,93,0.3)}
+  .badge-high{background:rgba(255,210,63,0.15);color:var(--gold);border-color:rgba(255,210,63,0.3)}
+  .badge-med{background:rgba(74,163,255,0.15);color:var(--blue);border-color:rgba(74,163,255,0.3)}
+  .badge-low{background:rgba(61,220,151,0.15);color:var(--acc);border-color:rgba(61,220,151,0.3)}
+  
+  /* Heatmap */
+  .heatmap-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px}
+  .heat-cell{border-radius:6px;min-height:74px;padding:6px;font-size:11px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--line);background:#101721;position:relative}
+  .heat-crit{background:rgba(255,93,93,0.22);border-color:rgba(255,93,93,0.4)}
+  .heat-high{background:rgba(255,210,63,0.18);border-color:rgba(255,210,63,0.35)}
+  .heat-med{background:rgba(74,163,255,0.15);border-color:rgba(74,163,255,0.3)}
+  .heat-low{background:rgba(61,220,151,0.12);border-color:rgba(61,220,151,0.25)}
+  .heat-pill{background:#000;color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;font-size:10px;margin-top:2px;display:inline-block;cursor:pointer}
+  
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+  th{text-align:left;padding:10px 12px;background:#0d141d;border-bottom:2px solid var(--line);color:var(--dim);font-weight:600}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:var(--card-hover)}
+  
+  /* Filter bar */
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
+  .search-input{background:#0a0e14;border:1px solid var(--line);border-radius:8px;padding:7px 12px;color:#fff;font-size:13px;width:240px}
+  .search-input:focus{outline:none;border-color:var(--acc)}
+  
+  /* Code snippet */
+  pre{background:#090d12;border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;color:#7ee787;font-size:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  
+  .hide{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top-nav">
+    <div class="breadcrumb">
+      <a href="assistente-cybersec.html">← Voltar para o Assistente</a> · <b>Eduardo de Souza Marques</b> · Portfólio de Cibersegurança & GRC
+    </div>
+    <div class="header-actions">
+      <a href="treino-cybersec.html" class="btn-link">🎯 Treinador</a>
+      <a href="https://github.com/edusouzamarques/cybersec" target="_blank" class="btn-link">🐙 Repositório GitHub</a>
+    </div>
+  </div>
+  <h1>🛡️ Enterprise GRC & Security Assurance Lab</h1>
+  <div class="sub">
+    Implementação e auditoria contínua de controles de segurança para o ecossistema SaaS FinTech <b>CloudPay Technologies</b>.
+    Alinhamento prático e rastreável com <b>NIST CSF 2.0</b>, <b>ISO/IEC 27001:2022</b>, <b>SOC 2 Type II</b> e Governança de IA.
+  </div>
+</header>
+
+<nav class="tabs-bar">
+  <div class="tab on" onclick="switchTab('dash', this)">📊 Painel Executivo & Heatmap</div>
+  <div class="tab" onclick="switchTab('risks', this)">📋 Matriz de Riscos (10)</div>
+  <div class="tab" onclick="switchTab('controls', this)">🗺️ Mapeamento Multi-Framework</div>
+  <div class="tab" onclick="switchTab('evidence', this)">🔍 Plano de Evidências & Auditoria</div>
+  <div class="tab" onclick="switchTab('tprm', this)">🏢 Avaliação de Fornecedores (TPRM)</div>
+  <div class="tab" onclick="switchTab('memo', this)">📄 Memorando Executivo C-Level</div>
+</nav>
+
+<main>
+
+  <!-- TAB: DASHBOARD -->
+  <section id="tab-dash">
+    <div class="grid-stats">
+      <div class="stat-card">
+        <div class="stat-sub">NIST CSF 2.0 MATURITY</div>
+        <div class="stat-val" style="color:var(--acc)">84%</div>
+        <div class="stat-sub">Tier 3: Repetível e documentado</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-sub">ISO/IEC 27001:2022 CONFORMITY</div>
+        <div class="stat-val" style="color:var(--blue)">81%</div>
+        <div class="stat-sub">93 controles do Anexo A auditados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-sub">SOC 2 TYPE II READINESS</div>
+        <div class="stat-val" style="color:var(--purple)">78%</div>
+        <div class="stat-sub">Período de observação: Q1 2027</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-sub">RISCOS CRÍTICOS RESIDUAIS</div>
+        <div class="stat-val" style="color:var(--acc)">0</div>
+        <div class="stat-sub">100% dos riscos mitigados para Low/Med</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔥 Matriz de Calor de Riscos (5x5 Heatmap — Inerente vs. Residual)</h2>
+      <p style="color:var(--dim);font-size:13px;margin:0 0 12px 0">
+        Distribuição dos 10 riscos corporativos mapeados. Clique nos badges de risco para pular direto para a ficha de tratamento.
+      </p>
+      
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:1;min-width:320px">
+          <b style="font-size:12.5px;color:var(--dim)">MATRIZ INERENTE (Sem controles)</b>
+          <div class="heatmap-wrap" id="heatmapInherent"></div>
+        </div>
+        <div style="flex:1;min-width:320px">
+          <b style="font-size:12.5px;color:var(--acc)">MATRIZ RESIDUAL (Com controles aplicados)</b>
+          <div class="heatmap-wrap" id="heatmapResidual"></div>
+        </div>
+      </div>
+      <div style="margin-top:14px;font-size:12px;color:var(--dim);display:flex;gap:16px;flex-wrap:wrap">
+        <span>🔴 <b>16–25:</b> Crítico (Ação imediata 30d)</span>
+        <span>🟠 <b>10–15:</b> Alto (Tratamento 60d)</span>
+        <span>🟡 <b>5–9:</b> Médio (Monitoramento)</span>
+        <span>🟢 <b>1–4:</b> Baixo (Aceito / Controlado)</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏛️ Arquitetura de Governança Técnica & Escopo</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;font-size:13px">
+        <div style="background:#0d141d;padding:12px;border-radius:8px;border:1px solid var(--line)">
+          <b style="color:var(--acc)">☁️ Nuvem & Infraestrutura</b>
+          <div style="color:var(--dim);margin-top:4px\">100% AWS Cloud-Native (EKS, Aurora PostgreSQL, S3, IAM, KMS). Multi-region com backups imutáveis WORM.</div>
+        </div>
+        <div style="background:#0d141d;padding:12px;border-radius:8px;border:1px solid var(--line)">
+          <b style="color:var(--blue)">🔑 Identidade & Acesso (IAM)</b>
+          <div style="color:var(--dim);margin-top:4px">Okta Workforce SSO com MFA FIDO2 (YubiKey) obrigatório. Sem credenciais estáticas de longo prazo no AWS CLI.</div>
+        </div>
+        <div style="background:#0d141d;padding:12px;border-radius:8px;border:1px solid var(--line)">
+          <b style="color:var(--purple)">🤖 Governança de IA & Dados</b>
+          <div style="color:var(--dim);margin-top:4px">Proxy de mascaramento de PII (Presidio) antes do envio a LLMs externos. Cláusulas contratuais de Zero Data Retention (ZDR).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB: RISK REGISTER -->
+  <section id="tab-risks" class="hide">
+    <div class="card">
+      <h2>📋 Registro Corporativo de Riscos (Enterprise Risk Register)</h2>
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="riskSearch" placeholder="Buscar risco, controle ou owner..." oninput="filterRisks()">
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="domainFilters"></div>
+      </div>
+      <div id="riskTableContainer"></div>
+    </div>
+  </section>
+
+  <!-- TAB: CONTROLS MAPPING -->
+  <section id="tab-controls" class="hide">
+    <div class="card">
+      <h2>🗺️ Mapeamento Multi-Framework (NIST CSF 2.0 ⇄ ISO 27001 ⇄ SOC 2)</h2>
+      <p style="color:var(--dim);font-size:13px;margin:0 0 12px 0">
+        Estrutura de controle unificada: uma única implementação técnica atende simultaneamente aos três frameworks sem retrabalho.
+      </p>
+      <div id="controlsTableContainer"></div>
+    </div>
+  </section>
+
+  <!-- TAB: EVIDENCE PLAN -->
+  <section id="tab-evidence" class="hide">
+    <div class="card">
+      <h2>🔍 Plano de Coleta de Evidências & Testes de Auditoria</h2>
+      <p style="color:var(--dim);font-size:13px;margin:0 0 12px 0">
+        Procedimentos operacionais de auditoria técnica: comandos de CLI (AWS / Okta / Git) e métodos de amostragem que garantem cadeia de custódia inquestionável perante auditores externos.
+      </p>
+      <div id="evidenceTableContainer"></div>
+    </div>
+  </section>
+
+  <!-- TAB: TPRM -->
+  <section id="tab-tprm" class="hide">
+    <div class="card">
+      <h2>🏢 Avaliação de Risco de Terceiros (TPRM Due Diligence)</h2>
+      <div style="background:#0d141d;padding:14px;border-radius:8px;border:1px solid var(--line);margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+          <div>
+            <b style="font-size:15px;color:#fff">Vendor: CognitiveAI Inc. (Provedor de API de LLM / Detecção de Fraude)</b>
+            <div style="color:var(--dim);font-size:12px;margin-top:2px">Classificação de Criticidade: <b>Tier 1 (High Impact)</b> · Reavaliação Periódica: Anual</div>
+          </div>
+          <span class="badge badge-low" style="font-size:12px;padding:4px 10px">APROVADO COM CONDIÇÕES ✅</span>
+        </div>
+      </div>
+      <div id="tprmContainer"></div>
+    </div>
+  </section>
+
+  <!-- TAB: MEMO -->
+  <section id="tab-memo" class="hide">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h2>📄 Memorando Executivo para o Conselho e CISO</h2>
+        <button onclick="copyMemo()" id="btnCopyMemo" style="padding:6px 14px;border-radius:20px;background:#13281e;border:1px solid var(--acc);color:var(--acc);font-weight:700;font-size:12px;cursor:pointer">
+          📋 Copiar Memorando
+        </button>
+      </div>
+      <div id="memoContent" style="background:#0a0e14;padding:20px;border-radius:8px;border:1px solid var(--line);font-size:13.5px;line-height:1.6"></div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const RISKS = [
+  {id:'RSK-01', dom:'IAM', title:'Comprometimento de Credenciais Privilegiadas de Nuvem',
+   desc:'Vazamento de chaves estáticas de AWS IAM via phishing/infostealer resultando em takeover da conta root.',
+   inh_l:4, inh_i:5, res_l:1, res_i:4,
+   ctrl:'MFA FIDO2 (YubiKey) obrigatório, AWS IAM Identity Center (JIT), sessões de 4h, zero chaves estáticas.',
+   treat:'Mitigar', owner:'Head of SecOps', date:'Concluído', nist:'PR.AA-01 / PR.AA-05', iso:'A.5.15 / A.8.5'},
+  
+  {id:'RSK-02', dom:'TPRM', title:'Indisponibilidade do Gateway de Pagamento Primário',
+   desc:'Falha prolongada ou breach no parceiro bancário de processamento de pagamentos causando paradas de transações.',
+   inh_l:3, inh_i:5, res_l:2, res_i:3,
+   ctrl:'Auditoria anual de SOC 2 do parceiro, roteamento multi-gateway com failover dinâmico, monitoramento sintético.',
+   treat:'Mitigar / Transferir', owner:'VP Engineering', date:'60 Dias', nist:'GV.SC-04', iso:'A.5.19 / A.5.20'},
+
+  {id:'RSK-03', dom:'AI Governance', title:'Vazamento de PII/Cartão em Pipeline de Treinamento de LLM',
+   desc:'Envio inadvertido de dados de clientes em prompts de API de IA que usem dados para re-treinamento.',
+   inh_l:4, inh_i:4, res_l:1, res_i:3,
+   ctrl:'Proxy de higienização de dados (Presidio), cláusula contratual de Zero Data Retention (ZDR) e termo BAA.',
+   treat:'Mitigar', owner:'Lead AI Engineer', date:'45 Dias', nist:'GV.PO-01 / PR.DS-01', iso:'A.8.11 / A.5.8'},
+
+  {id:'RSK-04', dom:'Cloud', title:'Exposição Pública de Balde S3 com Backups/Snapshots',
+   desc:'Erro de configuração de permissão tornando logs e dumps de banco de dados acessíveis na internet pública.',
+   inh_l:3, inh_i:5, res_l:1, res_i:4,
+   ctrl:'AWS Organizations SCP bloqueando S3 público em toda a organização, regras de compliance contínuo AWS Config.',
+   treat:'Mitigar', owner:'Cloud Architect', date:'Concluído', nist:'PR.DS-01', iso:'A.8.24'},
+
+  {id:'RSK-05', dom:'Privacy', title:'Incapacidade de Cumprimento de Prazos LGPD/GDPR (DSAR)',
+   desc:'Falta de mapeamento centralizado de dados gerando multas por descumprimento do prazo legal de 15 dias.',
+   inh_l:4, inh_i:3, res_l:2, res_i:2,
+   ctrl:'Catálogo central de dados (OpenMetadata), script de anonimização automatizada, processo formal de DPO.',
+   treat:'Mitigar', owner:'DPO / Legal', date:'90 Dias', nist:'GV.PO-02', iso:'A.5.34'},
+
+  {id:'RSK-06', dom:'BCP', title:'Ataque de Ransomware com Corrupção de Backups',
+   desc:'Criptografia da base de produção acompanhada de deleção de snapshots em caso de credenciais comprometidas.',
+   inh_l:3, inh_i:5, res_l:1, res_i:4,
+   ctrl:'AWS Backup Vault Lock (WORM / imutável), replicação cross-region para conta AWS isolada, teste bianual.',
+   treat:'Mitigar', owner:'Head of Infra', date:'60 Dias', nist:'RC.RP-01', iso:'A.8.13'},
+
+  {id:'RSK-07', dom:'AppSec', title:'Vulnerabilidade Crítica de BOLA/SQLi em API Financeira',
+   desc:'Falha de lógica de autorização permitindo que um usuário acesse registros financeiros de outro cliente.',
+   inh_l:3, inh_i:4, res_l:1, res_i:3,
+   ctrl:'SAST (Semgrep) e DAST no pipeline CI/CD, pentest externo anual (Bishop Fox), testes de regressão automatizados.',
+   treat:'Mitigar', owner:'AppSec Lead', date:'Contínuo', nist:'PR.PS-06', iso:'A.8.25 / A.8.28'},
+
+  {id:'RSK-08', dom:'IAM', title:'Ameaça Interna / Exfiltração de Dados por Ex-Colaborador',
+   desc:'Engenheiro desligado retém credenciais ou faz download em massa de base de dados antes do bloqueio de acessos.',
+   inh_l:3, inh_i:4, res_l:2, res_i:2,
+   ctrl:'Desligamento automatizado via webhook Okta/HRIS (<15 min), auditoria de queries no RDS (pgAudit), DLP em endpoints.',
+   treat:'Mitigar', owner:'GRC Analyst', date:'60 Dias', nist:'PR.AA-05', iso:'A.5.18 / A.8.15'},
+
+  {id:'RSK-09', dom:'Supply Chain', title:'Injeção de Pacote Malicioso em Dependências (Supply Chain)',
+   desc:'Comprometimento de biblioteca open-source de terceiro (npm/pip) inserindo backdoor no artefato de build.',
+   inh_l:3, inh_i:4, res_l:2, res_i:2,
+   ctrl:'Dependabot/Snyk no CI/CD com bloqueio de merge se CVSS>7, commits assinados obrigatórios e 2 revisores.',
+   treat:'Mitigar', owner:'DevSecOps', date:'Concluído', nist:'PR.PS-06', iso:'A.8.28'},
+
+  {id:'RSK-10', dom:'Compliance', title:'Evidências Incompletas em Auditoria Externa ISO/SOC 2',
+   desc:'Falha na amostragem documental resultando em qualificação de relatório ou não-conformidade maior.',
+   inh_l:4, inh_i:3, res_l:1, res_i:2,
+   ctrl:'Plataforma contínua (Drata/Vanta), repositório central com hashing de evidências SHA-256 e mock audits trimestrais.',
+   treat:'Mitigar', owner:'GRC Analyst', date:'90 Dias', nist:'GV.OV-01', iso:'A.5.35 / A.5.36'}
+];
+
+const CONTROLS = [
+  {dom:'Governança', title:'Políticas de Segurança da Informação', nist:'GV.PO-01', iso:'A.5.1', soc:'CC1.2, CC2.1',
+   impl:'Repositório git versionado (security-policies/), aprovação anual da diretoria e aceite compulsório por colaboradores.'},
+  {dom:'Governança', title:'Gestão de Risco de Terceiros (TPRM)', nist:'GV.SC-04', iso:'A.5.19, A.5.20', soc:'CC9.2',
+   impl:'Revisão anual de SOC 2 Type II dos fornecedores Tier 1, pontuação BitSight contínua e cláusulas contratuais DPA/BAA.'},
+  {dom:'Identidade', title:'Autenticação Multi-Fator (MFA) FIDO2', nist:'PR.AA-01', iso:'A.8.5', soc:'CC6.1',
+   impl:'Obrigatoriedade de chaves FIDO2 (YubiKey) ou Okta Verify para acessos corporativos e consoles AWS/Nuvem.'},
+  {dom:'Identidade', title:'Privilégio Mínimo & Role-Based Access', nist:'PR.AA-05', iso:'A.5.15, A.5.18', soc:'CC6.2, CC6.3',
+   impl:'AWS IAM Identity Center com permissões temporárias (JIT). Revisão trimestral de acessos com desprovisionamento automático.'},
+  {dom:'Dados', title:'Criptografia em Repouso & Em Trânsito', nist:'PR.DS-01', iso:'A.8.24', soc:'CC6.6, CC6.7',
+   impl:'TLS 1.3 obrigatório no Cloudflare WAF; AWS KMS Customer-Managed Keys com AES-256 em RDS, S3 e volumes EBS.'},
+  {dom:'Dados', title:'Mascaramento & Higienização de Dados', nist:'PR.DS-02', iso:'A.8.11', soc:'CC6.5',
+   impl:'Proxy de dados Microsoft Presidio na camada de API para anonimizar PII antes de envio para modelos ou logs.'},
+  {dom:'Operações', title:'Gestão de Vulnerabilidades & Patches', nist:'PR.PS-02', iso:'A.8.8', soc:'CC7.1',
+   impl:'Varredura contínua com Qualys VMDR e AWS Inspector. SLAs de correção: Crítica <7 dias, Alta <30 dias.'},
+  {dom:'Operações', title:'Ciclo de Vida de Software Seguro (AppSec)', nist:'PR.PS-06', iso:'A.8.25, A.8.28', soc:'CC8.1',
+   impl:'Proteção de branch no GitHub com 2 aprovações obrigatórias, verificação SAST (Semgrep) e commit assinado com GPG.'},
+  {dom:'Detecção', title:'Monitoramento Centralizado & SIEM', nist:'DE.CM-01', iso:'A.8.15, A.8.16', soc:'CC7.2',
+   impl:'AWS CloudTrail multi-região enviando logs para S3 imutável (Object Lock) e correlação em tempo real no Wazuh SIEM.'},
+  {dom:'Continuidade', title:'Backups Imutáveis & Recuperação (DR)', nist:'RC.RP-01', iso:'A.8.13, A.8.14', soc:'A1.2, A1.3',
+   impl:'AWS Backup Vault Lock em modo WORM, replicação para conta secundária isolada; RTO <4h e RPO <15min testados.'}
+];
+
+const EVIDENCE = [
+  {id:'EVD-01', title:'Adesão Obrigatória de MFA FIDO2', sys:'Okta Identity', freq:'Mensal',
+   method:'Extração via API do status dos 100% usuários ativos. Proibição de SMS ou bypass.',
+   cmd:'curl -s -H "Authorization: SSWS $OKTA_KEY" "https://cloudpay.okta.com/api/v1/users?filter=status+eq+%22ACTIVE%22" | jq \'.[].profile.login\''},
+  {id:'EVD-02', title:'Auditoria de Chaves e Usuários Raiz AWS', sys:'AWS IAM', freq:'Trimestral',
+   method:'Geração de Credential Report. Verificação de zero chaves ativas para a conta root e rotação <90d.',
+   cmd:'aws iam generate-credential-report && aws iam get-credential-report --output text --query "Content" | base64 -d | cut -d, -f1,4,8,9,16 | column -t -s,'},
+  {id:'EVD-03', title:'Integridade e Rastreabilidade do CloudTrail', sys:'AWS CloudTrail', freq:'Amostral',
+   method:'Verificação de trilhas ativas em todas as regiões com validação criptográfica de integridade de log.',
+   cmd:'aws cloudtrail describe-trails --query "trailList[*].{Name:Name,MultiRegion:IsMultiRegionTrail,Validation:LogFileValidationEnabled}" --output table'},
+  {id:'EVD-04', title:'Relatório de Aderência a SLAs de Vulnerabilidades', sys:'Qualys VMDR', freq:'Quinzenal',
+   method:'Amostragem de 25 tickets de vulnerabilidades. Validação de resolução de Críticas em menos de 7 dias.',
+   cmd:'qualys-cli report --type=remediation --severity=4,5 --status=closed --output=csv'},
+  {id:'EVD-05', title:'Proteção de Branches e Revisão Dupla de Código', sys:'GitHub Enterprise', freq:'Mensal (30 PRs)',
+   method:'Inspeção via API de branches protegidas. Garantia de exigência de 2 aprovações e checks do Semgrep.',
+   cmd:'gh api repos/cloudpay/core-payment/branches/main/protection --jq \'{reviews: .required_pull_request_reviews.required_approving_review_count, status_checks: .required_status_checks.contexts}\''}
+];
+
+function scoreBadge(score){
+  if(score>=16) return `<span class="badge badge-crit">CRÍTICO (${score})</span>`;
+  if(score>=10) return `<span class="badge badge-high">ALTO (${score})</span>`;
+  if(score>=5) return `<span class="badge badge-med">MÉDIO (${score})</span>`;
+  return `<span class="badge badge-low">BAIXO (${score})</span>`;
+}
+
+function renderHeatmaps(){
+  const inEl = document.getElementById('heatmapInherent');
+  const resEl = document.getElementById('heatmapResidual');
+  if(!inEl || !resEl) return;
+
+  function buildGrid(isRes){
+    let html = '';
+    for(let l=5; l>=1; l--){
+      for(let i=1; i<=5; i++){
+        const score = l * i;
+        let cls = 'heat-low';
+        if(score>=16) cls = 'heat-crit';
+        else if(score>=10) cls = 'heat-high';
+        else if(score>=5) cls = 'heat-med';
+
+        const matching = RISKS.filter(r => isRes ? (r.res_l===l && r.res_i===i) : (r.inh_l===l && r.inh_i===i));
+        const badges = matching.map(m => `<span class="heat-pill" title="${m.title}" onclick="filterRiskSingle('${m.id}')">${m.id}</span>`).join(' ');
+
+        html += `<div class="heat-cell ${cls}">
+          <div style="display:flex;justify-content:space-between;color:var(--dim);font-size:9.5px">
+            <span>L:${l} I:${i}</span>
+            <b>${score}</b>
+          </div>
+          <div>${badges}</div>
+        </div>`;
+      }
+    }
+    return html;
+  }
+
+  inEl.innerHTML = buildGrid(false);
+  resEl.innerHTML = buildGrid(true);
+}
+
+function renderRisks(filterText='', domFilter='all'){
+  const container = document.getElementById('riskTableContainer');
+  if(!container) return;
+
+  let list = RISKS;
+  if(domFilter!=='all') list = list.filter(r => r.dom === domFilter);
+  if(filterText){
+    const f = filterText.toLowerCase();
+    list = list.filter(r => r.id.toLowerCase().includes(f) || r.title.toLowerCase().includes(f) || r.ctrl.toLowerCase().includes(f) || r.owner.toLowerCase().includes(f));
+  }
+
+  container.innerHTML = `<table>
+    <tr>
+      <th>ID</th>
+      <th>Domínio</th>
+      <th>Descrição do Risco</th>
+      <th>Inerente</th>
+      <th>Controles Principais</th>
+      <th>Residual</th>
+      <th>Tratamento</th>
+      <th>Owner</th>
+    </tr>` +
+    list.map(r => `
+      <tr>
+        <td><b>${r.id}</b></td>
+        <td><span class="badge">${r.dom}</span></td>
+        <td>
+          <b>${r.title}</b>
+          <div style="color:var(--dim);font-size:11.5px;margin-top:3px">${r.desc}</div>
+          <div style="font-size:11px;color:var(--blue);margin-top:2px">Normas: ${r.nist} · ISO ${r.iso}</div>
+        </td>
+        <td>${scoreBadge(r.inh_l * r.inh_i)}</td>
+        <td style="font-size:12px;color:#cbd5e1;max-width:280px">${r.ctrl}</td>
+        <td>${scoreBadge(r.res_l * r.res_i)}</td>
+        <td><b>${r.treat}</b><div style="font-size:11px;color:var(--dim)">${r.date}</div></td>
+        <td style="font-size:12px">${r.owner}</td>
+      </tr>
+    `).join('') + `</table>`;
+}
+
+function renderDomainFilters(){
+  const el = document.getElementById('domainFilters');
+  if(!el) return;
+  const doms = ['all', 'IAM', 'Cloud', 'AI Governance', 'TPRM', 'Privacy', 'BCP', 'AppSec', 'Supply Chain', 'Compliance'];
+  el.innerHTML = doms.map(d => `<span class="tab ${d==='all'?'on':''}" style="padding:4px 10px;font-size:11.5px" onclick="setDomain('${d}', this)">${d==='all'?'Todos':d}</span>`).join('');
+}
+
+let activeDomain = 'all';
+function setDomain(d, btn){
+  activeDomain = d;
+  document.querySelectorAll('#domainFilters .tab').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+  renderRisks(document.getElementById('riskSearch').value, activeDomain);
+}
+
+function filterRisks(){
+  renderRisks(document.getElementById('riskSearch').value, activeDomain);
+}
+
+function filterRiskSingle(id){
+  switchTab('risks', document.querySelectorAll('.tabs-bar .tab')[1]);
+  document.getElementById('riskSearch').value = id;
+  renderRisks(id, 'all');
+}
+
+function renderControls(){
+  const el = document.getElementById('controlsTableContainer');
+  if(!el) return;
+  el.innerHTML = `<table>
+    <tr>
+      <th>Domínio</th>
+      <th>Título do Controle</th>
+      <th>NIST CSF 2.0</th>
+      <th>ISO/IEC 27001:2022</th>
+      <th>SOC 2 Type II</th>
+      <th>Implementação Operacional & Técnica</th>
+    </tr>` +
+    CONTROLS.map(c => `
+      <tr>
+        <td><span class="badge">${c.dom}</span></td>
+        <td><b>${c.title}</b></td>
+        <td style="color:var(--acc);font-weight:700">${c.nist}</td>
+        <td style="color:var(--blue);font-weight:700">${c.iso}</td>
+        <td style="color:var(--purple);font-weight:700">${c.soc}</td>
+        <td style="font-size:12px;color:#d1d5db">${c.impl}</td>
+      </tr>
+    `).join('') + `</table>`;
+}
+
+function renderEvidence(){
+  const el = document.getElementById('evidenceTableContainer');
+  if(!el) return;
+  el.innerHTML = `<table>
+    <tr>
+      <th>ID</th>
+      <th>Objetivo do Teste</th>
+      <th>Sistema</th>
+      <th>Freq.</th>
+      <th>Procedimento de Inspeção de Auditoria</th>
+      <th>Script / Comando CLI de Validação</th>
+    </tr>` +
+    EVIDENCE.map(e => `
+      <tr>
+        <td><b>${e.id}</b></td>
+        <td><b>${e.title}</b></td>
+        <td><span class="badge">${e.sys}</span></td>
+        <td>${e.freq}</td>
+        <td style="font-size:12px;color:#d1d5db;max-width:280px">${e.method}</td>
+        <td><pre>${e.cmd}</pre></td>
+      </tr>
+    `).join('') + `</table>`;
+}
+
+function renderTPRM(){
+  const el = document.getElementById('tprmContainer');
+  if(!el) return;
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:14px">
+      <div style="background:#0d141d;padding:12px;border-radius:8px;border:1px solid var(--line)">
+        <b style="color:var(--acc)">1. Relatório SOC 2 Type II</b>
+        <div style="font-size:12px;color:var(--dim);margin-top:4px">Emitido em Agosto/2026 pela EY. Zero exceções testadas nos critérios de Segurança e Confidencialidade.</div>
+      </div>
+      <div style="background:#0d141d;padding:12px;border-radius:8px;border:1px solid var(--line)">
+        <b style="color:var(--acc)">2. Cláusula de Retenção Zero (ZDR)</b>
+        <div style="font-size:12px;color:var(--dim);margin-top:4px">DPA assinado com garantia explícita de que prompts de clientes NÃO são gravados nem usados no re-treino de IA.</div>
+      </div>
+      <div style="background:#0d141d;padding:12px;border-radius:8px;border:1px solid var(--line)">
+        <b style="color:var(--gold)">3. Continuidade & Resiliência (BCP)</b>
+        <div style="font-size:12px;color:var(--dim);margin-top:4px">SLA de 99,95% com redundância multi-AZ. Alerta: inferência depende de uma região primária. Implementado fallback.</div>
+      </div>
+    </div>
+    <div style="background:#090d12;padding:14px;border-radius:8px;border:1px solid var(--line)">
+      <b style="color:#fff;font-size:13px">Controles Complementares do Usuário (CUEC - Nossa Responsabilidade):</b>
+      <ul style="color:var(--dim);font-size:12.5px;margin:6px 0 0 16px;line-height:1.5">
+        <li><b>Pré-Higienização:</b> O CloudPay deve tokenizar CPFs, cartões e PII antes de submeter textos à API do CognitiveAI (implementado via Microsoft Presidio).</li>
+        <li><b>Rotação de Chaves de API:</b> Armazenadas no AWS Secrets Manager e rotacionadas a cada 90 dias com fallback para chaves secundárias.</li>
+      </ul>
+    </div>
+  `;
+}
+
+function renderMemo(){
+  const el = document.getElementById('memoContent');
+  if(!el) return;
+  el.innerHTML = `
+    <div style="border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px">
+      <b style="color:var(--blue);font-size:14px">MEMORANDO DE SEGURANÇA DA INFORMAÇÃO & CONFORMIDADE</b><br>
+      <b>Para:</b> Comitê de Auditoria & Conselho de Administração · CloudPay Technologies<br>
+      <b>De:</b> Eduardo de Souza Marques · Líder de Governança, Riscos e Conformidade (GRC)<br>
+      <b>Data:</b> 26 de Outubro de 2026 · <b>Classificação:</b> Confidencial / Interno
+    </div>
+    <p><b>1. Sumário Executivo:</b><br>
+    Durante o último trimestre, a equipe de GRC concluiu a avaliação abrangente da postura de riscos e controles da CloudPay Technologies, tomando como referência o <b>NIST CSF 2.0 (84% de maturidade)</b> e a <b>ISO/IEC 27001:2022 (81% de prontidão)</b>. A infraestrutura possui forte blindagem de perímetro e criptografia em repouso com AWS KMS. Contudo, a expansão acelerada exigiu a priorização imediata de três frentes estratégicas.</p>
+    
+    <p><b>2. Os Três Riscos Prioritários & Tratamentos Executados:</b><br>
+    • <b>Ingestão de Dados em LLMs (RSK-03):</b> Eliminado o risco de exposição de dados de titulares através da ativação do proxy de desidentificação Presidio e contrato de Zero Data Retention.<br>
+    • <b>Credenciais Estáticas de Administrador (RSK-01):</b> Descontinuação de 14 chaves de acesso estáticas no AWS CLI em prol do Okta SSO + FIDO2 (YubiKey) com sessões temporárias de 4 horas.<br>
+    • <b>Dependência de Gateway Único de Pagamento (RSK-02):</b> Roteamento dinâmico multi-gateway para mitigar impacto de indisponibilidade bancária externa.</p>
+
+    <p><b>3. Impacto no Negócio & Retorno do Investimento:</b><br>
+    A certificação ISO 27001 e a emissão do relatório SOC 2 Type II previstas para o início de 2027 irão destravar aproximadamente <b>US$ 1,8M em contratos corporativos (B2B Enterprise)</b> atualmente travados em auditorias de segurança de clientes.</p>
+  `;
+}
+
+function copyMemo(){
+  const text = document.getElementById('memoContent').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btnCopyMemo');
+    btn.innerHTML = '✓ Memorando Copiado!';
+    setTimeout(() => { btn.innerHTML = '📋 Copiar Memorando'; }, 2000);
+  });
+}
+
+function switchTab(tabId, el){
+  document.querySelectorAll('.tabs-bar .tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('main > section').forEach(s => s.classList.add('hide'));
+  const target = document.getElementById('tab-' + tabId);
+  if(target) target.classList.remove('hide');
+}
+
+// Init
+renderHeatmaps();
+renderDomainFilters();
+renderRisks();
+renderControls();
+renderEvidence();
+renderTPRM();
+renderMemo();
+</script>
+
+</body>
+</html>
