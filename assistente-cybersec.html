@@ -77,6 +77,7 @@
   .q-pill:hover{border-color:var(--acc);color:var(--ink)}
   .q-pill.on{color:#04150d;background:var(--acc);border-color:var(--acc);font-weight:700}
 </style>
+  <script src="_jobscan/entrevistas_data.js"></script>
 </head>
 <body>
 <header>
@@ -856,8 +857,16 @@ function renderTrilha(){
     });
     el.appendChild(ph);
   });
-  el.querySelectorAll("input[type=checkbox]").forEach(cb=>{
-    cb.onchange = ()=>{ done[cb.dataset.id]=cb.checked; save(); 
+    el.querySelectorAll("input[type=checkbox]").forEach(cb=>{
+    cb.onchange = ()=>{
+      done[cb.dataset.id]=cb.checked;
+      save();
+      if(typeof triggerCloudPush === "function") triggerCloudPush();
+      renderPainel();
+    };
+  });
+}
+
 /* ---------------- NUVEM E SINCRONIZAÇÃO MULTI-DISPOSITIVO ---------------- */
 const GIST_ID = "6217d95780f453fa9fe86df561bfce77";
 const BACKUP_URL = "user_progress.json";
@@ -1043,11 +1052,6 @@ window.addEventListener('focus', () => {
   }
 });
 setInterval(() => { initCloudSync(); }, 120000);
-
-renderAll();
-initCloudSync(); if(typeof cloudPush==="function") cloudPush(); };
-  });
-}
 
 function renderPainel(){
   const items = allItems();
