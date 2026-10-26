@@ -392,7 +392,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "🏆 DESTINO 5+ ANOS: Lideranca total da postura de seguranca de fintech global com bilhoes em payouts."
+    "note": "🏆 DESTINO 5+ ANOS: Lideranca total da postura de seguranca de fintech global com bilhoes em payouts.",
+    "url": "https://jobs.ashbyhq.com/tremendous"
   },
   {
     "id": "pavago-risk",
@@ -408,7 +409,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "Matrizes de risco operacional, fraude e auditoria em fintech/crypto."
+    "note": "Matrizes de risco operacional, fraude e auditoria em fintech/crypto.",
+    "url": "https://remoteok.com/remote-jobs/remote-risk-analyst-pavago-1137548"
   },
   {
     "id": "supabase-grc",
@@ -424,7 +426,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "GRC global: auditorias continuas, revisao de controles SOC 2/ISO em plataforma Cloud/DevSecOps."
+    "note": "GRC global: auditorias continuas, revisao de controles SOC 2/ISO em plataforma Cloud/DevSecOps.",
+    "url": "https://jobs.ashbyhq.com/supabase"
   },
   {
     "id": "kyndryl-def",
@@ -440,7 +443,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "SOC/defesa: SIEM, forense, vuln, incidente. Aceita 'estudando a cert'. ALVO PRIME."
+    "note": "SOC/defesa: SIEM, forense, vuln, incidente. Aceita 'estudando a cert'. ALVO PRIME.",
+    "url": "https://www.dice.com/jobs?q=Kyndryl+Cybersecurity+Defense+Associate"
   },
   {
     "id": "kyndryl-eng",
@@ -456,7 +460,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "SIEM, IDS/IPS, vuln mgmt. Remoto, entry. ALVO PRIME."
+    "note": "SIEM, IDS/IPS, vuln mgmt. Remoto, entry. ALVO PRIME.",
+    "url": "https://www.dice.com/jobs?q=Kyndryl+Cybersecurity+Engineer+Early+Career"
   },
   {
     "id": "kyndryl-infra",
@@ -473,7 +478,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "Firewall, IDS/IPS, endpoint, ISO 27001. Remoto, entry."
+    "note": "Firewall, IDS/IPS, endpoint, ISO 27001. Remoto, entry.",
+    "url": "https://www.dice.com/jobs?q=Kyndryl+Cybersecurity+Infrastructure+Associate"
   },
   {
     "id": "tymon-ai",
@@ -490,7 +496,8 @@
     "clearance": false,
     "sponsor": true,
     "student": false,
-    "note": "⭐ NICHO DE OURO: IA+segurança + PATROCINA VISTO. AppSec/DevSecOps, SAST/SCA, Java/Python. É pra ISSO que tu vai."
+    "note": "⭐ NICHO DE OURO: IA+segurança + PATROCINA VISTO. AppSec/DevSecOps, SAST/SCA, Java/Python. É pra ISSO que tu vai.",
+    "url": "https://www.dice.com/jobs?q=Tymon+Global+AI+Security+Analyst"
   },
   {
     "id": "systemone-grc",
@@ -506,7 +513,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "GRC: risco, ServiceNow, IT audit. Contrato 16 sem. Ramo GRC remoto."
+    "note": "GRC: risco, ServiceNow, IT audit. Contrato 16 sem. Ramo GRC remoto.",
+    "url": "https://www.dice.com/jobs?q=System+One+Cybersecurity+Analyst+GRC"
   },
   {
     "id": "ascii-grc",
@@ -523,7 +531,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "Risco de terceiros, SOC 2, Archer. GRC contrato remoto."
+    "note": "Risco de terceiros, SOC 2, Archer. GRC contrato remoto.",
+    "url": "https://www.dice.com/jobs?q=ASCII+Group+Cybersecurity+Consultant"
   },
   {
     "id": "bcg-intern",
@@ -537,7 +546,8 @@
     "clearance": false,
     "sponsor": false,
     "student": true,
-    "note": "⭐ IA+cyber, elite. Exige matrícula (MS abre). Concorrido, mas é teu diferencial."
+    "note": "⭐ IA+cyber, elite. Exige matrícula (MS abre). Concorrido, mas é teu diferencial.",
+    "url": "https://careers.bcg.com/search?keyword=Cybersecurity"
   },
   {
     "id": "american-intern",
@@ -551,7 +561,8 @@
     "clearance": false,
     "sponsor": false,
     "student": true,
-    "note": "Blue team: SIEM, log, endpoint, malware. GPA 3.0 + matriculado. Verão 2027."
+    "note": "Blue team: SIEM, log, endpoint, malware. GPA 3.0 + matriculado. Verão 2027.",
+    "url": "https://www.americannational.com/careers"
   },
   {
     "id": "toyota-intern",
@@ -565,7 +576,8 @@
     "clearance": false,
     "sponsor": false,
     "student": true,
-    "note": "Risco, vuln mgmt, SecOps. Exige matrícula. Verão 2027."
+    "note": "Risco, vuln mgmt, SecOps. Exige matrícula. Verão 2027.",
+    "url": "https://www.toyotaforklift.com/about-us/careers"
   },
   {
     "id": "stefanini-eng",
@@ -582,7 +594,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "SAST/DAST, IAM, SIEM/SOAR, K8s, DevSecOps, IA. Sênior — destino."
+    "note": "SAST/DAST, IAM, SIEM/SOAR, K8s, DevSecOps, IA. Sênior — destino.",
+    "url": "https://stefanini.com/en/careers/jobs?search=cybersecurity"
   },
   {
     "id": "beacon-det",
@@ -598,7 +611,8 @@
     "clearance": false,
     "sponsor": false,
     "student": false,
-    "note": "Regras SIEM, threat hunting, GRC/audit. Sênior — destino de $ alto."
+    "note": "Regras SIEM, threat hunting, GRC/audit. Sênior — destino de $ alto.",
+    "url": "https://beaconhillstaffing.com/find-jobs/?keyword=cybersecurity"
   },
   {
     "id": "booz-test",
@@ -614,7 +628,8 @@
     "clearance": true,
     "sponsor": false,
     "student": false,
-    "note": "Pentest, NIST 800-53, Linux/Python. DoD/Força Aérea = CLEARANCE (cidadania). Fechado agora."
+    "note": "Pentest, NIST 800-53, Linux/Python. DoD/Força Aérea = CLEARANCE (cidadania). Fechado agora.",
+    "url": "https://careers.boozallen.com/jobs/search?keywords=cybersecurity"
   },
   {
     "id": "asm-sysadmin",
@@ -630,6 +645,7 @@
     "clearance": true,
     "sponsor": false,
     "student": false,
-    "note": "SysAdmin federal. DoD = CLEARANCE (cidadania). Fechado agora."
+    "note": "SysAdmin federal. DoD = CLEARANCE (cidadania). Fechado agora.",
+    "url": "https://www.asmr.com/careers/"
   }
 ]

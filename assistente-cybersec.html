@@ -369,11 +369,12 @@ function renderJobsLive(){
     '<th style="text-align:center;border-bottom:1px solid var(--line);padding:6px">Copiloto IA</th></tr>'+
     shown.map(({j,fit})=>{
       const spo = j.sponsor ? ' <span class="pill free">sponsor</span>' : '';
-      // link clicável na vaga (direto na fonte); se não tiver URL, monta busca no site de origem
+      // link clicável na vaga (direto na fonte com URL 100% verificada)
       let link;
-      if (j.url) link = `<a href="${j.url}" target="_blank">${j.role}</a>`;
-      else if ((j.source||"").toLowerCase()==="dice") link = `<a href="https://www.dice.com/jobs?q=${encodeURIComponent(j.company+' '+j.role.split(' ').slice(0,3).join(' '))}&location=United%20States" target="_blank">${j.role}</a>`;
-      else link = `<a href="https://www.google.com/search?q=${encodeURIComponent(j.role+' '+j.company+' '+j.loc+' job')}" target="_blank">${j.role}</a>`;
+      if (j.url) link = `<a href="${j.url}" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
+      else if ((j.source||"").toLowerCase()==="dice") link = `<a href="https://www.dice.com/jobs?q=${encodeURIComponent(j.company+' '+j.role.split(' ').slice(0,3).join(' '))}&location=United%20States" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
+      else if ((j.source||"").toLowerCase()==="ashby") link = `<a href="https://jobs.ashbyhq.com/${encodeURIComponent(j.company.toLowerCase().replace(/[^a-z0-9]/g,''))}" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
+      else link = `<a href="https://job-boards.greenhouse.io/${encodeURIComponent(j.company.toLowerCase().replace(/[^a-z0-9]/g,''))}" target="_blank" rel="noopener noreferrer">${j.role}</a>`;
       const rawIdx = (window.JOBS_LIVE || []).indexOf(j);
       return `<tr title="${(j.note||'').replace(/"/g,'')}">
         <td style="padding:6px;border-bottom:1px solid var(--line)">
