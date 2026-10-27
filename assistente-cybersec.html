@@ -1656,11 +1656,15 @@ document.querySelectorAll(".tab[data-t]").forEach(t=>{
     if(t.dataset.t === 'bussola') renderBussola();
   };
 });
+var activeBussolaSubTab = 'poly';
+var activeCopilotJob = null;
+var activeCopilotTab = 'cover';
+var copilotCache = {};
+
 document.getElementById("gsearch").addEventListener("input",e=>renderGloss(e.target.value));
 renderAll();
 
 /* ---------- BÚSSOLA SEMANAL GRC (POLY COURT & RADAR) ---------- */
-let activeBussolaSubTab = 'poly';
 
 function renderBussola() {
   const container = document.getElementById("bussola");
@@ -2062,9 +2066,6 @@ function formatBussolaText(txt) {
 }
 
 /* ---------- COPILOTO DE CANDIDATURA IA (ESTILO AIAPPLY) ---------- */
-let activeCopilotJob = null;
-let activeCopilotTab = 'cover';
-let copilotCache = {};
 
 function openApplyCopilot(idx) {
   const jobs = window.JOBS_LIVE || [];
