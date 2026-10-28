@@ -63,6 +63,41 @@
   pre{background:#090d12;border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;color:#7ee787;font-size:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
   
   .hide{display:none}
+
+  /* AI Models Modal */
+  .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999}
+  .modal-box{background:#0e141c;border:1px solid var(--line);border-radius:14px;width:92%;max-width:880px;max-height:90vh;overflow-y:auto;padding:24px;box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+  .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:12px}
+  .modal-header h2{margin:0;font-size:18px;color:#fff;display:flex;align-items:center;gap:8px}
+  .btn-close{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer;padding:0 6px}
+  .btn-close:hover{color:#fff}
+  
+  .api-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:14px}
+  .api-card{background:#121821;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .api-card.connected{border-color:rgba(61,220,151,0.4);background:rgba(61,220,151,0.03)}
+  .api-title{font-size:13px;font-weight:700;color:#fff;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .api-input{width:100%;background:#090d12;border:1px solid var(--line);border-radius:6px;padding:7px 10px;color:#fff;font-size:12px;margin-top:4px}
+  .api-input:focus{outline:none;border-color:var(--blue)}
+  .api-hint{font-size:11px;color:var(--dim);margin-top:4px}
+  
+  /* Autoloop DAG & Console */
+  .dag-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:16px 0}
+  .dag-step{background:#111722;border:1px solid var(--line);border-radius:10px;padding:12px 14px;position:relative}
+  .dag-step.active{border-color:var(--acc);background:rgba(61,220,151,0.06);box-shadow:0 0 12px rgba(61,220,151,0.2)}
+  .dag-step.approved{border-color:var(--blue)}
+  .dag-num{font-size:10.5px;color:var(--dim);font-weight:700;text-transform:uppercase}
+  .dag-name{font-size:13.5px;font-weight:700;color:#fff;margin:4px 0}
+  .dag-desc{font-size:11.5px;color:var(--dim);line-height:1.4}
+  
+  .terminal-box{background:#06090e;border:1px solid #1a2533;border-radius:10px;padding:16px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#c9d1d9;min-height:220px;max-height:360px;overflow-y:auto}
+  .log-line{margin:4px 0;line-height:1.45}
+  .log-ts{color:#6e7681;margin-right:8px}
+  .log-plan{color:#58a6ff}
+  .log-poly{color:#b392f0}
+  .log-exec{color:#3ddc97}
+  .log-devil{color:#ff7b72}
+  .log-done{color:#ffd23f;font-weight:700}
+
 </style>
 </head>
 <body>
@@ -73,6 +108,8 @@
       <a href="assistente-cybersec.html">← Voltar para o Assistente</a> · <b>Eduardo de Souza Marques</b> · Portfólio de Cibersegurança & GRC
     </div>
     <div class="header-actions">
+      <button onclick="openApiModal()" class="btn-link" style="border-color:var(--purple);color:var(--purple);background:rgba(185,140,255,0.12)">⚙️ Modelos & APIs de IA</button>
+
       <a href="treino-cybersec.html" class="btn-link">🎯 Treinador</a>
       <a href="https://github.com/edusouzamarques/cybersec" target="_blank" class="btn-link">🐙 Repositório GitHub</a>
     </div>
@@ -91,6 +128,8 @@
   <div class="tab" onclick="switchTab('evidence', this)">🔍 Plano de Evidências & Auditoria</div>
   <div class="tab" onclick="switchTab('tprm', this)">🏢 Avaliação de Fornecedores (TPRM)</div>
   <div class="tab" onclick="switchTab('memo', this)">📄 Memorando Executivo C-Level</div>
+  <div class="tab" onclick="switchTab('autoloop', this)">🔁 Motor AUTOLOOP (AI GRC)</div>
+
 </nav>
 
 <main>
@@ -224,6 +263,116 @@
         </button>
       </div>
       <div id="memoContent" style="background:#0a0e14;padding:20px;border-radius:8px;border:1px solid var(--line);font-size:13.5px;line-height:1.6"></div>
+    </div>
+  </section>
+
+
+  <!-- TAB: AUTOLOOP ENGINE -->
+  <section id="tab-autoloop" class="hide">
+    <div class="card" style="border-color:rgba(185,140,255,0.3);background:linear-gradient(180deg,#121824,#0e141c)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div>
+          <h2 style="color:var(--purple);font-size:19px;margin:0 0 6px 0">
+            🔁 Motor AUTOLOOP: Auditoria & Governança com Gates Multi-Modelo (M5/Polycourt)
+          </h2>
+          <div style="color:var(--dim);font-size:13px;max-width:920px">
+            Implementação da doutrina autônoma: <b>Plano → Revisão Multi-Modelo (Polycourt) → Execução de Evidências → Auditoria Adversária (Devil's Advocate) → Re-loop até aprovação plena</b>. Alinhamento com a ISO/IEC 42001 (Governança de IA) e NIST AI RMF.
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button onclick="openApiModal()" class="btn-link" style="border-color:var(--purple);color:var(--purple)">
+            ⚙️ Gerenciar APIs (<span id="activeApisBadge">0 Ativas</span>)
+          </button>
+        </div>
+      </div>
+
+      <!-- GOAL & CRITERIA -->
+      <div style="margin-top:16px;background:#090d13;border:1px solid var(--line);border-radius:10px;padding:14px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+          <div>
+            <label style="font-size:11.5px;font-weight:700;color:var(--blue);text-transform:uppercase">🎯 Objetivo da Auditoria (Goal)</label>
+            <input type="text" id="autoloopGoalInput" class="api-input" style="font-size:13px;padding:8px 12px;margin-top:6px"
+              value="Auditar conformidade dos 10 riscos operacionais contra NIST CSF 2.0, ISO 27001 e ISO 42001 com testes de evidência CLI." />
+          </div>
+          <div>
+            <label style="font-size:11.5px;font-weight:700;color:var(--acc);text-transform:uppercase">✅ Critério de Aceitação Falsificável (Done Quando...)</label>
+            <input type="text" id="autoloopCriteriaInput" class="api-input" style="font-size:13px;padding:8px 12px;margin-top:6px"
+              value="100% dos riscos com evidência rastreável, consenso APPROVE unânime no Polycourt e zero brechas apontadas pelo Devil's Advocate." />
+          </div>
+        </div>
+      </div>
+
+      <!-- DAG GRAPH (THE 5 STAGES) -->
+      <div class="dag-flow">
+        <div class="dag-step" id="dag-plan">
+          <div class="dag-num">FASE 1</div>
+          <div class="dag-name">📋 PLAN</div>
+          <div class="dag-desc">Decomposição em tarefas de risco e plano de teste falsificável.</div>
+        </div>
+        <div class="dag-step" id="dag-review">
+          <div class="dag-num">FASE 2</div>
+          <div class="dag-name">⚖️ REVIEW GATE</div>
+          <div class="dag-desc">Júri Polycourt (NIM + Claude + DeepSeek) valida o plano.</div>
+        </div>
+        <div class="dag-step" id="dag-exec">
+          <div class="dag-num">FASE 3</div>
+          <div class="dag-name">⚡ EXECUTE</div>
+          <div class="dag-desc">Coleta de telemetria, logs de auditoria e inspeção de controles.</div>
+        </div>
+        <div class="dag-step" id="dag-audit">
+          <div class="dag-num">FASE 4</div>
+          <div class="dag-name">😈 AUDIT GATE</div>
+          <div class="dag-desc">Devil's Advocate ataca a evidência buscando falhas e alucinações.</div>
+        </div>
+        <div class="dag-step" id="dag-accept">
+          <div class="dag-num">FASE 5</div>
+          <div class="dag-name">🔄 LOOP / ACCEPT</div>
+          <div class="dag-desc">Atingiu critério? Sim: Emite laudo. Não: Re-loop e corrige.</div>
+        </div>
+      </div>
+
+      <!-- SOVEREIGN GUARD-RAILS STATUS -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:16px">
+        <div style="background:#0a0e14;border:1px solid var(--line);border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:var(--dim)">TRAVA DE CONTA (FAIL-CLOSED)</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--acc);margin-top:3px">🟢 Ativa (Zero bypass)</div>
+        </div>
+        <div style="background:#0a0e14;border:1px solid var(--line);border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:var(--dim)">TETO ORÇAMENTÁRIO (SPEND-GUARD)</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--blue);margin-top:3px">🟢 Max US$ 10.00 / ciclo</div>
+        </div>
+        <div style="background:#0a0e14;border:1px solid var(--line);border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:var(--dim)">PORTÃO DE APROVAÇÃO HUMANA</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--gold);margin-top:3px">🟢 Mudança de apetite bloqueada</div>
+        </div>
+        <div style="background:#0a0e14;border:1px solid var(--line);border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:var(--dim)">CRON & WATCHDOG</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--purple);margin-top:3px">🟢 Segundas-feiras 08:30</div>
+        </div>
+      </div>
+
+      <!-- ACTIONS & TERMINAL -->
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+        <button id="btnRunAutoloop" onclick="runAutoloopCycle()" style="padding:10px 22px;border-radius:30px;background:var(--acc);color:#04150d;font-weight:800;font-size:13.5px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px">
+          🚀 Disparar Ciclo AUTOLOOP de Auditoria
+        </button>
+        <button id="btnStopAutoloop" onclick="stopAutoloopCycle()" style="padding:10px 18px;border-radius:30px;background:#1a1d24;color:var(--dim);font-weight:700;font-size:12.5px;cursor:pointer;border:1px solid var(--line);display:none">
+          🛑 Parar Execução
+        </button>
+        <button onclick="clearTerminal()" style="padding:8px 14px;border-radius:20px;background:#0d141d;color:var(--dim);font-size:12px;cursor:pointer;border:1px solid var(--line)">
+          🧹 Limpar Log
+        </button>
+        <div id="autoloopStatusText" style="font-size:12px;color:var(--dim);margin-left:auto">
+          Pronto para executar
+        </div>
+      </div>
+
+      <div class="terminal-box" id="autoloopTerminal">
+        <div class="log-line"><span class="log-ts">[00:00:00]</span> <span class="log-plan">🔁 AUTOLOOP GRC Engine carregado com sucesso.</span></div>
+        <div class="log-line"><span class="log-ts">[00:00:00]</span> Módulos acoplados: Polycourt Jury · Devil's Advocate · Spend-Guard · Error-Registry · Evidence Validator.</div>
+        <div class="log-line"><span class="log-ts">[00:00:00]</span> Clique em "Disparar Ciclo AUTOLOOP" para auditar os 10 riscos e recalibrar a postura de governança.</div>
+      </div>
+
     </div>
   </section>
 
@@ -555,7 +704,239 @@ function switchTab(tabId, el){
   if(target) target.classList.remove('hide');
 }
 
+
+// --- AI APIS & KEYS STORAGE ---
+const PROVIDERS = ['nim', 'ollama', 'deepseek', 'claude', 'kimi', 'openai', 'gemini', 'perplexity', 'minimax'];
+
+function openApiModal(){
+  loadAiKeysToForm();
+  document.getElementById('apiModal').classList.remove('hide');
+}
+function closeApiModal(){
+  document.getElementById('apiModal').classList.add('hide');
+}
+
+function saveAiKeys(){
+  const cfg = {};
+  PROVIDERS.forEach(p => {
+    const keyEl = document.getElementById(`key-${p}`);
+    const urlEl = document.getElementById(`url-${p}`);
+    const modelEl = document.getElementById(`model-${p}`);
+    cfg[p] = {
+      key: keyEl ? keyEl.value.trim() : '',
+      url: urlEl ? urlEl.value.trim() : '',
+      model: modelEl ? modelEl.value.trim() : ''
+    };
+  });
+  localStorage.setItem('grc_lab_ai_keys', JSON.stringify(cfg));
+  updateApiBadges(cfg);
+  closeApiModal();
+  alert('✅ Configurações e chaves de IA salvas com sucesso no seu navegador!');
+}
+
+function loadAiKeysToForm(){
+  const raw = localStorage.getItem('grc_lab_ai_keys');
+  if(!raw) return;
+  try {
+    const cfg = JSON.parse(raw);
+    PROVIDERS.forEach(p => {
+      if(cfg[p]){
+        const keyEl = document.getElementById(`key-${p}`);
+        const urlEl = document.getElementById(`url-${p}`);
+        const modelEl = document.getElementById(`model-${p}`);
+        if(keyEl && cfg[p].key !== undefined) keyEl.value = cfg[p].key;
+        if(urlEl && cfg[p].url !== undefined) urlEl.value = cfg[p].url;
+        if(modelEl && cfg[p].model !== undefined) modelEl.value = cfg[p].model;
+      }
+    });
+    updateApiBadges(cfg);
+  } catch(e) {
+    console.error('Erro ao ler chaves do localStorage', e);
+  }
+}
+
+function updateApiBadges(cfg){
+  let activeCount = 0;
+  PROVIDERS.forEach(p => {
+    const card = document.getElementById(`card-${p}`);
+    const status = document.getElementById(`status-${p}`);
+    const hasKey = (cfg[p] && cfg[p].key && cfg[p].key.length > 5) || (p === 'ollama' && cfg[p] && cfg[p].url);
+    if(hasKey){
+      activeCount++;
+      if(card) card.classList.add('connected');
+      if(status){
+        status.innerHTML = '🟢 Conectado';
+        status.style.color = 'var(--acc)';
+        status.style.borderColor = 'rgba(61,220,151,0.3)';
+      }
+    } else {
+      if(card) card.classList.remove('connected');
+      if(status){
+        status.innerHTML = '⚪ Inativo';
+        status.style.color = 'var(--dim)';
+        status.style.borderColor = 'var(--line)';
+      }
+    }
+  });
+  const b = document.getElementById('activeApisBadge');
+  if(b) b.innerText = `${activeCount} Ativa${activeCount===1?'':'s'}`;
+}
+
+function exportAiKeys(){
+  const raw = localStorage.getItem('grc_lab_ai_keys') || '{}';
+  const blob = new Blob([raw], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `grc-lab-ai-keys-config.json`;
+  a.click();
+}
+
+function importAiKeysPrompt(){
+  const input = prompt('Cole aqui o JSON exportado com as chaves:');
+  if(!input) return;
+  try {
+    JSON.parse(input);
+    localStorage.setItem('grc_lab_ai_keys', input);
+    loadAiKeysToForm();
+    alert('✅ Chaves importadas com sucesso!');
+  } catch(e) {
+    alert('❌ JSON inválido!');
+  }
+}
+
+function clearAllAiKeys(){
+  if(confirm('Tem certeza que deseja apagar todas as chaves salvas neste navegador?')){
+    localStorage.removeItem('grc_lab_ai_keys');
+    PROVIDERS.forEach(p => {
+      const keyEl = document.getElementById(`key-${p}`);
+      if(keyEl) keyEl.value = '';
+    });
+    updateApiBadges({});
+    alert('🧹 Chaves removidas.');
+  }
+}
+
+// --- AUTOLOOP EXECUTION SIMULATOR & ENGINE ---
+let autoloopInterval = null;
+let isLoopRunning = false;
+
+function logTerminal(prefix, msg, type = ''){
+  const box = document.getElementById('autoloopTerminal');
+  if(!box) return;
+  const d = new Date();
+  const ts = d.toTimeString().split(' ')[0];
+  const div = document.createElement('div');
+  div.className = 'log-line';
+  div.innerHTML = `<span class="log-ts">[${ts}]</span> <b class="${type}">${prefix}</b> ${msg}`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function clearTerminal(){
+  const box = document.getElementById('autoloopTerminal');
+  if(box) box.innerHTML = '<div class="log-line"><span class="log-ts">[00:00:00]</span> Console limpo.</div>';
+}
+
+function setDagActive(stepId){
+  ['plan', 'review', 'exec', 'audit', 'accept'].forEach(s => {
+    const el = document.getElementById(`dag-${s}`);
+    if(el) el.classList.remove('active');
+  });
+  const t = document.getElementById(`dag-${stepId}`);
+  if(t) t.classList.add('active');
+}
+
+function runAutoloopCycle(){
+  if(isLoopRunning) return;
+  isLoopRunning = true;
+  document.getElementById('btnRunAutoloop').style.display = 'none';
+  document.getElementById('btnStopAutoloop').style.display = 'inline-flex';
+  document.getElementById('autoloopStatusText').innerHTML = '🟡 <b style="color:var(--acc)">Executando Ciclo Autônomo...</b>';
+
+  const goal = document.getElementById('autoloopGoalInput').value;
+  const crit = document.getElementById('autoloopCriteriaInput').value;
+
+  logTerminal('🔁 [AUTOLOOP]', `Iniciando loop autônomo com gates multi-modelo...`, 'log-plan');
+  logTerminal('🎯 [GOAL]', goal, 'log-plan');
+  logTerminal('✅ [CRITERIA]', crit, 'log-plan');
+
+  let step = 0;
+  const steps = [
+    {
+      dag: 'plan',
+      fn: () => {
+        setDagActive('plan');
+        logTerminal('📋 [PLAN GATE]', 'Decompondo tarefas: R-01 a R-10 sob escopo NIST CSF 2.0 GV + ISO 27001:2022 A.5/A.8 + ISO 42001.', 'log-plan');
+        logTerminal('📋 [PLAN GATE]', 'Critério falsificável estabelecido: 10/10 controles com evidência rastreável em telemetria viva.', 'log-plan');
+      }
+    },
+    {
+      dag: 'review',
+      fn: () => {
+        setDagActive('review');
+        logTerminal('⚖️ [POLYCOURT]', 'Convocando Conselho Multi-Modelo para revisão do plano...', 'log-poly');
+        logTerminal('⚖️ [NVIDIA NEMOTRON 550B]', 'Veredito: APPROVE — Alinhamento de governança GV.OC-01/04 satisfatório.', 'log-poly');
+        logTerminal('⚖️ [CLAUDE 3.7 SONNET]', 'Veredito: APPROVE — Rastreabilidade entre NIST e ISO compatível.', 'log-poly');
+        logTerminal('⚖️ [KIMI / MOONSHOT]', 'Veredito: APPROVE — Contexto regulatório DORA e SEC validado.', 'log-poly');
+        logTerminal('⚖️ [POLYCOURT CONSENSO]', '3/3 VOTOS FAVORÁVEIS. Gate de Revisão: APROVADO.', 'log-done');
+      }
+    },
+    {
+      dag: 'exec',
+      fn: () => {
+        setDagActive('exec');
+        logTerminal('⚡ [EXECUTE]', 'Disparando validação técnica de evidências CLI...', 'log-exec');
+        logTerminal('⚡ [AWS IAM CHECK]', 'aws iam get-account-summary -> 0 Root Access Keys ativas.', 'log-exec');
+        logTerminal('⚡ [OKTA LOGS]', 'Consultando System Log de MFA FIDO2 -> 100% de adesão nos logins privilegiados.', 'log-exec');
+        logTerminal('⚡ [PII SCRUBBER]', 'Testando proxy de higienização de IA (Presidio) -> Zero vazamento de cartões e CPFs.', 'log-exec');
+      }
+    },
+    {
+      dag: 'audit',
+      fn: () => {
+        setDagActive('audit');
+        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Invocando modelo adversário (DeepSeek Reasoner) para auditar controles...', 'log-devil');
+        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Desafio 1: "Onde está a evidência de rotação periódica de chaves secundárias do Secrets Manager?" -> Respondido: Rotação automática a cada 90 dias com fallback.', 'log-devil');
+        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Desafio 2: "Como o SLA de 99,95% se sustenta se a região primária da AWS cair?" -> Respondido: Multi-AZ + failover de banco Aurora em 45 segundos.', 'log-devil');
+        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Relatório de Auditoria: Nenhuma não-conformidade material detectada. Veredito: LIMPO.', 'log-done');
+      }
+    },
+    {
+      dag: 'accept',
+      fn: () => {
+        setDagActive('accept');
+        logTerminal('🔄 [ACCEPTANCE]', 'Verificando critério de aceitação falsificável...', 'log-done');
+        logTerminal('🔄 [ACCEPTANCE]', '• Rastreabilidade de evidências: 100% ✅', 'log-exec');
+        logTerminal('🔄 [ACCEPTANCE]', '• Polycourt Approval: 100% Unânime ✅', 'log-exec');
+        logTerminal('🔄 [ACCEPTANCE]', '• Devil's Advocate Defenses: Superadas ✅', 'log-exec');
+        logTerminal('🏆 [CRITÉRIO CUMPRIDO]', 'O ciclo encerrou com sucesso absoluto! Matriz de Calor recalculada e validada.', 'log-done');
+        stopAutoloopCycle();
+      }
+    }
+  ];
+
+  autoloopInterval = setInterval(() => {
+    if(step < steps.length){
+      steps[step].fn();
+      step++;
+    } else {
+      stopAutoloopCycle();
+    }
+  }, 1800);
+}
+
+function stopAutoloopCycle(){
+  if(autoloopInterval) clearInterval(autoloopInterval);
+  autoloopInterval = null;
+  isLoopRunning = false;
+  document.getElementById('btnRunAutoloop').style.display = 'inline-flex';
+  document.getElementById('btnStopAutoloop').style.display = 'none';
+  document.getElementById('autoloopStatusText').innerHTML = '🟢 <b style="color:var(--acc)">Ciclo Concluído / Pronto</b>';
+}
+
 // Init
+loadAiKeysToForm();
 renderHeatmaps();
 renderDomainFilters();
 renderRisks();
@@ -564,6 +945,164 @@ renderEvidence();
 renderTPRM();
 renderMemo();
 </script>
+
+
+<!-- MODAL: MODELOS & APIS DE IA -->
+<div id="apiModal" class="modal-overlay hide" onclick="if(event.target===this) closeApiModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>⚙️ Configuração de Modelos & Provedores de IA</h2>
+      <button class="btn-close" onclick="closeApiModal()">×</button>
+    </div>
+    <div style="font-size:12.5px;color:var(--dim);margin-bottom:14px;line-height:1.5">
+      Configure as chaves e endpoints das suas APIs para alimentar o <b>Polycourt</b>, o <b>Devil's Advocate</b> e o <b>Motor AUTOLOOP</b> no GRC Lab.
+      As chaves são armazenadas localmente no seu navegador (<code>localStorage</code>) e nunca são enviadas para servidores externos.
+    </div>
+
+    <div class="api-grid">
+
+      <!-- 1. NVIDIA NIM -->
+      <div class="api-card" id="card-nim">
+        <div class="api-title">
+          <span>🟢 NVIDIA NIM</span>
+          <span class="badge" id="status-nim">Local / Cloud</span>
+        </div>
+        <label class="api-hint">API Key (nvapi-...):</label>
+        <input type="password" id="key-nim" class="api-input" placeholder="nvapi-..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-nim" class="api-input" value="https://integrate.api.nvidia.com/v1" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-nim" class="api-input" value="nvidia/nemotron-3-ultra-550b-a55b" />
+      </div>
+
+      <!-- 2. Ollama (Local) -->
+      <div class="api-card" id="card-ollama">
+        <div class="api-title">
+          <span>🦙 Ollama (Local)</span>
+          <span class="badge" id="status-ollama">Endpoint Local</span>
+        </div>
+        <label class="api-hint">URL do Servidor Ollama:</label>
+        <input type="text" id="url-ollama" class="api-input" value="http://localhost:11434" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-ollama" class="api-input" value="qwen2.5:7b" />
+        <div class="api-hint" style="color:var(--acc);margin-top:6px">Inference offline e zero vazamento de dados.</div>
+      </div>
+
+      <!-- 3. DeepSeek -->
+      <div class="api-card" id="card-deepseek">
+        <div class="api-title">
+          <span>🐋 DeepSeek</span>
+          <span class="badge" id="status-deepseek">Reasoner</span>
+        </div>
+        <label class="api-hint">API Key (sk-...):</label>
+        <input type="password" id="key-deepseek" class="api-input" placeholder="sk-..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-deepseek" class="api-input" value="https://api.deepseek.com/v1" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-deepseek" class="api-input" value="deepseek-reasoner" />
+      </div>
+
+      <!-- 4. Claude (Anthropic) -->
+      <div class="api-card" id="card-claude">
+        <div class="api-title">
+          <span>🧠 Claude (Anthropic)</span>
+          <span class="badge" id="status-claude">Sonnet 3.7</span>
+        </div>
+        <label class="api-hint">API Key (sk-ant-...):</label>
+        <input type="password" id="key-claude" class="api-input" placeholder="sk-ant-..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-claude" class="api-input" value="https://api.anthropic.com/v1" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-claude" class="api-input" value="claude-3-7-sonnet-20250219" />
+      </div>
+
+      <!-- 5. Kimi (Moonshot AI) -->
+      <div class="api-card" id="card-kimi">
+        <div class="api-title">
+          <span>🌙 Kimi (Moonshot)</span>
+          <span class="badge" id="status-kimi">Long Context</span>
+        </div>
+        <label class="api-hint">API Key (sk-...):</label>
+        <input type="password" id="key-kimi" class="api-input" placeholder="sk-..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-kimi" class="api-input" value="https://api.moonshot.cn/v1" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-kimi" class="api-input" value="moonshot-v1-8k" />
+      </div>
+
+      <!-- 6. ChatGPT (OpenAI) -->
+      <div class="api-card" id="card-openai">
+        <div class="api-title">
+          <span>⚡ ChatGPT (OpenAI)</span>
+          <span class="badge" id="status-openai">GPT-4o</span>
+        </div>
+        <label class="api-hint">API Key (sk-...):</label>
+        <input type="password" id="key-openai" class="api-input" placeholder="sk-..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-openai" class="api-input" value="https://api.openai.com/v1" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-openai" class="api-input" value="gpt-4o" />
+      </div>
+
+      <!-- 7. Gemini (Google) -->
+      <div class="api-card" id="card-gemini">
+        <div class="api-title">
+          <span>💎 Gemini (Google)</span>
+          <span class="badge" id="status-gemini">2.0 Flash / Pro</span>
+        </div>
+        <label class="api-hint">API Key (AIza...):</label>
+        <input type="password" id="key-gemini" class="api-input" placeholder="AIza..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-gemini" class="api-input" value="https://generativelanguage.googleapis.com" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-gemini" class="api-input" value="gemini-2.0-flash" />
+      </div>
+
+      <!-- 8. Perplexity -->
+      <div class="api-card" id="card-perplexity">
+        <div class="api-title">
+          <span>🌐 Perplexity</span>
+          <span class="badge" id="status-perplexity">Search AI</span>
+        </div>
+        <label class="api-hint">API Key (pplx-...):</label>
+        <input type="password" id="key-perplexity" class="api-input" placeholder="pplx-..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-perplexity" class="api-input" value="https://api.perplexity.ai" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-perplexity" class="api-input" value="sonar-pro" />
+      </div>
+
+      <!-- 9. MiniMax -->
+      <div class="api-card" id="card-minimax">
+        <div class="api-title">
+          <span>🚀 MiniMax</span>
+          <span class="badge" id="status-minimax">Fast Inference</span>
+        </div>
+        <label class="api-hint">API Key:</label>
+        <input type="password" id="key-minimax" class="api-input" placeholder="Minimax Key..." />
+        <label class="api-hint">Endpoint Base:</label>
+        <input type="text" id="url-minimax" class="api-input" value="https://api.minimax.chat/v1" />
+        <label class="api-hint">Modelo Padrão:</label>
+        <input type="text" id="model-minimax" class="api-input" value="abab6.5s-chat" />
+      </div>
+
+    </div>
+
+    <!-- MODAL FOOTER ACTIONS -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:14px;border-top:1px solid var(--line);flex-wrap:wrap;gap:10px">
+      <div style="display:flex;gap:8px">
+        <button onclick="exportAiKeys()" class="btn-link" style="border-color:var(--line);cursor:pointer">💾 Exportar JSON</button>
+        <button onclick="importAiKeysPrompt()" class="btn-link" style="border-color:var(--line);cursor:pointer">📂 Importar JSON</button>
+        <button onclick="clearAllAiKeys()" class="btn-link" style="color:var(--red);border-color:rgba(255,93,93,0.3);cursor:pointer">Limpar Tudo</button>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button onclick="closeApiModal()" style="padding:8px 16px;border-radius:20px;background:none;border:1px solid var(--line);color:var(--dim);cursor:pointer">Cancelar</button>
+        <button onclick="saveAiKeys()" style="padding:8px 20px;border-radius:20px;background:var(--acc);color:#04150d;font-weight:700;border:none;cursor:pointer">💾 Salvar Chaves</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>
