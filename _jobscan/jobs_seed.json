@@ -638,48 +638,6 @@
     "note": "🏆 DESTINO 5+ ANOS: Liderança total da postura de segurança de fintech global com bilhões em payouts. Link direto oficial."
   },
   {
-    "id": "vanta-grc-assoc",
-    "role": "Associate GRC & Compliance Specialist",
-    "company": "Vanta",
-    "loc": "Remote (Global / LATAM)",
-    "pay": "~US$ 45-60k (Contractor)",
-    "level": "junior",
-    "source": "Vanta Careers",
-    "geo": "worldwide",
-    "url": "https://www.vanta.com/careers",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 5,
-    "tasks": "Auxiliar clientes na implementação de controles SOC 2, ISO 27001 e NIST; revisão de questionários de segurança e validação de evidências automatizadas.",
-    "note": "⭐ GRC MODERNO EM PLATAFORMA LÍDER: Vanta é a maior plataforma de conformidade automatizada do mundo. Contratam analistas associados (júnior) remotos."
-  },
-  {
-    "id": "sprinto-grc-analyst-jr",
-    "role": "Junior Information Security & GRC Analyst",
-    "company": "Sprinto",
-    "loc": "Remote (Worldwide)",
-    "pay": "~US$ 40-55k (Contractor)",
-    "level": "junior",
-    "source": "Sprinto Careers",
-    "geo": "worldwide",
-    "url": "https://sprinto.com/careers/",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 5,
-    "tasks": "Mapeamento de riscos corporativos, acompanhamento de auditorias de conformidade (SOC 2, ISO 27001, GDPR) e elaboração de políticas de segurança.",
-    "note": "⭐ ENTRADA PERFEITA EM GRC: Empresa global de automação de conformidade. Aceita candidatos com certificação Security+ e perfil de auditoria."
-  },
-  {
     "id": "can-assoc-support",
     "role": "Associate Technical Support Engineer — Ubuntu Linux",
     "company": "Canonical",
