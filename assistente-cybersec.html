@@ -354,14 +354,15 @@ function renderMarketFilters(){
   const el=document.getElementById("marketFilterBox"); if(!el) return;
   const filters = [
     {id:'all', label:'🌐 Todas as Vagas'},
-    {id:'brl', label:'🇧🇷 Brasil (CLT)'},
-    {id:'usd', label:'💵 Global (USD / EUR)'},
-    {id:'grc', label:'🛡️ GRC & Governança'},
-    {id:'graduate', label:'🎓 Graduate & Estágio (0a)'},
-    {id:'entry', label:'🎯 Entrada (0-1a)'},
+    {id:'entry_all', label:'🎯 Portas de Entrada (0-2a)'},
     {id:'junior', label:'🌱 Júnior & Associate (1-2a)'},
+    {id:'graduate', label:'🎓 Graduate & Estágio (0a)'},
+    {id:'entry', label:'🎯 Entrada / L1 (0-1a)'},
     {id:'pleno', label:'⚡ Pleno (2-5a)'},
-    {id:'senior', label:'👑 Sênior (5+a)'}
+    {id:'senior', label:'👑 Sênior & Direção (5+a)'},
+    {id:'grc', label:'🛡️ GRC & Governança'},
+    {id:'brl', label:'🇧🇷 Brasil (CLT)'},
+    {id:'usd', label:'💵 Global (USD / EUR)'}
   ];
   el.innerHTML = "<b style='font-size:13px;width:100%;margin-bottom:4px;display:block'>Filtrar por mercado e nível de experiência:</b>" +
     "<div style='display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px'>" +
@@ -389,12 +390,14 @@ function renderJobsLive(){
       const n = (j.note||'').toLowerCase();
       return r.includes('grc') || r.includes('risk') || r.includes('compliance') || r.includes('audit') || n.includes('grc');
     });
+  } else if(currentMarketFilter === 'entry_all'){
+    filtered = jobs.filter(j => j.level === 'entry' || j.level === 'junior' || j.level === 'graduate' || j.level === 'estágio' || j.level === 'associate');
+  } else if(currentMarketFilter === 'junior'){
+    filtered = jobs.filter(j => j.level === 'junior' || j.level === 'associate');
   } else if(currentMarketFilter === 'graduate'){
     filtered = jobs.filter(j => j.level === 'graduate' || j.level === 'estágio');
   } else if(currentMarketFilter === 'entry'){
     filtered = jobs.filter(j => j.level === 'entry');
-  } else if(currentMarketFilter === 'junior'){
-    filtered = jobs.filter(j => j.level === 'junior' || j.level === 'associate');
   } else if(currentMarketFilter === 'pleno'){
     filtered = jobs.filter(j => j.level === 'pleno');
   } else if(currentMarketFilter === 'senior'){
