@@ -91,8 +91,8 @@
         </div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <a href="https://ap.www.namecheap.com/domains/domaincontrolpanel/zemark.dev/domain" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#182232;border:1px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;padding:8px 14px;border-radius:20px;text-decoration:none;white-space:nowrap" title="Gerenciar domínio zemark.dev">
-          🌐 zemark.dev (Empresa) ↗
+        <a href="https://edusouzamarques.github.io/pixelproads/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#182232;border:1px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;padding:8px 14px;border-radius:20px;text-decoration:none;white-space:nowrap" title="Abrir site Pixel Pro Ads — Carreira e Estúdio de IA">
+          🌐 Pixel Pro Ads (Carreira) ↗
         </a>
         <a href="treino-cybersec.html" style="display:inline-flex;align-items:center;gap:6px;background:#1e3a2c;border:1px solid var(--acc);color:var(--acc);font-weight:700;font-size:13px;padding:8px 16px;border-radius:20px;text-decoration:none;white-space:nowrap;box-shadow:0 0 12px rgba(61,220,151,0.2)">
           🎯 Ir para o Treinador CyberSec (Aulas & Simulado) →
@@ -127,16 +127,27 @@
     <div class="card" style="border-color:#24364a;background:linear-gradient(180deg,#0f1622,#0b0f14)">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <h3 style="margin:0;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:8px">🌐 Meus Domínios & Sites Publicados</h3>
-        <span class="badge" style="color:var(--blue);border-color:var(--blue)">Vercel & Web Assets</span>
+        <span class="badge" style="color:var(--blue);border-color:var(--blue)">Web Assets</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px">
         <div style="padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <b style="color:var(--ink)">zemark.dev</b>
-            <span class="pill paid" style="font-size:11px">★ Empresa Oficial</span>
+            <b style="color:var(--ink)"><a href="https://edusouzamarques.github.io/pixelproads/" target="_blank" style="color:var(--ink);text-decoration:none">Pixel Pro Ads ↗</a></b>
+            <span class="pill paid" style="font-size:11px">★ Carreira & Estúdio</span>
           </div>
-          <div style="font-size:12px;color:var(--dim);margin:4px 0">Domínio da sua empresa comprado na Namecheap (Order #214012797) e vinculado ao Cloudflare.</div>
-          <div style="margin-top:6px;display:flex;gap:10px">
+          <div style="font-size:12px;color:var(--dim);margin:4px 0">Site pessoal e estúdio de IA de Eduardo de Souza Marques (Founder & Principal Engineer).</div>
+          <div style="margin-top:6px;display:flex;gap:10px;align-items:center">
+            <a href="https://edusouzamarques.github.io/pixelproads/" target="_blank" style="font-size:12px;color:var(--acc);font-weight:700">Acessar Site ↗</a>
+            <a href="https://pixelproads.com" target="_blank" style="font-size:12px;color:var(--dim)">pixelproads.com ↗</a>
+          </div>
+        </div>
+        <div style="padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <b style="color:var(--ink)">zemark.dev</b>
+            <span class="pill" style="font-size:11px;color:var(--purple);border-color:var(--purple)">Domínio Namecheap</span>
+          </div>
+          <div style="font-size:12px;color:var(--dim);margin:4px 0">Domínio da sua empresa comprado na Namecheap. Falta apontar o DNS para abrir seu site.</div>
+          <div style="margin-top:6px;display:flex;gap:10px;align-items:center">
             <a href="https://ap.www.namecheap.com/domains/domaincontrolpanel/zemark.dev/domain" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600">Painel Namecheap ↗</a>
             <a href="https://dash.cloudflare.com" target="_blank" style="font-size:12px;color:var(--blue)">Cloudflare ↗</a>
           </div>
@@ -354,20 +365,13 @@ function renderMarketFilters(){
   const el=document.getElementById("marketFilterBox"); if(!el) return;
   const filters = [
     {id:'all', label:'🌐 Todas as Vagas'},
-    {id:'entry_all', label:'🎯 Portas de Entrada (0-2a)'},
-    {id:'junior', label:'🌱 Júnior & Associate (1-2a)'},
-    {id:'graduate', label:'🎓 Graduate & Estágio (0a)'},
-    {id:'entry', label:'🎯 Entrada / L1 (0-1a)'},
-    {id:'pleno', label:'⚡ Pleno (2-5a)'},
-    {id:'senior', label:'👑 Sênior & Direção (5+a)'},
+    {id:'brl', label:'🇧🇷 Brasil (Reais / CLT)'},
+    {id:'usd', label:'💵 Global (USD / EUR)'},
     {id:'grc', label:'🛡️ GRC & Governança'},
-    {id:'brl', label:'🇧🇷 Brasil (CLT)'},
-    {id:'usd', label:'💵 Global (USD / EUR)'}
+    {id:'entry', label:'🎯 Entrada / Júnior'}
   ];
-  el.innerHTML = "<b style='font-size:13px;width:100%;margin-bottom:4px;display:block'>Filtrar por mercado e nível de experiência:</b>" +
-    "<div style='display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px'>" +
-    filters.map(f=>`<span class="tab ${currentMarketFilter===f.id?'on':''}" style="cursor:pointer;padding:4px 9px;font-size:11.5px;border-radius:12px;border:1px solid ${currentMarketFilter===f.id?'var(--acc)':'#374151'};background:${currentMarketFilter===f.id?'#13281e':'#1f2937'};color:${currentMarketFilter===f.id?'var(--acc)':'#e5e7eb'}" onclick="setMarketFilter('${f.id}')">${f.label}</span>`).join("") +
-    "</div>";
+  el.innerHTML = "<b style='font-size:13px;width:100%;margin-bottom:2px;display:block'>Filtrar por mercado e foco:</b>" +
+    filters.map(f=>`<span class="tab ${currentMarketFilter===f.id?'on':''}" style="cursor:pointer" onclick="setMarketFilter('${f.id}')">${f.label}</span>`).join("");
 }
 function renderJobsLive(){
   const box=document.getElementById("jobsLive"); if(!box) return;
@@ -390,18 +394,8 @@ function renderJobsLive(){
       const n = (j.note||'').toLowerCase();
       return r.includes('grc') || r.includes('risk') || r.includes('compliance') || r.includes('audit') || n.includes('grc');
     });
-  } else if(currentMarketFilter === 'entry_all'){
-    filtered = jobs.filter(j => j.level === 'entry' || j.level === 'junior' || j.level === 'graduate' || j.level === 'estágio' || j.level === 'associate');
-  } else if(currentMarketFilter === 'junior'){
-    filtered = jobs.filter(j => j.level === 'junior' || j.level === 'associate');
-  } else if(currentMarketFilter === 'graduate'){
-    filtered = jobs.filter(j => j.level === 'graduate' || j.level === 'estágio');
   } else if(currentMarketFilter === 'entry'){
-    filtered = jobs.filter(j => j.level === 'entry');
-  } else if(currentMarketFilter === 'pleno'){
-    filtered = jobs.filter(j => j.level === 'pleno');
-  } else if(currentMarketFilter === 'senior'){
-    filtered = jobs.filter(j => j.level === 'senior');
+    filtered = jobs.filter(j => j.level === 'entry' || j.level === 'estágio');
   }
 
   // ordena: aplicáveis primeiro
@@ -445,17 +439,7 @@ function renderJobsLive(){
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.company}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.loc}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)">${j.pay||'—'}</td>
-        <td style="padding:6px;border-bottom:1px solid var(--line)">
-          ${(()=>{
-            const lvl = (j.level||'').toLowerCase();
-            if(lvl === 'graduate') return '<span class="pill" style="background:#064e3b;color:#34d399;border:1px solid #059669" title="Graduate: 0 anos de experiência (recém-graduado com mentoria técnica e formação)">🎓 Graduate (0a)</span>';
-            if(lvl === 'estágio') return '<span class="pill" style="background:#1e293b;color:#94a3b8;border:1px solid #475569" title="Estágio: 0 anos de experiência (estudante em formação)">Estágio (0a)</span>';
-            if(lvl === 'entry') return '<span class="pill" style="background:#1e3a8a;color:#60a5fa;border:1px solid #2563eb" title="Entry-Level: 0 a 1 ano de experiência (início de carreira, certificações de partida)">🎯 Entrada (0-1a)</span>';
-            if(lvl === 'junior') return '<span class="pill" style="background:#4c1d95;color:#c084fc;border:1px solid #7c3aed" title="Júnior / Associate: 1 a 2 anos (ou transição de carreira com histórico transferível)">🌱 Júnior / Assoc (1-2a)</span>';
-            if(lvl === 'senior') return '<span class="pill" style="background:#701a75;color:#f472b6;border:1px solid #db2777" title="Sênior: 5+ anos de experiência (liderança técnica e arquitetura)">👑 Sênior (5+a)</span>';
-            return '<span class="pill" style="background:#78350f;color:#fbbf24;border:1px solid #d97706" title="Pleno: 2 a 5 anos de experiência com autonomia de execução">⚡ Pleno (2-5a)</span>';
-          })()}
-        </td>
+        <td style="padding:6px;border-bottom:1px solid var(--line)">${j.level}</td>
         <td style="padding:6px;border-bottom:1px solid var(--line)"><span class="pill ${fit.cls}">${fit.txt}</span></td>
         <td style="padding:6px;border-bottom:1px solid var(--line);text-align:center">
           <button onclick="openApplyCopilot(${rawIdx})" style="padding:4px 10px;border-radius:14px;background:#13281e;border:1px solid var(--acc);color:var(--acc);font-weight:700;font-size:11.5px;cursor:pointer;white-space:nowrap;box-shadow:0 0 8px rgba(61,220,151,0.15)">
@@ -464,7 +448,7 @@ function renderJobsLive(){
         </td></tr>`;
     }).join("")+'</table>'+
     (shown.length<scored.length ? `<p class="note" style="margin-top:6px">🚫 ${scored.length-shown.length} vaga(s) de cidadania/clearance EXCLUÍDA(S) da tabela (não se encaixam: exigem cidadania americana).</p>` : '')+
-    '<p class="note" style="margin-top:6px">PERFIL: moras no Brasil, sem green card ainda — tudo (empresa US + mestrado US) substancia o green card. A tabela só mostra vagas que <b>contratam do BRASIL hoje</b> (worldwide/global/sponsor). US-remote e cidadania são <b>filtradas fora pelo scanner</b> (não se encaixam). Fonte: curadoria + varredura automática (Jobicy, Greenhouse, Ashby, Remotive, RemoteOK) — roda todo dia 08:00, vê a aba 🤖.</p>';
+    '<p class="note" style="margin-top:6px"><b>ESPECIFICAÇÃO OFICIAL DE VAGAS:</b> Para empresas dos <b>EUA</b>, o modelo obrigatório é <b>Remote First (100% Remoto)</b> com contratação direta do Brasil. Para empresas no <b>Brasil e restante do mundo</b>, o modelo aceito é <b>Híbrido ou Remoto</b>. Vagas nos EUA que exigem presença física ou cidadania restrita são filtradas e descartadas automaticamente.</p>';
 }
 const save = ()=>localStorage.setItem(KEY, JSON.stringify(done));
 
@@ -1682,11 +1666,15 @@ document.querySelectorAll(".tab[data-t]").forEach(t=>{
     if(t.dataset.t === 'bussola') renderBussola();
   };
 });
+var activeBussolaSubTab = 'poly';
+var activeCopilotJob = null;
+var activeCopilotTab = 'cover';
+var copilotCache = {};
+
 document.getElementById("gsearch").addEventListener("input",e=>renderGloss(e.target.value));
 renderAll();
 
 /* ---------- BÚSSOLA SEMANAL GRC (POLY COURT & RADAR) ---------- */
-let activeBussolaSubTab = 'poly';
 
 function renderBussola() {
   const container = document.getElementById("bussola");
@@ -2088,9 +2076,6 @@ function formatBussolaText(txt) {
 }
 
 /* ---------- COPILOTO DE CANDIDATURA IA (ESTILO AIAPPLY) ---------- */
-let activeCopilotJob = null;
-let activeCopilotTab = 'cover';
-let copilotCache = {};
 
 function openApplyCopilot(idx) {
   const jobs = window.JOBS_LIVE || [];
