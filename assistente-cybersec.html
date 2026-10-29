@@ -1284,29 +1284,35 @@ function renderFontes(){
 const CERTS=[
  // 🧱 NÚCLEO
  {n:"CompTIA Security+ (SY0-701)", org:"CompTIA", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$404", pay:"$35–48/h", train:1,
-  when:"PRIORIDADE 1 (Estudo no Treinador)", why:"O filtro de RH. Em quase toda vaga. Destrava SOC e Vulnerability Mgmt júnior. Só ela já vale $35–48/h."},
+  when:"PRIORIDADE 1 (Estudo no Treinador)", why:"O filtro de RH. Em quase toda vaga. Destrava SOC e Vulnerability Mgmt júnior. Só ela já vale $35–48/h.", url:"https://www.comptia.org/certifications/security"},
  {n:"⭐ Qualys Certified Specialist — VMDR", org:"Qualys (NASDAQ: QLYS)", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$35–50/h", train:1,
-  when:"PRIORIDADE IMEDIATA (em paralelo ao Sec+)", why:"⭐ Carro-chefe mundial de gestão de vulnerabilidades. Treinamento oficial com laboratório prático na nuvem e exame grátis. Presente em mais de 10.000 grandes corporações. Alinhamento 1:1 com Sec+ Domínios 2 e 4."},
+  when:"PRIORIDADE IMEDIATA (em paralelo ao Sec+)", why:"⭐ Carro-chefe mundial de gestão de vulnerabilidades. Treinamento oficial com laboratório prático na nuvem e exame grátis. Presente em mais de 10.000 grandes corporações. Alinhamento 1:1 com Sec+ Domínios 2 e 4.", url:"https://www.qualys.com/learning/"},
  {n:"⭐ Qualys Certified Specialist — Policy Audit (Compliance)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$38–55/h", train:1,
-  when:"PRIORIDADE IMEDIATA (Trilha GRC & Auditoria)", why:"⭐ Auditoria técnica automatizada de baselines (CIS Benchmarks e DISA-STIG). Prova que tu sabes auditar servidores de verdade, não só ler papel de norma."},
+  when:"PRIORIDADE IMEDIATA (Trilha GRC & Auditoria)", why:"⭐ Auditoria técnica automatizada de baselines (CIS Benchmarks e DISA-STIG). Prova que tu sabes auditar servidores de verdade, não só ler papel de norma.", url:"https://www.qualys.com/learning/"},
  {n:"⭐ Qualys Certified Specialist — Enterprise TruRisk (ETM)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"alto", train:1,
-  when:"PRIORIDADE IMEDIATA (Trilha Risco / Governança)", why:"⭐ Traduz vulnerabilidades técnicas em postura de risco de negócio para diretoria/C-level. Conecta com tua tese de Cyber Risk e AI Governance."},
- {n:"Vanta Auditor Academy + Drata Certified", org:"Vanta / Drata", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"—", train:1,
-  when:"pré-mestrado (finais de semana)", why:"⭐ Automação de GRC na prática: como 90% das startups dos EUA auditam SOC 2 e ISO 27001. Cursos e certificados 100% gratuitos. Prova de ferramenta viva."},
+  when:"PRIORIDADE IMEDIATA (Trilha Risco / Governança)", why:"⭐ Traduz vulnerabilidades técnicas em postura de risco de negócio para diretoria/C-level. Conecta com tua tese de Cyber Risk e AI Governance.", url:"https://www.qualys.com/learning/"},
+  {n:"⭐ Vanta Auditor Academy & Certified", org:"Vanta", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"—", train:0, url:"https://academy.vanta.com/",
+  when:"finais de semana (100% online)", why:"⭐ Automação de GRC oficial: treinamento completo da plataforma líder de conformidade contínua. Ensina como auditar controles de SOC 2 e ISO 27001 em tempo real. Exame e certificado oficiais 100% gratuitos."},
+ {n:"⭐ Drata Certified Professional & Auditor", org:"Drata", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"—", train:0, url:"https://academy.drata.com/",
+  when:"finais de semana (100% online)", why:"⭐ A concorrente direta da Vanta em automação de auditoria contínua. Cursos de conformidade moderna (SOC 2, ISO 27001, HIPAA) com certificação oficial gratuita e badge verificável no LinkedIn."},
  {n:"CompTIA Network+", org:"CompTIA", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$358", pay:"—", train:0,
   when:"opcional, base de redes", why:"Fundamento de redes (TCP/IP, portas). Ajuda no Security+ e em SOC. Opcional se tu já domina rede."},
  {n:"Cloud fundamentos — AWS CLF-C02 · Azure AZ-900 · MS SC-900", org:"AWS / Microsoft", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$100", pay:"—", train:1,
-  when:"junto do Security+", why:"Nuvem pinga em quase todo anúncio. SC-900 = fundamentos de segurança Microsoft. Baratas. Treina na trilha ☁️."},
+  when:"junto do Security+", why:"Nuvem pinga em quase todo anúncio. SC-900 = fundamentos de segurança Microsoft. Baratas. Treina na trilha ☁️.", url:"https://aws.amazon.com/certification/certified-cloud-practitioner/"},
  {n:"PCEP → PCAP (Python)", org:"Python Institute", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$59 / 295", pay:"—", train:1,
   when:"pré-matrícula do MS", why:"Python das atribuições do MS + automação de SOC. Cisco Python Essentials 1&2 prepara grátis. Treina na trilha 🐍."},
  {n:"LPI Linux Essentials → RHCSA", org:"LPI / Red Hat", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$120 / 500", pay:"—", train:1,
-  when:"em paralelo", why:"Linux em toda vaga de SOC/infra. RHCSA (Red Hat) é o degrau forte depois. Treina na trilha 🐧."},
+  when:"em paralelo", why:"Linux em toda vaga de SOC/infra. RHCSA (Red Hat) é o degrau forte depois. Treina na trilha 🐧.", url:"https://www.netacad.com/courses/os-it/ndg-linux-essentials"},
 
  // 🛡️ DEFENSIVO / SOC (SECUNDÁRIO — suporte ao GRC, não carreira principal)
   {n:"CompTIA CySA+", org:"CompTIA", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"~US$404", pay:"$38–48/h", train:0,
    when:"SÓ se o trabalho de GRC pedir", why:"Cert de análise/SOC. Tua estrela-norte é GRC — CySA+ só entra se um emprego exigir. Prioridade BAIXA."},
-  {n:"Microsoft SC-200 (SecOps Analyst)", org:"Microsoft", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"~US$165", pay:"$38–48/h", train:0,
-   when:"se o alvo usa Microsoft", why:"SOC no mundo Microsoft (Sentinel/Defender). Só se o trabalho exigir."},
+   {n:"⭐ Splunk Core Certified User (SIEM Líder)", org:"Splunk (Cisco)", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"GRÁTIS (Cursos) / ~$130 (Exame)", pay:"$40–55/h", train:0, url:"https://www.splunk.com/en_us/training/free-courses/overview.html",
+  when:"Trilha Prática de SIEM (quando quiser operar SOC)", why:"⭐ O SIEM corporativo mais usado no mundo. Cursos oficiais gratuitos no portal da Splunk (Splunk Basics, Search Processing Language - SPL). Indispensável para analistas de SOC e auditoria de logs corporativos."},
+ {n:"⭐ Microsoft SC-200 (Microsoft Sentinel SIEM + Defender)", org:"Microsoft", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"GRÁTIS (Treino Oficial) / ~$165 (Exame)", pay:"$38–52/h", train:0, url:"https://learn.microsoft.com/certifications/security-operations-analyst/",
+  when:"Trilha SIEM & Nuvem", why:"⭐ O SIEM nativo de nuvem mais adotado no mundo corporativo. Roteiro de aprendizagem 100% gratuito no Microsoft Learn com laboratórios práticos em sandbox do Azure. Cobre Sentinel (SIEM) e automação de alertas via playbooks (SOAR)."},
+ {n:"⭐ Tines Core Certified (SOAR & Automação Moderna)", org:"Tines", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"GRÁTIS", pay:"alto", train:0, url:"https://www.tines.com/community",
+  when:"Trilha Prática de SOAR", why:"⭐ A principal plataforma moderna de SOAR (Security Orchestration, Automation and Response) sem código, amplamente adotada por startups de segurança e SOCs em nuvem. Treinamento prático e certificação oficial 100% gratuitos."},
   {n:"BTL1 — Blue Team Level 1", org:"Security Blue Team", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"~US$399", pay:"—", train:0,
    when:"opcional — evidência prática", why:"Cert 100% prática de SOC. Como SECUNDÁRIO: o lab Wazuh grátis (aba Fontes) já dá evidência sem o custo."},
   {n:"GIAC GSEC / GCIH / GCIA", org:"GIAC (SANS)", branch:"🛡️ SOC / Defensivo — SECUNDÁRIO", cost:"caras (empregador paga)", pay:"alto", train:0,
@@ -1338,7 +1344,7 @@ const CERTS=[
  {n:"DEGRAU 8 · ISO 42001 — a norma internacional de IA (o '27001 da IA')", org:"PECB", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$500–1000", pay:"alto", train:0,
   when:"2027 — TEU DIFERENCIAL raro", why:"⭐ A primeira norma internacional de gestão de IA do mundo (publicada em 2023). O mercado de governança de IA está NASCENDO AGORA — quem domina CEDO vira referência escassa. É o par técnico do certificado de governança de IA e o topo natural da tua sequência. Casar com as aulas de IA do mestrado e o teu portfólio."},
  {n:"⭐ AIGP — o certificado de governança de IA (IAPP) — teu diferencial", org:"IAPP", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$700 + US$275/ano", pay:"alto", train:0,
-  when:"2027 — par do ISO 42001", why:"⭐ O principal certificado de GOVERNANÇA DE IA do mundo: cobre o manual americano de risco de IA, as leis novas, e a responsabilidade legal. É onde teu caminho principal encontra teu nicho de IA — e onde quase ninguém está. Faz DEPOIS de ter a base de risco (não faz sentido sem saber risco). Teu portfólio porteiros vira o caso de estudo da prova... e da entrevista."},
+  when:"2027 — par do ISO 42001", why:"⭐ O principal certificado de GOVERNANÇA DE IA do mundo: cobre o manual americano de risco de IA, as leis novas, e a responsabilidade legal. É onde teu caminho principal encontra teu nicho de IA — e onde quase ninguém está. Faz DEPOIS de ter a base de risco (não faz sentido sem saber risco). Teu portfólio porteiros vira o caso de estudo da prova... e da entrevista.", url:"https://iapp.org/certify/aigp/"},
  {n:"DEGRAU 9 · CRISC — gerência de risco da empresa inteira (ISACA)", org:"ISACA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano", pay:"alto", train:0,
   when:"3+ anos de prática", why:"O certificado do GERENTE de risco: identifica, avalia, mitiga e监视a risco em nível de diretoria. Exige 3 anos de experiência comprovada. É o degrau entre o CGRC (fazedor) e o CISA (auditor). Podes fazer a prova antes — o título chega com os anos."},
  {n:"DEGRAU 10 · CISA — auditoria de sistemas (ISACA)", org:"ISACA", branch:"📋 RISCO — SEQUÊNCIA (1→8)", cost:"~US$575 + US$135/ano", pay:"US$154k+/ano", train:0,
@@ -1372,7 +1378,7 @@ function renderCerts(){
     const items=CERTS.filter(c=>c.branch===b);
     return `<div class="phase"><h3>${b}</h3></div>`+items.map(c=>
       `<div class="item ${c.branch.indexOf('Sênior')>-1?'done':''}"><div class="it-body">
-        <div class="it-title">${c.n} ${c.train?'<span class="pill free">🎯 treina no app</span>':''}</div>
+        <div class="it-title">${c.n} ${c.train?'<span class="pill free">🎯 treina no app</span>':''} ${c.url?`<a href="${c.url}" target="_blank" rel="noopener noreferrer" class="pill free" style="text-decoration:none;font-size:11px;margin-left:6px;border-color:var(--blue);color:var(--blue)">🔗 Acessar Curso / Exame ↗</a>`:''}</div>
         <div class="it-meta"><span class="pill">${c.org}</span><span class="pill paid">${c.cost}</span>${(c.pay&&c.pay!=="—")?`<span class="pill free">paga ${c.pay}</span>`:''}<span class="pill">${c.when}</span></div>
         <div class="it-desc">${c.why}</div></div></div>`).join("");
   }).join("");
