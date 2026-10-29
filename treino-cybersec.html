@@ -2245,9 +2245,9 @@ function renderHome(){
   const pbqDoneCount = pbqKeys.length;
   const pbqAvg = pbqDoneCount ? Math.round(pbqKeys.reduce((acc, k) => acc + (pbqState[k].score || 0), 0) / pbqDoneCount) : 0;
   const elFillPbq = document.getElementById("fillPbq");
-  if(elFillPbq) elFillPbq.style.width = Math.round((pbqDoneCount / 5) * 100) + "%";
+  if(elFillPbq) elFillPbq.style.width = Math.round((pbqDoneCount / PBQ_DATA.length) * 100) + "%";
   const elPbqDone = document.getElementById("kPbqDone");
-  if(elPbqDone) elPbqDone.textContent = pbqDoneCount + " / 5";
+  if(elPbqDone) elPbqDone.textContent = pbqDoneCount + " / " + PBQ_DATA.length;
   const elPbqScore = document.getElementById("kPbqScore");
   if(elPbqScore) elPbqScore.textContent = pbqDoneCount ? (pbqAvg + "%") : "–";
 
@@ -3227,6 +3227,26 @@ const PBQ_DATA = [
     badge: "CRYPTOGRAPHY",
     scenario_en: `A fintech banking platform is upgrading its cryptographic infrastructure to align with NIST SP 800-131A and CompTIA SY0-701 guidelines. For each operational requirement, select the most appropriate cryptographic primitive while avoiding deprecated or vulnerable algorithms.`,
     scenario_pt: `Uma plataforma bancária fintech está modernizando sua infraestrutura criptográfica para se alinhar com as diretrizes do NIST SP 800-131A e da CompTIA SY0-701. Para cada requisito operacional, selecione a primitiva criptográfica mais adequada, eliminando algoritmos obsoletos ou vulneráveis.`
+  },
+  {
+    id: "pbq6",
+    num: 6,
+    title_en: "PBQ 6 · Enterprise Wireless Architecture & 802.1X Deployment",
+    title_pt: "PBQ 6 · Arquitetura Wireless Corporativa & Implantação 802.1X",
+    domain_en: "Domain 3.0 · Architecture & Design (Wireless Network Security)",
+    domain_pt: "Domínio 3.0 · Arquitetura & Design (Segurança de Rede Sem Fio)",
+    time_est: "10-12 min",
+    badge: "WPA3 / 802.1X RADIUS",
+    scenario_en: `You are the lead security engineer deploying enterprise wireless access points (WAPs) for a corporate campus. You must configure three distinct SSIDs (Corporate-Staff, Visitor-Guest, and Facility-IoT) adhering to strict CompTIA Security+ Zero-Trust principles.<br><br>
+<b>Design Requirements:</b><br>
+1. <b>Corporate-Staff:</b> Must enforce 802.1X mutual certificate-based authentication with a central RADIUS server and modern authenticated encryption.<br>
+2. <b>Visitor-Guest:</b> Must provide encrypted open guest access using Simultaneous Authentication of Equals (SAE), mandate an Acceptable Use Policy (AUP) agreement, prevent guests from probing each other's devices, and route directly to the Internet DMZ.<br>
+3. <b>Facility-IoT:</b> Legacy environmental monitors only support pre-shared keys; they must be confined to an isolated non-routable network segment with no public Internet access.`,
+    scenario_pt: `Você é o engenheiro de segurança responsável pela implantação dos pontos de acesso sem fio (WAPs) no campus corporativo. Você deve configurar três redes sem fio distintas (Corporate-Staff, Visitor-Guest e Facility-IoT) seguindo rigorosamente os princípios de Zero-Trust da CompTIA Security+.<br><br>
+<b>Requisitos de Projeto:</b><br>
+1. <b>Corporate-Staff:</b> Autenticação mútua baseada em certificados digitais via 802.1X com servidor RADIUS central e cifra moderna autenticada.<br>
+2. <b>Visitor-Guest:</b> Acesso seguro a visitantes com SAE (WPA3-Personal), exigência de concordância com termo de uso (AUP), isolamento total entre dispositivos convidados para evitar ataques de vizinhança, e tráfego direcionado apenas para a DMZ de saída.<br>
+3. <b>Facility-IoT:</b> Sensores legados com chaves pré-compartilhadas devem ser confinados a um segmento isolado sem qualquer rota para a Internet pública.`
   }
 ];
 
@@ -3318,6 +3338,7 @@ function openPbq(id){
   if(id === "pbq3") labContentHtml = renderPbq3Html();
   if(id === "pbq4") labContentHtml = renderPbq4Html();
   if(id === "pbq5") labContentHtml = renderPbq5Html();
+  if(id === "pbq6") labContentHtml = renderPbq6Html();
 
   lab.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">
@@ -3351,13 +3372,13 @@ let pbq1Rules = [];
 
 function initPbq1State(){
   if(pbq1Rules.length === 0){
-    // Default 5 initial rules with placeholders for candidate to fix
+    // Unconfigured slots - candidate must build rules from scratch based on requirements
     pbq1Rules = [
-      { id: 1, action: "PERMIT", src: "ANY", dst: "192.168.10.50", proto: "TCP", port: "443" },
-      { id: 2, action: "PERMIT", src: "ANY", dst: "192.168.20.10", proto: "TCP", port: "25" },
-      { id: 3, action: "PERMIT", src: "10.0.0.15", dst: "192.168.0.0/16", proto: "TCP", port: "22" },
-      { id: 4, action: "PERMIT", src: "192.168.20.2", dst: "ANY", proto: "UDP", port: "53" },
-      { id: 5, action: "DENY", src: "ANY", dst: "ANY", proto: "ANY", port: "ANY" }
+      { id: 1, action: "", src: "", dst: "", proto: "", port: "" },
+      { id: 2, action: "", src: "", dst: "", proto: "", port: "" },
+      { id: 3, action: "", src: "", dst: "", proto: "", port: "" },
+      { id: 4, action: "", src: "", dst: "", proto: "", port: "" },
+      { id: 5, action: "", src: "", dst: "", proto: "", port: "" }
     ];
   }
   renderPbq1Table();
@@ -3413,28 +3434,33 @@ function renderPbq1Table(){
       <tr style="border-bottom:1px solid #1a2530;background:${idx%2===0?'rgba(255,255,255,0.01)':'transparent'}">
         <td style="padding:8px 6px;font-weight:700;color:var(--dim)">${idx + 1}</td>
         <td style="padding:8px 6px">
-          <select class="search" style="margin:0;padding:4px 6px;width:95px;font-weight:700;color:${r.action==='PERMIT'?'var(--acc)':'var(--red)'}" onchange="pbq1Rules[${idx}].action=this.value">
+          <select class="search" style="margin:0;padding:4px 6px;width:105px;font-weight:700;color:${r.action==='PERMIT'?'var(--acc)':r.action==='DENY'?'var(--red)':'var(--dim)'}" onchange="pbq1Rules[${idx}].action=this.value;renderPbq1Table()">
+            <option value="" ${!r.action?'selected':''}>-- ${PBQ_LANG === 'en' ? 'Action' : 'Ação'} --</option>
             <option value="PERMIT" ${r.action==='PERMIT'?'selected':''}>PERMIT</option>
             <option value="DENY" ${r.action==='DENY'?'selected':''}>DENY</option>
           </select>
         </td>
         <td style="padding:8px 6px">
           <select class="search" style="margin:0;padding:4px 6px;width:130px" onchange="pbq1Rules[${idx}].src=this.value">
+            <option value="" ${!r.src?'selected':''}>-- ${PBQ_LANG === 'en' ? 'Source' : 'Origem'} --</option>
             ${srcOpts.map(o => `<option value="${o}" ${r.src===o?'selected':''}>${o}</option>`).join("")}
           </select>
         </td>
         <td style="padding:8px 6px">
           <select class="search" style="margin:0;padding:4px 6px;width:130px" onchange="pbq1Rules[${idx}].dst=this.value">
+            <option value="" ${!r.dst?'selected':''}>-- ${PBQ_LANG === 'en' ? 'Destination' : 'Destino'} --</option>
             ${dstOpts.map(o => `<option value="${o}" ${r.dst===o?'selected':''}>${o}</option>`).join("")}
           </select>
         </td>
         <td style="padding:8px 6px">
-          <select class="search" style="margin:0;padding:4px 6px;width:80px" onchange="pbq1Rules[${idx}].proto=this.value">
+          <select class="search" style="margin:0;padding:4px 6px;width:90px" onchange="pbq1Rules[${idx}].proto=this.value">
+            <option value="" ${!r.proto?'selected':''}>-- ${PBQ_LANG === 'en' ? 'Proto' : 'Protocolo'} --</option>
             ${protoOpts.map(o => `<option value="${o}" ${r.proto===o?'selected':''}>${o}</option>`).join("")}
           </select>
         </td>
         <td style="padding:8px 6px">
-          <select class="search" style="margin:0;padding:4px 6px;width:85px" onchange="pbq1Rules[${idx}].port=this.value">
+          <select class="search" style="margin:0;padding:4px 6px;width:90px" onchange="pbq1Rules[${idx}].port=this.value">
+            <option value="" ${!r.port?'selected':''}>-- ${PBQ_LANG === 'en' ? 'Port' : 'Porta'} --</option>
             ${portOpts.map(o => `<option value="${o}" ${r.port===o?'selected':''}>${o}</option>`).join("")}
           </select>
         </td>
@@ -3474,11 +3500,11 @@ function movePbq1Rule(idx, dir){
 
 function resetPbq1Rules(){
   pbq1Rules = [
-    { id: 1, action: "PERMIT", src: "ANY", dst: "192.168.10.50", proto: "TCP", port: "443" },
-    { id: 2, action: "PERMIT", src: "ANY", dst: "192.168.20.10", proto: "TCP", port: "25" },
-    { id: 3, action: "PERMIT", src: "10.0.0.15", dst: "192.168.0.0/16", proto: "TCP", port: "22" },
-    { id: 4, action: "PERMIT", src: "192.168.20.2", dst: "ANY", proto: "UDP", port: "53" },
-    { id: 5, action: "DENY", src: "ANY", dst: "ANY", proto: "ANY", port: "ANY" }
+    { id: 1, action: "", src: "", dst: "", proto: "", port: "" },
+    { id: 2, action: "", src: "", dst: "", proto: "", port: "" },
+    { id: 3, action: "", src: "", dst: "", proto: "", port: "" },
+    { id: 4, action: "", src: "", dst: "", proto: "", port: "" },
+    { id: 5, action: "", src: "", dst: "", proto: "", port: "" }
   ];
   renderPbq1Table();
   const fb = document.getElementById("pbqFeedbackArea");
@@ -3981,6 +4007,213 @@ function evalPbq5(){
 }
 
 /* ---------------- SHARED PBQ STATE & FEEDBACK ---------------- */
+/* ---------------- PBQ 6: WIRELESS ARCHITECTURE & 802.1X ---------------- */
+function renderPbq6Html(){
+  const isEn = (PBQ_LANG === "en");
+  return `
+    <div class="card" style="padding:18px;background:#0d131a;border:1px solid var(--line)">
+      <div style="font-size:14px;color:var(--dim);margin-bottom:16px">
+        ${isEn ? 'Configure the security profile, authentication framework, encryption cipher, and network isolation for each of the three enterprise SSIDs.' : 'Configure o perfil de segurança, autenticação, cifra criptográfica e isolamento de rede para cada um dos três SSIDs corporativos.'}
+      </div>
+
+      <!-- SSID 1: Corporate -->
+      <div class="card" style="background:#131c26;border:1px solid #203144;margin-bottom:14px;padding:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span class="badge" style="background:#1b324d;color:#70b7ff;font-weight:700">SSID 1</span>
+          <b style="font-size:15px;color:#e6edf3">Corporate-Staff (Internal Domain Devices)</b>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'Security Standard':'Padrão de Segurança'}</label>
+            <select id="pbq6_sec_corp" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="WPA3-Enterprise">WPA3-Enterprise (192-bit CNSA)</option>
+              <option value="WPA3-Personal">WPA3-Personal (SAE)</option>
+              <option value="WPA2-PSK">WPA2-PSK (Pre-Shared Key)</option>
+              <option value="Open">Open (No Security)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'Authentication Framework':'Servidor de Autenticação'}</label>
+            <select id="pbq6_auth_corp" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="RADIUS">802.1X / RADIUS Server (UDP 1812)</option>
+              <option value="TACACS">TACACS+ (TCP 49)</option>
+              <option value="PSK">Pre-Shared Passphrase</option>
+              <option value="Portal">Captive Web Portal</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'EAP Protocol Type':'Tipo de Protocolo EAP'}</label>
+            <select id="pbq6_eap_corp" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="EAP-TLS">EAP-TLS (Mutual PKI Certificates)</option>
+              <option value="PEAP-MSCHAPv2">PEAPv0 / EAP-MSCHAPv2 (Username/Password)</option>
+              <option value="EAP-FAST">EAP-FAST (Cisco PAC)</option>
+              <option value="LEAP">LEAP (Cisco Legacy - Deprecated)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'Encryption Cipher':'Cifra de Criptografia'}</label>
+            <select id="pbq6_enc_corp" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="AES-GCMP">AES-GCMP-256 (Galois/Counter Mode)</option>
+              <option value="AES-CCMP">AES-CCMP-128 (Counter Mode CBC-MAC)</option>
+              <option value="TKIP">TKIP (RC4 Based - Deprecated)</option>
+              <option value="None">None (Unencrypted)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'VLAN Segment':'Segmento VLAN'}</label>
+            <select id="pbq6_vlan_corp" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="VLAN10">VLAN 10 (Corporate Internal Network)</option>
+              <option value="VLAN30">VLAN 30 (DMZ / Guest Internet-Only)</option>
+              <option value="VLAN50">VLAN 50 (Isolated Facility IoT)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SSID 2: Guest -->
+      <div class="card" style="background:#131c26;border:1px solid #203144;margin-bottom:14px;padding:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span class="badge" style="background:#3d2f14;color:#ffbe53;font-weight:700">SSID 2</span>
+          <b style="font-size:15px;color:#e6edf3">Visitor-Guest (Contractors & External Visitors)</b>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'Security Standard':'Padrão de Segurança'}</label>
+            <select id="pbq6_sec_guest" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="WPA3-Personal">WPA3-Personal (SAE - DragonFly Key Exchange)</option>
+              <option value="WPA3-Enterprise">WPA3-Enterprise (802.1X)</option>
+              <option value="WPA2-PSK">WPA2-PSK (Legacy 4-way Handshake)</option>
+              <option value="Open">Open Unencrypted</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'Access Control & Onboarding':'Controle de Acesso / Termos'}</label>
+            <select id="pbq6_ctrl_guest" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="Captive">Captive Portal + Acceptable Use Policy (AUP)</option>
+              <option value="RADIUS">Internal Active Directory RADIUS Login</option>
+              <option value="None">Direct Open Association</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'Client Isolation (Intra-BSS)':'Isolamento entre Clientes (Client Isolation)'}</label>
+            <select id="pbq6_iso_guest" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="ENABLED">ENABLED (Block peer-to-peer device probing)</option>
+              <option value="DISABLED">DISABLED (Allow devices to discover peers)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'VLAN Routing & Egress':'Roteamento & VLAN'}</label>
+            <select id="pbq6_vlan_guest" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="VLAN30">VLAN 30 (DMZ / Internet-Only Egress, No LAN Access)</option>
+              <option value="VLAN10">VLAN 10 (Corporate Core Network)</option>
+              <option value="VLAN50">VLAN 50 (Isolated Facility IoT)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SSID 3: Facility IoT -->
+      <div class="card" style="background:#131c26;border:1px solid #203144;margin-bottom:14px;padding:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span class="badge" style="background:#2b193d;color:#d18bff;font-weight:700">SSID 3</span>
+          <b style="font-size:15px;color:#e6edf3">Facility-IoT (Legacy Warehouse Scanners & Temperature Sensors)</b>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'Security Standard':'Padrão de Segurança'}</label>
+            <select id="pbq6_sec_iot" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="WPA2-CCMP">WPA2-Enterprise / WPA2-PSK with AES-CCMP</option>
+              <option value="WPA3-Enterprise">WPA3-Enterprise (Requires 192-bit hardware)</option>
+              <option value="WEP">WEP 64/128-bit</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'VLAN & Network Containment':'Confinamento de Rede & VLAN'}</label>
+            <select id="pbq6_vlan_iot" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="VLAN50">VLAN 50 (Isolated Non-Routable IoT / Blocked Internet)</option>
+              <option value="VLAN10">VLAN 10 (Corporate Production)</option>
+              <option value="VLAN30">VLAN 30 (DMZ Internet Guest)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;color:var(--dim);display:block;margin-bottom:4px">${isEn?'External Internet Access':'Acesso Externo à Internet'}</label>
+            <select id="pbq6_inet_iot" class="search" style="margin:0;width:100%">
+              <option value="">-- ${isEn?'Select':'Selecione'} --</option>
+              <option value="BLOCKED">BLOCKED (No outbound default route on gateway)</option>
+              <option value="ALLOWED">ALLOWED (Full access to all external ports)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;display:flex;justify-content:flex-end">
+        <button class="btn" style="padding:10px 22px;font-size:14px" onclick="evalPbq6()">✓ ${isEn?'Deploy Wireless Architecture':'Implantar Arquitetura Wireless'}</button>
+      </div>
+    </div>
+  `;
+}
+
+function evalPbq6(){
+  const isEn = (PBQ_LANG === "en");
+  const secCorp = (document.getElementById("pbq6_sec_corp")||{}).value;
+  const authCorp = (document.getElementById("pbq6_auth_corp")||{}).value;
+  const eapCorp = (document.getElementById("pbq6_eap_corp")||{}).value;
+  const encCorp = (document.getElementById("pbq6_enc_corp")||{}).value;
+  const vlanCorp = (document.getElementById("pbq6_vlan_corp")||{}).value;
+
+  const secGuest = (document.getElementById("pbq6_sec_guest")||{}).value;
+  const ctrlGuest = (document.getElementById("pbq6_ctrl_guest")||{}).value;
+  const isoGuest = (document.getElementById("pbq6_iso_guest")||{}).value;
+  const vlanGuest = (document.getElementById("pbq6_vlan_guest")||{}).value;
+
+  const secIot = (document.getElementById("pbq6_sec_iot")||{}).value;
+  const vlanIot = (document.getElementById("pbq6_vlan_iot")||{}).value;
+  const inetIot = (document.getElementById("pbq6_inet_iot")||{}).value;
+
+  let score = 0;
+  const reqChecks = [
+    { text_en: "1. Corporate SSID: WPA3-Enterprise + 802.1X RADIUS Authentication", text_pt: "1. SSID Corporativo: WPA3-Enterprise + Autenticação 802.1X RADIUS", passed: false, detail: "" },
+    { text_en: "2. Corporate SSID: EAP-TLS (Mutual PKI) + AES-GCMP-256 Cipher", text_pt: "2. SSID Corporativo: EAP-TLS (Certificados Mútuos) + Cifra AES-GCMP-256", passed: false, detail: "" },
+    { text_en: "3. Corporate SSID: Isolated on Corporate VLAN 10", text_pt: "3. SSID Corporativo: Segmentado na VLAN 10 Corporativa", passed: false, detail: "" },
+    { text_en: "4. Guest SSID: WPA3-Personal (SAE) with Captive Portal AUP", text_pt: "4. SSID Visitante: WPA3-Personal (SAE) com Captive Portal / Termo de Uso", passed: false, detail: "" },
+    { text_en: "5. Guest SSID: Client Isolation ENABLED + Egress to DMZ VLAN 30", text_pt: "5. SSID Visitante: Client Isolation HABILITADO + Saída para DMZ VLAN 30", passed: false, detail: "" },
+    { text_en: "6. Facility IoT: AES-CCMP on VLAN 50 with Internet Access BLOCKED", text_pt: "6. IoT Legado: Cifra AES-CCMP na VLAN 50 com Internet BLOQUEADA", passed: false, detail: "" }
+  ];
+
+  if(secCorp === "WPA3-Enterprise" && authCorp === "RADIUS"){ reqChecks[0].passed = true; score += 17; }
+  else { reqChecks[0].detail = isEn ? "Corporate requires WPA3-Enterprise and central 802.1X RADIUS." : "A rede corporativa exige WPA3-Enterprise e servidor RADIUS 802.1X."; }
+
+  if(eapCorp === "EAP-TLS" && encCorp === "AES-GCMP"){ reqChecks[1].passed = true; score += 17; }
+  else { reqChecks[1].detail = isEn ? "Corporate requires EAP-TLS (mutual certs) and AES-GCMP-256." : "A rede corporativa requer EAP-TLS (certificados mútuos) e cifra AES-GCMP-256."; }
+
+  if(vlanCorp === "VLAN10"){ reqChecks[2].passed = true; score += 16; }
+  else { reqChecks[2].detail = isEn ? "Corporate SSID must be mapped to VLAN 10." : "O SSID corporativo deve ser mapeado na VLAN 10."; }
+
+  if(secGuest === "WPA3-Personal" && ctrlGuest === "Captive"){ reqChecks[3].passed = true; score += 17; }
+  else { reqChecks[3].detail = isEn ? "Guest requires WPA3-Personal (SAE) and Captive Portal AUP." : "Visitantes exigem WPA3-Personal (SAE) e Captive Portal com termo AUP."; }
+
+  if(isoGuest === "ENABLED" && vlanGuest === "VLAN30"){ reqChecks[4].passed = true; score += 17; }
+  else { reqChecks[4].detail = isEn ? "Guest network must enable Client Isolation and map to DMZ VLAN 30." : "Visitantes devem ter Client Isolation HABILITADO e VLAN 30 de DMZ."; }
+
+  if(secIot === "WPA2-CCMP" && vlanIot === "VLAN50" && inetIot === "BLOCKED"){ reqChecks[5].passed = true; score += 16; }
+  else { reqChecks[5].detail = isEn ? "IoT must use AES-CCMP on non-routable VLAN 50 with blocked internet." : "Sensores IoT devem usar AES-CCMP na VLAN 50 não-roteável sem saída pra Internet."; }
+
+  if(score === 100) score = 100; // Perfect score
+  savePbqScore("pbq6", score);
+  renderPbqFeedback(score, reqChecks);
+}
+
 function savePbqScore(pbqId, score){
   if(!S) S = {};
   if(!S.pbq) S.pbq = {};
