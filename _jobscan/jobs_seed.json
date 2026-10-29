@@ -8,7 +8,7 @@
     "level": "junior",
     "source": "Orbite ATS",
     "geo": "brasil",
-    "url": "https://news.orbite-ats.com.br/carreiras/046cb3ce05c78d7",
+    "url": "https://talent.orbite-ats.com.br/carreiras/046cb3ce05c78d7",
     "req": [
       "secplus"
     ],
@@ -61,48 +61,6 @@
     "study": 5,
     "tasks": "Monitoramento de incidentes SOC Tier 1, triagem de alertas, investigação de anomalias e análise de vulnerabilidades em sistemas de IA.",
     "note": "⭐ BANCO DE TALENTOS SOC TIER 1 + IA: Aberto para residentes no Brasil (0-2 anos). Altíssimo alinhamento com seu perfil híbrido de IA e Cibersegurança."
-  },
-  {
-    "id": "spread-sec-jr",
-    "role": "Analista de Segurança da Informação Júnior",
-    "company": "Spread Tecnologia",
-    "loc": "Remoto (Brasil)",
-    "pay": "~R$ 4.000–5.500 (CLT)",
-    "level": "junior",
-    "source": "Gupy Spread",
-    "geo": "brasil",
-    "url": "https://spread.gupy.io/",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 4,
-    "study": 4,
-    "tasks": "Monitoramento de alertas em SIEM, observabilidade de segurança, resposta inicial a incidentes e triagem de vulnerabilidades.",
-    "note": "Vaga nacional CLT 100% remota em consultoria de tecnologia."
-  },
-  {
-    "id": "stravorus-jr-pentest",
-    "role": "Junior Penetration Tester / Security Report Writer",
-    "company": "Stravorus",
-    "loc": "Remote (Global / BR)",
-    "pay": "~US$ 35-50k (Contractor)",
-    "level": "junior",
-    "source": "Direct Email",
-    "geo": "worldwide",
-    "url": "https://www.stravorus.com/careers",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 4,
-    "tasks": "Testes de invasão em aplicações web/APIs, análise de vulnerabilidades e elaboração minuciosa de relatórios executivos em inglês.",
-    "note": "⭐ BOUTIQUE GLOBAL: Aceita candidatos do Brasil via contractor. Envio direto de CV e portfólio para careers@stravorus.com."
   },
   {
     "id": "can-assoc-linux",
@@ -617,27 +575,6 @@
     "note": "Matrizes de risco operacional, fraude e auditoria em fintech/crypto."
   },
   {
-    "id": "tremendous-head",
-    "role": "Head of Security (First Security Hire)",
-    "company": "Tremendous",
-    "loc": "Remoto",
-    "pay": "US$250-330k",
-    "level": "senior",
-    "source": "Ashby",
-    "geo": "worldwide",
-    "url": "https://jobs.ashbyhq.com/tremendous/8cf03f9a-d789-4aa5-9f8f-48960a3b66bc",
-    "req": [
-      "cism"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 3,
-    "tasks": "Definir a arquitetura completa de segurança da informação, conduzir auditorias de conformidade e liderar a equipe de segurança.",
-    "note": "🏆 DESTINO 5+ ANOS: Liderança total da postura de segurança de fintech global com bilhões em payouts. Link direto oficial."
-  },
-  {
     "id": "can-assoc-support",
     "role": "Associate Technical Support Engineer — Ubuntu Linux",
     "company": "Canonical",
@@ -680,131 +617,5 @@
     "study": 5,
     "tasks": "Programa de formação técnica remunerada em infraestrutura segura, OpenStack, Kubernetes e segurança de sistemas Linux.",
     "note": "⭐ PROGRAMA GRADUATE: Treinamento intensivo pago. Não exige experiência corporativa anterior, apenas fluência em inglês e base Linux/redes."
-  },
-  {
-    "id": "claranet-soc-jr",
-    "role": "Analista de SOC Júnior (Tier 1)",
-    "company": "Claranet Brasil",
-    "loc": "Remoto (Brasil)",
-    "pay": "R$ 4.500–6.000 (CLT)",
-    "level": "junior",
-    "source": "Gupy Claranet",
-    "geo": "brasil",
-    "url": "https://claranet.gupy.io/",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 4,
-    "study": 4,
-    "tasks": "Monitoramento de alertas em SIEM e EDR, triagem de incidentes de segurança, escalonamento e contenção inicial de ameaças.",
-    "note": "Vaga CLT nacional 100% remota em um dos maiores MSPs e provedores de segurança gerenciada do Brasil."
-  },
-  {
-    "id": "tempest-sec-jr",
-    "role": "Analista de Segurança da Informação Júnior (SOC / Blue Team)",
-    "company": "Tempest Security",
-    "loc": "Remoto (Brasil)",
-    "pay": "R$ 5.000–6.800 (CLT)",
-    "level": "junior",
-    "source": "Gupy Tempest",
-    "geo": "brasil",
-    "url": "https://tempest.gupy.io/",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 5,
-    "tasks": "Triagem de eventos de segurança, investigação inicial de anomalias em SIEM/EDR e elaboração de relatórios técnicos de resposta a incidentes.",
-    "note": "⭐ TEMPEST (GRUPO EMBRAER): A maior e mais respeitada empresa de cibersegurança do Brasil. Porta de entrada de altíssimo renome para currículo."
-  },
-  {
-    "id": "kroll-cyber-assoc",
-    "role": "Associate — Cyber Risk & Digital Forensics",
-    "company": "Kroll Brasil",
-    "loc": "São Paulo / Remoto",
-    "pay": "R$ 6.500–8.500 (CLT)",
-    "level": "junior",
-    "source": "Kroll Careers",
-    "geo": "brasil",
-    "url": "https://www.kroll.com/en/careers",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 5,
-    "tasks": "Apoio a investigações de incidentes cibernéticos, preservação de cadeia de custódia, análise forense digital e avaliação de riscos corporativos.",
-    "note": "⭐ INVESTIGAÇÃO FORENSE & RISCO (KROLL): Encaixe 100% perfeito com os 12+ anos de PMMG do Eduardo em cadeia de custódia e processo probatório."
-  },
-  {
-    "id": "stefanini-sec-jr",
-    "role": "Analista de Cibersegurança Júnior",
-    "company": "Stefanini Cyber",
-    "loc": "Remoto (Brasil)",
-    "pay": "R$ 4.500–6.000 (CLT)",
-    "level": "junior",
-    "source": "Gupy Stefanini",
-    "geo": "brasil",
-    "url": "https://stefanini.gupy.io/",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 4,
-    "study": 4,
-    "tasks": "Operação de controles de segurança, acompanhamento de vulnerabilidades e suporte técnico à equipe de resposta a incidentes.",
-    "note": "Multinacional brasileira de TI com forte divisão de segurança corporativa."
-  },
-  {
-    "id": "bdo-it-audit-trainee",
-    "role": "Trainee / Auditor Júnior de TI & Segurança Cibernética",
-    "company": "BDO Brasil",
-    "loc": "Remoto (Brasil)",
-    "pay": "R$ 4.000–5.500 (CLT)",
-    "level": "graduate",
-    "source": "BDO Careers",
-    "geo": "brasil",
-    "url": "https://www.bdo.com.br/pt-br/carreiras",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 5,
-    "tasks": "Auditoria de controles gerais de TI (ITGC), testes de conformidade com ISO 27001 e SOC 2, e mapeamento de riscos tecnológicos.",
-    "note": "⭐ AUDITORIA BIG 5: A melhor escola prática de GRC do mercado. Formação acelerada em conformidade e evidências."
-  },
-  {
-    "id": "grant-thornton-grc-jr",
-    "role": "Consultor Júnior de Riscos Cibernéticos, GRC & LGPD",
-    "company": "Grant Thornton",
-    "loc": "Remoto (Brasil)",
-    "pay": "R$ 5.000–6.500 (CLT)",
-    "level": "junior",
-    "source": "Grant Thornton Careers",
-    "geo": "brasil",
-    "url": "https://www.grantthornton.com.br/carreiras/",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 5,
-    "tasks": "Avaliação de maturidade de segurança cibernética (NIST / CIS), elaboração de políticas de privacidade e testes de conformidade.",
-    "note": "Consultoria global de renome em auditoria e riscos."
   }
 ]
