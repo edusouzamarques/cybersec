@@ -1,327 +1,340 @@
 # -*- coding: utf-8 -*-
-"""Varredura diária de vagas CyberSec, GRC e Cloud/Linux Support -> vagas_data.js + digest datado.
-Fontes integradas:
-1. Curadoria Seed (jobs_seed.json) - portas de entrada e vagas verificadas
-2. ATS Direto Greenhouse: Canonical, GitLab, Cloudflare, Okta, Chainguard, Elastic, Datadog
-3. ATS Direto Ashby: Vanta, Drata, Oneleet, Supabase
-4. Jobicy: Cybersecurity & DevOps remote
-5. RemoteOK: Filtrado e verificado anti-scam
 """
-import json, os, re, time, urllib.request, datetime, unicodedata
+Varredura diária de vagas de Cibersegurança, GRC e Suporte em Nuvem.
+Fontes:
+  1. Base curada (jobs_seed.json) - Wrike, Canonical, Oneleet, Supabase, etc.
+  2. WeWorkRemotely (RSS feeds - DevOps/Sysadmin & All Remote)
+  3. Jobicy API (tag: security)
+  4. RemoteOK API
 
-BASE = os.path.dirname(os.path.abspath(__file__))
-APP  = os.path.dirname(BASE)
+Alimenta:
+  - _jobscan/vagas_data.js (carregado diretamente pelo assistente-cybersec.html)
+  - _jobscan/job_digest.md (histórico diário)
+"""
 
-# Termos de interesse no cargo (CyberSec / GRC / AI Sec / Linux & Cloud Infra)
-ROLE_WORDS = [
-    "security", "cyber", "soc analyst", "siem", "vulnerab", "grc", "incident", "threat",
-    "infosec", "penetration", "pentest", "appsec", "devsecops", "detection", "malware",
-    "cyber risk", "it risk", "security compliance", "ai security", "security analyst",
-    "security engineer", "blue team", "security operations", "iso 27001", "soc 2",
-    "internal audit", "it audit", "vendor risk", "third-party risk", "privacy", "trust",
-    "iam", "identity", "linux support", "cloud support", "support engineer"
+import json
+import os
+import re
+import time
+import urllib.request
+import xml.etree.ElementTree as ET
+from datetime import datetime
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CYBERSEC_DIR = os.path.dirname(BASE_DIR)
+
+SEED_FILE = os.path.join(BASE_DIR, "jobs_seed.json")
+VAGAS_FILE = os.path.join(BASE_DIR, "vagas_data.js")
+DIGEST_FILE = os.path.join(BASE_DIR, "job_digest.md")
+LOG_FILE = os.path.join(BASE_DIR, "job_scan_log.ndjson")
+
+# Palavras-chave obrigatórias para cargos técnicos de segurança / GRC / suporte
+CYBER_KEYWORDS = [
+    "security", "cyber", "grc", "compliance", "soc ", "soc-", "siem",
+    "vulnerab", "incident", "threat", "infosec", "penetration", "pentest",
+    "appsec", "devsecops", "detection", "malware", "risk analyst", "risk control",
+    "compliance analyst", "internal audit", "security analyst", "security engineer",
+    "cloud support", "systems engineer", "sysadmin", "trust & safety", "privacy"
 ]
 
-# Títulos categoricamente NÃO compatíveis (descarte imediato)
-BAD_TITLE_WORDS = [
-    "customer support", "customer service", "sales", "social media", "marketing",
-    "data entry", "payment operations", "virtual assistant", "telemarketer",
-    "recruiter", "copywriter", "appointment setter", "content moderator",
-    "cashier", "teller", "accounting", "bookkeeper", "legal assistant",
-    "brand protection", "community manager", "billing", "collections",
-    "talent scientist", "renewals", "revenue operations", "investor relations",
-    "front desk", "office operations", "hr generalist", "generalist"
+# Palavras para descarte imediato (marketing, RH, vagas não-técnicas ou pegadinhas)
+EXCLUDE_TITLES = [
+    "communications intern", "pr intern", "social media", "copywriter",
+    "graphic designer", "content marketing", "account executive ii, federal",
+    "general manager", "fertility", "animator", "medical expert"
 ]
 
-# Termos de golpes / MLM / comissão disfarçada
-SCAM_TERMS = [
-    "performance-based", "commission-based", "payments every 3", "payments every",
-    "worldwide network share", "social media engagement (no calls", "direct acquisitions",
-    "tokenized funding", "no calls, emailing, or meetings", "1099 independent contractor opportunity with performance-based",
-    "unpaid internship", "training fee", "matrix referral", "earn bonuses based on"
+# Termos que tornam a vaga inelegível para quem mora no Brasil sem cidadania estrangeira
+INELEGIBLE_TERMS = [
+    "clearance", "public trust", "dod", "secret", "ts/sci", "sc clearance",
+    "us citizen", "uk citizen", "british citizen", "cidadania americana",
+    "citizenship required", "must reside in the us", "u.s. based only",
+    "us only", "usa only", "uk only", "canada only", "australia only"
 ]
 
-KNOWN_SCAM_COMPANIES = [
-    "ultimate marketing", "direct acquisitions", "tokenized funding"
-]
-
-def normalize_text(text):
-    nfkd = unicodedata.normalize("NFKD", (text or "").lower())
-    return "".join([c for c in nfkd if not unicodedata.combining(c)])
-
-def is_scam_or_bad(title, company="", desc=""):
-    t = normalize_text(title)
-    c = normalize_text(company)
-    d = normalize_text(desc)
-    if any(sc in c for sc in KNOWN_SCAM_COMPANIES):
-        return True, "empresa bloqueada (golpe/MLM)"
-    if any(bad in t for bad in BAD_TITLE_WORDS):
-        # Exceção para suporte técnico de segurança ou Linux
-        if ("linux support" in t or "security support" in t or "solutions engineer" in t) and not any(bad in t for bad in ["sales", "marketing", "front desk"]):
-            pass
-        else:
-            return True, "título incompatível (não é cyber/infra/grc)"
-    if any(st in d for st in SCAM_TERMS) or any(st in t for st in SCAM_TERMS):
-        return True, "modelo de comissão/MLM descartado"
-    return False, ""
-
-def is_cyber(title, company="", desc=""):
-    t = normalize_text(title)
-    c = normalize_text(company)
-    d = normalize_text(desc)
+def is_eligible(title, desc, loc, geo):
+    full = f"{title} {desc} {loc} {geo}".lower()
     
-    # Exceções estratégicas da Canonical (porta de entrada para Linux e Cloud)
-    if "canonical" in c:
-        if any(k in t for k in [
-            "associate linux", "graduate software", "graduate cloud", "graduate customer success",
-            "junior linux", "junior ubuntu", "internal auditor", "python - cloud", "ubuntu sales engineer"
-        ]):
-            return True
+    # 1. Não pode ter exigência de segurança de estado / cidadania restrita
+    for term in INELEGIBLE_TERMS:
+        if term in full:
+            return False
             
-    has_role = any(w in t for w in ROLE_WORDS)
-    if not has_role:
-        if "risk" in t or "compliance" in t or "analyst" in t or "program manager" in t:
-            if any(k in d for k in ["soc 2", "iso 27001", "nist", "infosec", "cybersecurity", "siem", "audit", "compliance"]):
-                return True
-        return False
-    return True
-
-def level_of(title, company="", desc="", api_level=""):
-    t = normalize_text(title)
-    d = normalize_text(desc)
-    lvl_api = normalize_text(api_level)
-    
-    # 1. Mapeamento explícito de API
-    if re.search(r"\b(director|executive|head|vp)\b", lvl_api):
-        return "senior"
-    if re.search(r"\b(senior|staff|principal|lead)\b", lvl_api):
-        return "senior"
-    if re.search(r"\b(intern|internship)\b", lvl_api):
-        return "estágio"
-
-    # 2. Análise de Título
-    if re.search(r"\b(intern|internship|estagio|estagiario)\b", t):
-        return "estágio"
-    if re.search(r"\b(graduate|trainee|recem[- ]formado|early[- ]career)\b", t):
-        return "graduate"
-    if re.search(r"\bsenior associate\b", t):
-        return "pleno"
-    if re.search(r"\b(junior|jr|jr\.|associate)\b", t) and not re.search(r"\b(director|partner|head|vp)\b", t):
-        return "junior"
-    if re.search(r"\b(entry|entry[- ]level|tier[- ]?1|soc tier 1|l1)\b", t) and not re.search(r"\b(senior|lead|principal)\b", t):
-        return "entry"
-    if re.search(r"\b(senior|sr|sr\.|s[eê]nior|lead|principal|staff|manager|head|director|architect|chief|vp|ciso)\b", t):
-        return "senior"
+    # 2. Vagas locais do Brasil (CLT/PJ) são sempre elegíveis
+    if geo == "brasil" or "brasil" in loc.lower() or "brazil" in loc.lower():
+        return True
         
-    # 3. Descrição quando o título é neutro
-    if re.search(r"\b(director|head of|ciso|vice president)\b", d) or re.search(r"\b(8\+|10\+|12\+)\s+years?\b", d):
-        return "senior"
-    if re.search(r"\b(senior[- ]level|senior experience|5\+|6\+|7\+)\s*(?:years?|experience)?\b", d):
-        if "senior-level" in d or "5+ years" in d or "6+ years" in d or "7+ years" in d:
-            return "senior"
+    # 3. Vagas internacionais NÃO podem ser híbridas nem presenciais
+    office_words = ["hybrid", "hibrid", "office", "on-site", "onsite", "presencial"]
+    for ow in office_words:
+        if ow in loc.lower():
+            return False
             
+    # 4. Deve aceitar Worldwide, Anywhere in the World, LATAM ou AMER
+    valid_globals = ["worldwide", "anywhere in the world", "global", "latam", "amer", "anywhere"]
+    if any(vg in loc.lower() for vg in valid_globals) or geo in ["worldwide", "latam", "global"]:
+        return True
+        
+    return False
+
+def is_cyber_role(title):
+    t = (title or "").lower()
+    if any(ex in t for ex in EXCLUDE_TITLES):
+        return False
+    return any(k in t for k in CYBER_KEYWORDS)
+
+def detect_level(title):
+    t = (title or "").lower()
+    if any(w in t for w in ["intern", "internship", "estágio", "estagio"]):
+        return "estágio"
+    if any(w in t for w in ["junior", "jr", "associate", "entry", "early career", "trainee", "i "]):
+        return "entry"
+    if any(w in t for w in ["senior", "sr", "lead", "principal", "staff", "head", "director", "architect"]):
+        return "senior"
     return "pleno"
 
-def fetch_json(url, headers=None, timeout=12):
-    h = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"}
-    if headers:
-        h.update(headers)
-    req = urllib.request.Request(url, headers=h)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8", "ignore"))
+def fetch_url(url, is_json=True, timeout=20):
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    })
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        content = resp.read()
+        if is_json:
+            return json.loads(content.decode("utf-8", "ignore"))
+        return content.decode("utf-8", "ignore")
 
-live = []
-
-# --- 1. GREENHOUSE DIRECT ATS ---
-GH_BOARDS = [
-    ("canonical", "Canonical"),
-    ("gitlab", "GitLab"),
-    ("cloudflare", "Cloudflare"),
-    ("okta", "Okta"),
-    ("chainguard", "Chainguard"),
-    ("elastic", "Elastic"),
-    ("datadog", "Datadog")
-]
-
-for slug, comp in GH_BOARDS:
-    try:
-        url = f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs"
-        data = fetch_json(url, timeout=10)
-        for j in data.get("jobs", []):
-            pos = j.get("title", "")
-            loc = (j.get("location", {}).get("name", "") or "Remoto")[:24]
-            u = j.get("absolute_url", "")
-            bad, _ = is_scam_or_bad(pos, comp)
-            if bad:
-                continue
-            if is_cyber(pos, comp):
-                lvl = level_of(pos, comp)
-                live.append({
-                    "role": pos[:70],
-                    "company": comp[:30],
+def scan_weworkremotely():
+    """Varre os feeds RSS do WeWorkRemotely em busca de vagas globais de segurança."""
+    wwr_jobs = []
+    feeds = [
+        "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss",
+        "https://weworkremotely.com/remote-jobs.rss"
+    ]
+    
+    for feed_url in feeds:
+        try:
+            xml_text = fetch_url(feed_url, is_json=False, timeout=20)
+            root = ET.fromstring(xml_text)
+            for item in root.findall(".//item"):
+                raw_title = item.findtext("title", "") or ""
+                desc = item.findtext("description", "") or ""
+                region = item.findtext("region", "") or ""
+                link = item.findtext("link", "") or ""
+                
+                parts = raw_title.split(":", 1)
+                company = parts[0].strip() if len(parts) > 1 else "Empresa Internacional"
+                role = parts[1].strip() if len(parts) > 1 else raw_title.strip()
+                
+                if not is_cyber_role(role):
+                    continue
+                    
+                loc = f"Remote ({region})" if region else "Remote (Worldwide)"
+                geo = "worldwide"
+                
+                if not is_eligible(role, desc, loc, geo):
+                    continue
+                    
+                job_id = f"wwr-{re.sub(r'[^a-z0-9]+', '-', company.lower())}-{re.sub(r'[^a-z0-9]+', '-', role.lower())}"[:40]
+                
+                wwr_jobs.append({
+                    "id": job_id,
+                    "role": role[:80],
+                    "company": company[:40],
                     "loc": loc,
-                    "pay": "—",
-                    "level": lvl,
-                    "source": f"Greenhouse ({slug})",
+                    "pay": "A combinar (US$)",
+                    "level": detect_level(role),
+                    "source": "WeWorkRemotely",
+                    "geo": "worldwide",
+                    "url": link,
                     "req": ["secplus"],
                     "clearance": False,
                     "sponsor": False,
                     "student": False,
-                    "url": u,
-                    "note": f"remoto internacional ({comp} direto)"
+                    "dest": 4,
+                    "study": 4,
+                    "tasks": f"Atuação em {role} para a empresa {company}. Vaga internacional 100% remota anunciada no WeWorkRemotely.",
+                    "note": f"⭐ Vaga encontrada no WeWorkRemotely ({region}). Aberta para contratação remota internacional."
                 })
-    except Exception as e:
-        print(f"Greenhouse {slug} falhou: {e}")
+        except Exception as e:
+            print(f"Erro ao varrer feed WeWorkRemotely ({feed_url}): {e}")
+            
+    return wwr_jobs
 
-# --- 2. ASHBY DIRECT ATS ---
-ASHBY_BOARDS = [
-    ("vanta", "Vanta"),
-    ("drata", "Drata"),
-    ("oneleet", "Oneleet"),
-    ("supabase", "Supabase")
-]
-
-for slug, comp in ASHBY_BOARDS:
+def scan_jobicy():
+    """Varre a API do Jobicy com foco em vagas de cibersegurança."""
+    jobicy_jobs = []
+    url = "https://jobicy.com/api/v2/remote-jobs?count=40&tag=security"
     try:
-        url = f"https://api.ashbyhq.com/posting-api/job-board/{slug}"
-        data = fetch_json(url, timeout=10)
+        data = fetch_url(url, is_json=True, timeout=20)
         for j in data.get("jobs", []):
-            pos = j.get("title", "")
-            loc = (j.get("location", "") or "Remoto")[:24]
-            u = j.get("jobUrl", "")
-            bad, _ = is_scam_or_bad(pos, comp)
-            if bad:
-                continue
-            if is_cyber(pos, comp):
-                lvl = level_of(pos, comp)
-                live.append({
-                    "role": pos[:70],
-                    "company": comp[:30],
-                    "loc": loc,
-                    "pay": "—",
-                    "level": lvl,
-                    "source": f"Ashby ({slug})",
-                    "req": ["secplus"],
-                    "clearance": False,
-                    "sponsor": False,
-                    "student": False,
-                    "url": u,
-                    "note": f"remoto internacional ({comp} direto)"
-                })
-    except Exception as e:
-        print(f"Ashby {slug} falhou: {e}")
-
-# --- 3. JOBICY API ---
-for ind in ["cybersecurity", "engineering"]:
-    try:
-        data = fetch_json(f"https://jobicy.com/api/v2/remote-jobs?count=40&industry={ind}", timeout=15)
-        for j in data.get("jobs", []):
-            pos = j.get("jobTitle", "")
-            comp = j.get("companyName", "")
+            role = j.get("jobTitle", "")
+            company = j.get("companyName", "")
             desc = j.get("jobDescription", "")
-            loc = (j.get("jobGeo", "Remoto") or "Remoto")[:24]
-            url = j.get("url", "")
-            api_lvl = j.get("jobLevel", "")
-            bad, _ = is_scam_or_bad(pos, comp, desc)
-            if bad:
+            loc = j.get("jobGeo", "Worldwide")
+            link = j.get("url", "")
+            
+            if not is_cyber_role(role):
                 continue
-            if is_cyber(pos, comp, desc):
-                live.append({
-                    "role": pos[:70],
-                    "company": comp[:30],
-                    "loc": loc,
-                    "pay": "—",
-                    "level": level_of(pos, comp, desc, api_lvl),
-                    "source": "Jobicy",
-                    "req": ["secplus"],
-                    "clearance": False,
-                    "sponsor": False,
-                    "student": False,
-                    "url": url,
-                    "note": "remoto internacional (curadoria cyber)"
-                })
-    except Exception as e:
-        print(f"Jobicy {ind} falhou: {e}")
-
-# --- 4. REMOTEOK API ---
-try:
-    data = fetch_json("https://remoteok.com/api", timeout=15)
-    for j in data:
-        if not isinstance(j, dict) or not j.get("position"):
-            continue
-        pos = j.get("position", "")
-        comp = j.get("company", "")
-        desc = j.get("description", "")
-        bad, _ = is_scam_or_bad(pos, comp, desc)
-        if bad:
-            continue
-        if is_cyber(pos, comp, desc):
-            live.append({
-                "role": pos[:70],
-                "company": comp[:30],
-                "loc": (j.get("location") or "Remoto")[:24],
-                "pay": "—",
-                "level": level_of(pos, comp, desc),
-                "source": "RemoteOK",
+                
+            geo = "worldwide"
+            if not is_eligible(role, desc, loc, geo):
+                continue
+                
+            job_id = f"jobicy-{re.sub(r'[^a-z0-9]+', '-', company.lower())}-{re.sub(r'[^a-z0-9]+', '-', role.lower())}"[:40]
+            
+            jobicy_jobs.append({
+                "id": job_id,
+                "role": role[:80],
+                "company": company[:40],
+                "loc": f"Remote ({loc})",
+                "pay": "A combinar (US$)",
+                "level": detect_level(role),
+                "source": "Jobicy",
+                "geo": "worldwide",
+                "url": link,
                 "req": ["secplus"],
                 "clearance": False,
                 "sponsor": False,
                 "student": False,
-                "url": j.get("url", ""),
-                "note": "remoto (filtrado anti-scam)"
+                "dest": 4,
+                "study": 4,
+                "tasks": f"Atuação em {role} na {company}. Monitoramento, suporte de segurança e conformidade remota.",
+                "note": "⭐ Vaga internacional capturada via Jobicy. Aceita aplicação remota."
             })
-except Exception as e:
-    print(f"RemoteOK falhou: {e}")
+    except Exception as e:
+        print(f"Erro ao consultar Jobicy: {e}")
+        
+    return jobicy_jobs
 
-# Deduplicação dos jobs capturados ao vivo
-seen = set()
-dedup_live = []
-for j in live:
-    k = (j["role"].lower().strip(), j["company"].lower().strip())
-    if k in seen:
-        continue
-    seen.add(k)
-    dedup_live.append(j)
+def scan_remoteok():
+    """Varre a API pública do RemoteOK."""
+    remoteok_jobs = []
+    url = "https://remoteok.com/api"
+    try:
+        data = fetch_url(url, is_json=True, timeout=25)
+        for j in data:
+            if not isinstance(j, dict) or not j.get("position"):
+                continue
+            role = j.get("position", "")
+            company = j.get("company", "")
+            loc = j.get("location") or "Worldwide"
+            desc = j.get("description", "")
+            link = j.get("url", "")
+            
+            if not is_cyber_role(role):
+                continue
+                
+            geo = "worldwide"
+            if not is_eligible(role, desc, loc, geo):
+                continue
+                
+            job_id = f"remoteok-{re.sub(r'[^a-z0-9]+', '-', company.lower())}-{re.sub(r'[^a-z0-9]+', '-', role.lower())}"[:40]
+            
+            remoteok_jobs.append({
+                "id": job_id,
+                "role": role[:80],
+                "company": company[:40],
+                "loc": f"Remote ({loc})",
+                "pay": "A combinar (US$)",
+                "level": detect_level(role),
+                "source": "RemoteOK",
+                "geo": "worldwide",
+                "url": link,
+                "req": ["secplus"],
+                "clearance": False,
+                "sponsor": False,
+                "student": False,
+                "dest": 4,
+                "study": 4,
+                "tasks": f"Atuação em {role} na empresa {company}. Vaga remota capturada via RemoteOK.",
+                "note": "⭐ Vaga capturada via RemoteOK. Aplicação remota global."
+            })
+    except Exception as e:
+        print(f"Erro ao consultar RemoteOK: {e}")
+        
+    return remoteok_jobs
 
-# Seed curado (espinha dorsal de qualidade e vagas nacionais/estratégicas)
-seed_path = os.path.join(BASE, "jobs_seed.json")
-seed = json.load(open(seed_path, encoding="utf-8")) if os.path.exists(seed_path) else []
+def run():
+    print("Iniciando varredura diária de vagas CyberSec...")
+    
+    # 1. Carrega a base curada (espinha dorsal com Wrike, Canonical, Oneleet, etc.)
+    seed_jobs = []
+    if os.path.exists(SEED_FILE):
+        try:
+            with open(SEED_FILE, "r", encoding="utf-8") as f:
+                seed_jobs = json.load(f)
+            print(f"Base curada carregada: {len(seed_jobs)} vagas de alta prioridade.")
+        except Exception as e:
+            print(f"Erro ao ler jobs_seed.json: {e}")
+            
+    # Filtra a base curada para garantir 100% de elegibilidade
+    seed_eligible = [
+        j for j in seed_jobs 
+        if is_eligible(j.get("role", ""), j.get("tasks", ""), j.get("loc", ""), j.get("geo", ""))
+    ]
+    
+    # 2. Executa varreduras ativas
+    live_jobs = []
+    live_jobs.extend(scan_weworkremotely())
+    live_jobs.extend(scan_jobicy())
+    live_jobs.extend(scan_remoteok())
+    
+    print(f"Total de vagas capturadas ao vivo: {len(live_jobs)}")
+    
+    # 3. Deduplicação inteligente
+    seen_keys = set()
+    final_jobs = []
+    
+    # Primeiro os empregos da base curada (prioridade máxima e descrições detalhadas)
+    for j in seed_eligible:
+        key = (j.get("company", "").strip().lower(), j.get("role", "").strip().lower())
+        if key not in seen_keys:
+            seen_keys.add(key)
+            final_jobs.append(j)
+            
+    # Depois as vagas novas capturadas ao vivo
+    for j in live_jobs:
+        key = (j.get("company", "").strip().lower(), j.get("role", "").strip().lower())
+        if key not in seen_keys:
+            seen_keys.add(key)
+            final_jobs.append(j)
+            
+    print(f"Total consolidado de vagas elegíveis: {len(final_jobs)}")
+    
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+    insight_str = f"{len(final_jobs)} vagas 100% elegíveis no radar (Brasil CLT/PJ e Global Remoto Worldwide com WeWorkRemotely, Jobicy e Base Curada)"
+    
+    # 4. Escreve vagas_data.js
+    js_content = (
+        "// GERADO AUTOMATICAMENTE por job_scan.py — NÃO editar à mão\n"
+        f"window.JOBS_UPDATED={json.dumps(now_str, ensure_ascii=False)};\n"
+        f"window.JOBS_INSIGHT={json.dumps(insight_str, ensure_ascii=False)};\n"
+        f"window.JOBS_LIVE={json.dumps(final_jobs, ensure_ascii=False)};\n"
+    )
+    
+    with open(VAGAS_FILE, "w", encoding="utf-8") as f:
+        f.write(js_content)
+    print(f"vagas_data.js atualizado com sucesso em {VAGAS_FILE}")
+    
+    # 5. Registra no Digest e Log
+    try:
+        with open(DIGEST_FILE, "a", encoding="utf-8") as f:
+            f.write(f"\n## {now_str}\n")
+            f.write(f"- {insight_str}\n")
+            f.write(f"- Fontes: Base Curada ({len(seed_eligible)}), WeWorkRemotely + Jobicy + RemoteOK ({len(live_jobs)})\n")
+            
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            log_entry = {
+                "ts": now_str,
+                "total": len(final_jobs),
+                "curated": len(seed_eligible),
+                "live": len(live_jobs)
+            }
+            f.write(json.dumps(log_entry) + "\n")
+    except Exception as e:
+        print(f"Erro ao salvar digest/log: {e}")
+        
+    print("Varredura finalizada com êxito!")
 
-# Mesclar: seed tem prioridade de metadados detalhados
-seed_keys = {(s["role"].lower().strip(), s["company"].lower().strip()) for s in seed}
-allj = seed + [j for j in dedup_live if (j["role"].lower().strip(), j["company"].lower().strip()) not in seed_keys]
-
-now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-entry_now = [j for j in allj if j["level"] in ("entry", "junior", "graduate", "estágio") and not j.get("clearance")]
-sponsor = [j for j in allj if j.get("sponsor")]
-insight = (f"{len(allj)} vagas no radar · {len(entry_now)} de entrada aplicáveis (sem cidadania) · "
-           f"{len(sponsor)} patrocinam visto. Fontes: ATS Direto (Canonical, Vanta, GitLab, Okta, Drata, Oneleet) + Jobicy + Curadoria.")
-
-js = ("// GERADO por job_scan.py — NÃO editar à mão\n"
-      f"window.JOBS_UPDATED={json.dumps(now, ensure_ascii=False)};\n"
-      f"window.JOBS_INSIGHT={json.dumps(insight, ensure_ascii=False)};\n"
-      f"window.JOBS_LIVE={json.dumps(allj, ensure_ascii=False)};\n")
-
-# Gravar em ambos os locais
-open(os.path.join(BASE, "vagas_data.js"), "w", encoding="utf-8").write(js)
-site_jobs = os.path.join(APP, "_site", "_jobscan", "vagas_data.js")
-if os.path.exists(os.path.dirname(site_jobs)):
-    with open(site_jobs, "w", encoding="utf-8") as f:
-        f.write(js)
-
-print(f"[ok] {len(allj)} vagas -> vagas_data.js @ {now} (live: {len(dedup_live)}, seed: {len(seed)}, entrada: {len(entry_now)})")
-
-# Digest datado (append) + log
-digest_line = (f"\n## {now}\n- {insight}\n- Destaques de entrada ({len(entry_now)} vagas): "
-               + ", ".join(f"{j['role']} @ {j['company']}" for j in entry_now[:8]) + "\n")
-
-with open(os.path.join(BASE, "job_digest.md"), "a", encoding="utf-8") as f:
-    f.write(digest_line)
-
-site_digest = os.path.join(APP, "_site", "_jobscan", "job_digest.md")
-if os.path.exists(os.path.dirname(site_digest)):
-    with open(site_digest, "a", encoding="utf-8") as f:
-        f.write(digest_line)
-
-with open(os.path.join(BASE, "job_scan_log.ndjson"), "a", encoding="utf-8") as f:
-    f.write(json.dumps({"ts": now, "total": len(allj), "live": len(dedup_live), "entry": len(entry_now)}) + "\n")
+if __name__ == "__main__":
+    run()
