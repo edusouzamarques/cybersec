@@ -225,6 +225,10 @@
       <div class="it-exp" style="margin-top:8px"><b>Portfólio Aplicado:</b> Consolidação do GRC Lab com matrizes NIST CSF 2.0 / ISO 27001 e TPRM para apresentação curricular.</div>
       <div class="it-exp" style="margin-top:8px"><b>Candidatura e Matrícula:</b> Submissão de candidaturas nos programas de mestrado dos 3 polos para ingresso em 2027.</div>
     </div>
+    <div class="card">
+      <b>📅 Calendário & Comparativo dos 3 Polos Internacionais</b>
+      <div id="msSessions" style="margin-top:8px"></div>
+    </div>
   </section>
 
   <section id="certs" class="hide">
@@ -919,11 +923,9 @@ const FUNNEL = [
 ];
 
 const MS_SESSIONS = [
- ["Fall 2 / 2026","5 out 2026","27 nov 2026","19 out 2026","11 dez 2026",0],
- ["Spring 1 / 2027 ← Próxima Matrícula (Tu decidiu Jan/2027)","4 jan 2027","19 fev 2027","11 jan 2027","5 mar 2027",1],
- ["Spring 2 / 2027","22 fev 2027","16 abr 2027","8 mar 2027","30 abr 2027",0],
- ["Summer 1 / 2027","19 abr 2027","11 jun 2027","3 mai 2027","25 jun 2027",0],
- ["Summer 2 / 2027","14 jun 2027","6 ago 2027","28 jun 2027","20 ago 2027",0],
+ ["🇺🇸 EUA — M.S. Cybersecurity (NSA CAE-CD)", "Out–Dez 2026", "Jan / Ago 2027", "NIST CSF 2.0 · Arquitetura Defensiva · Cloud", "Graduação + Certs (Sec+/AWS)", 1],
+ ["🇬🇧 Reino Unido — MSc Cybersecurity (NCSC)", "Set–Nov 2026", "Jan / Set 2027", "ISO 27001 · Resiliência Operacional · DORA", "Graduação + Inglês Proficiente", 0],
+ ["🇪🇸 Espanha (UE) — Máster Oficial en Ciberseguridad", "Nov 2026–Jan 2027", "Fev / Out 2027", "NIS2 · GDPR · Segurança em Nuvem & GRC", "Graduação EEES / Validação de Diploma", 0],
 ];
 const TRIPOD = [];
 
@@ -1225,18 +1227,22 @@ function renderCareers(){
 }
 
 function renderFunnel(){
-  document.getElementById("funnel").innerHTML = FUNNEL.map(f=>
+  const el = document.getElementById("funnel");
+  if (!el) return;
+  el.innerHTML = FUNNEL.map(f=>
     `<div class="fl" style="width:${f.w};background:${f.c};${f.c==='#2a3a48'||f.c==='#2f5a48'||f.c==='#356b52'?'color:#dfe8ef':''}">${f.txt}</div>`).join("");
 }
 
 function renderMS(){
-  document.getElementById("msSessions").innerHTML =
+  const msEl = document.getElementById("msSessions");
+  if (!msEl) return;
+  msEl.innerHTML =
     '<table style="width:100%;border-collapse:collapse;font-size:12.5px">'+
-    '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Sessão</th>'+
-    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Matrícula abre</th>'+
-    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Fecha</th>'+
-    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Aula</th>'+
-    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Entrega</th></tr>'+
+    '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Polo / Programa</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Inscrições</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Início das Aulas</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Foco Técnico</th>'+
+    '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Requisitos Chave</th></tr>'+
     MS_SESSIONS.map(s=>`<tr style="${s[5]?'background:#12241b':''}">
       <td style="padding:6px;border-bottom:1px solid var(--line)"><b>${s[0]}</b></td>
       <td style="padding:6px;border-bottom:1px solid var(--line)">${s[1]}</td>
@@ -1252,7 +1258,9 @@ function renderTripod(){
      <div class="it-desc">${t.d}</div></div></div>`).join("");
 }
 function renderFontes(){
-  document.getElementById("fontesList").innerHTML = FONTES.map(f=>
+  const el = document.getElementById("fontesList");
+  if (!el) return;
+  el.innerHTML = FONTES.map(f=>
     `<div class="item"><div class="it-body">
       <div class="it-title">${f.p} <a href="${f.link}" target="_blank" style="font-size:12px">abrir ↗</a></div>
       <div class="it-meta"><span class="pill">${f.best}</span></div>
@@ -1348,8 +1356,10 @@ const CERTS=[
   when:"técnico avançado", why:"O topo TÉCNICO da CompTIA (arquitetura/engenharia de segurança). Alternativa hands-on ao CISSP."},
 ];
 function renderCerts(){
+  const el = document.getElementById("certList");
+  if (!el) return;
   const branches=[...new Set(CERTS.map(c=>c.branch))];
-  document.getElementById("certList").innerHTML = branches.map(b=>{
+  el.innerHTML = branches.map(b=>{
     const items=CERTS.filter(c=>c.branch===b);
     return `<div class="phase"><h3>${b}</h3></div>`+items.map(c=>
       `<div class="item ${c.branch.indexOf('Sênior')>-1?'done':''}"><div class="it-body">
@@ -1368,7 +1378,9 @@ const SKILLS=[
  {cat:"🗂️ Ferramentas GRC / ITSM", d:"ServiceNow · Jira · RSA Archer · OneTrust · Prevalent · ProcessUnity (onde o trabalho de risco/compliance acontece)"},
 ];
 function renderSkills(){
-  document.getElementById("skillsList").innerHTML = SKILLS.map(s=>
+  const el = document.getElementById("skillsList");
+  if (!el) return;
+  el.innerHTML = SKILLS.map(s=>
     `<div class="item"><div class="it-body"><div class="it-title">${s.cat}</div>
       <div class="it-desc">${s.d}</div></div></div>`).join("");
 }
@@ -1391,7 +1403,9 @@ const VAGAS=[
   d:"O robô de busca varre <b>6 fontes de vagas todos os dias às 08:00</b> (vê a aba 🤖 Busca automática) — filtrando <b>só o que tu pode trabalhar do Brasil</b>. Pra busca manual, o melhor site é o <b>Remote Rocketship</b>: nos filtros, marcar país 'Worldwide' + 'LatAm' + nível 'entry' — é o site que mais acha vaga nova antes dos outros."},
 ];
 function renderVagas(){
-  document.getElementById("vagasList").innerHTML = VAGAS.map(v=>
+  const el = document.getElementById("vagasList");
+  if (!el) return;
+  el.innerHTML = VAGAS.map(v=>
     `<div class="item"><div class="it-body">
       <div class="it-title">${v.t}</div>
       <div class="it-meta"><span class="pill ${v.cls}">${v.tag}</span></div>
@@ -1691,22 +1705,31 @@ function renderEntrevistas() {
 }
 
 function renderAll(){
-  renderPainel();
-  renderTrilha();
-  renderCareers();
-  renderFunnel();
-  renderMS();
-  renderTripod();
-  renderCerts();
-  renderSkills();
-  renderCreds();
-  renderJobsLive();
-  renderVagas();
-  renderScan();
-  renderFontes();
-  renderGloss(document.getElementById("gsearch").value);
-  renderEntrevistas();
-  renderBussola();
+  const fns = [
+    { name: "renderPainel", fn: renderPainel },
+    { name: "renderTrilha", fn: renderTrilha },
+    { name: "renderCareers", fn: renderCareers },
+    { name: "renderFunnel", fn: renderFunnel },
+    { name: "renderMS", fn: renderMS },
+    { name: "renderTripod", fn: renderTripod },
+    { name: "renderCerts", fn: renderCerts },
+    { name: "renderSkills", fn: renderSkills },
+    { name: "renderCreds", fn: renderCreds },
+    { name: "renderJobsLive", fn: renderJobsLive },
+    { name: "renderVagas", fn: renderVagas },
+    { name: "renderScan", fn: renderScan },
+    { name: "renderFontes", fn: renderFontes },
+    { name: "renderGloss", fn: () => renderGloss(document.getElementById("gsearch")?.value || "") },
+    { name: "renderEntrevistas", fn: renderEntrevistas },
+    { name: "renderBussola", fn: renderBussola }
+  ];
+  fns.forEach(({ name, fn }) => {
+    try {
+      fn();
+    } catch (err) {
+      console.warn("Aviso ao renderizar " + name + ":", err);
+    }
+  });
 }
 
 document.querySelectorAll(".tab[data-t]").forEach(t=>{
