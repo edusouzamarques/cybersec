@@ -7,7 +7,7 @@
  * - NetworkChuck & Sysadmin Channels — Troubleshooting Linux, Redes e Protocolos
  * 
  * Atualizado para o perfil de Eduardo de Souza Marques (13.5 anos de investigação/polícia,
- * GRC & Auditoria, AWS Cloud Practitioner, LPI Linux Essentials, CompTIA Security+, Python e Mestrado CU Boulder).
+ * GRC & Auditoria, AWS Cloud Practitioner, LPI Linux Essentials, CompTIA Security+, Python e Mestrado Internacional (EUA / UK / Espanha)).
  */
 
 window.ENTREVISTAS_DATA = [
@@ -186,7 +186,7 @@ In the first year or two, my focus is on mastering your environment, eliminating
 As I progress into my Master of Science in Computer Science with a focus on networks and security, I see myself taking on more complex threat analysis, architectural risk assessments, and mentoring junior engineers. Ultimately, I want to be recognized as an indispensable, reliable anchor for the team who bridges technical defense with operational integrity.`,
     guide_pt: `Três fases de evolução claras:
 1. Ano 1: Dominar os sistemas da empresa, zerar gargalos de suporte/alerta e entregar valor rápido.
-2. Anos 2-3: Concluir certificações avançadas e avançar no Mestrado em Ciência da Computação (CU Boulder).
+2. Anos 2-3: Concluir certificações avançadas e avançar no Mestrado Internacional em Cibersegurança (EUA / Reino Unido / Espanha).
 3. Anos 4-5: Tornar-se referência técnica sênior em mitigação de riscos, análise de incidentes e mentoria de novos colegas.`
   },
   {
