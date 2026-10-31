@@ -8,8 +8,8 @@ window.BUSSOLA_DATA = {
     "proxima_atualizacao": "02/11/2026",
     "status_bussola": "🟢 Calibrada — Alta Estabilidade",
     "score_prontidao": "88/100",
-    "alinhamento": "GRC & Governança · Risco Corporativo · AI Safety · Security+ SY0-701 · CU Boulder 2027",
-    "resumo_executivo": "Abertura inaugural da Bússola Semanal. Alinhamento confirmado entre a bagagem investigativa prévia de Eduardo e a carência crítica do mercado por profissionais de GRC capazes de documentar evidências, mapear matrizes NIST/ISO e gerenciar riscos de fornecedores (TPRM).",
+    "alinhamento": "GRC & Governança · Risco Corporativo · ISO 27001 / NIST · Security+ SY0-701 · AWS Cloud Practitioner · LPI Linux Essentials · CU Boulder 2027",
+    "resumo_executivo": "Abertura inaugural da Bússola Semanal. Alinhamento confirmado entre a bagagem investigativa prévia de Eduardo e a carência crítica do mercado por profissionais de GRC capazes de documentar evidências, mapear matrizes NIST/ISO, auditar segurança em nuvem (AWS/ISO 27001 A.5.23) e gerenciar riscos de fornecedores (TPRM).",
     "radar_regulatorio": [
       {
         "orgao": "NIST (EUA)",
