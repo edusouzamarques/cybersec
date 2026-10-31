@@ -27,7 +27,7 @@ Analista de Segurança da Informação especializado em Governança, Riscos e Co
 
 Diferente de abordagens puramente teóricas de GRC, minha atuação é fundamentada no rigor pericial e na priorização quantitativa de riscos. No meu GRC Lab prático, desenvolvo e sustento matrizes de controle, programas de gestão de risco de terceiros (TPRM), mapeamento de segurança em nuvem (AWS / ISO 27001 A.5.23) e memorandos executivos de exposição a riscos para conselhos de administração (Board).
 
-Minha formação técnica contempla preparação ativa para a certificação CompTIA Security+ (SY0-701), AWS Certified Cloud Practitioner (CLF-C02) e LPI Linux Essentials, além de certificação na plataforma Qualys Enterprise TruRisk, administração de servidores Linux (Ubuntu/Debian) e automação de rotinas em Python. Rumo ao Mestrado em Cibersegurança na Mestrado Internacional em Cibersegurança (EUA / Reino Unido / Espanha).
+Minha formação técnica contempla preparação ativa para a certificação CompTIA Security+ (SY0-701), AWS Certified Cloud Practitioner (CLF-C02) e LPI Linux Essentials, além de certificação na plataforma Qualys Enterprise TruRisk, administração de servidores Linux (Ubuntu/Debian) e automação de rotinas em Python. Rumo ao Mestrado Internacional em Cibersegurança (EUA / Reino Unido / Espanha).
 
 🎯 PRINCIPAIS ÁREAS DE ATUAÇÃO E PALAVRAS-CHAVE (SEO):
 • Governança e Frameworks: NIST CSF 2.0 (função Govern/GV), ISO/IEC 27001:2022 (mapeamento A.5 a A.8), SOC 2 Tipo II, DORA e CIS Critical Security Controls.
@@ -96,6 +96,11 @@ Adicione estas entradas na seção de Certificações para indexação imediata 
 4. **Enterprise TruRisk Platform Foundations**
    * *Órgão Emissor:* Qualys
    * *Credencial:* Concluído (ou adicione o código da credencial assim que exportar)
+
+5. **Fortinet Certified Fundamentals (FCF / NSE 1 & 2)**
+   * *Órgão Emissor:* Fortinet Training Institute
+   * *Status:* Cursos oficiais 100% gratuitos / Badges digitais
+
 
 ### Formação Acadêmica (Education):
 * **Instituição:** Mestrado Internacional em Cibersegurança (EUA / Reino Unido / Espanha)
