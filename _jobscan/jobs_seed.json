@@ -1,5 +1,47 @@
 [
   {
+    "id": "orbite-grc-jr",
+    "role": "Analista de GRC Júnior — Governança, Riscos e Segurança",
+    "company": "Orbite Consulting",
+    "loc": "Remoto (Brasil)",
+    "pay": "R$ 5.000–7.000 (CLT)",
+    "level": "entry",
+    "source": "Orbite ATS",
+    "geo": "brasil",
+    "url": "https://news.orbite-ats.com.br/carreiras/046cb3ce05c78d7",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Organizar políticas, controles e evidências de segurança da informação; apoiar levantamentos de riscos e planos de ação; conferir questionários e requisitos com áreas internas.",
+    "note": "⭐ VAGA GRC JÚNIOR CLT (BRASIL): 100% remota. Salário R$ 5k-7k CLT. Transição ideal: aproveita seu histórico investigativo, documental e procedural da PMMG para auditoria e conformidade."
+  },
+  {
+    "id": "softexpert-grc-jr",
+    "role": "Analista GRC Júnior - Segurança da Informação",
+    "company": "SoftExpert",
+    "loc": "Remoto (Brasil)",
+    "pay": "~R$ 4.500–6.500 (CLT)",
+    "level": "entry",
+    "source": "SoftExpert",
+    "geo": "brasil",
+    "url": "https://www.techjobs.space/vagas/analista-grc-junior-seguranca-da-informacao-670a24bb20",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Acompanhar riscos e controles de segurança, coletar e analisar evidências para auditorias internas/externas, testar controles e atualizar políticas e normas.",
+    "note": "⭐ GRC JÚNIOR NA SOFTEXPERT: Uma das líderes de mercado em software de governança e compliance no Brasil. Excelente porta de entrada."
+  },
+  {
     "id": "flintworks-ai-sec-jr",
     "role": "AI Cybersecurity Analyst — Junior (SOC Tier 1)",
     "company": "Flintworks",
@@ -40,6 +82,27 @@
     "study": 4,
     "tasks": "Gerenciar segurança e governança de dados em sistemas SaaS (Salesforce, Marketo, Salesloft), auditar permissões e acessos, e garantir conformidade com normas de privacidade (GDPR, CCPA).",
     "note": "⭐ GRC + SAAS SECURITY: Contratação aberta no Brasil (código BR na ficha oficial). Pede Security+, ISC2 CC ou equivalente. Excelente para transição procedural/investigativa."
+  },
+  {
+    "id": "spread-sec-jr",
+    "role": "Analista de Segurança da Informação Júnior",
+    "company": "Spread Tecnologia",
+    "loc": "Remoto (Brasil)",
+    "pay": "~R$ 4.000–5.500 (CLT)",
+    "level": "entry",
+    "source": "Gupy Spread",
+    "geo": "brasil",
+    "url": "https://spread.gupy.io/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Monitoramento de alertas em SIEM, observabilidade de segurança, resposta inicial a incidentes e triagem de vulnerabilidades.",
+    "note": "Vaga nacional CLT 100% remota em consultoria de tecnologia."
   },
   {
     "id": "stravorus-jr-pentest",
@@ -573,5 +636,26 @@
     "study": 5,
     "tasks": "Mapear matrizes de risco operacional, fraude e auditoria em fintech/crypto.",
     "note": "Matrizes de risco operacional, fraude e auditoria em fintech/crypto."
+  },
+  {
+    "id": "tremendous-head",
+    "role": "Head of Security (First Security Hire)",
+    "company": "Tremendous",
+    "loc": "Remoto",
+    "pay": "US$250-330k",
+    "level": "senior",
+    "source": "Ashby",
+    "geo": "worldwide",
+    "url": "https://jobs.ashbyhq.com/tremendous/8cf03f9a-d789-4aa5-9f8f-48960a3b66bc",
+    "req": [
+      "cism"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 3,
+    "tasks": "Definir a arquitetura completa de segurança da informação, conduzir auditorias de conformidade e liderar a equipe de segurança.",
+    "note": "🏆 DESTINO 5+ ANOS: Liderança total da postura de segurança de fintech global com bilhões em payouts. Link direto oficial."
   }
 ]
