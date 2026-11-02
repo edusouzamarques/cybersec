@@ -340,7 +340,7 @@
   </section>
 </div>
 
-<script src="_jobscan/vagas_data.js?v=20261102_1608"></script>
+<script src="_jobscan/vagas_data.js?v=20261102_1622"></script>
 <script src="_jobscan/entrevistas_data.js?v=20261019_2100"></script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
@@ -376,18 +376,23 @@ function isJobEligible(j){
     if(full.includes(gw)) return false;
   }
 
-  // 2. Vagas no Brasil: aceitas (Remoto, Híbrido ou Presencial)
-  if(geo === 'brasil' || loc.includes('brasil') || loc.includes('brazil') || loc.includes('remoto (brasil)')){
+  // 2. REGRA MANDATÓRIA E INEGOCIÁVEL: 100% FULL REMOTE
+  // NENHUMA vaga pode ser híbrida, presencial ou exigir escritório (nem no Brasil nem fora)
+  const officeWords = ['hybrid', 'híbrido', 'hibrido', 'office', 'on-site', 'onsite', 'presencial', 'in-office', 'escritório', 'escritorio'];
+  for(const ow of officeWords){
+    if(full.includes(ow)) return false;
+  }
+
+  // 3. Deve ser explicitamente remota
+  const remoteWords = ['remoto', 'remote', 'worldwide', 'global', 'anywhere', 'latam', 'amer', 'home office'];
+  if(!remoteWords.some(rw => full.includes(rw))) return false;
+
+  // 4. Vagas no Brasil 100% remotas: aprovadas
+  if(geo === 'brasil' || loc.includes('brasil') || loc.includes('brazil')){
     return true;
   }
 
-  // 3. Vagas fora do Brasil: NÃO podem ser Híbridas, Presenciais ou Office
-  const officeWords = ['hybrid', 'hibrid', 'office', 'on-site', 'onsite', 'presencial'];
-  for(const ow of officeWords){
-    if(loc.includes(ow)) return false;
-  }
-
-  // 4. Vagas fora do Brasil: NÃO podem ser restritas a um país estrangeiro específico (UK, Canadá, Austrália, etc.)
+  // 5. Fora do Brasil: não pode ser restrita a país específico
   const restrictedCountries = ['uk', 'united kingdom', 'ireland', 'australia', 'singapore', 'canada', 'germany', 'netherlands', 'belgium', 'france'];
   for(const rc of restrictedCountries){
     if(loc.includes(rc) && !loc.includes('worldwide') && !loc.includes('global') && !loc.includes('latam') && !loc.includes('anywhere')){
@@ -395,37 +400,33 @@ function isJobEligible(j){
     }
   }
 
-  // 5. Vagas nos EUA têm que ser Remote First / Worldwide / LATAM aberta
   if((loc.includes('usa') || loc.trim() === 'us' || loc.includes('united states')) && !loc.includes('worldwide') && !loc.includes('global') && !loc.includes('latam') && !loc.includes('anywhere') && !loc.includes('amer')){
     return false;
   }
 
-  // 6. Aceita apenas vagas globais / worldwide / anywhere / latam / amer
-  const validGlobals = ['worldwide', 'global', 'anywhere', 'remoto', 'remote', 'latam', 'amer'];
-  for(const vg of validGlobals){
-    if(loc.includes(vg) || geo.includes(vg)) return true;
-  }
-
-  return false;
+  return true;
 }
 
 function jobFit(j){
-  if(!isJobEligible(j)) return {cls:"paid", txt:"🚫 EXCLUÍDA — Inelegível (exige cidadania local ou presença física no exterior)"};
+  if(!isJobEligible(j)) return {cls:"paid", txt:"🚫 EXCLUÍDA — Inelegível (híbrida/presencial ou cidadania restrita)"};
   if(j.fit_txt) return {cls: j.fit_cls||"", txt: j.fit_txt};
   const miss=(j.req||[]).filter(r=>!creds[r]);
   const m = ()=> miss.length ? " · falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ") : "";
   if(j.sponsor) return {cls:"free", txt:"⭐ a empresa TRAZ-TE (patrocina visto)"+m()};
-  if(j.level==="estágio") {
-    if(miss.length===0) return {cls:"free", txt:"🌱 estágio / aplicar AGORA"};
-    return {cls:"", txt:"🌱 estágio"+m()};
+  
+  // Destaque Especial: Trade Technology (Empresa Alvo Monitorada pelo Eduardo!)
+  if((j.company||'').toLowerCase().includes('trade technology')) {
+    return {cls:"free", txt:"⭐ ALVO MONITORADO: Trade Technology"+m()};
   }
-  if(j.level==="entry") {
-    if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (0-2 anos)"};
-    return {cls:"", txt:"🎯 foco entrada"+m()};
+
+  if(j.level==="estágio" || j.level==="entry") {
+    if(miss.length===0) return {cls:"free", txt:"🌱 aplicar AGORA (zero experiência exigida)"};
+    return {cls:"free", txt:"🌱 entrada real (sem experiência prévia)"+m()};
   }
-  if(j.level==="pleno") return {cls:"", txt:"⚡ pleno (competência/3+ anos)"+m()};
+  if(j.level==="junior") return {cls:"", txt:"🎯 júnior (pede 1-2 anos de bagagem)"+m()};
+  if(j.level==="pleno") return {cls:"", txt:"⚡ pleno (3+ anos)"+m()};
   if(j.level==="senior") return {cls:"paid", txt:"👑 sênior (5+ anos)"};
-  if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (do Brasil)"};
+  if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (100% Remoto)"};
   return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
 }
 let currentMarketFilter = 'all';
@@ -436,8 +437,9 @@ function setMarketFilter(m){
 }
 function renderMarketFilters(){
   const el=document.getElementById("marketFilterBox"); if(!el) return;
-  const jobs = (window.JOBS_LIVE||[]);
-  const entryCount = jobs.filter(j => j.level === 'entry' || j.level === 'estágio').length;
+  const jobs = (window.JOBS_LIVE||[]).filter(isJobEligible);
+  const zeroCount = jobs.filter(j => j.level === 'entry' || j.level === 'estágio').length;
+  const targetCount = jobs.filter(j => (j.company||'').toLowerCase().includes('trade technology')).length;
   const brlCount = jobs.filter(j => j.geo === 'brasil' || (j.pay && j.pay.includes('R$')) || (j.loc && j.loc.toLowerCase().includes('brasil'))).length;
   const usdCount = jobs.filter(j => !(j.geo === 'brasil' || (j.pay && j.pay.includes('R$')))).length;
   const grcCount = jobs.filter(j => {
@@ -447,15 +449,16 @@ function renderMarketFilters(){
   }).length;
 
   const filters = [
-    {id:'entry', label:`🎯 Entrada / Júnior (0–2 anos) (${entryCount})`},
-    {id:'all', label:`🌐 Todas as Vagas (${jobs.length})`},
+    {id:'zero', label:`🌱 Zero Exp / Estágio & Graduate (${zeroCount})`},
+    {id:'target', label:`⭐ Alvo: Trade Technology (${targetCount})`},
+    {id:'all', label:`🌐 Todas 100% Remoto (${jobs.length})`},
     {id:'new', label:'✨ Novas (7 dias)'},
-    {id:'brl', label:`🇧🇷 Brasil CLT (${brlCount})`},
-    {id:'usd', label:`💵 Global USD (${usdCount})`},
+    {id:'brl', label:`🇧🇷 Brasil 100% Remoto (${brlCount})`},
+    {id:'usd', label:`💵 Global 100% Remoto (${usdCount})`},
     {id:'grc', label:`🛡️ GRC & Governança (${grcCount})`}
   ];
-  el.innerHTML = "<b style='font-size:13px;width:100%;margin-bottom:4px;display:block'>Filtrar por foco de carreira e mercado:</b>" +
-    filters.map(f=>`<span class="tab ${currentMarketFilter===f.id?'on':''}" style="cursor:pointer;font-weight:${f.id==='entry'?'800':'normal'};${f.id==='entry'?'border:1px solid var(--acc);box-shadow:0 0 8px rgba(61,220,151,0.2)':''}" onclick="setMarketFilter('${f.id}')">${f.label}</span>`).join("");
+  el.innerHTML = "<b style='font-size:13px;width:100%;margin-bottom:4px;display:block'>Filtrar por foco de carreira e mercado (100% Remoto):</b>" +
+    filters.map(f=>`<span class="tab ${currentMarketFilter===f.id?'on':''}" style="cursor:pointer;font-weight:${f.id==='zero'||f.id==='target'?'800':'normal'};${f.id==='zero'?'border:1px solid var(--acc);box-shadow:0 0 8px rgba(61,220,151,0.2)':''}${f.id==='target'?'border:1px solid #facc15;color:#fef08a':''}" onclick="setMarketFilter('${f.id}')">${f.label}</span>`).join("");
 }
 function renderJobsLive(){
   const box=document.getElementById("jobsLive"); if(!box) return;
@@ -468,7 +471,11 @@ function renderJobsLive(){
   renderMarketFilters();
 
   let filtered = (jobs||[]).filter(isJobEligible);
-  if(currentMarketFilter === 'new'){
+  if(currentMarketFilter === 'zero'){
+    filtered = jobs.filter(j => j.level === 'entry' || j.level === 'estágio');
+  } else if(currentMarketFilter === 'target'){
+    filtered = jobs.filter(j => (j.company||'').toLowerCase().includes('trade technology'));
+  } else if(currentMarketFilter === 'new'){
     const now = new Date();
     filtered = jobs.filter(j => {
       if(!j.added_date) return false;
@@ -485,24 +492,25 @@ function renderJobsLive(){
       const n = (j.note||'').toLowerCase();
       return r.includes('grc') || r.includes('risk') || r.includes('compliance') || r.includes('audit') || r.includes('governança') || n.includes('grc');
     });
-  } else if(currentMarketFilter === 'entry'){
-    filtered = jobs.filter(j => j.level === 'entry' || j.level === 'estágio');
   }
 
-  // ordena: Vagas de entrada e estágio PRIMEIRO no topo da tabela
+  // ordena: Empresa alvo Trade Technology no topo, depois Estágio e Zero Experiência
   const scored=filtered.map(j=>({j,fit:jobFit(j)}));
   const rank=(f, j)=>{
-    let lvlScore = 3;
-    if (j.level === 'estágio') lvlScore = 0;
-    else if (j.level === 'entry') lvlScore = 1;
-    else if (j.level === 'pleno') lvlScore = 2;
-    else lvlScore = 3;
+    if((j.company||'').toLowerCase().includes('trade technology')) return 0;
+    let lvlScore = 4;
+    if (j.level === 'estágio') lvlScore = 1;
+    else if (j.level === 'entry') lvlScore = 2;
+    else if (j.level === 'junior') lvlScore = 3;
+    else if (j.level === 'pleno') lvlScore = 4;
+    else lvlScore = 5;
 
     let fitScore = 3;
     const t = f.txt;
-    if (t.startsWith("✅") || t.startsWith("🌱")) fitScore = 0;
-    else if (t.startsWith("🎯")) fitScore = 1;
-    else if (t.startsWith("⚡")) fitScore = 2;
+    if (t.startsWith("⭐")) fitScore = 0;
+    else if (t.startsWith("✅") || t.startsWith("🌱")) fitScore = 1;
+    else if (t.startsWith("🎯")) fitScore = 2;
+    else if (t.startsWith("⚡")) fitScore = 3;
     else if (t.startsWith("👑")) fitScore = 4;
     return lvlScore * 10 + fitScore;
   };
@@ -519,25 +527,29 @@ function renderJobsLive(){
     shown.map(({j,fit})=>{
       const isNew = j.added_date && ((new Date() - new Date(j.added_date)) / (1000 * 60 * 60 * 24) <= 7);
       const newBadge = isNew ? ' <span class="pill" style="background:#1e3a8a;color:#93c5fd;border:1px solid #3b82f6;font-size:10px;padding:1px 6px">✨ NOVA</span>' : '';
+      const isTarget = (j.company||'').toLowerCase().includes('trade technology');
+      const targetBadge = isTarget ? ' <span class="pill" style="background:#854d0e;color:#fef08a;border:1px solid #eab308;font-size:10px;padding:1px 6px">⭐ ALVO MONITORADO</span>' : '';
       const spo = j.sponsor ? ' <span class="pill free">sponsor</span>' : '';
-      // link clicável direto na vaga (100% verificado)
+      
       const link = j.url ? `<a href="${j.url}" target="_blank" rel="noopener noreferrer">${j.role}</a>` : `<b>${j.role}</b>`;
       const rawIdx = (window.JOBS_LIVE || []).indexOf(j);
       
       const lvlBadge = j.level === 'estágio' 
-        ? '<span class="pill" style="background:#064e3b;color:#a7f3d0;border:1px solid #059669;font-weight:700">🌱 Estágio</span>'
+        ? '<span class="pill" style="background:#064e3b;color:#a7f3d0;border:1px solid #059669;font-weight:700">🌱 Estágio (0 anos)</span>'
         : (j.level === 'entry'
-          ? '<span class="pill" style="background:#1e3a5f;color:#60a5fa;border:1px solid #3b82f6;font-weight:700">🎯 Júnior / Entrada</span>'
-          : (j.level === 'pleno'
-            ? '<span class="pill" style="background:#3b2d13;color:#fde047;border:1px solid #ca8a04">⚡ Pleno</span>'
-            : '<span class="pill paid">👑 Sênior</span>'));
+          ? '<span class="pill" style="background:#1e3a5f;color:#60a5fa;border:1px solid #3b82f6;font-weight:700">🎓 Zero Exp / Entrada</span>'
+          : (j.level === 'junior'
+            ? '<span class="pill" style="background:#1f2937;color:#d1d5db;border:1px solid #4b5563">🎯 Júnior (1-2 anos)</span>'
+            : (j.level === 'pleno'
+              ? '<span class="pill" style="background:#3b2d13;color:#fde047;border:1px solid #ca8a04">⚡ Pleno</span>'
+              : '<span class="pill paid">👑 Sênior</span>')));
       const expBadge = j.exp_timeframe 
         ? `<div style="margin-top:4px"><span class="pill" style="background:#111c24;color:#3ddc97;border:1px solid rgba(61,220,151,0.35);font-size:10.5px;padding:2px 6px">⏳ ${j.exp_timeframe}</span></div>`
         : '';
 
       return `<tr title="${(j.note||'').replace(/"/g,'')}">
         <td style="padding:6px;border-bottom:1px solid var(--line)">
-          ${link}${newBadge}${spo}
+          ${link}${newBadge}${targetBadge}${spo}
           <div style="margin-top:3px;font-size:11px">
             <span style="color:var(--acc)" title="Proximidade do teu destino final">🎯 Destino: <b>${j.dest||4}/5</b></span> · 
             <span style="color:#60a5fa" title="Adaptabilidade à jornada de estudo">📚 Estudo: <b>${j.study||4}/5</b></span>
@@ -557,8 +569,8 @@ function renderJobsLive(){
           </button>
         </td></tr>`;
     }).join("")+'</table>'+
-    (shown.length<scored.length ? `<p class="note" style="margin-top:6px">🚫 ${scored.length-shown.length} vaga(s) de cidadania/clearance EXCLUÍDA(S) da tabela (não se encaixam: exigem cidadania americana).</p>` : '')+
-    '<p class="note" style="margin-top:6px"><b>ESPECIFICAÇÃO OFICIAL DE VAGAS:</b> Para empresas dos <b>EUA</b>, o modelo obrigatório é <b>Remote First (100% Remoto)</b> com contratação direta do Brasil. Para empresas no <b>Brasil e restante do mundo</b>, o modelo aceito é <b>Híbrido ou Remoto</b>. Vagas nos EUA que exigem presença física ou cidadania restrita são filtradas e descartadas automaticamente.</p>';
+    (shown.length<scored.length ? `<p class="note" style="margin-top:6px">🚫 ${scored.length-shown.length} vaga(s) híbridas, presenciais ou de cidadania restrita EXCLUÍDAS da tabela.</p>` : '')+
+    '<p class="note" style="margin-top:6px"><b>CRITÉRIO OBRIGATÓRIO DE VAGAS:</b> <b>100% Remoto (Full Remote)</b>. Vagas híbridas ou presenciais são totalmente descartadas. Foco prioritário em vagas de entrada real sem exigência prévia de experiência, estágio, trainee e programas de transição.</p>';
 }
 const save = ()=>localStorage.setItem(KEY, JSON.stringify(done));
 

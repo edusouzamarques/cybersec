@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 """
 Varredura diária de vagas de Cibersegurança, GRC e Suporte em Nuvem.
-FOCO PRIORITÁRIO: Vagas de Entrada e Júnior (0–2 anos de experiência, estágio, trainee, sem tempo rígido).
+FOCO PRIORITÁRIO: 
+  1. 100% REMOTO OBRIGATÓRIO (Full Remote) - NENHUMA vaga híbrida ou presencial é aceita.
+  2. NÍVEL DE ENTRADA REAL (Zero Experiência, Estágio, Trainee, Graduate e Transição sem tempo rígido).
+     Vagas que exigem experiência prévia de Júnior (1–2 anos de carteira na área) são separadas e identificadas.
 
 Fontes:
-  1. Base curada (jobs_seed.json) - Vagas verificadas Brasil (Gupy CLT) & Global Remoto (Canonical, Oneleet, etc.)
-  2. Gupy Portais ao Vivo (IT4US Cyber Security, PagBank, Netconn, Bellinati Perez, Trade Technology, etc.)
-  3. Greenhouse API (Canonical live boards)
-  4. Ashby API (Supabase & Oneleet live boards)
+  1. Base curada (jobs_seed.json) - Vagas verificadas 100% Remotas Brasil & Global (Canonical, Oneleet, etc.)
+  2. Gupy Portais ao Vivo (IT4US Cyber Security, Trade Technology, etc.) - Filtrando estritamente workplaceType == remote
+  3. Greenhouse API (Canonical live boards - 100% remote)
+  4. Ashby API (Supabase & Oneleet live boards - 100% remote)
   5. WeWorkRemotely (RSS feeds)
   6. Jobicy API (tag: security)
-  7. RemoteOK API
 
 Alimenta:
   - _jobscan/vagas_data.js (carregado diretamente pelo assistente-cybersec.html)
@@ -70,9 +72,6 @@ INELEGIBLE_TERMS = [
 GUPY_PORTALS = [
     {"sub": "vemprait4us", "name": "IT4US Cyber Security"},
     {"sub": "tradetechnology", "name": "Grupo Trade Technology"},
-    {"sub": "pagseguro", "name": "PagBank (PagSeguro)"},
-    {"sub": "bellinatiperez", "name": "Bellinati Perez"},
-    {"sub": "netconn", "name": "Netconn"},
     {"sub": "funcionalhealthtech", "name": "Funcional Health Tech"},
     {"sub": "modulardtc", "name": "Modular Data Centers"}
 ]
@@ -85,17 +84,23 @@ def is_eligible(title, desc, loc, geo):
         if term in full:
             return False
             
-    # 2. Vagas locais do Brasil (CLT/PJ) são sempre elegíveis
+    # 2. REGRA MANDATÓRIA E INEGOCIÁVEL: 100% FULL REMOTE.
+    # Descarta na hora qualquer vaga híbrida, presencial ou de escritório, no Brasil ou no exterior.
+    office_words = ["hybrid", "híbrido", "hibrido", "on-site", "onsite", "presencial", "in-office", "escritório", "escritorio"]
+    for ow in office_words:
+        if ow in full:
+            return False
+            
+    # 3. Deve conter indicação explícita de trabalho remoto
+    remote_words = ["remoto", "remote", "worldwide", "anywhere", "global", "latam", "amer", "home office"]
+    if not any(rw in full for rw in remote_words):
+        return False
+        
+    # 4. Se for Brasil e 100% remoto, aprovada
     if geo == "brasil" or "brasil" in loc.lower() or "brazil" in loc.lower():
         return True
         
-    # 3. Vagas internacionais NÃO podem ser híbridas nem presenciais no exterior
-    office_words = ["hybrid", "hibrid", "office", "on-site", "onsite", "presencial"]
-    for ow in office_words:
-        if ow in loc.lower() and not ("brasil" in loc.lower() or "brazil" in loc.lower()):
-            return False
-            
-    # 4. Deve aceitar Worldwide, Anywhere in the World, LATAM ou AMER
+    # 5. Se for internacional, deve aceitar Worldwide, Anywhere in the World, LATAM ou AMER
     valid_globals = ["worldwide", "anywhere in the world", "global", "latam", "amer", "anywhere"]
     if any(vg in loc.lower() for vg in valid_globals) or geo in ["worldwide", "latam", "global"]:
         return True
@@ -138,26 +143,36 @@ def extract_experience_timeframe(title, desc=""):
     """
     Analisa os requisitos da vaga e extrai o prazo de experiência e o nível correspondente.
     Retorna: (exp_timeframe, level, years)
+    Níveis:
+      - 'estágio': Estágio, Trainee, Em formação (0 anos de experiência exigida)
+      - 'entry': Graduate, Entrada sem experiência prévia, Transição sem tempo rígido (0 anos de indústria)
+      - 'junior': Júnior convencional que pede 1 a 2 anos de experiência na área
+      - 'pleno': Pleno (3 a 4 anos)
+      - 'senior': Sênior (5+ anos)
     """
     t = (title or "").lower()
     d = (desc or "").lower()
     full = f"{t} {d}"
 
-    # 1. Estágio / Trainee / Em formação
+    # 1. Estágio / Trainee / Em formação (Zero Experiência Absoluta)
     if any(w in t for w in ["estagiário", "estagiario", "estágio", "estagio", "intern", "internship", "trainee", "apprentice"]):
-        return "0 ano (estágio / em formação)", "estágio", 0
+        return "0 ano (estágio / trainee / sem experiência)", "estágio", 0
 
-    # 2. Vagas de entrada formal para graduados / sem experiência prévia
+    # 2. Vagas explícitas para recém-formados ou sem experiência prévia
     if any(p in full for p in [
         "sem experiência", "sem experiencia", "não exige experiência", "nao exige experiencia",
         "no experience required", "no previous experience", "entry level", "entry-level",
-        "início de carreira", "primeiro emprego", "formação acadêmica ou transição"
+        "primeiro emprego", "formação acadêmica ou transição"
     ]):
         if "graduate" in t or "graduando" in full:
             return "0 ano (recém-formado / graduate)", "entry", 0
-        return "0 a 1 ano (sem experiência prévia / transição)", "entry", 0
+        return "0 ano (início absoluto / sem experiência prévia)", "entry", 0
 
-    # 3. Análise numérica de anos exigidos
+    # 3. Graduate / Early Career oficial (programas Canonical, etc.)
+    if re.search(r'\b(graduate|recém-formado)\b', t):
+        return "0 ano (graduate / formação inicial)", "entry", 0
+
+    # 4. Análise numérica de anos exigidos
     years = extract_years(d)
     if years is not None:
         if years >= 5:
@@ -165,24 +180,22 @@ def extract_experience_timeframe(title, desc=""):
         elif years >= 3:
             return f"{years}+ anos (pleno)", "pleno", years
         elif years == 2:
-            return "1 a 2 anos (júnior / transição)", "entry", 2
+            return "1 a 2 anos (júnior / bagagem prévia)", "junior", 2
         elif years == 1:
-            return "0 a 1 ano (júnior / inicial)", "entry", 1
+            return "1 ano (júnior / bagagem prévia)", "junior", 1
 
-    # 4. Inferência contextual por títulos de entrada
-    if re.search(r'\b(graduate|recém-formado)\b', t):
-        return "0 ano (recém-formado / graduate)", "entry", 0
-    if re.search(r'\b(junior|jr|júnior|iniciante|early career)\b', t):
-        return "0 a 1 ano (júnior / início de carreira)", "entry", 1
+    # 5. Papéis de associado ou suporte sem tempo rígido (avaliação por competência prática / transição)
     if re.search(r'\bassociate\b', t) and not any(w in t for w in ["director", "lead", "manager"]):
-        return "0 a 2 anos (nível associado / transição)", "entry", 1
+        return "0 a 1 ano (associado / transição de carreira)", "entry", 0
     if re.search(r'\b(tier 1|tier-1|soc 1|soc-1)\b', t):
-        return "0 a 1 ano (SOC Tier 1 / entrada)", "entry", 1
+        return "0 a 1 ano (SOC Tier 1 / entrada)", "entry", 0
+    if re.search(r'\b(junior|jr|júnior)\b', t):
+        return "1 a 2 anos (júnior / pede bagagem prévia)", "junior", 1
     if re.search(r'\b(senior|sr|lead|principal|staff|head|director|chief)\b', t):
         return "5+ anos (sênior / liderança)", "senior", 5
 
-    # 5. Padrão para analistas e suporte sem especificação rígida
-    return "1 a 2 anos (foco em competência prática)", "entry", 2
+    # 6. Padrão para analistas e suporte sem especificação rígida
+    return "0 a 1 ano (foco em competência / sem tempo rígido)", "entry", 0
 
 def fetch_url(url, is_json=True, timeout=20):
     req = urllib.request.Request(url, headers={
@@ -222,7 +235,7 @@ def is_url_valid(url, timeout=7):
         return True # Se deu timeout na checagem rápida, mantém na dúvida
 
 def scan_gupy_portals():
-    """Varre os quadros oficiais e abertos de vagas de empresas de segurança e fintechs na Gupy."""
+    """Varre os quadros oficiais na Gupy filtrando ESTRITAMENTE vagas 100% remotas."""
     gupy_jobs = []
     today_str = datetime.now().strftime("%Y-%m-%d")
     
@@ -247,10 +260,14 @@ def scan_gupy_portals():
                         continue
                         
                     workplace = j.get("workplace", {})
-                    wpt = workplace.get("workplaceType", "remote")
-                    city = workplace.get("address", {}).get("city", "Brasil")
-                    loc = "Remoto (Brasil)" if wpt == "remote" else f"Híbrido ({city})"
+                    wpt = workplace.get("workplaceType", "")
                     
+                    # REGRA MANDATÓRIA: 100% REMOTO APENAS! Descarte imediato de híbrido e on-site.
+                    if wpt != "remote":
+                        continue
+                    if any(w in title.lower() for w in ["híbrido", "hibrido", "hybrid", "presencial", "on-site", "onsite"]):
+                        continue
+                        
                     jid = j.get("id")
                     job_url = f"https://{sub}.gupy.io/job/{jid}"
                     
@@ -260,8 +277,8 @@ def scan_gupy_portals():
                         "id": f"gupy-{sub}-{jid}",
                         "role": title[:80],
                         "company": company,
-                        "loc": loc,
-                        "pay": "A combinar (R$ CLT)",
+                        "loc": "100% Remoto (Brasil)",
+                        "pay": "A combinar (R$ CLT/PJ)",
                         "level": lvl,
                         "exp_timeframe": timeframe,
                         "source": "Gupy",
@@ -273,8 +290,8 @@ def scan_gupy_portals():
                         "student": lvl == "estágio",
                         "dest": 5,
                         "study": 5 if lvl in ["entry", "estágio"] else 4,
-                        "tasks": f"Atuação em {title} no portal de carreiras da {company} via Gupy.",
-                        "note": f"⭐ Vaga oficial aberta na {company} (Gupy). Foco em segurança, governança e conformidade.",
+                        "tasks": f"Atuação em {title} no portal de carreiras da {company} via Gupy. Vaga 100% remota.",
+                        "note": f"⭐ Vaga oficial 100% remota na {company} (Gupy). Foco em segurança, governança e conformidade.",
                         "added_date": today_str
                     })
         except Exception as e:
@@ -283,7 +300,7 @@ def scan_gupy_portals():
     return gupy_jobs
 
 def scan_canonical_greenhouse():
-    """Varre a API oficial e aberta da Canonical no Greenhouse com foco em vagas de entrada e suporte."""
+    """Varre a API oficial e aberta da Canonical no Greenhouse com foco em vagas 100% remotas de graduate e suporte."""
     jobs = []
     url = "https://boards-api.greenhouse.io/v1/boards/canonical/jobs"
     try:
@@ -293,13 +310,15 @@ def scan_canonical_greenhouse():
             role = j.get("title", "")
             link = j.get("absolute_url", "")
             
-            # Prioriza papéis técnicos de Linux, Suporte, Open Source, Kernel, Segurança e Auditoria
             if not is_cyber_role(role):
                 continue
                 
-            loc = "Remote (Worldwide / Brasil)"
+            loc = "100% Remote (Worldwide / Brasil)"
             geo = "worldwide"
             
+            if not is_eligible(role, "", loc, geo):
+                continue
+                
             timeframe, lvl, _ = extract_experience_timeframe(role, "")
             
             job_id = f"can-{j.get('id', '')}"
@@ -321,7 +340,7 @@ def scan_canonical_greenhouse():
                 "dest": 5,
                 "study": 5,
                 "tasks": f"Atuação técnica em {role} na Canonical Ubuntu. Empresa global pioneira em trabalho 100% remoto.",
-                "note": "⭐ CANONICAL GLOBAL: Contratação remota direta no Brasil (CLT/PJ via EOR). Pioneira em trabalho 100% remoto.",
+                "note": "⭐ CANONICAL 100% REMOTO: Contratação remota direta no Brasil (CLT/PJ via EOR).",
                 "added_date": today_str
             })
     except Exception as e:
@@ -343,7 +362,7 @@ def scan_ashby_company(board_name, display_name):
             if not is_cyber_role(role):
                 continue
                 
-            loc = "Remote (Worldwide / LATAM)"
+            loc = "100% Remote (Worldwide / LATAM)"
             geo = "worldwide"
             
             if not is_eligible(role, desc, loc, geo):
@@ -368,9 +387,9 @@ def scan_ashby_company(board_name, display_name):
                 "sponsor": False,
                 "student": False,
                 "dest": 5,
-                "study": 5 if lvl == "entry" else 4,
+                "study": 5 if lvl in ["entry", "estágio"] else 4,
                 "tasks": f"Atuação em {role} na {display_name}. Vaga oficial capturada no ATS Ashby.",
-                "note": f"⭐ Vaga oficial aberta na {display_name} (Ashby ATS). Contratação remota internacional.",
+                "note": f"⭐ Vaga oficial aberta na {display_name} (Ashby ATS). Contratação 100% remota internacional.",
                 "added_date": today_str
             })
     except Exception as e:
@@ -378,7 +397,7 @@ def scan_ashby_company(board_name, display_name):
     return jobs
 
 def scan_weworkremotely():
-    """Varre feeds RSS do WeWorkRemotely priorizando papéis de suporte, sistemas e segurança."""
+    """Varre feeds RSS do WeWorkRemotely priorizando papéis de suporte, sistemas e segurança 100% remotos."""
     wwr_jobs = []
     feeds = [
         "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss",
@@ -403,7 +422,7 @@ def scan_weworkremotely():
                 if not is_cyber_role(role):
                     continue
                     
-                loc = f"Remote ({region})" if region else "Remote (Worldwide)"
+                loc = f"100% Remote ({region})" if region else "100% Remote (Worldwide)"
                 geo = "worldwide"
                 
                 if not is_eligible(role, desc, loc, geo):
@@ -411,7 +430,7 @@ def scan_weworkremotely():
                     
                 timeframe, lvl, years = extract_experience_timeframe(role, desc)
                 
-                # Descarte agressivo de sênior vindo de agregador (foco é júnior/entrada)
+                # Descarte agressivo de sênior vindo de agregador (foco é entrada real / transição)
                 if lvl == "senior" and (years or 0) >= 5:
                     continue
                     
@@ -433,9 +452,9 @@ def scan_weworkremotely():
                     "sponsor": False,
                     "student": False,
                     "dest": 4,
-                    "study": 5 if lvl == "entry" else 4,
+                    "study": 5 if lvl in ["entry", "estágio"] else 4,
                     "tasks": f"Atuação em {role} para {company}. Vaga internacional 100% remota anunciada no WeWorkRemotely.",
-                    "note": f"⭐ Vaga encontrada no WeWorkRemotely ({region}). Aberta para contratação remota internacional.",
+                    "note": f"⭐ Vaga encontrada no WeWorkRemotely ({region}). Contratação 100% remota internacional.",
                     "added_date": today_str
                 })
         except Exception as e:
@@ -444,7 +463,7 @@ def scan_weworkremotely():
     return wwr_jobs
 
 def scan_jobicy():
-    """Varre a API do Jobicy com foco estrito em segurança e suporte júnior/pleno."""
+    """Varre a API do Jobicy com foco estrito em segurança 100% remota."""
     jobicy_jobs = []
     url = "https://jobicy.com/api/v2/remote-jobs?count=30&tag=security"
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -461,12 +480,12 @@ def scan_jobicy():
                 continue
                 
             geo = "worldwide"
-            if not is_eligible(role, desc, loc, geo):
+            loc_str = f"100% Remote ({loc})"
+            if not is_eligible(role, desc, loc_str, geo):
                 continue
                 
             timeframe, lvl, years = extract_experience_timeframe(role, desc)
             
-            # Não sobrecarregar com sênior
             if lvl == "senior" and (years or 0) >= 5:
                 continue
                 
@@ -476,7 +495,7 @@ def scan_jobicy():
                 "id": job_id,
                 "role": role[:80],
                 "company": company[:40],
-                "loc": f"Remote ({loc})",
+                "loc": loc_str,
                 "pay": "A combinar (US$)",
                 "level": lvl,
                 "exp_timeframe": timeframe,
@@ -488,9 +507,9 @@ def scan_jobicy():
                 "sponsor": False,
                 "student": False,
                 "dest": 4,
-                "study": 5 if lvl == "entry" else 4,
+                "study": 5 if lvl in ["entry", "estágio"] else 4,
                 "tasks": f"Atuação em {role} na {company}. Monitoramento e suporte de segurança remota.",
-                "note": "⭐ Vaga internacional capturada via Jobicy. Aceita aplicação remota.",
+                "note": "⭐ Vaga internacional capturada via Jobicy. Contratação 100% remota.",
                 "added_date": today_str
             })
     except Exception as e:
@@ -517,9 +536,9 @@ def update_html_cache_buster(vagas_version_str):
         print(f"Erro ao atualizar cache-buster no HTML: {e}")
 
 def run():
-    print("Iniciando varredura diária de vagas CyberSec (Foco em Júnior & Entrada)...")
+    print("Iniciando varredura diária de vagas CyberSec (100% Remoto & Foco em Entrada Real / Zero Experiência)...")
     
-    # 1. Carrega a base curada (espinha dorsal com vagas reais do Brasil e internacionais)
+    # 1. Carrega a base curada (espinha dorsal com vagas 100% remotas verificadas)
     seed_jobs = []
     if os.path.exists(SEED_FILE):
         try:
@@ -529,30 +548,27 @@ def run():
         except Exception as e:
             print(f"Erro ao ler jobs_seed.json: {e}")
             
-    # Filtra a base curada garantindo URL válida e prazo de experiência preenchido
+    # Filtra a base curada garantindo URL válida e exclusão de qualquer resquício híbrido
     seed_eligible = []
     for j in seed_jobs:
         if not is_url_valid(j.get("url", "")):
             continue
-        # Se a vaga não tiver timeframe explicitado no seed, calcula
+        if not is_eligible(j.get("role", ""), j.get("tasks", ""), j.get("loc", ""), j.get("geo", "")):
+            continue
         if not j.get("exp_timeframe"):
             tf, lvl, _ = extract_experience_timeframe(j.get("role", ""), j.get("tasks", ""))
             j["exp_timeframe"] = tf
             j["level"] = lvl
         seed_eligible.append(j)
         
-    print(f"Vagas curadas verificadas: {len(seed_eligible)}")
+    print(f"Vagas curadas 100% remotas verificadas: {len(seed_eligible)}")
     
-    # 2. Executa varreduras ativas ao vivo
+    # 2. Executa varreduras ativas ao vivo (todas estritamente 100% remotas)
     live_jobs = []
-    # 2.1 Portais Gupy de empresas brasileiras
     live_jobs.extend(scan_gupy_portals())
-    # 2.2 ATS Canonical (Greenhouse)
     live_jobs.extend(scan_canonical_greenhouse())
-    # 2.3 ATS Ashby (Oneleet & Supabase)
     live_jobs.extend(scan_ashby_company("supabase", "Supabase"))
     live_jobs.extend(scan_ashby_company("oneleet", "Oneleet"))
-    # 2.4 Feeds globais filtrados
     live_jobs.extend(scan_weworkremotely())
     live_jobs.extend(scan_jobicy())
     
@@ -591,32 +607,40 @@ def run():
         seen_keys.add(key)
         final_jobs.append(j)
             
-    # 4. Ordenação estratégica: Vagas de Estágio e Entrada/Júnior (0-2 anos) SEMPRE NO TOPO!
+    # 4. Ordenação estratégica:
+    # 0 = Estágio / Trainee (0 anos de experiência exigida)
+    # 1 = Graduate / Entrada Real / Transição sem tempo rígido (0 anos de indústria)
+    # 2 = Júnior convencional (pede 1 a 2 anos na área)
+    # 3 = Pleno
+    # 4 = Sênior
     def sort_priority(job):
         lvl = job.get("level", "pleno")
         if lvl == "estágio":
             return 0
         if lvl == "entry":
             return 1
-        if lvl == "pleno":
+        if lvl == "junior":
             return 2
-        return 3 # senior
+        if lvl == "pleno":
+            return 3
+        return 4
         
     final_jobs.sort(key=sort_priority)
     
-    entry_count = sum(1 for j in final_jobs if j.get("level") in ["entry", "estágio"])
+    zero_exp_count = sum(1 for j in final_jobs if j.get("level") in ["entry", "estágio"])
+    junior_count = sum(1 for j in final_jobs if j.get("level") == "junior")
     pleno_count = sum(1 for j in final_jobs if j.get("level") == "pleno")
     senior_count = sum(1 for j in final_jobs if j.get("level") == "senior")
     
-    print(f"Consolidação concluída: {len(final_jobs)} vagas ({entry_count} Entrada/Júnior, {pleno_count} Pleno, {senior_count} Sênior)")
+    print(f"Consolidação concluída (100% REMOTO): {len(final_jobs)} vagas ({zero_exp_count} Zero Experiência/Estágio/Graduate, {junior_count} Júnior, {pleno_count} Pleno, {senior_count} Sênior)")
     
     now_dt = datetime.now()
     now_str = now_dt.strftime("%Y-%m-%d %H:%M")
     cache_version = now_dt.strftime("%Y%m%d_%H%M")
     
     insight_str = (
-        f"{entry_count} vagas de Entrada e Júnior (0–2 anos / estágio) em destaque "
-        f"de um total de {len(final_jobs)} vagas verificadas no Brasil (CLT/PJ) e Global Remoto."
+        f"{zero_exp_count} vagas de Entrada Real (Estágio, Trainee, Graduate e Transição sem exigência prévia) "
+        f"em destaque de um total de {len(final_jobs)} vagas 100% REMOTAS no Brasil e Global."
     )
     
     # 5. Escreve vagas_data.js
@@ -639,13 +663,14 @@ def run():
         with open(DIGEST_FILE, "a", encoding="utf-8") as f:
             f.write(f"\n## {now_str}\n")
             f.write(f"- {insight_str}\n")
-            f.write(f"- Breakdown: {entry_count} Entrada/Júnior, {pleno_count} Pleno, {senior_count} Sênior\n")
+            f.write(f"- Breakdown 100% Remoto: {zero_exp_count} Zero Exp/Estágio/Graduate, {junior_count} Júnior, {pleno_count} Pleno, {senior_count} Sênior\n")
             
         with open(LOG_FILE, "a", encoding="utf-8") as f:
             log_entry = {
                 "ts": now_str,
                 "total": len(final_jobs),
-                "entry": entry_count,
+                "zero_exp": zero_exp_count,
+                "junior": junior_count,
                 "pleno": pleno_count,
                 "senior": senior_count
             }
