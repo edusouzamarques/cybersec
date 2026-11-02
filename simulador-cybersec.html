@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚨 Simulador de Ameaças & Resposta a Incidentes (SIEM Lab) — Eduardo Marques</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22><text y=%2226%22 font-size=%2224%22>🚨</text></svg>">
+  <style>
+    :root {
+      --bg: #090d12;
+      --card: #111823;
+      --card-hover: #16202e;
+      --border: #202e42;
+      --border-lit: #2e4463;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-faint: #64748b;
+      --acc: #00f2fe;
+      --acc-glow: rgba(0, 242, 254, 0.25);
+      --green: #10b981;
+      --green-bg: #064e3b;
+      --amber: #f59e0b;
+      --amber-bg: #78350f;
+      --red: #ef4444;
+      --red-bg: #7f1d1d;
+      --purple: #8b5cf6;
+      --purple-bg: #4c1d95;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #0b111a;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand h1 {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #fff;
+    }
+    .brand .badge-soc {
+      background: var(--red-bg);
+      color: #fca5a5;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: 600;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .badge-soc::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--card-hover);
+      border-color: var(--border-lit);
+      color: #fff;
+    }
+    .btn-primary {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #0369a1;
+    }
+    .btn-danger {
+      background: var(--red-bg);
+      border-color: var(--red);
+      color: #fecaca;
+    }
+    .btn-success {
+      background: var(--green-bg);
+      border-color: var(--green);
+      color: #a7f3d0;
+    }
+    .scenario-bar {
+      background: #0d141f;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .scenario-select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      flex: 1;
+      min-width: 280px;
+      cursor: pointer;
+    }
+    .scenario-select:focus {
+      outline: none;
+      border-color: var(--acc);
+    }
+    main {
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.1fr;
+      gap: 16px;
+      flex: 1;
+    }
+    @media (max-width: 1200px) {
+      main { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 800px) {
+      main { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .log-terminal {
+      background: #06090e;
+      border: 1px solid #1a2433;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+      color: #cbd5e1;
+    }
+    .log-entry {
+      padding: 6px 8px;
+      border-bottom: 1px solid #131b27;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .log-entry:hover {
+      background: #0e1622;
+    }
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+    }
+    .badge-critical { background: var(--red-bg); color: #fca5a5; padding: 1px 6px; border-radius: 4px; font-weight: bold; }
+    .badge-high { background: var(--amber-bg); color: #fde68a; padding: 1px 6px; border-radius: 4px; font-weight: bold; }
+    .badge-medium { background: #1e3a5f; color: #93c5fd; padding: 1px 6px; border-radius: 4px; font-weight: bold; }
+    .badge-info { background: #13271f; color: #6ee7b7; padding: 1px 6px; border-radius: 4px; font-weight: bold; }
+
+    .status-matrix {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .status-pill {
+      background: #090e16;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .status-pill.active {
+      border-color: var(--green);
+      background: #062b1e;
+      color: #a7f3d0;
+    }
+    .playbook-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .playbook-btn {
+      background: #0b121c;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s;
+    }
+    .playbook-btn:hover:not(:disabled) {
+      background: #142030;
+      border-color: var(--acc);
+      box-shadow: 0 0 10px var(--acc-glow);
+    }
+    .playbook-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      border-color: var(--green);
+      color: #6ee7b7;
+    }
+
+    .council-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .agent-card {
+      background: #0a0f17;
+      border-left: 3px solid var(--acc);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 12px;
+      font-size: 12.5px;
+    }
+    .agent-card.blue { border-left-color: #38bdf8; }
+    .agent-card.red { border-left-color: #f87171; }
+    .agent-card.grc { border-left-color: #fbbf24; }
+    .agent-card.interview { border-left-color: #a78bfa; }
+    .agent-name {
+      font-weight: 700;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .agent-msg {
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .quiz-card {
+      background: #0d1522;
+      border: 1px solid #1e3a5f;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+    .quiz-title {
+      font-weight: 700;
+      color: #93c5fd;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .quiz-opt {
+      background: #090e17;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+    .quiz-opt:hover:not(:disabled) {
+      background: #152233;
+      border-color: #38bdf8;
+    }
+    .quiz-opt.correct {
+      background: #064e3b;
+      border-color: #10b981;
+      color: #a7f3d0;
+      font-weight: bold;
+    }
+    .quiz-opt.incorrect {
+      background: #7f1d1d;
+      border-color: #ef4444;
+      color: #fecaca;
+    }
+    .quiz-feedback {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-box {
+      background: #0f172a;
+      border: 1px solid var(--border-lit);
+      border-radius: 10px;
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+    .modal-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .report-preview {
+      background: #06090e;
+      border: 1px solid #1a2433;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      white-space: pre-wrap;
+      color: #cbd5e1;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand">
+      <span style="font-size:22px">🛡️</span>
+      <div>
+        <h1>SIEM LAB & SIMULADOR DE AMEAÇAS</h1>
+        <div style="font-size:11px;color:var(--text-muted)">Ambiente Prático de Resposta a Incidentes (NIST SP 800-61r2 / SOC)</div>
+      </div>
+      <span class="badge-soc">SOC VIVO</span>
+    </div>
+
+    <div class="header-actions">
+      <a href="assistente-cybersec.html" class="btn">← Voltar ao Assistente</a>
+      <button class="btn" id="btnKeyVault">🔑 Configurar NVIDIA API</button>
+      <button class="btn btn-primary" id="btnGenReport">📄 Gerar Post-Mortem</button>
+    </div>
+  </header>
+
+  <!-- Scenario Selector -->
+  <div class="scenario-bar">
+    <b style="font-size:12.5px;color:var(--text-muted)">Cenário de Ameaça Ativo:</b>
+    <select class="scenario-select" id="selectScenario"></select>
+    <div style="display:flex;gap:6px;align-items:center">
+      <span class="badge-critical" id="badgeSeverity">CRÍTICO</span>
+      <span class="badge-info" id="badgeCategory">Ransomware</span>
+    </div>
+  </div>
+
+  <!-- Main 3-Column Layout -->
+  <main>
+    <!-- Left Column: SIEM Live Feed & Telemetry -->
+    <section>
+      <div class="card">
+        <div class="card-title">
+          <span>📡 Telemetria & Alvo Comprometido</span>
+          <span style="font-size:11px;color:var(--acc)" id="targetHost">—</span>
+        </div>
+        <p style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px" id="scenarioDesc">—</p>
+        <div style="font-size:11.5px;color:var(--text-faint);background:#070b10;padding:6px 10px;border-radius:4px" id="mitreTactics">—</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>📟 Registro de Logs do SIEM (Event Stream)</span>
+          <span style="font-size:11px;color:var(--text-muted)" id="logCount">4 eventos</span>
+        </div>
+        <div class="log-terminal" id="siemLogStream"></div>
+      </div>
+    </section>
+
+    <!-- Center Column: Incident Commander Playbook -->
+    <section>
+      <div class="card">
+        <div class="card-title">
+          <span>🎯 Status da Contenção (NIST Fases)</span>
+          <span style="font-size:11px;color:var(--green)" id="scoreIndicator">Score: 0/100</span>
+        </div>
+        <div class="status-matrix">
+          <div class="status-pill" id="stHost"><span>Host Isolado</span><b id="valHost">NÃO</b></div>
+          <div class="status-pill" id="stMem"><span>Dump Memória</span><b id="valMem">NÃO</b></div>
+          <div class="status-pill" id="stCreds"><span>Credenciais</span><b id="valCreds">NÃO</b></div>
+          <div class="status-pill" id="stIp"><span>IP Bloqueado</span><b id="valIp">NÃO</b></div>
+          <div class="status-pill" id="stIoc"><span>Varredura IOCs</span><b id="valIoc">NÃO</b></div>
+        </div>
+
+        <div class="card-title">
+          <span>⚡ Ações Rápidas de Resposta (Playbook)</span>
+        </div>
+        <div class="playbook-actions">
+          <button class="playbook-btn" id="btnActIsolate">
+            <span>🛡️ 1. Isolar Host da Rede (EDR / Quarentena)</span>
+            <span style="font-size:11px;color:var(--text-muted)">Corta C2 & Movimentação</span>
+          </button>
+          <button class="playbook-btn" id="btnActMem">
+            <span>💾 2. Coletar Dump de Memória (RAM Volátil)</span>
+            <span style="font-size:11px;color:var(--text-muted)">RFC 3227 - Perícia Forense</span>
+          </button>
+          <button class="playbook-btn" id="btnActCreds">
+            <span>🔑 3. Revogar Credenciais & Sessões Ativas</span>
+            <span style="font-size:11px;color:var(--text-muted)">IdP / Active Directory / IAM</span>
+          </button>
+          <button class="playbook-btn" id="btnActIp">
+            <span>🚫 4. Bloquear IP no Firewall de Borda & WAF</span>
+            <span style="font-size:11px;color:var(--text-muted)">Bloqueio de Canal Malicioso</span>
+          </button>
+          <button class="playbook-btn" id="btnActIoc">
+            <span>🔍 5. Executar Varredura de IOCs na Sub-rede</span>
+            <span style="font-size:11px;color:var(--text-muted)">Detecção de Persistência</span>
+          </button>
+        </div>
+
+        <div class="card-title">
+          <span>📜 Terminal de Ações do Analista</span>
+        </div>
+        <div class="log-terminal" id="analystLog" style="max-height:160px">
+          <div style="color:var(--text-faint)">[00:00:00] Analista Eduardo assumiu o comando do incidente. Aguardando ações...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: AI Council & Decision Gates -->
+    <section>
+      <div class="card">
+        <div class="card-title">
+          <span>🤖 Mesa de Confronto Multi-Modelo (NVIDIA API)</span>
+          <span style="font-size:11px;color:var(--acc)" id="apiStatusBadge">Modo Offline (Ative a Chave)</span>
+        </div>
+        <div class="council-box">
+          <div class="agent-card blue">
+            <div class="agent-name" style="color:#38bdf8"><span>🛡️ Comandante Blue Team</span><span style="font-size:10px">NVIDIA Nemotron</span></div>
+            <div class="agent-msg" id="msgBlueTeam">Aguardando início das ações do playbook para orientar com base no NIST SP 800-61r2...</div>
+          </div>
+          <div class="agent-card red">
+            <div class="agent-name" style="color:#f87171"><span>⚔️ Invasor Red Team</span><span style="font-size:10px">Mistral Large</span></div>
+            <div class="agent-msg" id="msgRedTeam">Atacante aguardando telemetria. Qualquer hesitação na contenção permitirá manobras adicionais de persistência.</div>
+          </div>
+          <div class="agent-card grc">
+            <div class="agent-name" style="color:#fbbf24"><span>📋 Auditor GRC & Regulação</span><span style="font-size:10px">NVIDIA 550B</span></div>
+            <div class="agent-msg" id="msgGrc">Lembre-se: todo incidente com dados sensíveis exige registro formal para a ANPD/LGPD e controle A.16 da ISO 27001.</div>
+          </div>
+        </div>
+
+        <!-- Quiz Decision Gate -->
+        <div class="quiz-card" id="quizContainer">
+          <div class="quiz-title">❓ Portão de Decisão (Entrevista & Simulação Técnica)</div>
+          <p style="font-size:12px;color:#cbd5e1;margin-bottom:10px" id="quizQuestion">—</p>
+          <div class="quiz-options" id="quizOptions"></div>
+          <div class="quiz-feedback" id="quizFeedback"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Key Vault Modal -->
+  <div class="modal-overlay" id="modalKeyVault">
+    <div class="modal-box" style="max-width:550px">
+      <div class="modal-header">
+        <h3 style="font-size:15px;color:#fff">🔑 Cofre Local de Chave da NVIDIA API (Zero-Leak)</h3>
+        <button class="btn" onclick="document.getElementById('modalKeyVault').classList.remove('open')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:12px">
+          Sua chave é armazenada <b>exclusivamente no armazenamento local do seu navegador (localStorage)</b>. Ela <b>nunca</b> é enviada ao GitHub nem visível para outros usuários.
+        </p>
+        <label style="display:block;font-size:12px;font-weight:600;margin-bottom:6px">Cole sua NVIDIA API Key (nvapi-...):</label>
+        <input type="password" id="inputNvidiaKey" placeholder="nvapi-..." style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border);background:#070b12;color:#fff;font-family:var(--font-mono);font-size:12.5px;margin-bottom:12px">
+        <div style="font-size:11.5px;color:var(--green)">
+          ✓ Com a chave ativa, você conversa diretamente com o <b>Mistral Large</b> e <b>NVIDIA Nemotron</b> em tempo real.<br>
+          ✓ Sem a chave, o simulador continua 100% funcional no modo offline guiado.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="btnRemoveKey">Remover Chave</button>
+        <button class="btn btn-primary" id="btnSaveKey">Salvar Chave Local</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post-Mortem Report Modal -->
+  <div class="modal-overlay" id="modalReport">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size:15px;color:#fff">📄 Relatório Oficial de Resposta a Incidente (Post-Mortem)</h3>
+        <button class="btn" onclick="document.getElementById('modalReport').classList.remove('open')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px">
+          Este documento foi gerado a partir das decisões de contenção e telemetria registradas durante a sua simulação. Você pode copiá-lo em Markdown para anexar ao seu portfólio no GitHub ou imprimir em PDF para levar a entrevistas.
+        </p>
+        <div class="report-preview" id="reportPreview"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="btnCopyReport">📋 Copiar Markdown</button>
+        <button class="btn" id="btnDownloadReport">💾 Baixar .MD</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="_jobscan/simulador_engine.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const engine = new CyberSecSimulator.SimulatorEngine();
+      const selectScenario = document.getElementById("selectScenario");
+
+      // Preenche os 10 cenários no select
+      CyberSecSimulator.SCENARIOS.forEach((sc, idx) => {
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = sc.title;
+        selectScenario.appendChild(opt);
+      });
+
+      function updateKeyBadge() {
+        const key = engine.getApiKey();
+        const badge = document.getElementById("apiStatusBadge");
+        if (key) {
+          badge.textContent = "AI Live (NVIDIA API Ativa)";
+          badge.style.color = "var(--green)";
+        } else {
+          badge.textContent = "Modo Offline (Resiliente)";
+          badge.style.color = "var(--amber)";
+        }
+      }
+
+      function renderScenario() {
+        const sc = engine.activeScenario;
+        document.getElementById("targetHost").textContent = sc.target;
+        document.getElementById("scenarioDesc").textContent = sc.description;
+        document.getElementById("mitreTactics").innerHTML = `<b>MITRE ATT&CK:</b> ${sc.mitre}`;
+        document.getElementById("badgeSeverity").textContent = sc.severity;
+        document.getElementById("badgeCategory").textContent = sc.category;
+
+        // Render SIEM logs
+        const logStream = document.getElementById("siemLogStream");
+        logStream.innerHTML = sc.logs.map(l => {
+          let badgeClass = "badge-info";
+          if (l.level === "CRITICAL") badgeClass = "badge-critical";
+          else if (l.level === "HIGH") badgeClass = "badge-high";
+          else if (l.level === "MEDIUM") badgeClass = "badge-medium";
+
+          return `
+            <div class="log-entry">
+              <div class="log-header">
+                <span style="color:var(--acc)">[${l.time}] ${l.src}</span>
+                <span class="${badgeClass}">${l.level}</span>
+              </div>
+              <div>${l.msg}</div>
+            </div>
+          `;
+        }).join("");
+        document.getElementById("logCount").textContent = `${sc.logs.length} eventos`;
+
+        // Render Quiz
+        document.getElementById("quizQuestion").textContent = sc.quiz.question;
+        const optsContainer = document.getElementById("quizOptions");
+        optsContainer.innerHTML = sc.quiz.options.map((o, idx) => {
+          return `<button class="quiz-opt" data-idx="${idx}">${String.fromCharCode(65 + idx)}) ${o.text}</button>`;
+        }).join("");
+
+        const feedbackBox = document.getElementById("quizFeedback");
+        feedbackBox.style.display = "none";
+        feedbackBox.textContent = "";
+
+        // Bind quiz clicks
+        optsContainer.querySelectorAll(".quiz-opt").forEach(btn => {
+          btn.onclick = () => {
+            const idx = parseInt(btn.dataset.idx, 10);
+            const opt = sc.quiz.options[idx];
+            engine.quizAnswered = true;
+
+            optsContainer.querySelectorAll(".quiz-opt").forEach(b => b.disabled = true);
+            if (opt.correct) {
+              btn.classList.add("correct");
+              feedbackBox.style.background = "#064e3b";
+              feedbackBox.style.color = "#a7f3d0";
+              feedbackBox.style.display = "block";
+              feedbackBox.innerHTML = `<b>✓ Resposta Correta!</b> ${opt.feedback}`;
+            } else {
+              btn.classList.add("incorrect");
+              feedbackBox.style.background = "#7f1d1d";
+              feedbackBox.style.color = "#fecaca";
+              feedbackBox.style.display = "block";
+              feedbackBox.innerHTML = `<b>✗ Incorreto.</b> ${opt.feedback}`;
+            }
+            updateScoreUI();
+          };
+        });
+
+        resetPlaybookUI();
+        updateScoreUI();
+      }
+
+      function resetPlaybookUI() {
+        ["Host", "Mem", "Creds", "Ip", "Ioc"].forEach(k => {
+          document.getElementById("val" + k).textContent = "NÃO";
+          document.getElementById("st" + k).classList.remove("active");
+        });
+        ["btnActIsolate", "btnActMem", "btnActCreds", "btnActIp", "btnActIoc"].forEach(id => {
+          document.getElementById(id).disabled = false;
+        });
+        document.getElementById("analystLog").innerHTML = `<div style="color:var(--text-faint)">[${new Date().toLocaleTimeString()}] Cenário '${engine.activeScenario.title}' iniciado. Aguardando comandos.</div>`;
+      }
+
+      function updateScoreUI() {
+        const score = engine.calculateScore();
+        document.getElementById("scoreIndicator").textContent = `Score: ${score}/100`;
+      }
+
+      async function executeAction(actionType, btnId, statusKey) {
+        const btn = document.getElementById(btnId);
+        btn.disabled = true;
+
+        const res = await engine.performAction(actionType);
+        document.getElementById("val" + statusKey).textContent = "SIM";
+        document.getElementById("st" + statusKey).classList.add("active");
+
+        const logTerm = document.getElementById("analystLog");
+        const entry = document.createElement("div");
+        entry.innerHTML = `<span style="color:var(--green)">[${res.time}]</span> <b>${res.message}</b>`;
+        logTerm.appendChild(entry);
+        logTerm.scrollTop = logTerm.scrollHeight;
+
+        updateScoreUI();
+
+        // Aciona o conselho multi-modelo
+        triggerCouncilAdvice(actionType);
+      }
+
+      async function triggerCouncilAdvice(actionType) {
+        document.getElementById("msgBlueTeam").textContent = "Consultando Comandante NIST...";
+        document.getElementById("msgRedTeam").textContent = "Simulando reação do Invasor...";
+        document.getElementById("msgGrc").textContent = "Auditando conformidade ISO/LGPD...";
+
+        const promptText = `O analista executou a ação '${actionType}' no cenário '${engine.activeScenario.title}'. Avalie brevemente a consequência técnica e o próximo passo.`;
+
+        const [blue, red, grc] = await Promise.all([
+          engine.callNvidiaApi("blueTeam", promptText),
+          engine.callNvidiaApi("redTeam", promptText),
+          engine.callNvidiaApi("grcAuditor", promptText)
+        ]);
+
+        document.getElementById("msgBlueTeam").textContent = blue;
+        document.getElementById("msgRedTeam").textContent = red;
+        document.getElementById("msgGrc").textContent = grc;
+      }
+
+      // Event Listeners dos botões de ação
+      document.getElementById("btnActIsolate").onclick = () => executeAction("isolate", "btnActIsolate", "Host");
+      document.getElementById("btnActMem").onclick = () => executeAction("memory_dump", "btnActMem", "Mem");
+      document.getElementById("btnActCreds").onclick = () => executeAction("revoke_creds", "btnActCreds", "Creds");
+      document.getElementById("btnActIp").onclick = () => executeAction("block_ip", "btnActIp", "Ip");
+      document.getElementById("btnActIoc").onclick = () => executeAction("scan_iocs", "btnActIoc", "Ioc");
+
+      selectScenario.onchange = (e) => {
+        engine.loadScenario(parseInt(e.target.value, 10));
+        renderScenario();
+      };
+
+      // Modal Key Vault
+      const modalKeyVault = document.getElementById("modalKeyVault");
+      document.getElementById("btnKeyVault").onclick = () => {
+        document.getElementById("inputNvidiaKey").value = engine.getApiKey();
+        modalKeyVault.classList.add("open");
+      };
+      document.getElementById("btnSaveKey").onclick = () => {
+        const val = document.getElementById("inputNvidiaKey").value;
+        engine.setApiKey(val);
+        updateKeyBadge();
+        modalKeyVault.classList.remove("open");
+        alert("Chave salva com segurança no seu navegador!");
+      };
+      document.getElementById("btnRemoveKey").onclick = () => {
+        engine.setApiKey("");
+        document.getElementById("inputNvidiaKey").value = "";
+        updateKeyBadge();
+        modalKeyVault.classList.remove("open");
+        alert("Chave removida do armazenamento local.");
+      };
+
+      // Modal Report
+      const modalReport = document.getElementById("modalReport");
+      document.getElementById("btnGenReport").onclick = () => {
+        const report = engine.generateIncidentReport("Eduardo Souza Marques");
+        engine.saveHistory(report);
+
+        const mdText = `# ${report.header.title}
+**Framework de Referência:** ${report.header.framework}
+**Analista Responsável:** ${report.header.analyst}
+**Data/Hora do Incidente:** ${report.header.date}
+**Cenário:** ${report.header.scenarioTitle}
+**Severidade:** ${report.header.severity} | **Categoria:** ${report.header.category}
+**Alvo Comprometido:** ${report.header.target}
+**Táticas MITRE ATT&CK:** ${report.header.mitre}
+
+---
+
+## 1. Sumário Executivo
+${report.executiveSummary}
+
+## 2. Métricas de Eficácia de Resposta (KPIs)
+* **Tempo Médio de Detecção (MTTD):** ${report.metrics.mttd}
+* **Tempo Médio de Contenção (MTTC):** ${report.metrics.mttc}
+* **Pontuação de Eficácia Técnica:** ${report.metrics.score}
+* **Status Final do Incidente:** ${report.metrics.status}
+
+## 3. Linha do Tempo das Ações de Resposta Executadas
+${report.actionsExecuted.length ? report.actionsExecuted.join("\n") : "Nenhuma ação adicional registrada."}
+
+## 4. Avaliação do Conselho de Especialistas (Multi-Modelo)
+* **Aderência ao NIST SP 800-61r2:** ${report.councilEvaluation.nistCompliance}
+* **Conformidade Regulatória (ISO 27001 & LGPD):** ${report.councilEvaluation.grcCompliance}
+* **Preservação de Evidências Digitais:** ${report.councilEvaluation.forensicIntegrity}
+
+## 5. Lições Aprendidas & Recomendações Preventivas
+${report.lessonsLearned.map(l => "* " + l).join("\n")}
+
+---
+*Relatório assinado digitalmente pelo Analista ${report.header.analyst} via CyberSec Simulator Lab.*`;
+
+        document.getElementById("reportPreview").textContent = mdText;
+        modalReport.classList.add("open");
+      };
+
+      document.getElementById("btnCopyReport").onclick = () => {
+        const text = document.getElementById("reportPreview").textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          alert("Relatório copiado para a área de transferência!");
+        });
+      };
+
+      document.getElementById("btnDownloadReport").onclick = () => {
+        const text = document.getElementById("reportPreview").textContent;
+        const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `relatorio_incidente_${engine.activeScenario.id}.md`;
+        a.click();
+      };
+
+      // Inicialização
+      updateKeyBadge();
+      renderScenario();
+    });
+  </script>
+</body>
+</html>
