@@ -94,25 +94,66 @@ def is_cyber_role(title):
         return False
     return any(k in t for k in CYBER_KEYWORDS)
 
+def extract_years(text):
+    """Extrai com precisão a quantidade de anos de experiência exigida na descrição da vaga."""
+    if not text:
+        return None
+    clean = re.sub(r'<[^>]+>', ' ', text).lower()
+    matches = []
+    
+    # 3+ years / 3+ yrs / 3+ anos
+    for m in re.finditer(r'\b(\d{1,2})\s*\+\s*(?:years|yrs|anos)\b', clean):
+        matches.append(int(m.group(1)))
+        
+    # over / at least / minimum of 3 years
+    for m in re.finditer(r'\b(?:over|at least|minimum of|minimum|min\.|mais de|pelo menos|mínimo de)\s*(\d{1,2})\s*(?:years|yrs|anos)\b', clean):
+        matches.append(int(m.group(1)))
+        
+    # 3 to 5 years / 3-5 years / 3 a 5 anos
+    for m in re.finditer(r'\b(\d{1,2})\s*(?:-|to|a)\s*\d{1,2}\s*(?:years|yrs|anos)\b', clean):
+        matches.append(int(m.group(1)))
+        
+    # 3 years of experience / 3 anos de experiência
+    for m in re.finditer(r'\b(\d{1,2})\s*(?:years|yrs|anos)\s*(?:of\s*(?:relevant\s*)?experience|de\s*experiência)\b', clean):
+        matches.append(int(m.group(1)))
+        
+    valid = [y for y in matches if 1 <= y <= 15]
+    return max(valid) if valid else None
+
 def detect_level(title, desc=""):
     t = (title or "").lower()
     d = (desc or "").lower()
     
-    # Se a descrição exige expressamente 5+ anos, é sênior
-    if any(exp in d for exp in ["5+ years", "6+ years", "7+ years", "8+ years", "10+ years", "5 to 7 years", "5-7 years"]):
-        return "senior"
-        
-    if any(w in t for w in ["intern", "internship", "estágio", "estagio", "trainee", "apprentice"]):
-        return "estágio"
-        
+    years = extract_years(d)
+    
+    # 1. Se a descrição exige expressamente anos de experiência:
+    if years is not None:
+        if years >= 5:
+            return "senior"
+        elif years >= 3:
+            return "pleno" # 3+ anos ou mais NUNCA é nível de entrada!
+        elif years <= 2:
+            if any(w in t for w in ["intern", "internship", "estágio", "estagio", "trainee", "junior", "jr", "entry"]):
+                return "entry"
+            return "entry" if years <= 1 else "pleno"
+            
+    # 2. Palavras explícitas de alta senioridade no título
     if any(w in t for w in ["senior", "sr", "lead", "principal", "staff", "head", "director", "architect", "chief", "vp", "vice president"]):
         return "senior"
         
-    # Regex com limites de palavra para entrada / júnior (evita que "AI" case com "i ")
-    if re.search(r'\b(junior|jr|associate|entry|early career|entry-level|iniciante|graduate)\b', t):
+    # 3. Estágio / Trainee
+    if any(w in t for w in ["intern", "internship", "estágio", "estagio", "trainee", "apprentice"]):
+        return "estágio"
+        
+    # 4. Cargos de entrada genuínos (regex com limites de palavra)
+    if re.search(r'\b(junior|jr|entry|early career|entry-level|iniciante|graduate)\b', t):
         return "entry"
         
-    # Numerais romanos com limite de palavra
+    # 5. 'Associate' só é entrada se NÃO for acompanhado de cargo de gestão / consultoria
+    if re.search(r'\bassociate\b', t) and not any(w in t for w in ["manager", "lead", "architect", "director", "officer", "consultant"]):
+        return "entry"
+        
+    # 6. Numerais romanos com limite de palavra
     if re.search(r'\b(tier 1|tier-1|soc 1|soc-1)\b', t):
         return "entry"
         
@@ -453,23 +494,39 @@ def run():
     
     print(f"Total de vagas capturadas ao vivo: {len(live_jobs)}")
     
-    # 3. Deduplicação inteligente e priorização de novidades
+    # 3. Deduplicação inteligente por URL e título
+    seen_urls = set()
     seen_keys = set()
     final_jobs = []
     
+    def get_norm_url(u):
+        if not u: return ""
+        # Remove query params e barras finais
+        return re.sub(r'[?#].*$', '', u.strip().rstrip('/')).lower()
+
     # Primeiro a base curada (prioridade máxima)
     for j in seed_eligible:
+        u_norm = get_norm_url(j.get("url", ""))
         key = (j.get("company", "").strip().lower(), j.get("role", "").strip().lower())
-        if key not in seen_keys:
-            seen_keys.add(key)
-            final_jobs.append(j)
+        if u_norm and u_norm in seen_urls:
+            continue
+        if key in seen_keys:
+            continue
+        if u_norm: seen_urls.add(u_norm)
+        seen_keys.add(key)
+        final_jobs.append(j)
             
     # Depois as vagas novas capturadas ao vivo
     for j in live_jobs:
+        u_norm = get_norm_url(j.get("url", ""))
         key = (j.get("company", "").strip().lower(), j.get("role", "").strip().lower())
-        if key not in seen_keys:
-            seen_keys.add(key)
-            final_jobs.append(j)
+        if u_norm and u_norm in seen_urls:
+            continue
+        if key in seen_keys:
+            continue
+        if u_norm: seen_urls.add(u_norm)
+        seen_keys.add(key)
+        final_jobs.append(j)
             
     print(f"Total consolidado de vagas elegíveis: {len(final_jobs)}")
     
