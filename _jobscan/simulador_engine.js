@@ -275,11 +275,11 @@
     }
   ];
 
-  // Modelos suportados na API da NVIDIA
+  // Modelos suportados na API da NVIDIA (incluindo Muse, Nemotron, Mistral e MiniMax)
   const NVIDIA_MODELS = {
     redTeam: "mistralai/mistral-large-4-1t-a52b",
     blueTeam: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
-    grcAuditor: "nvidia/nemotron-3-ultra-550b-a55b",
+    grcAuditor: "meta/muse-glimmer-30b",
     interviewer: "minimaxai/minimax-m3.1-flash"
   };
 
@@ -388,7 +388,10 @@
 
         if (response.ok) {
           const data = await response.json();
-          return data.choices[0].message.content.trim();
+          const choice = data.choices && data.choices[0];
+          const msg = choice ? choice.message : null;
+          const text = msg ? (msg.content || msg.reasoning_content || "") : "";
+          return text.trim() || this.getOfflineAdvice(role, promptText);
         } else {
           console.warn("NVIDIA API retornou status " + response.status + ". Usando motor local resiliente.");
           return this.getOfflineAdvice(role, promptText);
