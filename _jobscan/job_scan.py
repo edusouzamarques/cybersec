@@ -187,12 +187,12 @@ def scan_canonical_greenhouse():
                 "url": link,
                 "req": ["secplus"],
                 "clearance": False,
-                "sponsor": True,
+                "sponsor": False,
                 "student": False,
                 "dest": 5,
                 "study": 5,
                 "tasks": f"Atuação técnica em {role} na Canonical Ubuntu. Empresa global pioneira em trabalho 100% remoto.",
-                "note": "⭐ CANONICAL GLOBAL: Aberta para contratação no Brasil. Suporta transição de carreira e patrocina vistos.",
+                "note": "⭐ CANONICAL GLOBAL: Contratação remota direta no Brasil (CLT/PJ via EOR). Pioneira em trabalho 100% remoto.",
                 "added_date": today_str
             })
     except Exception as e:
