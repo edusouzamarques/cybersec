@@ -340,7 +340,7 @@
   </section>
 </div>
 
-<script src="_jobscan/vagas_data.js?v=20261019_1840"></script>
+<script src="_jobscan/vagas_data.js?v=20261102_1450"></script>
 <script src="_jobscan/entrevistas_data.js?v=20261019_2100"></script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
@@ -411,11 +411,16 @@ function isJobEligible(j){
 
 function jobFit(j){
   if(!isJobEligible(j)) return {cls:"paid", txt:"🚫 EXCLUÍDA — Inelegível (exige cidadania local ou presença física no exterior)"};
+  if(j.fit_txt) return {cls: j.fit_cls||"", txt: j.fit_txt};
   const miss=(j.req||[]).filter(r=>!creds[r]);
   const m = ()=> miss.length ? " · falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ") : "";
-  if(j.level==="pleno") return {cls:"", txt:"🎯 meta 1-2 anos"+m()};
-  if(j.level==="senior") return {cls:"paid", txt:"👑 destino 3+ anos"};
-  if(j.sponsor) return {cls:"free", txt:"⭐ a empresa TRAZ-TE (patrocina o papel) — alvo com mestrado"+m()};
+  if(j.sponsor) return {cls:"free", txt:"⭐ a empresa TRAZ-TE (patrocina visto)"+m()};
+  if(j.level==="estágio" || j.level==="entry") {
+    if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (entrada imediata)"};
+    return {cls:"", txt:"🎯 entrada"+m()};
+  }
+  if(j.level==="pleno") return {cls:"", txt:"🎯 pleno (foco em competência)"+m()};
+  if(j.level==="senior") return {cls:"paid", txt:"👑 sênior (3+ anos)"};
   if(miss.length===0) return {cls:"free", txt:"✅ aplicar AGORA (do Brasil)"};
   return {cls:"", txt:"falta: "+miss.map(r=>CRED_LABEL[r]||r).join(", ")};
 }
@@ -429,6 +434,7 @@ function renderMarketFilters(){
   const el=document.getElementById("marketFilterBox"); if(!el) return;
   const filters = [
     {id:'all', label:'🌐 Todas as Vagas'},
+    {id:'new', label:'✨ Novas Vagas (7 dias)'},
     {id:'brl', label:'🇧🇷 Brasil (Reais / CLT)'},
     {id:'usd', label:'💵 Global (USD / EUR)'},
     {id:'grc', label:'🛡️ GRC & Governança'},
@@ -448,7 +454,14 @@ function renderJobsLive(){
   renderMarketFilters();
 
   let filtered = (jobs||[]).filter(isJobEligible);
-  if(currentMarketFilter === 'brl'){
+  if(currentMarketFilter === 'new'){
+    const now = new Date();
+    filtered = jobs.filter(j => {
+      if(!j.added_date) return false;
+      const d = new Date(j.added_date);
+      return (now - d) / (1000 * 60 * 60 * 24) <= 7;
+    });
+  } else if(currentMarketFilter === 'brl'){
     filtered = jobs.filter(j => j.geo === 'brasil' || (j.pay && j.pay.includes('R$')) || (j.loc && j.loc.toLowerCase().includes('brasil')));
   } else if(currentMarketFilter === 'usd'){
     filtered = jobs.filter(j => !(j.geo === 'brasil' || (j.pay && j.pay.includes('R$'))));
@@ -456,7 +469,7 @@ function renderJobsLive(){
     filtered = jobs.filter(j => {
       const r = (j.role||'').toLowerCase();
       const n = (j.note||'').toLowerCase();
-      return r.includes('grc') || r.includes('risk') || r.includes('compliance') || r.includes('audit') || n.includes('grc');
+      return r.includes('grc') || r.includes('risk') || r.includes('compliance') || r.includes('audit') || r.includes('governança') || n.includes('grc');
     });
   } else if(currentMarketFilter === 'entry'){
     filtered = jobs.filter(j => j.level === 'entry' || j.level === 'estágio');
@@ -470,7 +483,7 @@ function renderJobsLive(){
     if(t.startsWith("⭐")) return 1;              // patrocina visto
     if(t.startsWith("falta")) return 2;          // encaixa mas falta cert
     if(t.startsWith("🎓")) return 3;             // via MS jan/2027
-    if(t.startsWith("🎯")) return 4;             // meta 1-2 anos
+    if(t.startsWith("🎯")) return 4;             // meta/foco
     if(t.startsWith("👑")) return 5;
     return 6;                                     // EXCLUÍDA por último
   };
@@ -485,13 +498,15 @@ function renderJobsLive(){
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Situação</th>'+
     '<th style="text-align:center;border-bottom:1px solid var(--line);padding:6px">Copiloto IA</th></tr>'+
     shown.map(({j,fit})=>{
+      const isNew = j.added_date && ((new Date() - new Date(j.added_date)) / (1000 * 60 * 60 * 24) <= 7);
+      const newBadge = isNew ? ' <span class="pill" style="background:#1e3a8a;color:#93c5fd;border:1px solid #3b82f6;font-size:10px;padding:1px 6px">✨ NOVA</span>' : '';
       const spo = j.sponsor ? ' <span class="pill free">sponsor</span>' : '';
       // link clicável direto na vaga (100% verificado)
       const link = j.url ? `<a href="${j.url}" target="_blank" rel="noopener noreferrer">${j.role}</a>` : `<b>${j.role}</b>`;
       const rawIdx = (window.JOBS_LIVE || []).indexOf(j);
       return `<tr title="${(j.note||'').replace(/"/g,'')}">
         <td style="padding:6px;border-bottom:1px solid var(--line)">
-          ${link}${spo}
+          ${link}${newBadge}${spo}
           <div style="margin-top:3px;font-size:11px">
             <span style="color:var(--acc)" title="Proximidade do teu destino final">🎯 Destino: <b>${j.dest||4}/5</b></span> · 
             <span style="color:#60a5fa" title="Adaptabilidade à jornada de estudo">📚 Estudo: <b>${j.study||4}/5</b></span>

@@ -1,14 +1,14 @@
 [
   {
-    "id": "orbite-grc-jr",
-    "role": "Analista de GRC Júnior — Governança, Riscos e Segurança",
-    "company": "Orbite Consulting",
+    "id": "trade-tech-grc",
+    "role": "Analista de Segurança da Informação — Governança e Riscos",
+    "company": "Grupo Trade Technology",
     "loc": "Remoto (Brasil)",
-    "pay": "R$ 5.000–7.000 (CLT)",
+    "pay": "~R$ 5.000–7.000 (CLT)",
     "level": "entry",
-    "source": "Orbite ATS",
+    "source": "Gupy",
     "geo": "brasil",
-    "url": "https://news.orbite-ats.com.br/carreiras/046cb3ce05c78d7",
+    "url": "https://tradetechnology.gupy.io/jobs/12641625?jobBoardSource=gupy_public_page",
     "req": [
       "secplus"
     ],
@@ -17,19 +17,20 @@
     "student": false,
     "dest": 5,
     "study": 5,
-    "tasks": "Organizar políticas, controles e evidências de segurança da informação; apoiar levantamentos de riscos e planos de ação; conferir questionários e requisitos com áreas internas.",
-    "note": "⭐ VAGA GRC JÚNIOR CLT (BRASIL): 100% remota. Salário R$ 5k-7k CLT. Transição ideal: aproveita seu histórico investigativo, documental e procedural da PMMG para auditoria e conformidade."
+    "tasks": "Apoio às atividades de Governança de Segurança da Informação, privacidade, gestão de riscos, adequação à LGPD e frameworks ISO 27001, NIST e COBIT.",
+    "note": "⭐ VAGA DE ENTRADA / JÚNIOR GRC BRASIL: 100% remota na Gupy. Foco em políticas, privacidade, evidências e questionários.",
+    "added_date": "2026-11-02"
   },
   {
-    "id": "softexpert-grc-jr",
-    "role": "Analista GRC Júnior - Segurança da Informação",
-    "company": "SoftExpert",
+    "id": "funcional-grc-gov",
+    "role": "Analista de Governança de Segurança da Informação (GRC)",
+    "company": "Funcional Health Tech",
     "loc": "Remoto (Brasil)",
-    "pay": "~R$ 4.500–6.500 (CLT)",
-    "level": "entry",
-    "source": "SoftExpert",
+    "pay": "~R$ 6.000–8.000 (CLT)",
+    "level": "pleno",
+    "source": "Gupy",
     "geo": "brasil",
-    "url": "https://www.techjobs.space/vagas/analista-grc-junior-seguranca-da-informacao-670a24bb20",
+    "url": "https://funcionalhealthtech.gupy.io/jobs/12694404?jobBoardSource=gupy_public_page",
     "req": [
       "secplus"
     ],
@@ -38,8 +39,31 @@
     "student": false,
     "dest": 5,
     "study": 4,
-    "tasks": "Acompanhar riscos e controles de segurança, coletar e analisar evidências para auditorias internas/externas, testar controles e atualizar políticas e normas.",
-    "note": "⭐ GRC JÚNIOR NA SOFTEXPERT: Uma das líderes de mercado em software de governança e compliance no Brasil. Excelente porta de entrada."
+    "tasks": "Apoiar a governança de segurança da informação, acompanhamento de auditorias internas/externas, políticas de segurança, gestão de riscos e alinhamento com ISO/IEC 27001 e CIS Controls.",
+    "note": "⭐ VAGA GRC / GOVERNANÇA DE SEGURANÇA (BRASIL CLT): 100% remota na Gupy. Foco em conformidade, auditoria e controles CIS.",
+    "added_date": "2026-11-02"
+  },
+  {
+    "id": "modular-dtc-sec-grc",
+    "role": "Analista de Segurança da Informação (GRC & Riscos)",
+    "company": "Modular Data Centers",
+    "loc": "Remoto (Brasil)",
+    "pay": "~R$ 5.500–7.500 (CLT)",
+    "level": "pleno",
+    "source": "Gupy",
+    "geo": "brasil",
+    "url": "https://modulardtc.gupy.io/jobs/12643896?jobBoardSource=gupy_public_page",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Mapeamento e gestão de riscos em segurança da informação, auditorias de conformidade (ISO 27001, LGPD, NIST) e resposta a questionários de clientes e fornecedores.",
+    "note": "⭐ GRC EM INFRAESTRUTURA CRÍTICA: 100% remoto nacional CLT na Gupy. Trabalho direto com normas NIST e ISO 27001.",
+    "added_date": "2026-11-02"
   },
   {
     "id": "flintworks-ai-sec-jr",
@@ -60,7 +84,8 @@
     "dest": 4,
     "study": 5,
     "tasks": "Monitoramento de incidentes SOC Tier 1, triagem de alertas, investigação de anomalias e análise de vulnerabilidades em sistemas de IA.",
-    "note": "⭐ BANCO DE TALENTOS SOC TIER 1 + IA: Aberto para residentes no Brasil (0-2 anos). Altíssimo alinhamento com seu perfil híbrido de IA e Cibersegurança."
+    "note": "⭐ BANCO DE TALENTOS SOC TIER 1 + IA: Aberto para residentes no Brasil (0-2 anos). Altíssimo alinhamento com seu perfil híbrido de IA e Cibersegurança.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "wrike-sec-analyst",
@@ -68,7 +93,7 @@
     "company": "Wrike",
     "loc": "Remote (Worldwide / Brasil)",
     "pay": "~US$ 60k–85k (Contractor)",
-    "level": "pleno",
+    "level": "entry",
     "source": "WeWorkRemotely / Greenhouse",
     "geo": "worldwide",
     "url": "https://weworkremotely.com/remote-jobs/wrike-business-systems-security-analyst",
@@ -80,50 +105,9 @@
     "student": false,
     "dest": 5,
     "study": 4,
-    "tasks": "Gerenciar segurança e governança de dados em sistemas SaaS (Salesforce, Marketo, Salesloft), auditar permissões e acessos, e garantir conformidade com normas de privacidade (GDPR, CCPA).",
-    "note": "⭐ GRC + SAAS SECURITY: Contratação aberta no Brasil (código BR na ficha oficial). Pede Security+, ISC2 CC ou equivalente. Excelente para transição procedural/investigativa."
-  },
-  {
-    "id": "spread-sec-jr",
-    "role": "Analista de Segurança da Informação Júnior",
-    "company": "Spread Tecnologia",
-    "loc": "Remoto (Brasil)",
-    "pay": "~R$ 4.000–5.500 (CLT)",
-    "level": "entry",
-    "source": "Gupy Spread",
-    "geo": "brasil",
-    "url": "https://spread.gupy.io/",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 4,
-    "study": 4,
-    "tasks": "Monitoramento de alertas em SIEM, observabilidade de segurança, resposta inicial a incidentes e triagem de vulnerabilidades.",
-    "note": "Vaga nacional CLT 100% remota em consultoria de tecnologia."
-  },
-  {
-    "id": "stravorus-jr-pentest",
-    "role": "Junior Penetration Tester / Security Report Writer",
-    "company": "Stravorus",
-    "loc": "Remote (Global / BR)",
-    "pay": "~US$ 35-50k (Contractor)",
-    "level": "entry",
-    "source": "Direct Email",
-    "geo": "worldwide",
-    "url": "https://www.stravorus.com/careers",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 4,
-    "tasks": "Testes de invasão em aplicações web/APIs, análise de vulnerabilidades e elaboração minuciosa de relatórios executivos em inglês.",
-    "note": "⭐ BOUTIQUE GLOBAL: Aceita candidatos do Brasil via contractor. Envio direto de CV e portfólio para careers@stravorus.com."
+    "tasks": "Gerenciar segurança e governança de dados em sistemas SaaS (Salesforce, Marketo), auditar permissões e acessos, e garantir conformidade com normas de privacidade (GDPR, CCPA).",
+    "note": "⭐ GRC + SAAS SECURITY: Contratação aberta no Brasil (código BR na ficha oficial). Pede foco em competência em governança SaaS e Salesforce, sem exigência rígida de tempo prévio.",
+    "added_date": "2026-11-02"
   },
   {
     "id": "can-assoc-linux",
@@ -145,7 +129,8 @@
     "dest": 5,
     "study": 5,
     "tasks": "Acessar servidores remotos via terminal SSH, investigar logs do Ubuntu (/var/log, journalctl), diagnosticar falhas de rede/serviços e criar scripts de automação em Bash.",
-    "note": "⭐ VAGA DE ENTRADA OFICIAL (WORLDWIDE): suporte Linux oficial (Ubuntu). 'Associate' = cargo de início de carreira. Teu Cisco Linux + Security+ te qualificam perfeitamente. Contratam do Brasil direto."
+    "note": "⭐ VAGA DE ENTRADA OFICIAL (WORLDWIDE): suporte Linux oficial (Ubuntu). 'Associate' = cargo de início de carreira. Teu Cisco Linux + Security+ te qualificam perfeitamente. Contratam do Brasil direto.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-grad-sw",
@@ -167,7 +152,8 @@
     "dest": 4,
     "study": 5,
     "tasks": "Receber treinamento técnico pago pela Canonical, corrigir pequenos bugs no sistema, desenvolver módulos em Python/Linux e parear com desenvolvedores seniores.",
-    "note": "⭐ PROGRAMA GRADUATE OFICIAL: Canonical contrata formados/migrantes de carreira do Brasil com treinamento pago. Sem barreira de experiência prévia."
+    "note": "⭐ PROGRAMA GRADUATE OFICIAL: Canonical contrata formados/migrantes de carreira do Brasil com treinamento pago. Sem barreira de experiência prévia.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-grad-csm",
@@ -188,26 +174,8 @@
     "dest": 3,
     "study": 4,
     "tasks": "Acompanhar empresas clientes que usam Ubuntu, fazer chamadas de relacionamento, mapear dúvidas técnicas e encaminhar demandas para o time de engenharia.",
-    "note": "⭐ ENTRADA WORLDWIDE: sucesso do cliente e suporte operacional em tecnologia. 'Graduate' = sem barreira de experiência sênior."
-  },
-  {
-    "id": "can-grad-sdr",
-    "role": "Graduate Sales Development Representative",
-    "company": "Canonical",
-    "loc": "Home based - Worldwide",
-    "pay": "~US$40-50k + comissão (local)",
-    "level": "entry",
-    "source": "Greenhouse",
-    "geo": "worldwide",
-    "url": "https://job-boards.greenhouse.io/canonical/jobs/5915299",
-    "req": [],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 3,
-    "study": 4,
-    "tasks": "Realizar contato inicial com empresas interessadas em tecnologia aberta, qualificar necessidades de infraestrutura e agendar reuniões para os engenheiros.",
-    "note": "⭐ ENTRADA SEM REQUISITO PRÉVIO: treinamento intensivo pago pela Canonical com contratação remota do Brasil em regime CLT ou contrato internacional."
+    "note": "⭐ ENTRADA WORLDWIDE: sucesso do cliente e suporte operacional em tecnologia. 'Graduate' = sem barreira de experiência sênior.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-junior-kernel",
@@ -228,7 +196,8 @@
     "dest": 5,
     "study": 4,
     "tasks": "Investigar falhas e bugs no núcleo (kernel) do sistema operacional, compilar versões de teste, analisar logs de travamento e colaborar no código aberto do Ubuntu.",
-    "note": "Júnior de verdade, 100% Worldwide. Foco em desenvolvimento e suporte ao kernel Ubuntu."
+    "note": "Júnior de verdade, 100% Worldwide. Foco em desenvolvimento e suporte ao kernel Ubuntu.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-junior-ubuntu",
@@ -250,7 +219,8 @@
     "dest": 5,
     "study": 5,
     "tasks": "Acessar servidores Linux via terminal (SSH), analisar arquivos de log do sistema (/var/log), diagnosticar falhas de rede/serviços e criar scripts de automação em Bash/Python.",
-    "note": "⭐ Canonical (Ubuntu) — Entrada oficial / suporte Linux global contratando no Brasil."
+    "note": "⭐ Canonical (Ubuntu) — Entrada oficial / suporte Linux global contratando no Brasil.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-py-grad",
@@ -272,29 +242,8 @@
     "dest": 4,
     "study": 5,
     "tasks": "Escrever e testar código Python para serviços de nuvem da Canonical, integrar APIs, criar testes automatizados e receber mentoria contínua durante o trabalho.",
-    "note": "⭐ GRADUATE PYTHON & CLOUD: perfeito para quem completou Python Essentials e busca desenvolvimento em nuvem sem barreira de experiência prévia."
-  },
-  {
-    "id": "can-sales-entry",
-    "role": "Ubuntu Sales Engineer (Entry-Level)",
-    "company": "Canonical",
-    "loc": "Home based - Worldwide",
-    "pay": "~US$50-70k (local)",
-    "level": "entry",
-    "source": "Greenhouse",
-    "geo": "worldwide",
-    "url": "https://job-boards.greenhouse.io/canonical/jobs/5643282",
-    "req": [
-      "linux",
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 4,
-    "study": 4,
-    "tasks": "Fazer reuniões remotas com empresas clientes, demonstrar o uso do Ubuntu Server e ferramentas de nuvem, e tirar dúvidas sobre segurança e suporte corporativo.",
-    "note": "⭐ ENTRY-LEVEL OFICIAL: Engenheiro de vendas/soluções técnicas para Ubuntu. Suporte a clientes corporativos em Linux sem necessidade de experiência sênior."
+    "note": "⭐ GRADUATE PYTHON & CLOUD: perfeito para quem completou Python Essentials e busca desenvolvimento em nuvem sem barreira de experiência prévia.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "oneleet-pentest-coord",
@@ -315,7 +264,8 @@
     "dest": 5,
     "study": 5,
     "tasks": "Coordenar escopos de testes de intrusão (pentest) com clientes, organizar cronogramas dos hackers éticos e acompanhar relatórios de vulnerabilidades.",
-    "note": "⭐ COORDENAÇÃO DE PENTEST ENTRY: Oneleet contrata no Brasil/LATAM. Ótima porta de entrada no ecossistema de pentest e segurança ofensiva."
+    "note": "⭐ COORDENAÇÃO DE PENTEST ENTRY: Oneleet contrata no Brasil/LATAM. Ótima porta de entrada no ecossistema de pentest e segurança ofensiva.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "welo-scout",
@@ -334,7 +284,8 @@
     "dest": 2,
     "study": 5,
     "tasks": "Revisar amostras de dados e qualidade de buscas em português, preencher formulários de auditoria de dados e validar aderência às diretrizes da empresa.",
-    "note": "Vaga júnior em português para empresa estrangeira: controle de qualidade de dados. Entrada imediata com contrato internacional."
+    "note": "Vaga júnior em português para empresa estrangeira: controle de qualidade de dados. Entrada imediata com contrato internacional.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "oneleet-assoc-grc",
@@ -355,7 +306,8 @@
     "dest": 5,
     "study": 5,
     "tasks": "Revisar evidências de controles (SOC 2, ISO 27001), auditar conformidade de clientes antes da auditoria externa e apoiar consultorias técnicas de segurança.",
-    "note": "⭐ GRC & AUDITORIA LATAM: Contratação direta no Brasil/LATAM. Pede 3+ anos em segurança, auditoria ou suporte técnico adjacente. Gestão de controles SOC 2 e ISO 27001."
+    "note": "⭐ GRC & AUDITORIA LATAM: Contratação direta no Brasil/LATAM. Pede 3+ anos em segurança, auditoria ou suporte técnico adjacente. Gestão de controles SOC 2 e ISO 27001.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "oneleet-spm-latam",
@@ -376,7 +328,8 @@
     "dest": 5,
     "study": 4,
     "tasks": "Gerenciar o ciclo de vida de conformidade SOC 2 / ISO 27001 de clientes da América Latina, alinhar auditorias e validar testes de segurança.",
-    "note": "⭐ VAGA DEDICADA LATAM: Vaga oficial da Oneleet especificamente voltada para quem está na América Latina/Brasil!"
+    "note": "⭐ VAGA DEDICADA LATAM: Vaga oficial da Oneleet especificamente voltada para quem está na América Latina/Brasil!",
+    "added_date": "2026-10-25"
   },
   {
     "id": "oneleet-supply-chain",
@@ -397,7 +350,8 @@
     "dest": 4,
     "study": 5,
     "tasks": "Avaliar riscos de segurança de fornecedores e parceiros (TPRM), analisar questionários de segurança e gerenciar conformidade de terceiros.",
-    "note": "⭐ GRC & RISCO DE TERCEIROS: análise de risco em fornecedores em plataforma de cibersegurança moderna."
+    "note": "⭐ GRC & RISCO DE TERCEIROS: análise de risco em fornecedores em plataforma de cibersegurança moderna.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-auditor",
@@ -418,7 +372,8 @@
     "dest": 4,
     "study": 5,
     "tasks": "Auditar processos operacionais e de segurança da empresa, checar conformidade com normas internas e redigir relatórios técnicos com rigor investigativo.",
-    "note": "⭐ GRC / AUDITORIA: casa direto com teu rigor investigativo e documental. Auditoria interna e conformidade de processos em empresa global de tecnologia."
+    "note": "⭐ GRC / AUDITORIA: casa direto com teu rigor investigativo e documental. Auditoria interna e conformidade de processos em empresa global de tecnologia.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-sec-risk",
@@ -439,7 +394,8 @@
     "dest": 5,
     "study": 4,
     "tasks": "Mapear riscos cibernéticos na infraestrutura Ubuntu, conduzir avaliações de impacto e construir matrizes de risco para liderança.",
-    "note": "⭐ GESTÃO DE RISCO DE SEGURANÇA: foco direto em governança e risco cibernético (alinhado a Qualys TruRisk e ISO 27005)."
+    "note": "⭐ GESTÃO DE RISCO DE SEGURANÇA: foco direto em governança e risco cibernético (alinhado a Qualys TruRisk e ISO 27005).",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-sec-sw",
@@ -461,7 +417,8 @@
     "dest": 5,
     "study": 4,
     "tasks": "Desenvolver ferramentas de segurança interna, auditar código do Ubuntu e aplicar patches de segurança em pacotes oficiais.",
-    "note": "Engenharia de segurança em código aberto e Linux Ubuntu."
+    "note": "Engenharia de segurança em código aberto e Linux Ubuntu.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-cloud-supp",
@@ -483,7 +440,8 @@
     "dest": 4,
     "study": 4,
     "tasks": "Resolver chamados de clientes sobre erros de infraestrutura em nuvem (OpenStack, Kubernetes), diagnosticar falhas e garantir alta disponibilidade.",
-    "note": "Suporte a clientes corporativos em infraestrutura cloud e Linux."
+    "note": "Suporte a clientes corporativos em infraestrutura cloud e Linux.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-sw-supp",
@@ -505,7 +463,8 @@
     "dest": 4,
     "study": 4,
     "tasks": "Analisar chamados técnicos avançados de empresas clientes, reproduzir falhas em laboratório e colaborar com os desenvolvedores na solução.",
-    "note": "Suporte técnico de software em nível corporativo."
+    "note": "Suporte técnico de software em nível corporativo.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "can-sust-ops",
@@ -527,7 +486,8 @@
     "dest": 4,
     "study": 4,
     "tasks": "Manter a sustentação operacional de sistemas distribuídos e monitorar processos internos de engenharia.",
-    "note": "Operações e sustentação técnica em escala global."
+    "note": "Operações e sustentação técnica em escala global.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "supabase-grc",
@@ -548,7 +508,8 @@
     "dest": 5,
     "study": 5,
     "tasks": "Conduzir auditorias contínuas, revisar evidências de conformidade SOC 2 e ISO 27001 e mapear riscos de segurança na plataforma em nuvem.",
-    "note": "⭐ VAGA DIRETA DE GRC: link direto da vaga oficial na Supabase. Governança e auditoria de controles."
+    "note": "⭐ VAGA DIRETA DE GRC: link direto da vaga oficial na Supabase. Governança e auditoria de controles.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "supabase-supp",
@@ -570,7 +531,8 @@
     "dest": 4,
     "study": 4,
     "tasks": "Triar chamados de suporte técnico de desenvolvedores globais, investigar logs de erro de servidores em nuvem, documentar soluções e encaminhar bugs para a engenharia.",
-    "note": "SUPORTE PLENO (3+ ANOS): suporte técnico em nuvem e banco de dados. Exige 3+ anos de experiência prévia."
+    "note": "SUPORTE PLENO (3+ ANOS): suporte técnico em nuvem e banco de dados. Exige 3+ anos de experiência prévia.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "supabase-db-support",
@@ -592,7 +554,8 @@
     "dest": 4,
     "study": 4,
     "tasks": "Atender chamados de desenvolvedores com erros no banco de dados Postgres, analisar consultas lentas, verificar permissões e diagnosticar problemas de conexão.",
-    "note": "SUPORTE SÊNIOR (7+ ANOS): suporte especializado em Postgres. Exige 7+ anos de experiência técnica comprovada."
+    "note": "SUPORTE SÊNIOR (7+ ANOS): suporte especializado em Postgres. Exige 7+ anos de experiência técnica comprovada.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "supabase-sec-plat",
@@ -614,7 +577,8 @@
     "dest": 5,
     "study": 4,
     "tasks": "Blindar a infraestrutura de computação e redes em nuvem da Supabase, auditar configurações e monitorar postura de segurança da plataforma.",
-    "note": "Engenharia de segurança de plataforma em nuvem na Supabase."
+    "note": "Engenharia de segurança de plataforma em nuvem na Supabase.",
+    "added_date": "2026-10-25"
   },
   {
     "id": "pavago-risk",
@@ -635,27 +599,7 @@
     "dest": 4,
     "study": 5,
     "tasks": "Mapear matrizes de risco operacional, fraude e auditoria em fintech/crypto.",
-    "note": "Matrizes de risco operacional, fraude e auditoria em fintech/crypto."
-  },
-  {
-    "id": "tremendous-head",
-    "role": "Head of Security (First Security Hire)",
-    "company": "Tremendous",
-    "loc": "Remoto",
-    "pay": "US$250-330k",
-    "level": "senior",
-    "source": "Ashby",
-    "geo": "worldwide",
-    "url": "https://jobs.ashbyhq.com/tremendous/8cf03f9a-d789-4aa5-9f8f-48960a3b66bc",
-    "req": [
-      "cism"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 3,
-    "tasks": "Definir a arquitetura completa de segurança da informação, conduzir auditorias de conformidade e liderar a equipe de segurança.",
-    "note": "🏆 DESTINO 5+ ANOS: Liderança total da postura de segurança de fintech global com bilhões em payouts. Link direto oficial."
+    "note": "Matrizes de risco operacional, fraude e auditoria em fintech/crypto.",
+    "added_date": "2026-10-25"
   }
 ]
