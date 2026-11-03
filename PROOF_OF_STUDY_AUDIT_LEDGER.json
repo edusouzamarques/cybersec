@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "title": "CompTIA Security+ SY0-701 & GRC Study & Mastery Cryptographic Audit Ledger",
+    "candidate": {
+      "name": "Eduardo de Souza Marques",
+      "email_domain": "zemark.dev",
+      "github": "https://github.com/edusouzamarques/cybersec",
+      "canonical_url": "https://edusouzamarques.github.io/cybersec/",
+      "student_id": "ESM-SECPLUS-100PCT-20261102"
+    },
+    "certification_target": "CompTIA Security+ SY0-701 & GRC Analyst",
+    "curriculum_version": "v5.3 MESTRE (120 Aulas / 1.200 Questões Primárias)",
+    "verification_timestamp_utc": "2026-11-03T00:02:27.418876+00:00",
+    "completion_status": "100% COMPLETED & VERIFIED",
+    "master_merkle_root_sha256": "feef0a3c2410238c6c5daf883716f96812dc0941f9ede7818a8183f048b3d597"
+  },
+  "curriculum_metrics": {
+    "total_lessons": 120,
+    "total_questions_in_bank": 2400,
+    "primary_critical_thinking_questions": 1200,
+    "domains_covered": 5,
+    "total_hours_estimated": "75+ hours of deliberate technical practice & scenario analysis"
+  },
+  "domain_merkle_branches": {
+    "0": {
+      "domain_name": "Domain 0 — Exam Strategy & Preparation",
+      "lessons_count": 1,
+      "branch_hash": "9e619dd3c5be27027c816be3c4cb8caa01df9a75534a0dea24580b84a65bab2f"
+    },
+    "1": {
+      "domain_name": "Domain 1 — General Security Concepts (12%)",
+      "lessons_count": 17,
+      "branch_hash": "c7e47fb76c86939b14d418fb24a55fd4e0ccf586157d73afeecd6f32d3da8433"
+    },
+    "2": {
+      "domain_name": "Domain 2 — Threats, Vulnerabilities & Mitigations (22%)",
+      "lessons_count": 38,
+      "branch_hash": "55f79a7a1224743ebc5064426192d3a87d23fcb26faf834ce8e125c61c22ff32"
+    },
+    "3": {
+      "domain_name": "Domain 3 — Security Architecture (18%)",
+      "lessons_count": 18,
+      "branch_hash": "68845554dac17368579620a117e487f59f875cf83ec3da2fb91088ee1aa84347"
+    },
+    "4": {
+      "domain_name": "Domain 4 — Security Operations (28%)",
+      "lessons_count": 29,
+      "branch_hash": "40eb05eb0c2f7034fc9b7d0909d0793b6ea178285420a72f35a945c4bd0448a9"
+    },
+    "5": {
+      "domain_name": "Domain 5 — Security Program Management & Oversight (20%)",
+      "lessons_count": 17,
+      "branch_hash": "9d0d3cab917c41761000bbca5dc2595cc0aa865c6c85833458539a0d946e001f"
+    }
+  },
+  "document_integrity": {
+    "Guia-CyberSec-Eduardo.pdf": {
+      "path": "Guia-CyberSec-Eduardo.pdf",
+      "sha256": "5f1397a5ab4e3c07a96423e0d19d4ccde8f8b04d4924f51d98d31b7339284d06",
+      "size_bytes": 197901
+    },
+    "Overview-Certificados-Eduardo.pdf": {
+      "path": "Overview-Certificados-Eduardo.pdf",
+      "sha256": "f4d21cccef070c5574b973133220d303509ce3c0d33b7f0d7082d509009966d0",
+      "size_bytes": 558268
+    },
+    "Eduardo_Souza_Marques_AI_Evaluation_Specialist.pdf": {
+      "path": "Eduardo_Souza_Marques_AI_Evaluation_Specialist.pdf",
+      "sha256": "8164ee66e2cbfac0473a2dd0a715f43e2310ebdad6b2c980ae05794f8b9a3719",
+      "size_bytes": 431097
+    },
+    "CERTIFICADO_CONCLUSAO_EDUARDO_CYBERSEC_GRC.html": {
+      "path": "CERTIFICADO_CONCLUSAO_EDUARDO_CYBERSEC_GRC.html",
+      "sha256": "426d878b712676cb51e1fcc3ce7efd55a250a443f4dc3a045b39d6f7e04ff0b9",
+      "size_bytes": 9433
+    },
+    "MANUAL_DE_CAMPO_OURO_CISO_GRC_EXECUTIVE.md": {
+      "path": "MANUAL_DE_CAMPO_OURO_CISO_GRC_EXECUTIVE.md",
+      "sha256": "442030d61d754075112b87081be0edb612cc5f31703fd0ea9f4c03f9aed12005",
+      "size_bytes": 8067
+    }
+  },
+  "verification_instructions": {
+    "verify_merkle": "Compute sha256 of canonical seed using standard SHA-256 tools (shasum -a 256).",
+    "verify_documents": "Run 'shasum -a 256 <filename>' on any document to verify matching SHA-256.",
+    "git_commit_verification": "Review git commit history on github.com/edusouzamarques/cybersec for immutable provenance."
+  }
+}

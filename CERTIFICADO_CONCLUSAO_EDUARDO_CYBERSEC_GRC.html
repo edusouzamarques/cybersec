@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Certificado de Conclusão e Excelência — Eduardo de Souza Marques</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+  
+  :root {
+    --gold: #d4af37;
+    --gold-light: #f3e5ab;
+    --gold-dark: #aa7c11;
+    --bg: #0a0e14;
+    --panel: #111722;
+    --border: #223044;
+    --text: #e6edf3;
+    --dim: #8b98a5;
+    --acc: #3ddc97;
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #06090e;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  
+  .certificate-wrapper {
+    max-width: 960px;
+    width: 100%;
+    background: linear-gradient(145deg, #0d131d, #080c12);
+    border: 3px solid var(--gold);
+    border-radius: 16px;
+    padding: 50px 60px;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.25);
+    overflow: hidden;
+  }
+  
+  .inner-border {
+    position: absolute;
+    top: 14px; left: 14px; right: 14px; bottom: 14px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+  
+  .watermark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 320px;
+    color: rgba(212, 175, 55, 0.025);
+    font-family: 'Cinzel', serif;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+  
+  .content { position: relative; z-index: 1; text-align: center; }
+  
+  .cert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    padding-bottom: 24px;
+    margin-bottom: 30px;
+  }
+  
+  .seal {
+    width: 72px; height: 72px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  
+  .cert-title-small {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 4px;
+    font-size: 13px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+  }
+  
+  .cert-main-title {
+    font-family: 'Cinzel', serif;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    background: linear-gradient(180deg, #ffffff, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 12px 0 6px;
+  }
+  
+  .cert-sub {
+    font-size: 14px;
+    color: var(--dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .cert-presented {
+    margin: 32px 0 10px;
+    font-size: 15px;
+    color: var(--dim);
+    font-style: italic;
+  }
+  
+  .recipient-name {
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--gold);
+    display: inline-block;
+    padding: 0 30px 8px;
+    margin-bottom: 24px;
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+  }
+  
+  .cert-body {
+    max-width: 780px;
+    margin: 0 auto;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #c9d1d9;
+    text-align: center;
+  }
+  
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 30px 0;
+    text-align: left;
+  }
+  
+  .mod-card {
+    background: rgba(17, 23, 34, 0.85);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  
+  .mod-card b {
+    display: block;
+    color: var(--gold-light);
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  
+  .mod-card span {
+    font-size: 11.5px;
+    color: var(--dim);
+    line-height: 1.4;
+    display: block;
+  }
+  
+  .cert-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+  }
+  
+  .sign-block {
+    text-align: center;
+    min-width: 200px;
+  }
+  
+  .sign-line {
+    border-bottom: 1px solid var(--gold);
+    margin-bottom: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--gold-light);
+    padding-bottom: 4px;
+  }
+  
+  .sign-label {
+    font-size: 11px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .verification-hash {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: #4ade80;
+    background: rgba(61, 220, 151, 0.08);
+    border: 1px solid rgba(61, 220, 151, 0.25);
+    border-radius: 6px;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  .action-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 16px;
+  }
+  
+  .btn {
+    background: linear-gradient(180deg, #1e3a2c, #13241b);
+    color: var(--acc);
+    border: 1px solid var(--acc);
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  
+  .btn:hover {
+    background: var(--acc);
+    color: #04150d;
+    box-shadow: 0 0 20px rgba(61, 220, 151, 0.4);
+  }
+  
+  @media print {
+    body { background: #fff; padding: 0; color: #000; }
+    .certificate-wrapper { border-color: #000; box-shadow: none; background: #fff; color: #000; }
+    .cert-main-title { -webkit-text-fill-color: #000; }
+    .recipient-name { color: #000; border-bottom-color: #000; }
+    .action-buttons { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="certificate-wrapper">
+  <div class="inner-border"></div>
+  <div class="watermark">🛡️</div>
+
+  <div class="content">
+    <div class="cert-header">
+      <div style="text-align:left">
+        <div class="cert-title-small">Programa de Alta Performance em Defesa & Governança</div>
+        <div style="font-size:11px;color:var(--dim);margin-top:2px">Série de Formação Avançada — CyberSec & GRC</div>
+      </div>
+      <div class="seal">🛡️</div>
+      <div style="text-align:right">
+        <div class="cert-title-small">Código de Registro</div>
+        <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--gold)">ESM-CYBER-100-MASTER</div>
+      </div>
+    </div>
+
+    <div class="cert-main-title">DIPLOMA DE EXCELÊNCIA & CONCLUSÃO INTEGRAL</div>
+    <div class="cert-sub">Certificação de Domínio Teórico, Arquitetural e Operacional</div>
+
+    <div class="cert-presented">Certificamos solenemente que</div>
+
+    <div class="recipient-name">Eduardo de Souza Marques</div>
+
+    <div class="cert-body">
+      concluiu com êxito irrestrito <b>100% da Carga Horária Curricular</b> correspondente às <b>120 Aulas Especializadas</b> do programa avançado de capacitação em <b>Cibersegurança e Governança, Riscos e Conformidade (GRC)</b>, superando todas as avaliações de retenção, simulados práticos e os <b>10 Desafios Primários de Raciocínio Crítico & Investigativo</b> alinhados aos mais rigorosos padrões da indústria global.
+    </div>
+
+    <div class="modules-grid">
+      <div class="mod-card">
+        <b>Domínio 1 · Conceitos Gerais</b>
+        <span>Pilares CIA, Controles AAA, Criptografia Pós-Quântica e Zero Trust Architecture (NIST SP 800-207).</span>
+      </div>
+      <div class="mod-card">
+        <b>Domínio 2 · Ameaças & Vetores</b>
+        <span>Mitre ATT&CK, Análise Forense de Engenharia Social, Malware Avançado e Cadeia de Suprimentos.</span>
+      </div>
+      <div class="mod-card">
+        <b>Domínio 3 · Arquitetura Segura</b>
+        <span>Hardening Linux/Cloud, Segmentação de Redes, Firewalls Stateful, WAF e Defesa em Profundidade.</span>
+      </div>
+      <div class="mod-card">
+        <b>Domínio 4 · Operações de SOC</b>
+        <span>SIEM/SOAR, Triagem de Incidentes (NIST SP 800-61r2), Triage de Logs e Resposta Ativa a Ameaças.</span>
+      </div>
+      <div class="mod-card">
+        <b>Domínio 5 · GRC & Auditoria</b>
+        <span>NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2 Type II, Matrizes de Risco Quantitativo (ALE = SLE × ARO).</span>
+      </div>
+      <div class="mod-card">
+        <b>Excelência Investigativa</b>
+        <span>Aplicação do rigor procedimental, persistência investigativa e integridade da evidência digital.</span>
+      </div>
+    </div>
+
+    <div class="cert-footer">
+      <div class="sign-block">
+        <div class="sign-line">ZEMARK CYBER DEFENSE LAB</div>
+        <div class="sign-label">Corpo Técnico de Engenharia & Curadoria</div>
+      </div>
+
+      <div class="verification-hash">
+        <div><b>STATUS:</b> VERIFICADO · 120/120 AULAS</div>
+        <div><b>DESAFIOS CRÍTICOS:</b> 10/10 RESOLVIDOS</div>
+        <div><b>HASH SHA-256:</b> 4c89a71b...e98d24</div>
+        <div><b>DATA DE EMISSÃO:</b> 02 de Novembro de 2026</div>
+      </div>
+
+      <div class="sign-block">
+        <div class="sign-line">EDUARDO DE SOUZA MARQUES</div>
+        <div class="sign-label">Profissional Certificado & Auditor GRC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-buttons">
+  <button class="btn" onclick="window.print()">🖨️ Imprimir / Salvar em PDF de Alta Qualidade</button>
+</div>
+
+</body>
+</html>
