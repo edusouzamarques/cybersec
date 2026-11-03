@@ -5,14 +5,14 @@
 **Canonical App:** [edusouzamarques.github.io/cybersec](https://edusouzamarques.github.io/cybersec/)  
 **Certification Standard:** **CompTIA Security+ SY0-701 & GRC Foundations**  
 **Completion Status:** `100% COMPLETE & CRYPTOGRAPHICALLY SIGNED`  
-**Audit Timestamp (UTC):** `2026-11-03T00:02:27.418876+00:00`  
+**Audit Timestamp (UTC):** `2026-11-03T00:51:50.110462+00:00`  
 **Verification ID:** `ESM-SECPLUS-100PCT-20261102`  
 
 ---
 
 ## 👑 Master Merkle Root Hash
 ```
-feef0a3c2410238c6c5daf883716f96812dc0941f9ede7818a8183f048b3d597
+488b3a0ef4a0d90d1005acc3a1c0693e1e437ea80d1e80928fcbbbe2d294451a
 ```
 > [!NOTE]
 > **Interviewer Verification Guarantee:** This cryptographic hash ties together the exact curriculum of all **120 video lessons**, **1,200 primary scenario questions**, companion technical guides, and executive battlecards. Any unauthorized alteration to questions, answers, or curriculum invalidates this root.
@@ -97,4 +97,4 @@ git log -n 1 --stat
 **Signed & Sealed:**  
 Eduardo de Souza Marques  
 *Cybersecurity Specialist & GRC Practitioner*  
-*Timestamp: 2026-11-03T00:02:27.418876+00:00*
+*Timestamp: 2026-11-03T00:51:50.110462+00:00*

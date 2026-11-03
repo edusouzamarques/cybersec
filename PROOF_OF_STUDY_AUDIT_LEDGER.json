@@ -10,9 +10,9 @@
     },
     "certification_target": "CompTIA Security+ SY0-701 & GRC Analyst",
     "curriculum_version": "v5.3 MESTRE (120 Aulas / 1.200 Questões Primárias)",
-    "verification_timestamp_utc": "2026-11-03T00:02:27.418876+00:00",
+    "verification_timestamp_utc": "2026-11-03T00:51:50.110462+00:00",
     "completion_status": "100% COMPLETED & VERIFIED",
-    "master_merkle_root_sha256": "feef0a3c2410238c6c5daf883716f96812dc0941f9ede7818a8183f048b3d597"
+    "master_merkle_root_sha256": "488b3a0ef4a0d90d1005acc3a1c0693e1e437ea80d1e80928fcbbbe2d294451a"
   },
   "curriculum_metrics": {
     "total_lessons": 120,
