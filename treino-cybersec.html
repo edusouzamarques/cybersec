@@ -3865,10 +3865,11 @@ function evalPbq4(){
 
     const name = PBQ_LANG === 'en' ? c.name_en : c.name_pt;
     const allPass = (catPass && typePass);
+    const catStr = (Array.isArray(c.cat) ? c.cat.join(" / ") : c.cat).toUpperCase();
 
     return {
-      text_en: `${name}: [${c.cat.toUpperCase()} / ${c.type.toUpperCase()}]`,
-      text_pt: `${name}: [${c.cat.toUpperCase()} / ${c.type.toUpperCase()}]`,
+      text_en: `${name}: [${catStr} / ${c.type.toUpperCase()}]`,
+      text_pt: `${name}: [${catStr} / ${c.type.toUpperCase()}]`,
       passed: allPass,
       detail: PBQ_LANG === 'en' ? 
         `Your selection: Category=${selCat || 'none'} (${catPass?'✓':'✕'}), Type=${selType || 'none'} (${typePass?'✓':'✕'})` :
