@@ -913,5 +913,49 @@
     "study": 4,
     "tasks": "Triagem, análise e contenção de incidentes de segurança na nuvem Microsoft (Defender, Sentinel, Entra ID). Equipe binacional Espanha-Suíça.",
     "note": "🇪🇸 EXCELÊNCIA MICROSOFT NA ESPANHA: Consultoria suíça com hub em Barcelona e opção 100% remoto na Espanha. Pilha moderna de Sentinel, Defender e Entra ID."
+  },
+  {
+    "id": "bending-spoons-sec-intern-spain",
+    "role": "Security Engineer Intern (Product & Cloud Security)",
+    "company": "Bending Spoons",
+    "loc": "Espanha (Remoto / Hub)",
+    "pay": "€ 2.500–3.500/mês (Bolsa de Elite Unicorn)",
+    "level": "entry",
+    "source": "LinkedIn #4486313788",
+    "geo": "spain",
+    "url": "https://www.linkedin.com/jobs/view/4486313788/",
+    "req": [
+      "secplus",
+      "linux",
+      "python"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Avaliação de postura de segurança, automação de controles em infraestrutura, testes de invasão e conformidade de privacidade em produtos de escala global (Evernote, WeTransfer).",
+    "note": "🦄 UNICÓRNIO EUROPEU DE ELITE: Dona do Evernote, WeTransfer e Splice. Processo seletivo focado em First Principles e raciocínio lógico (forte vantagem para especialista em avaliação de IA). Remuneração de ponta."
+  },
+  {
+    "id": "anco-soc-n1-barcelona",
+    "role": "Técnico/a de Soporte N1 de Ciberseguridad (Turno Nocturno)",
+    "company": "ANCO",
+    "loc": "Barcelona (Espanha)",
+    "pay": "Convenio Tecnológico + Plus Nocturno",
+    "level": "entry",
+    "source": "LinkedIn #4477676634",
+    "geo": "spain",
+    "url": "https://www.linkedin.com/jobs/view/4477676634/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Monitoramento de sistemas, análise de alertas de segurança, triagem de incidentes de phishing e malware, operação de SIEM e EDR/XDR no turno da noite.",
+    "note": "🇪🇸 PORTA DE ENTRADA N1 EM BARCELONA: Vaga oficial sem exigência de experiência prévia. O turno noturno tem concorrência muito mais baixa e paga adicional de nocturnidade."
   }
 ]
