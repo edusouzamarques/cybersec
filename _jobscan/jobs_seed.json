@@ -871,5 +871,47 @@
     "study": 5,
     "tasks": "Supervisão de conformidade com GDPR, CCPA, LGPD (Brasil), ISO 27001 e ISO 27701. Resposta a incidentes de vazamento e avaliação de impacto em projetos inovadores de IA e Machine Learning.",
     "note": "🇵🇹 PORTA DE OURO EM LISBOA: Centro de 9.700 pessoas do BNP Paribas. Vaga em equipe global de DPO com menção expressa à LGPD do Brasil e riscos de IA. Facilidade de visto/residência CPLP em Portugal."
+  },
+  {
+    "id": "match-profiler-grc-ai-portugal",
+    "role": "Consultor GRC & AI Governance (NIS2, DORA, NIST AI RMF)",
+    "company": "Match Profiler",
+    "loc": "Portugal (Híbrido / Remoto - 1x/mês Lisboa)",
+    "pay": "Contrato Consultoria IT Portugal",
+    "level": "entry",
+    "source": "LinkedIn #4482059340",
+    "geo": "portugal",
+    "url": "https://www.linkedin.com/jobs/view/4482059340/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Conformidade com ISO 27001, NIS2, DORA e NIST AI RMF. Auditorias de maturidade, análise de riscos e governança de IA Generativa. Relatórios executivos e políticas.",
+    "note": "🎯 ALVO DE ELITE EM PORTUGAL: Pede exatamente GRC + Inteligência Artificial Generativa + NIST AI RMF! Trabalho quase 100% remoto (apenas 1 ida mensal a Lisboa)."
+  },
+  {
+    "id": "isolutions-cyber-defense-spain",
+    "role": "Cyber Defense Analyst (Microsoft Sentinel, Defender, Entra ID)",
+    "company": "isolutions AG",
+    "loc": "Espanha (Barcelona ou 100% Remoto Espanha)",
+    "pay": "Contrato Indefinido + Viagem Anual à Suíça",
+    "level": "entry",
+    "source": "LinkedIn #4484662612",
+    "geo": "spain",
+    "url": "https://www.linkedin.com/jobs/view/4484662612/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Triagem, análise e contenção de incidentes de segurança na nuvem Microsoft (Defender, Sentinel, Entra ID). Equipe binacional Espanha-Suíça.",
+    "note": "🇪🇸 EXCELÊNCIA MICROSOFT NA ESPANHA: Consultoria suíça com hub em Barcelona e opção 100% remoto na Espanha. Pilha moderna de Sentinel, Defender e Entra ID."
   }
 ]
