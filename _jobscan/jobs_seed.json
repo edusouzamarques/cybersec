@@ -957,5 +957,91 @@
     "study": 4,
     "tasks": "Monitoramento de sistemas, análise de alertas de segurança, triagem de incidentes de phishing e malware, operação de SIEM e EDR/XDR no turno da noite.",
     "note": "🇪🇸 PORTA DE ENTRADA N1 EM BARCELONA: Vaga oficial sem exigência de experiência prévia. O turno noturno tem concorrência muito mais baixa e paga adicional de nocturnidade."
+  },
+  {
+    "id": "excelia-appsec-engineer-spain",
+    "role": "AppSec & DevSecOps Engineer Consultant (100% Remoto Espanha)",
+    "company": "Excelia",
+    "loc": "Espanha (100% Remoto)",
+    "pay": "Contrato Indefinido + Retribuição Flexível",
+    "level": "entry",
+    "source": "LinkedIn #4462216249",
+    "geo": "spain",
+    "url": "https://www.linkedin.com/jobs/view/4462216249/",
+    "req": [
+      "secplus",
+      "linux",
+      "python"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Integração de segurança em pipelines CI/CD (GitHub Actions), SAST/DAST, DefectDojo, OWASP Top 10 e automação em Python/Bash. 100% teletrabalho na Espanha.",
+    "note": "🛡️ APPSEC & DEVSECOPS 100% REMOTO: Encaixe perfeito com Python, Linux e gestão de vulnerabilidades. Opera DefectDojo e segurança no ciclo de desenvolvimento."
+  },
+  {
+    "id": "accenture-cloud-security-aws-madrid",
+    "role": "Cloud Security Consultant – AWS (NIST, CIS, ISO 27001)",
+    "company": "Accenture España",
+    "loc": "Madrid (Espanha)",
+    "pay": "Contrato Consultoria Big Tech Madrid",
+    "level": "entry",
+    "source": "LinkedIn #4477298241",
+    "geo": "spain",
+    "url": "https://www.linkedin.com/jobs/view/4477298241/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Arquitetura de segurança em AWS, controles de IAM, monitoramento e alinhamento com NIST, CIS e ISO 27001. Automação e consultoria para grandes clientes.",
+    "note": "☁️ ALINHAMENTO COM SEU AWS + GRC: Exige AWS Cloud Security + frameworks NIST/CIS/ISO 27001. Valoriza certificações de nuvem e segurança (Security+ e AWS)."
+  },
+  {
+    "id": "epi-company-risk-internal-control",
+    "role": "Risk and Internal Control Officer (European Payments Initiative)",
+    "company": "EPI Company",
+    "loc": "Madrid (Remote-First Espanha)",
+    "pay": "Pacote Fintech Europeia (Wero)",
+    "level": "entry",
+    "source": "LinkedIn #4482938514",
+    "geo": "spain",
+    "url": "https://www.linkedin.com/jobs/view/4482938514/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 4,
+    "tasks": "Fortalecimento do framework de risco e controles internos da carteira digital europeia Wero. Atuação nas 3 linhas de defesa e governança financeira.",
+    "note": "🇪🇺 FINTECH SOBERANA DA EUROPA: Criadora do Wero com suporte de 17 bancos europeus (BNP Paribas, Santander, Deutsche Bank). Modelo Remote-First na Espanha."
+  },
+  {
+    "id": "roche-risk-governance-intern-barcelona",
+    "role": "Risk & Governance Intern (Product Security & Privacy PSPO)",
+    "company": "Roche",
+    "loc": "Sant Cugat del Vallès / Barcelona (Espanha)",
+    "pay": "Bolsa Global Healthcare Giant",
+    "level": "entry",
+    "source": "LinkedIn #4473793932",
+    "geo": "spain",
+    "url": "https://www.linkedin.com/jobs/view/4473793932/",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 4,
+    "study": 4,
+    "tasks": "Conformidade e segurança em dispositivos médicos conectados e software em saúde. Gestão de riscos, conformidade GDPR e procedimentos globais na divisão PSPO.",
+    "note": "🏥 GIGANTE DA SAÚDE EM BARCELONA: Hub tecnológico global da Roche Diagnostics. Vaga de entrada para conformidade e segurança em produtos de saúde e GDPR."
   }
 ]
