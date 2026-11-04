@@ -379,15 +379,14 @@ function renderMarketFilters(){
   const el=document.getElementById("marketFilterBox"); if(!el) return;
   const filters = [
     {id:'all', label:'🌐 Todas as Vagas'},
-    {id:'entry_all', label:'🎯 Portas de Entrada (0-2a)'},
-    {id:'junior', label:'🌱 Júnior & Associate (1-2a)'},
-    {id:'graduate', label:'🎓 Graduate & Estágio (0a)'},
-    {id:'entry', label:'🎯 Entrada / L1 (0-1a)'},
-    {id:'pleno', label:'⚡ Pleno (2-5a)'},
-    {id:'senior', label:'👑 Sênior & Direção (5+a)'},
+    {id:'spain', label:'🇪🇸 Espanha (Relocação & Remoto)'},
+    {id:'portugal', label:'🇵🇹 Portugal (CPLP & Hubs)'},
+    {id:'iam', label:'🔑 IAM & PAM (Identidade)'},
     {id:'grc', label:'🛡️ GRC & Governança'},
-    {id:'brl', label:'🇧🇷 Brasil (CLT)'},
-    {id:'usd', label:'💵 Global (USD / EUR)'}
+    {id:'entry_all', label:'🎯 Portas de Entrada (0-2a)'},
+    {id:'junior', label:'🌱 Júnior (1-2a)'},
+    {id:'usd', label:'💵 Dólar / IA (USD Remoto)'},
+    {id:'brl', label:'🇧🇷 Brasil (CLT)'}
   ];
   el.innerHTML = "<b style='font-size:13px;width:100%;margin-bottom:4px;display:block'>Filtrar por mercado e nível de experiência:</b>" +
     "<div style='display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px'>" +
@@ -427,6 +426,15 @@ function renderJobsLive(){
     filtered = jobs.filter(j => j.level === 'pleno');
   } else if(currentMarketFilter === 'senior'){
     filtered = jobs.filter(j => j.level === 'senior');
+  } else if(currentMarketFilter === 'spain'){
+    filtered = jobs.filter(j => (j.geo === 'spain') || (j.loc && (j.loc.toLowerCase().includes('espanha') || j.loc.toLowerCase().includes('spain') || j.loc.toLowerCase().includes('madrid') || j.loc.toLowerCase().includes('barcelona') || j.loc.toLowerCase().includes('tres cantos') || j.loc.toLowerCase().includes('alicante'))));
+  } else if(currentMarketFilter === 'portugal'){
+    filtered = jobs.filter(j => (j.geo === 'portugal') || (j.loc && (j.loc.toLowerCase().includes('portugal') || j.loc.toLowerCase().includes('lisboa') || j.loc.toLowerCase().includes('porto') || j.loc.toLowerCase().includes('lisbon'))));
+  } else if(currentMarketFilter === 'iam'){
+    filtered = jobs.filter(j => {
+      const text = ((j.role||'') + ' ' + (j.tasks||'') + ' ' + (j.note||'')).toLowerCase();
+      return text.includes('iam') || text.includes('pam') || text.includes('identity') || text.includes('entra') || text.includes('cyberark') || text.includes('active directory') || text.includes('safeguard');
+    });
   }
 
   // ordena: aplicáveis primeiro
