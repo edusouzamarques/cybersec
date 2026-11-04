@@ -191,67 +191,6 @@
     "note": "⭐ PROGRAMA GRADUATE OFICIAL: Canonical contrata formados/migrantes de carreira do Brasil com treinamento pago. Sem barreira de experiência prévia."
   },
   {
-    "id": "can-grad-csm",
-    "role": "Graduate Customer Success Manager",
-    "company": "Canonical",
-    "loc": "Home based - Worldwide",
-    "pay": "~US$40-55k (local)",
-    "level": "graduate",
-    "source": "Greenhouse",
-    "geo": "worldwide",
-    "url": "https://job-boards.greenhouse.io/canonical/jobs/6103331",
-    "req": [
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 3,
-    "study": 4,
-    "tasks": "Acompanhar empresas clientes que usam Ubuntu, fazer chamadas de relacionamento, mapear dúvidas técnicas e encaminhar demandas para o time de engenharia.",
-    "note": "⭐ ENTRADA WORLDWIDE: sucesso do cliente e suporte operacional em tecnologia. 'Graduate' = sem barreira de experiência sênior."
-  },
-  {
-    "id": "can-grad-sdr",
-    "role": "Graduate Sales Development Representative",
-    "company": "Canonical",
-    "loc": "Home based - Worldwide",
-    "pay": "~US$40-50k + comissão (local)",
-    "level": "graduate",
-    "source": "Greenhouse",
-    "geo": "worldwide",
-    "url": "https://job-boards.greenhouse.io/canonical/jobs/5915299",
-    "req": [],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 3,
-    "study": 4,
-    "tasks": "Realizar contato inicial com empresas interessadas em tecnologia aberta, qualificar necessidades de infraestrutura e agendar reuniões para os engenheiros.",
-    "note": "⭐ ENTRADA SEM REQUISITO PRÉVIO: treinamento intensivo pago pela Canonical com contratação remota do Brasil em regime CLT ou contrato internacional."
-  },
-  {
-    "id": "can-junior-kernel",
-    "role": "Junior Linux Kernel Engineer - Ubuntu",
-    "company": "Canonical",
-    "loc": "Home based - Worldwide",
-    "pay": "~US$50-70k (local)",
-    "level": "junior",
-    "source": "Greenhouse",
-    "geo": "worldwide",
-    "url": "https://job-boards.greenhouse.io/canonical/jobs/5370815",
-    "req": [
-      "linux"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 5,
-    "study": 4,
-    "tasks": "Investigar falhas e bugs no núcleo (kernel) do sistema operacional, compilar versões de teste, analisar logs de travamento e colaborar no código aberto do Ubuntu.",
-    "note": "Júnior de verdade, 100% Worldwide. Foco em desenvolvimento e suporte ao kernel Ubuntu."
-  },
-  {
     "id": "can-junior-ubuntu",
     "role": "Junior Ubuntu Software Engineer",
     "company": "Canonical",
@@ -294,28 +233,6 @@
     "study": 5,
     "tasks": "Escrever e testar código Python para serviços de nuvem da Canonical, integrar APIs, criar testes automatizados e receber mentoria contínua durante o trabalho.",
     "note": "⭐ GRADUATE PYTHON & CLOUD: perfeito para quem completou Python Essentials e busca desenvolvimento em nuvem sem barreira de experiência prévia."
-  },
-  {
-    "id": "can-sales-entry",
-    "role": "Ubuntu Sales Engineer (Entry-Level)",
-    "company": "Canonical",
-    "loc": "Home based - Worldwide",
-    "pay": "~US$50-70k (local)",
-    "level": "entry",
-    "source": "Greenhouse",
-    "geo": "worldwide",
-    "url": "https://job-boards.greenhouse.io/canonical/jobs/5643282",
-    "req": [
-      "linux",
-      "secplus"
-    ],
-    "clearance": false,
-    "sponsor": false,
-    "student": false,
-    "dest": 4,
-    "study": 4,
-    "tasks": "Fazer reuniões remotas com empresas clientes, demonstrar o uso do Ubuntu Server e ferramentas de nuvem, e tirar dúvidas sobre segurança e suporte corporativo.",
-    "note": "⭐ ENTRY-LEVEL OFICIAL: Engenheiro de vendas/soluções técnicas para Ubuntu. Suporte a clientes corporativos em Linux sem necessidade de experiência sênior."
   },
   {
     "id": "oneleet-pentest-coord",
