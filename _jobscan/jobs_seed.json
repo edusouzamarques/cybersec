@@ -1,5 +1,26 @@
 [
   {
+    "id": "mercor-ai-chat-generalist",
+    "role": "AI Chat & Safety Generalist",
+    "company": "Mercor",
+    "loc": "Remote (Worldwide / BR)",
+    "pay": "US$ 30/h (~10h/sem flexível)",
+    "level": "entry",
+    "source": "Mercor Official",
+    "geo": "worldwide",
+    "url": "https://t.mercor.com/xSInN",
+    "req": [
+      "secplus"
+    ],
+    "clearance": false,
+    "sponsor": false,
+    "student": false,
+    "dest": 5,
+    "study": 5,
+    "tasks": "Testar modelos e assistentes de IA com tarefas cotidianas, avaliar respostas e qualidade de entregas, identificar falhas e dar feedback de alinhamento. Sem exigência de anos de experiência.",
+    "note": "⭐ FLUXO DE CAIXA IMEDIATO: US$ 30/hora (~US$ 300/semana ou US$ 1.200/mês part-time) com pagamento semanal via Wise ou Stripe. Excelente para financiar certificados."
+  },
+  {
     "id": "alignerr-ai-expert",
     "role": "AI Technical & Security Evaluation Expert",
     "company": "Alignerr",
