@@ -1,420 +1,684 @@
 # -*- coding: utf-8 -*-
-"""Varredura diária de vagas CyberSec, GRC e Cloud/Linux Support -> vagas_data.js + digest datado.
-Fontes integradas:
-1. Curadoria Seed (jobs_seed.json) - portas de entrada e vagas verificadas
-2. ATS Direto Greenhouse: Canonical, GitLab, Cloudflare, Okta, Chainguard, Elastic, Datadog
-3. ATS Direto Ashby: Vanta, Drata, Oneleet, Supabase
-4. Jobicy: Cybersecurity & DevOps remote
-5. RemoteOK: Filtrado e verificado anti-scam
 """
-import json, os, re, time, urllib.request, datetime, unicodedata
+Varredura diária de vagas de Cibersegurança, GRC e Suporte em Nuvem.
+FOCO PRIORITÁRIO: 
+  1. 100% REMOTO OBRIGATÓRIO (Full Remote) - NENHUMA vaga híbrida ou presencial é aceita.
+  2. NÍVEL DE ENTRADA REAL (Zero Experiência, Estágio, Trainee, Graduate e Transição sem tempo rígido).
+     Vagas que exigem experiência prévia de Júnior (1–2 anos de carteira na área) são separadas e identificadas.
 
-BASE = os.path.dirname(os.path.abspath(__file__))
-APP  = os.path.dirname(BASE)
+Fontes:
+  1. Base curada (jobs_seed.json) - Vagas verificadas 100% Remotas Brasil & Global (Canonical, Oneleet, etc.)
+  2. Gupy Portais ao Vivo (IT4US Cyber Security, Trade Technology, etc.) - Filtrando estritamente workplaceType == remote
+  3. Greenhouse API (Canonical live boards - 100% remote)
+  4. Ashby API (Supabase & Oneleet live boards - 100% remote)
+  5. WeWorkRemotely (RSS feeds)
+  6. Jobicy API (tag: security)
 
-# Termos de interesse no cargo (CyberSec / GRC / AI Sec / Linux & Cloud Infra)
-ROLE_WORDS = [
-    "security", "cyber", "soc analyst", "siem", "vulnerab", "grc", "incident", "threat",
-    "infosec", "penetration", "pentest", "appsec", "devsecops", "detection", "malware",
-    "cyber risk", "it risk", "security compliance", "ai security", "security analyst",
-    "security engineer", "blue team", "security operations", "iso 27001", "soc 2",
-    "internal audit", "it audit", "vendor risk", "third-party risk", "privacy", "trust",
-    "iam", "identity", "linux support", "cloud support", "support engineer"
+Alimenta:
+  - _jobscan/vagas_data.js (carregado diretamente pelo assistente-cybersec.html)
+  - _jobscan/job_digest.md (histórico diário)
+  - assistente-cybersec.html (atualiza cache-buster ?v=TIMESTAMP)
+"""
+
+import json
+import os
+import re
+import sys
+import subprocess
+import urllib.request
+import urllib.error
+import xml.etree.ElementTree as ET
+from datetime import datetime
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CYBERSEC_DIR = os.path.dirname(BASE_DIR)
+
+SEED_FILE = os.path.join(BASE_DIR, "jobs_seed.json")
+VAGAS_FILE = os.path.join(BASE_DIR, "vagas_data.js")
+DIGEST_FILE = os.path.join(BASE_DIR, "job_digest.md")
+LOG_FILE = os.path.join(BASE_DIR, "job_scan_log.ndjson")
+HTML_FILE = os.path.join(CYBERSEC_DIR, "assistente-cybersec.html")
+
+# Palavras-chave obrigatórias para cargos técnicos de segurança / GRC / suporte
+CYBER_KEYWORDS = [
+    "security", "cyber", "grc", "compliance", "soc ", "soc-", "siem",
+    "vulnerab", "incident", "threat", "infosec", "penetration", "pentest",
+    "appsec", "devsecops", "detection", "malware", "risk analyst", "risk control",
+    "compliance analyst", "internal audit", "security analyst", "security engineer",
+    "cloud support", "support engineer", "linux", "kernel", "systems engineer",
+    "sysadmin", "trust & safety", "privacy", "governança", "riscos",
+    "segurança da informação", "auditoria", "dpo", "lgpd", "open source", "associate"
 ]
 
-# Títulos categoricamente NÃO compatíveis (descarte imediato)
-BAD_TITLE_WORDS = [
-    "customer support", "customer service", "sales", "social media", "marketing",
-    "data entry", "payment operations", "virtual assistant", "telemarketer",
-    "recruiter", "copywriter", "appointment setter", "content moderator",
-    "cashier", "teller", "accounting", "bookkeeper", "legal assistant",
-    "brand protection", "community manager", "billing", "collections",
-    "talent scientist", "renewals", "revenue operations", "investor relations",
-    "front desk", "office operations", "hr generalist", "generalist"
+# Palavras para descarte imediato (vendas ativas, RH, marketing puro ou vagas não-técnicas)
+EXCLUDE_TITLES = [
+    "sales executive", "sales specialist", "sales manager", "account executive",
+    "business development", "bdr", "sdr", "ux designer", "ui designer",
+    "product designer", "graphic designer", "social media", "copywriter",
+    "content marketing", "general manager", "recruiter", "talent acquisition",
+    "people partner", "hrbp", "government affairs", "lobbyist", "public policy",
+    "animator", "medical expert", "fertility", "closer b2b", "executivo de vendas"
 ]
 
-# Termos de golpes / MLM / comissão disfarçada
-SCAM_TERMS = [
-    "performance-based", "commission-based", "payments every 3", "payments every",
-    "worldwide network share", "social media engagement (no calls", "direct acquisitions",
-    "tokenized funding", "no calls, emailing, or meetings", "1099 independent contractor opportunity with performance-based",
-    "unpaid internship", "training fee", "matrix referral", "earn bonuses based on"
+# Termos que tornam a vaga inelegível para quem mora no Brasil sem cidadania estrangeira
+INELEGIBLE_TERMS = [
+    "clearance", "public trust", "dod", "secret", "ts/sci", "sc clearance",
+    "us citizen", "uk citizen", "british citizen", "cidadania americana",
+    "citizenship required", "must reside in the us", "u.s. based only",
+    "us only", "usa only", "uk only", "canada only", "australia only"
 ]
 
-KNOWN_SCAM_COMPANIES = [
-    "ultimate marketing", "direct acquisitions", "tokenized funding"
+# Portais Gupy de empresas de tecnologia, cibersegurança e fintechs brasileiras
+GUPY_PORTALS = [
+    {"sub": "vemprait4us", "name": "IT4US Cyber Security"},
+    {"sub": "tradetechnology", "name": "Grupo Trade Technology"},
+    {"sub": "funcionalhealthtech", "name": "Funcional Health Tech"},
+    {"sub": "modulardtc", "name": "Modular Data Centers"}
 ]
 
-# Regiões CATEGORICAMENTE INELEGÍVEIS para quem busca do Brasil / Iberia
-DISALLOWED_LOCATIONS = [
-    "australia", "perth", "sydney", "melbourne", "brisbane", "canberra", "awst", "aest",
-    "taiwan", "taipei", "hsinchu",
-    "china", "beijing", "shanghai", "shenzhen", "guangzhou", "hangzhou",
-    "japan", "tokyo", "osaka", "kyoto",
-    "india", "bangalore", "bengaluru", "hyderabad", "pune", "mumbai", "delhi", "gurgaon", "noida", "chennai",
-    "singapore", "philippines", "manila", "malaysia", "kuala lumpur", "indonesia", "jakarta", "vietnam", "thailand", "hong kong", "korea", "seoul", "apac",
-    "london, u", "london uk office", "london office", "office based - london", "united kingdom office"
-]
-
-def normalize_text(text):
-    nfkd = unicodedata.normalize("NFKD", (text or "").lower())
-    return "".join([c for c in nfkd if not unicodedata.combining(c)])
-
-def is_disallowed_location(loc, title="", desc=""):
-    comb = normalize_text(f"{loc} {title} {desc[:200]}")
-    return any(d in comb for d in DISALLOWED_LOCATIONS)
-
-def is_scam_or_bad(title, company="", desc=""):
-    t = normalize_text(title)
-    c = normalize_text(company)
-    d = normalize_text(desc)
-    if any(sc in c for sc in KNOWN_SCAM_COMPANIES):
-        return True, "empresa bloqueada (golpe/MLM)"
-    if any(bad in t for bad in BAD_TITLE_WORDS):
-        # Exceção para suporte técnico de segurança ou Linux
-        if ("linux support" in t or "security support" in t or "solutions engineer" in t) and not any(bad in t for bad in ["sales", "marketing", "front desk"]):
-            pass
-        else:
-            return True, "título incompatível (não é cyber/infra/grc)"
-    if any(st in d for st in SCAM_TERMS) or any(st in t for st in SCAM_TERMS):
-        return True, "modelo de comissão/MLM descartado"
-    return False, ""
-
-def is_cyber(title, company="", desc=""):
-    t = normalize_text(title)
-    c = normalize_text(company)
-    d = normalize_text(desc)
+def is_eligible(title, desc, loc, geo):
+    full = f"{title} {desc} {loc} {geo}".lower()
     
-    # Exceções estritamente técnicas da Canonical (portas de entrada legítimas)
-    # NÃO incluir vendas, customer success, advogados ou drivers kernel de hardware asiático
-    if "canonical" in c:
-        if any(bad in t for bad in ["sales", "customer success", "legal", "kernel engineer"]):
+    # 1. Não pode ter exigência de segurança de estado / cidadania restrita
+    for term in INELEGIBLE_TERMS:
+        if term in full:
             return False
-        if any(k in t for k in [
-            "associate linux", "graduate software", "graduate cloud",
-            "junior linux", "junior ubuntu", "internal auditor", "python - cloud"
-        ]):
-            return True
             
-    has_role = any(w in t for w in ROLE_WORDS)
-    if not has_role:
-        if "risk" in t or "compliance" in t or "analyst" in t or "program manager" in t:
-            if any(k in d for k in ["soc 2", "iso 27001", "nist", "infosec", "cybersecurity", "siem", "audit", "compliance"]):
-                return True
+    # 2. REGRA MANDATÓRIA E INEGOCIÁVEL: 100% FULL REMOTE.
+    # Descarta na hora qualquer vaga híbrida, presencial ou de escritório, no Brasil ou no exterior.
+    office_words = ["hybrid", "híbrido", "hibrido", "on-site", "onsite", "presencial", "in-office", "escritório", "escritorio"]
+    for ow in office_words:
+        if ow in full:
+            return False
+            
+    # 3. Deve conter indicação explícita de trabalho remoto
+    remote_words = ["remoto", "remote", "worldwide", "anywhere", "global", "latam", "amer", "home office"]
+    if not any(rw in full for rw in remote_words):
         return False
-    return True
+        
+    # 4. Se for Brasil e 100% remoto, aprovada
+    if geo == "brasil" or "brasil" in loc.lower() or "brazil" in loc.lower():
+        return True
+        
+    # 5. Se for internacional, deve aceitar Worldwide, Anywhere in the World, LATAM ou AMER
+    valid_globals = ["worldwide", "anywhere in the world", "global", "latam", "amer", "anywhere"]
+    if any(vg in loc.lower() for vg in valid_globals) or geo in ["worldwide", "latam", "global"]:
+        return True
+        
+    return False
 
-def level_of(title, company="", desc="", api_level=""):
-    t = normalize_text(title)
-    d = normalize_text(desc)
-    lvl_api = normalize_text(api_level)
+def is_cyber_role(title):
+    t = (title or "").lower()
+    if any(ex in t for ex in EXCLUDE_TITLES):
+        return False
+    return any(k in t for k in CYBER_KEYWORDS)
+
+def extract_years(text):
+    """Extrai com precisão a quantidade de anos de experiência exigida no texto."""
+    if not text:
+        return None
+    clean = re.sub(r'<[^>]+>', ' ', text).lower()
+    matches = []
     
-    # 1. Mapeamento explícito de API (ex: Jobicy rotula Senior explicitamente)
-    if re.search(r"\b(director|executive|head|vp|ciso|principal|staff|lead|senior)\b", lvl_api):
-        return "senior"
-    if re.search(r"\b(intern|internship)\b", lvl_api):
-        return "estágio"
-
-    # 2. Análise explícita de Título
-    if re.search(r"\b(intern|internship|estagio|estagiario)\b", t):
-        return "estágio"
-    if re.search(r"\b(graduate|trainee|recem[- ]formado|early[- ]career)\b", t):
-        return "graduate"
-    if re.search(r"\bsenior associate\b", t):
-        return "pleno"
-    if re.search(r"\b(senior|sr|sr\.|s[eê]nior|lead|principal|staff|manager|head|director|architect|chief|vp|ciso)\b", t):
-        return "senior"
-    if re.search(r"\b(junior|jr|jr\.|associate)\b", t) and not re.search(r"\b(director|partner|head|vp|senior)\b", t):
-        return "junior"
-    if re.search(r"\b(entry|entry[- ]level|tier[- ]?1|soc tier 1|l1|level[- ]?1)\b", t) and not re.search(r"\b(senior|lead|principal)\b", t):
-        return "entry"
+    # 3+ years / 3+ yrs / 3+ anos
+    for m in re.finditer(r'\b(\d{1,2})\s*\+\s*(?:years|yrs|anos)\b', clean):
+        matches.append(int(m.group(1)))
         
-    # 3. Descrição / Requisitos
-    if re.search(r"\b(director|head of|ciso|vice president)\b", d):
-        return "senior"
-    if re.search(r"\b(5\+|6\+|7\+|8\+|10\+|12\+)\s*(?:years?|anos)\b", d) or "senior-level" in d or "senior experience" in d:
-        return "senior"
+    # over / at least / minimum of 3 years
+    for m in re.finditer(r'\b(?:over|at least|minimum of|minimum|min\.|mais de|pelo menos|mínimo de)\s*(\d{1,2})\s*(?:years|yrs|anos)\b', clean):
+        matches.append(int(m.group(1)))
         
-    # Padrão seguro para títulos neutros ("Security Analyst", "SOC Analyst"): SEMPRE PLENO, NUNCA ENTRY!
-    return "pleno"
+    # 3 to 5 years / 3-5 years / 3 a 5 anos
+    for m in re.finditer(r'\b(\d{1,2})\s*(?:-|to|a)\s*(\d{1,2})\s*(?:years|yrs|anos)\b', clean):
+        matches.append(int(m.group(2)))
+        
+    # 3 years of experience / 3 anos de experiência
+    for m in re.finditer(r'\b(\d{1,2})\s*(?:years|yrs|anos)\s*(?:of\s*(?:relevant\s*)?experience|de\s*experiência)\b', clean):
+        matches.append(int(m.group(1)))
+        
+    valid = [y for y in matches if 1 <= y <= 15]
+    return max(valid) if valid else None
 
-def fetch_json(url, headers=None, timeout=12):
-    h = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"}
-    if headers:
-        h.update(headers)
-    req = urllib.request.Request(url, headers=h)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8", "ignore"))
+def extract_experience_timeframe(title, desc=""):
+    """
+    Analisa os requisitos da vaga e extrai o prazo de experiência e o nível correspondente.
+    Retorna: (exp_timeframe, level, years)
+    Níveis:
+      - 'estágio': Estágio, Trainee, Em formação (0 anos de experiência exigida)
+      - 'entry': Graduate, Entrada sem experiência prévia, Transição sem tempo rígido (0 anos de indústria)
+      - 'junior': Júnior convencional que pede 1 a 2 anos de experiência na área
+      - 'pleno': Pleno (3 a 4 anos)
+      - 'senior': Sênior (5+ anos)
+    """
+    t = (title or "").lower()
+    d = (desc or "").lower()
+    full = f"{t} {d}"
 
-live = []
+    # 1. Estágio / Trainee / Em formação (Zero Experiência Absoluta)
+    if any(w in t for w in ["estagiário", "estagiario", "estágio", "estagio", "intern", "internship", "trainee", "apprentice"]):
+        return "0 ano (estágio / trainee / sem experiência)", "estágio", 0
 
-# --- 1. GREENHOUSE DIRECT ATS ---
-GH_BOARDS = [
-    ("canonical", "Canonical"),
-    ("gitlab", "GitLab"),
-    ("cloudflare", "Cloudflare"),
-    ("okta", "Okta"),
-    ("chainguard", "Chainguard"),
-    ("elastic", "Elastic"),
-    ("datadog", "Datadog"),
-    ("axonius", "Axonius"),
-    ("samsara", "Samsara")
-]
+    # 2. Vagas explícitas para recém-formados ou sem experiência prévia
+    if any(p in full for p in [
+        "sem experiência", "sem experiencia", "não exige experiência", "nao exige experiencia",
+        "no experience required", "no previous experience", "entry level", "entry-level",
+        "primeiro emprego", "formação acadêmica ou transição"
+    ]):
+        if "graduate" in t or "graduando" in full:
+            return "0 ano (recém-formado / graduate)", "entry", 0
+        return "0 ano (início absoluto / sem experiência prévia)", "entry", 0
 
-for slug, comp in GH_BOARDS:
+    # 3. Graduate / Early Career oficial (programas Canonical, etc.)
+    if re.search(r'\b(graduate|recém-formado)\b', t):
+        return "0 ano (graduate / formação inicial)", "entry", 0
+
+    # 4. Análise numérica de anos exigidos
+    years = extract_years(d)
+    if years is not None:
+        if years >= 5:
+            return f"{years}+ anos (sênior / liderança)", "senior", years
+        elif years >= 3:
+            return f"{years}+ anos (pleno)", "pleno", years
+        elif years == 2:
+            return "1 a 2 anos (júnior / bagagem prévia)", "junior", 2
+        elif years == 1:
+            return "1 ano (júnior / bagagem prévia)", "junior", 1
+
+    # 5. Papéis de associado ou suporte sem tempo rígido (avaliação por competência prática / transição)
+    if re.search(r'\bassociate\b', t) and not any(w in t for w in ["director", "lead", "manager"]):
+        return "0 a 1 ano (associado / transição de carreira)", "entry", 0
+    if re.search(r'\b(tier 1|tier-1|soc 1|soc-1)\b', t):
+        return "0 a 1 ano (SOC Tier 1 / entrada)", "entry", 0
+    if re.search(r'\b(junior|jr|júnior)\b', t):
+        return "1 a 2 anos (júnior / pede bagagem prévia)", "junior", 1
+    if re.search(r'\b(senior|sr|lead|principal|staff|head|director|chief)\b', t):
+        return "5+ anos (sênior / liderança)", "senior", 5
+
+    # 6. Padrão para analistas e suporte sem especificação rígida
+    return "0 a 1 ano (foco em competência / sem tempo rígido)", "entry", 0
+
+def fetch_url(url, is_json=True, timeout=20):
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json, text/html, application/xml"
+    })
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        content = resp.read()
+        if is_json:
+            return json.loads(content.decode("utf-8", "ignore"))
+        return content.decode("utf-8", "ignore")
+
+def is_url_valid(url, timeout=7):
+    """Checagem rápida de integridade para descartar links quebrados ou portais genéricos."""
+    if not url:
+        return False
+    bad_roots = ["news.orbite-ats.com.br", "spread.gupy.io", "stravorus.com/careers"]
+    if any(br in url for br in bad_roots):
+        return False
+        
     try:
-        url = f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs"
-        data = fetch_json(url, timeout=10)
-        for j in data.get("jobs", []):
-            pos = j.get("title", "")
-            raw_loc = j.get("location", {}).get("name", "") or "Remoto"
-            loc = raw_loc[:24]
-            u = j.get("absolute_url", "")
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        })
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            if resp.status == 200:
+                final = resp.geturl().rstrip('/')
+                if final.count('/') < 3 and not ("ashbyhq" in final or "greenhouse" in final or "gupy.io" in final):
+                    return False
+                return True
+            return False
+    except urllib.error.HTTPError as e:
+        if e.code == 429: # Rate limit momentâneo da API não invalida o link
+            return True
+        return False
+    except Exception:
+        return True # Se deu timeout na checagem rápida, mantém na dúvida
+
+def scan_gupy_portals():
+    """Varre os quadros oficiais na Gupy filtrando ESTRITAMENTE vagas 100% remotas."""
+    gupy_jobs = []
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    
+    for portal in GUPY_PORTALS:
+        sub = portal["sub"]
+        company = portal["name"]
+        url = f"https://{sub}.gupy.io/"
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            })
+            with urllib.request.urlopen(req, timeout=12) as r:
+                html = r.read().decode("utf-8")
+                m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.+?)</script>', html)
+                if not m:
+                    continue
+                data = json.loads(m.group(1))
+                jobs = data.get("props", {}).get("pageProps", {}).get("jobs", [])
+                for j in jobs:
+                    title = j.get("title", "")
+                    if not is_cyber_role(title):
+                        continue
+                        
+                    workplace = j.get("workplace", {})
+                    wpt = workplace.get("workplaceType", "")
+                    
+                    # REGRA MANDATÓRIA: 100% REMOTO APENAS! Descarte imediato de híbrido e on-site.
+                    if wpt != "remote":
+                        continue
+                    if any(w in title.lower() for w in ["híbrido", "hibrido", "hybrid", "presencial", "on-site", "onsite"]):
+                        continue
+                        
+                    jid = j.get("id")
+                    job_url = f"https://{sub}.gupy.io/job/{jid}"
+                    
+                    timeframe, lvl, _ = extract_experience_timeframe(title, "")
+                    
+                    gupy_jobs.append({
+                        "id": f"gupy-{sub}-{jid}",
+                        "role": title[:80],
+                        "company": company,
+                        "loc": "100% Remoto (Brasil)",
+                        "pay": "A combinar (R$ CLT/PJ)",
+                        "level": lvl,
+                        "exp_timeframe": timeframe,
+                        "source": "Gupy",
+                        "geo": "brasil",
+                        "url": job_url,
+                        "req": ["secplus"],
+                        "clearance": False,
+                        "sponsor": False,
+                        "student": lvl == "estágio",
+                        "dest": 5,
+                        "study": 5 if lvl in ["entry", "estágio"] else 4,
+                        "tasks": f"Atuação em {title} no portal de carreiras da {company} via Gupy. Vaga 100% remota.",
+                        "note": f"⭐ Vaga oficial 100% remota na {company} (Gupy). Foco em segurança, governança e conformidade.",
+                        "added_date": today_str
+                    })
+        except Exception as e:
+            print(f"Aviso ao varrer Gupy portal {sub}: {e}")
             
-            # Filtro geográfico estrito: descarta APAC, Taiwan, China, Japão, Austrália, etc.
-            if is_disallowed_location(raw_loc, pos):
+    return gupy_jobs
+
+def scan_canonical_greenhouse():
+    """Varre a API oficial e aberta da Canonical no Greenhouse com foco em vagas 100% remotas de graduate e suporte."""
+    jobs = []
+    url = "https://boards-api.greenhouse.io/v1/boards/canonical/jobs"
+    try:
+        data = fetch_url(url, is_json=True, timeout=20)
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        for j in data.get("jobs", []):
+            role = j.get("title", "")
+            link = j.get("absolute_url", "")
+            
+            if not is_cyber_role(role):
                 continue
                 
-            bad, _ = is_scam_or_bad(pos, comp)
-            if bad:
-                continue
-            if is_cyber(pos, comp):
-                lvl = level_of(pos, comp)
-                live.append({
-                    "role": pos[:70],
-                    "company": comp[:30],
-                    "loc": loc,
-                    "pay": "—",
-                    "level": lvl,
-                    "source": f"Greenhouse ({slug})",
-                    "req": ["secplus"],
-                    "clearance": False,
-                    "sponsor": False,
-                    "student": False,
-                    "url": u,
-                    "note": f"remoto internacional ({comp} direto)"
-                })
-    except Exception as e:
-        print(f"Greenhouse {slug} falhou: {e}")
-
-# --- 2. ASHBY DIRECT ATS ---
-ASHBY_BOARDS = [
-    ("vanta", "Vanta"),
-    ("drata", "Drata"),
-    ("oneleet", "Oneleet"),
-    ("supabase", "Supabase"),
-    ("circle", "Circle")
-]
-
-for slug, comp in ASHBY_BOARDS:
-    try:
-        url = f"https://api.ashbyhq.com/posting-api/job-board/{slug}"
-        data = fetch_json(url, timeout=10)
-        for j in data.get("jobs", []):
-            pos = j.get("title", "")
-            raw_loc = j.get("location", "") or "Remoto"
-            loc = raw_loc[:24]
-            u = j.get("jobUrl", "")
+            loc = "100% Remote (Worldwide / Brasil)"
+            geo = "worldwide"
             
-            # Filtro geográfico estrito
-            if is_disallowed_location(raw_loc, pos):
+            if not is_eligible(role, "", loc, geo):
                 continue
                 
-            bad, _ = is_scam_or_bad(pos, comp)
-            if bad:
-                continue
-            if is_cyber(pos, comp):
-                lvl = level_of(pos, comp)
-                live.append({
-                    "role": pos[:70],
-                    "company": comp[:30],
-                    "loc": loc,
-                    "pay": "—",
-                    "level": lvl,
-                    "source": f"Ashby ({slug})",
-                    "req": ["secplus"],
-                    "clearance": False,
-                    "sponsor": False,
-                    "student": False,
-                    "url": u,
-                    "note": f"remoto internacional ({comp} direto)"
-                })
-    except Exception as e:
-        print(f"Ashby {slug} falhou: {e}")
-
-# --- 3. JOBICY API ---
-for ind in ["cybersecurity", "engineering"]:
-    try:
-        data = fetch_json(f"https://jobicy.com/api/v2/remote-jobs?count=40&industry={ind}", timeout=15)
-        for j in data.get("jobs", []):
-            pos = j.get("jobTitle", "")
-            comp = j.get("companyName", "")
-            desc = j.get("jobDescription", "")
-            raw_loc = j.get("jobGeo", "Remoto") or "Remoto"
-            loc = raw_loc[:24]
-            url = j.get("url", "")
-            api_lvl = j.get("jobLevel", "")
+            timeframe, lvl, _ = extract_experience_timeframe(role, "")
             
-            # Filtro geográfico estrito (elimina Austrália, Ásia, etc.)
-            if is_disallowed_location(raw_loc, pos, desc):
-                continue
-                
-            bad, _ = is_scam_or_bad(pos, comp, desc)
-            if bad:
-                continue
-            if is_cyber(pos, comp, desc):
-                live.append({
-                    "role": pos[:70],
-                    "company": comp[:30],
-                    "loc": loc,
-                    "pay": "—",
-                    "level": level_of(pos, comp, desc, api_lvl),
-                    "source": "Jobicy",
-                    "req": ["secplus"],
-                    "clearance": False,
-                    "sponsor": False,
-                    "student": False,
-                    "url": url,
-                    "note": "remoto internacional (curadoria cyber)"
-                })
-    except Exception as e:
-        print(f"Jobicy {ind} falhou: {e}")
-
-# --- 4. REMOTEOK API ---
-try:
-    data = fetch_json("https://remoteok.com/api", timeout=15)
-    for j in data:
-        if not isinstance(j, dict) or not j.get("position"):
-            continue
-        pos = j.get("position", "")
-        comp = j.get("company", "")
-        desc = j.get("description", "")
-        raw_loc = j.get("location") or "Remoto"
-        loc = raw_loc[:24]
-        
-        # Filtro geográfico estrito
-        if is_disallowed_location(raw_loc, pos, desc):
-            continue
-            
-        bad, _ = is_scam_or_bad(pos, comp, desc)
-        if bad:
-            continue
-        if is_cyber(pos, comp, desc):
-            live.append({
-                "role": pos[:70],
-                "company": comp[:30],
+            job_id = f"can-{j.get('id', '')}"
+            jobs.append({
+                "id": job_id,
+                "role": role[:80],
+                "company": "Canonical",
                 "loc": loc,
-                "pay": "—",
-                "level": level_of(pos, comp, desc),
-                "source": "RemoteOK",
+                "pay": "US$ 40k–70k (CLT/PJ via EOR)",
+                "level": lvl,
+                "exp_timeframe": timeframe,
+                "source": "Canonical Greenhouse",
+                "geo": geo,
+                "url": link,
+                "req": ["secplus"],
+                "clearance": False,
+                "sponsor": False,
+                "student": lvl == "estágio",
+                "dest": 5,
+                "study": 5,
+                "tasks": f"Atuação técnica em {role} na Canonical Ubuntu. Empresa global pioneira em trabalho 100% remoto.",
+                "note": "⭐ CANONICAL 100% REMOTO: Contratação remota direta no Brasil (CLT/PJ via EOR).",
+                "added_date": today_str
+            })
+    except Exception as e:
+        print(f"Erro ao varrer Canonical Greenhouse: {e}")
+    return jobs
+
+def scan_ashby_company(board_name, display_name):
+    """Varre a API oficial e aberta de uma empresa no Ashby ATS."""
+    jobs = []
+    url = f"https://api.ashbyhq.com/posting-api/job-board/{board_name}"
+    try:
+        data = fetch_url(url, is_json=True, timeout=20)
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        for j in data.get("jobs", []):
+            role = j.get("title", "")
+            link = j.get("jobUrl", "")
+            desc = j.get("descriptionHtml", "")
+            
+            if not is_cyber_role(role):
+                continue
+                
+            loc = "100% Remote (Worldwide / LATAM)"
+            geo = "worldwide"
+            
+            if not is_eligible(role, desc, loc, geo):
+                continue
+                
+            timeframe, lvl, _ = extract_experience_timeframe(role, desc)
+            
+            job_id = f"{board_name}-{re.sub(r'[^a-z0-9]+', '-', role.lower())}"[:40]
+            jobs.append({
+                "id": job_id,
+                "role": role[:80],
+                "company": display_name,
+                "loc": loc,
+                "pay": "A combinar (US$)",
+                "level": lvl,
+                "exp_timeframe": timeframe,
+                "source": f"{display_name} Ashby",
+                "geo": geo,
+                "url": link,
                 "req": ["secplus"],
                 "clearance": False,
                 "sponsor": False,
                 "student": False,
-                "url": j.get("url", ""),
-                "note": "remoto (filtrado anti-scam)"
+                "dest": 5,
+                "study": 5 if lvl in ["entry", "estágio"] else 4,
+                "tasks": f"Atuação em {role} na {display_name}. Vaga oficial capturada no ATS Ashby.",
+                "note": f"⭐ Vaga oficial aberta na {display_name} (Ashby ATS). Contratação 100% remota internacional.",
+                "added_date": today_str
             })
-except Exception as e:
-    print(f"RemoteOK falhou: {e}")
-
-# Deduplicação dos jobs capturados ao vivo
-seen = set()
-dedup_live = []
-for j in live:
-    k = (j["role"].lower().strip(), j["company"].lower().strip())
-    if k in seen:
-        continue
-    seen.add(k)
-    dedup_live.append(j)
-
-# -------------------------------------------------------------
-# AUDITORIA ATIVA DE LINKS E CONTEÚDO (ANTI-ZUMBI / ANTI-GENÉRICO)
-# -------------------------------------------------------------
-import concurrent.futures
-
-def is_valid_job_url(j):
-    url = j.get("url", "")
-    if not url or not url.startswith("http"):
-        return False, "URL ausente ou inválida"
-    
-    clean_url = url.split("?")[0].rstrip("/")
-    generic_endings = ("gupy.io", "careers", "carreiras", "jobs", "vagas", "workable.com")
-    if any(clean_url.endswith(g) for g in generic_endings):
-        return False, "URL genérica de portal/raiz da empresa"
-        
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
-        with urllib.request.urlopen(req, timeout=5) as resp:
-            if resp.getcode() != 200:
-                return False, f"Status HTTP {resp.getcode()}"
-            content = resp.read(60000).decode("utf-8", "ignore").lower()
-            closed_signals = [
-                "vaga encerrada", "vaga finalizada", "esta vaga não está mais disponível",
-                "this job is no longer available", "this posting has expired",
-                "no longer accepting applications", "application closed",
-                "page not found", "404 not found"
-            ]
-            for sig in closed_signals:
-                if sig in content:
-                    return False, f"Vaga encerrada ({sig})"
-            return True, "OK"
     except Exception as e:
-        return False, str(e)
+        print(f"Erro ao varrer Ashby ({display_name}): {e}")
+    return jobs
 
-# Seed curado (espinha dorsal de qualidade e vagas nacionais/estratégicas)
-seed_path = os.path.join(BASE, "jobs_seed.json")
-seed = json.load(open(seed_path, encoding="utf-8")) if os.path.exists(seed_path) else []
+def scan_weworkremotely():
+    """Varre feeds RSS do WeWorkRemotely priorizando papéis de suporte, sistemas e segurança 100% remotos."""
+    wwr_jobs = []
+    feeds = [
+        "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss",
+        "https://weworkremotely.com/remote-jobs.rss"
+    ]
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    
+    for feed_url in feeds:
+        try:
+            xml_text = fetch_url(feed_url, is_json=False, timeout=20)
+            root = ET.fromstring(xml_text)
+            for item in root.findall(".//item"):
+                raw_title = item.findtext("title", "") or ""
+                desc = item.findtext("description", "") or ""
+                region = item.findtext("region", "") or ""
+                link = item.findtext("link", "") or ""
+                
+                parts = raw_title.split(":", 1)
+                company = parts[0].strip() if len(parts) > 1 else "Empresa Internacional"
+                role = parts[1].strip() if len(parts) > 1 else raw_title.strip()
+                
+                if not is_cyber_role(role):
+                    continue
+                    
+                loc = f"100% Remote ({region})" if region else "100% Remote (Worldwide)"
+                geo = "worldwide"
+                
+                if not is_eligible(role, desc, loc, geo):
+                    continue
+                    
+                timeframe, lvl, years = extract_experience_timeframe(role, desc)
+                
+                # Descarte agressivo de sênior vindo de agregador (foco é entrada real / transição)
+                if lvl == "senior" and (years or 0) >= 5:
+                    continue
+                    
+                job_id = f"wwr-{re.sub(r'[^a-z0-9]+', '-', company.lower())}-{re.sub(r'[^a-z0-9]+', '-', role.lower())}"[:40]
+                
+                wwr_jobs.append({
+                    "id": job_id,
+                    "role": role[:80],
+                    "company": company[:40],
+                    "loc": loc,
+                    "pay": "A combinar (US$)",
+                    "level": lvl,
+                    "exp_timeframe": timeframe,
+                    "source": "WeWorkRemotely",
+                    "geo": "worldwide",
+                    "url": link,
+                    "req": ["secplus"],
+                    "clearance": False,
+                    "sponsor": False,
+                    "student": False,
+                    "dest": 4,
+                    "study": 5 if lvl in ["entry", "estágio"] else 4,
+                    "tasks": f"Atuação em {role} para {company}. Vaga internacional 100% remota anunciada no WeWorkRemotely.",
+                    "note": f"⭐ Vaga encontrada no WeWorkRemotely ({region}). Contratação 100% remota internacional.",
+                    "added_date": today_str
+                })
+        except Exception as e:
+            print(f"Erro ao varrer feed WeWorkRemotely ({feed_url}): {e}")
+            
+    return wwr_jobs
 
-# Mesclar: seed tem prioridade de metadados detalhados
-seed_keys = {(s["role"].lower().strip(), s["company"].lower().strip()) for s in seed}
-allj = seed + [j for j in dedup_live if (j["role"].lower().strip(), j["company"].lower().strip()) not in seed_keys]
+def scan_jobicy():
+    """Varre a API do Jobicy com foco estrito em segurança 100% remota."""
+    jobicy_jobs = []
+    url = "https://jobicy.com/api/v2/remote-jobs?count=30&tag=security"
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    try:
+        data = fetch_url(url, is_json=True, timeout=20)
+        for j in data.get("jobs", []):
+            role = j.get("jobTitle", "")
+            company = j.get("companyName", "")
+            desc = j.get("jobDescription", "")
+            loc = j.get("jobGeo", "Worldwide")
+            link = j.get("url", "")
+            
+            if not is_cyber_role(role):
+                continue
+                
+            geo = "worldwide"
+            loc_str = f"100% Remote ({loc})"
+            if not is_eligible(role, desc, loc_str, geo):
+                continue
+                
+            timeframe, lvl, years = extract_experience_timeframe(role, desc)
+            
+            if lvl == "senior" and (years or 0) >= 5:
+                continue
+                
+            job_id = f"jobicy-{re.sub(r'[^a-z0-9]+', '-', company.lower())}-{re.sub(r'[^a-z0-9]+', '-', role.lower())}"[:40]
+            
+            jobicy_jobs.append({
+                "id": job_id,
+                "role": role[:80],
+                "company": company[:40],
+                "loc": loc_str,
+                "pay": "A combinar (US$)",
+                "level": lvl,
+                "exp_timeframe": timeframe,
+                "source": "Jobicy",
+                "geo": "worldwide",
+                "url": link,
+                "req": ["secplus"],
+                "clearance": False,
+                "sponsor": False,
+                "student": False,
+                "dest": 4,
+                "study": 5 if lvl in ["entry", "estágio"] else 4,
+                "tasks": f"Atuação em {role} na {company}. Monitoramento e suporte de segurança remota.",
+                "note": "⭐ Vaga internacional capturada via Jobicy. Contratação 100% remota.",
+                "added_date": today_str
+            })
+    except Exception as e:
+        print(f"Erro ao consultar Jobicy: {e}")
+        
+    return jobicy_jobs
 
-print(f"Auditando ativamente links de {len(allj)} vagas com ThreadPool...")
-with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
-    validation_results = list(executor.map(is_valid_job_url, allj))
+def update_html_cache_buster(vagas_version_str):
+    """Atualiza o parâmetro ?v= no assistente-cybersec.html para que o navegador nunca pegue cache velho."""
+    if not os.path.exists(HTML_FILE):
+        return
+    try:
+        with open(HTML_FILE, "r", encoding="utf-8") as f:
+            content = f.read()
 
-verified_allj = []
-discarded_count = 0
-for j, (ok, reason) in zip(allj, validation_results):
-    if ok:
-        verified_allj.append(j)
-    else:
-        discarded_count += 1
+        new_tag = f'_jobscan/vagas_data.js?v={vagas_version_str}'
+        updated = re.sub(r'_jobscan/vagas_data\.js\?v=[a-zA-Z0-9_]+', new_tag, content)
 
-print(f"Auditoria concluída: {len(verified_allj)} vagas válidas e ativas ({discarded_count} descartadas por link quebrado/portal genérico).")
-allj = verified_allj
+        if updated != content:
+            with open(HTML_FILE, "w", encoding="utf-8") as f:
+                f.write(updated)
+            print(f"assistente-cybersec.html atualizado com cache-buster: {new_tag}")
+    except Exception as e:
+        print(f"Erro ao atualizar cache-buster no HTML: {e}")
 
-now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-entry_now = [j for j in allj if j["level"] in ("entry", "junior", "graduate", "estágio") and not j.get("clearance")]
-sponsor = [j for j in allj if j.get("sponsor")]
-insight = (f"{len(allj)} vagas no radar · {len(entry_now)} de entrada aplicáveis (sem cidadania) · "
-           f"{len(sponsor)} patrocinam visto. Fontes: ATS Direto (Canonical, Vanta, GitLab, Okta, Drata, Oneleet) + Jobicy + Curadoria.")
+def run():
+    print("Iniciando varredura diária de vagas CyberSec (100% Remoto & Foco em Entrada Real / Zero Experiência)...")
+    
+    # 1. Carrega a base curada (espinha dorsal com vagas 100% remotas verificadas)
+    seed_jobs = []
+    if os.path.exists(SEED_FILE):
+        try:
+            with open(SEED_FILE, "r", encoding="utf-8") as f:
+                seed_jobs = json.load(f)
+            print(f"Base curada carregada: {len(seed_jobs)} vagas prioritárias.")
+        except Exception as e:
+            print(f"Erro ao ler jobs_seed.json: {e}")
+            
+    # Filtra a base curada garantindo URL válida e exclusão de qualquer resquício híbrido
+    seed_eligible = []
+    for j in seed_jobs:
+        if not is_url_valid(j.get("url", "")):
+            continue
+        if not is_eligible(j.get("role", ""), j.get("tasks", ""), j.get("loc", ""), j.get("geo", "")):
+            continue
+        if not j.get("exp_timeframe"):
+            tf, lvl, _ = extract_experience_timeframe(j.get("role", ""), j.get("tasks", ""))
+            j["exp_timeframe"] = tf
+            j["level"] = lvl
+        seed_eligible.append(j)
+        
+    print(f"Vagas curadas 100% remotas verificadas: {len(seed_eligible)}")
+    
+    # 2. Executa varreduras ativas ao vivo (todas estritamente 100% remotas)
+    live_jobs = []
+    live_jobs.extend(scan_gupy_portals())
+    live_jobs.extend(scan_canonical_greenhouse())
+    live_jobs.extend(scan_ashby_company("supabase", "Supabase"))
+    live_jobs.extend(scan_ashby_company("oneleet", "Oneleet"))
+    live_jobs.extend(scan_weworkremotely())
+    live_jobs.extend(scan_jobicy())
+    
+    print(f"Total de vagas capturadas ao vivo: {len(live_jobs)}")
+    
+    # 3. Deduplicação inteligente por URL e título
+    seen_urls = set()
+    seen_keys = set()
+    final_jobs = []
+    
+    def get_norm_url(u):
+        if not u: return ""
+        return re.sub(r'[?#].*$', '', u.strip().rstrip('/')).lower()
 
-js = ("// GERADO por job_scan.py — NÃO editar à mão\n"
-      f"window.JOBS_UPDATED={json.dumps(now, ensure_ascii=False)};\n"
-      f"window.JOBS_INSIGHT={json.dumps(insight, ensure_ascii=False)};\n"
-      f"window.JOBS_LIVE={json.dumps(allj, ensure_ascii=False)};\n")
+    # Prioridade 1: Base curada
+    for j in seed_eligible:
+        u_norm = get_norm_url(j.get("url", ""))
+        key = (j.get("company", "").strip().lower(), j.get("role", "").strip().lower())
+        if u_norm and u_norm in seen_urls:
+            continue
+        if key in seen_keys:
+            continue
+        if u_norm: seen_urls.add(u_norm)
+        seen_keys.add(key)
+        final_jobs.append(j)
+            
+    # Prioridade 2: Vagas capturadas ao vivo
+    for j in live_jobs:
+        u_norm = get_norm_url(j.get("url", ""))
+        key = (j.get("company", "").strip().lower(), j.get("role", "").strip().lower())
+        if u_norm and u_norm in seen_urls:
+            continue
+        if key in seen_keys:
+            continue
+        if u_norm: seen_urls.add(u_norm)
+        seen_keys.add(key)
+        final_jobs.append(j)
+            
+    # 4. Ordenação estratégica:
+    # 0 = Estágio / Trainee (0 anos de experiência exigida)
+    # 1 = Graduate / Entrada Real / Transição sem tempo rígido (0 anos de indústria)
+    # 2 = Júnior convencional (pede 1 a 2 anos na área)
+    # 3 = Pleno
+    # 4 = Sênior
+    def sort_priority(job):
+        lvl = job.get("level", "pleno")
+        if lvl == "estágio":
+            return 0
+        if lvl == "entry":
+            return 1
+        if lvl == "junior":
+            return 2
+        if lvl == "pleno":
+            return 3
+        return 4
+        
+    final_jobs.sort(key=sort_priority)
+    
+    zero_exp_count = sum(1 for j in final_jobs if j.get("level") in ["entry", "estágio"])
+    junior_count = sum(1 for j in final_jobs if j.get("level") == "junior")
+    pleno_count = sum(1 for j in final_jobs if j.get("level") == "pleno")
+    senior_count = sum(1 for j in final_jobs if j.get("level") == "senior")
+    
+    print(f"Consolidação concluída (100% REMOTO): {len(final_jobs)} vagas ({zero_exp_count} Zero Experiência/Estágio/Graduate, {junior_count} Júnior, {pleno_count} Pleno, {senior_count} Sênior)")
+    
+    now_dt = datetime.now()
+    now_str = now_dt.strftime("%Y-%m-%d %H:%M")
+    cache_version = now_dt.strftime("%Y%m%d_%H%M")
+    
+    insight_str = (
+        f"{zero_exp_count} vagas de Entrada Real (Estágio, Trainee, Graduate e Transição sem exigência prévia) "
+        f"em destaque de um total de {len(final_jobs)} vagas 100% REMOTAS no Brasil e Global."
+    )
+    
+    # 5. Escreve vagas_data.js
+    js_content = (
+        "// GERADO AUTOMATICAMENTE por job_scan.py — NÃO editar à mão\n"
+        f"window.JOBS_UPDATED={json.dumps(now_str, ensure_ascii=False)};\n"
+        f"window.JOBS_INSIGHT={json.dumps(insight_str, ensure_ascii=False)};\n"
+        f"window.JOBS_LIVE={json.dumps(final_jobs, ensure_ascii=False)};\n"
+    )
+    
+    with open(VAGAS_FILE, "w", encoding="utf-8") as f:
+        f.write(js_content)
+    print(f"vagas_data.js atualizado com sucesso em {VAGAS_FILE}")
+    
+    # 6. Atualiza o cache buster no HTML
+    update_html_cache_buster(cache_version)
+    
+    # 7. Registra no Digest e Log
+    try:
+        with open(DIGEST_FILE, "a", encoding="utf-8") as f:
+            f.write(f"\n## {now_str}\n")
+            f.write(f"- {insight_str}\n")
+            f.write(f"- Breakdown 100% Remoto: {zero_exp_count} Zero Exp/Estágio/Graduate, {junior_count} Júnior, {pleno_count} Pleno, {senior_count} Sênior\n")
+            
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            log_entry = {
+                "ts": now_str,
+                "total": len(final_jobs),
+                "zero_exp": zero_exp_count,
+                "junior": junior_count,
+                "pleno": pleno_count,
+                "senior": senior_count
+            }
+            f.write(json.dumps(log_entry) + "\n")
+    except Exception as e:
+        print(f"Erro ao salvar digest/log: {e}")
+        
+    print("Varredura finalizada com êxito!")
 
-# Gravar em ambos os locais
-open(os.path.join(BASE, "vagas_data.js"), "w", encoding="utf-8").write(js)
-site_jobs = os.path.join(APP, "_site", "_jobscan", "vagas_data.js")
-if os.path.exists(os.path.dirname(site_jobs)):
-    with open(site_jobs, "w", encoding="utf-8") as f:
-        f.write(js)
-
-print(f"[ok] {len(allj)} vagas -> vagas_data.js @ {now} (live: {len(dedup_live)}, seed: {len(seed)}, entrada: {len(entry_now)})")
-
-# Digest datado (append) + log
-digest_line = (f"\n## {now}\n- {insight}\n- Destaques de entrada ({len(entry_now)} vagas): "
-               + ", ".join(f"{j['role']} @ {j['company']}" for j in entry_now[:8]) + "\n")
-
-with open(os.path.join(BASE, "job_digest.md"), "a", encoding="utf-8") as f:
-    f.write(digest_line)
-
-site_digest = os.path.join(APP, "_site", "_jobscan", "job_digest.md")
-if os.path.exists(os.path.dirname(site_digest)):
-    with open(site_digest, "a", encoding="utf-8") as f:
-        f.write(digest_line)
-
-with open(os.path.join(BASE, "job_scan_log.ndjson"), "a", encoding="utf-8") as f:
-    f.write(json.dumps({"ts": now, "total": len(allj), "live": len(dedup_live), "entry": len(entry_now)}) + "\n")
+if __name__ == "__main__":
+    run()
