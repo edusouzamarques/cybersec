@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CyberSec Hub — Eduardo Marques</title>
+<title>CyberSec & GRC Portfolio Hub — Eduardo Marques</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
 <style>
   :root {
@@ -31,7 +31,7 @@
     padding: 30px 18px 60px;
   }
   .container {
-    max-width: 900px;
+    max-width: 920px;
     width: 100%;
   }
   header {
@@ -62,13 +62,48 @@
   p.subtitle {
     color: var(--dim);
     font-size: 15px;
-    max-width: 620px;
+    max-width: 680px;
     margin: 0 auto;
-    line-height: 1.5;
+    line-height: 1.55;
+  }
+  .header-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--acc);
+    color: #051a10;
+  }
+  .btn-primary:hover {
+    background: #4ae8a4;
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--dim);
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 18px;
     margin-bottom: 28px;
   }
@@ -110,11 +145,11 @@
     margin-bottom: 12px;
   }
   .card-icon {
-    font-size: 32px;
+    font-size: 30px;
     line-height: 1;
   }
   .card-title {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--text);
   }
@@ -128,6 +163,7 @@
   .pill-green { background: rgba(61,220,151,0.15); color: var(--acc); border: 1px solid var(--acc); }
   .pill-blue { background: rgba(74,163,255,0.15); color: var(--blue); border: 1px solid var(--blue); }
   .pill-gold { background: rgba(255,210,63,0.15); color: var(--gold); border: 1px solid var(--gold); }
+  .pill-purple { background: rgba(185,140,255,0.15); color: var(--purple); border: 1px solid var(--purple); }
   .card-desc {
     color: var(--dim);
     font-size: 13.5px;
@@ -161,9 +197,9 @@
     margin-top: 10px;
   }
   .quick-links h3 {
-    font-size: 14px;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
     color: var(--dim);
     margin-bottom: 14px;
   }
@@ -198,134 +234,143 @@
 
 <div class="container">
   <header>
-    <div class="badge-tag">Plataforma Pessoal de Estudos & Carreira</div>
-    <h1>🛡️ CyberSec Hub — Eduardo Marques</h1>
-    <p class="subtitle">Acompanhe sua trilha de cibersegurança, treine com questões comentadas, consulte o mapa de certificações e acesse vagas do mercado dos EUA.</p>
+    <div class="badge-tag">Professional Portfolio & Operations Hub</div>
+    <h1>🛡️ CyberSec, GRC & AI Safety Hub — Eduardo Marques</h1>
+    <p class="subtitle">
+      Hands-on cybersecurity investigations, verified regulatory audits (NIST CSF 2.0 / ISO 27001), 
+      deterministic AI guardrails, and credentialed technical training.
+    </p>
+    <div class="header-actions">
+      <a href="Eduardo_Marques_Resume.pdf" target="_blank" class="action-btn btn-primary">📄 Download Official Resume (PDF)</a>
+      <a href="Eduardo_Marques_Resume_Bilingual.pdf" target="_blank" class="action-btn btn-secondary">🌐 Bilingual Resume (EN/PT)</a>
+      <a href="https://github.com/edusouzamarques" target="_blank" class="action-btn btn-secondary">💻 GitHub Profile</a>
+      <a href="https://linkedin.com/in/edusouzamarques" target="_blank" class="action-btn btn-secondary">🔗 LinkedIn Profile</a>
+    </div>
   </header>
 
   <div class="grid">
-    <!-- Card 1: Assistente -->
+    <!-- Card 1: Assistente / Interactive Console -->
     <a href="assistente-cybersec.html" class="card highlight">
       <div>
         <div class="card-top">
           <span class="card-icon">🧭</span>
-          <div class="card-title">Assistente CyberSec</div>
-          <span class="card-pill pill-green">Tracker & Vagas</span>
+          <div class="card-title">CyberSec & GRC Console</div>
+          <span class="card-pill pill-green">Live Tracker & Radar</span>
         </div>
         <p class="card-desc">
-          Painel mestre com sua trilha ordenada, catálogo de 22 certificações, 100 termos no glossário, tabela dinâmica de vagas US (com cálculo automático de fit), detalhes do MS CU Boulder e tripé EB-2 NIW.
+          Interactive cockpit featuring the 9-course Google Cybersecurity track, Cisco NetAcad badges, Security+ drill metrics, SOC lab incident queue, and the Weekly GRC Compass (Edition #04).
         </p>
       </div>
       <div class="card-footer">
-        <span>Abrir Assistente</span>
+        <span>Open Console</span>
         <span class="arrow">→</span>
       </div>
     </a>
 
-    <!-- Card 2: Treinador -->
+    <!-- Card 2: Interactive Trainer -->
     <a href="treino-cybersec.html" class="card highlight">
       <div>
         <div class="card-top">
           <span class="card-icon">🎯</span>
-          <div class="card-title">Treinador & Simulador</div>
-          <span class="card-pill pill-green">69 Questões</span>
+          <div class="card-title">Security+ Interactive Trainer</div>
+          <span class="card-pill pill-green">Simulator & Drills</span>
         </div>
         <p class="card-desc">
-          Motor interativo de quiz para Security+ (SY0-701), Python (PCEP), Linux Essentials e Cloud. Inclui repetição espaçada, modo simulado cronometrado e explicações completas para cada resposta.
+          Interactive quiz engine for CompTIA Security+ (SY0-701), Python (PCEP), Linux CLI, and Cloud Security. Includes timed mock exams, spaced repetition, and in-depth rationales.
         </p>
       </div>
       <div class="card-footer">
-        <span>Iniciar Treinamento</span>
+        <span>Launch Trainer</span>
         <span class="arrow">→</span>
       </div>
     </a>
 
-    <!-- Card 3: PDF Overview -->
-    <a href="Overview-Certificados-Eduardo.pdf" target="_blank" class="card">
+    <!-- Card 3: Hands-on Audit Repo (Botium Toys) -->
+    <a href="https://github.com/edusouzamarques/botium-toys-security-audit" target="_blank" class="card">
       <div>
         <div class="card-top">
-          <span class="card-icon">🎖️</span>
-          <div class="card-title">Overview dos Certificados</div>
-          <span class="card-pill pill-blue">PDF Oficial</span>
+          <span class="card-icon">📋</span>
+          <div class="card-title">Botium Toys Security Audit</div>
+          <span class="card-pill pill-blue">NIST CSF 2.0</span>
         </div>
         <p class="card-desc">
-          Dossiê consolidado com as 6 seções estratégicas de credenciais: Security+, Linux, Cloud AWS/AZ/SC-900, CySA+, SecAI+ e Governança de IA / GRC.
+          Comprehensive compliance audit and risk assessment for an international enterprise: scope boundary definition, NIST CSF alignment matrix, risk register, and stakeholder remediation plan.
         </p>
       </div>
       <div class="card-footer">
-        <span>Visualizar Documento</span>
+        <span>View Audit Repository</span>
         <span class="arrow">↗</span>
       </div>
     </a>
 
-    <!-- Card 4: PDF Guia -->
-    <a href="Guia-CyberSec-Eduardo.pdf" target="_blank" class="card">
+    <!-- Card 4: Network Hardening Lab -->
+    <a href="https://github.com/edusouzamarques/network-hardening-security-risk-assessment" target="_blank" class="card">
       <div>
         <div class="card-top">
-          <span class="card-icon">📘</span>
-          <div class="card-title">Guia CyberSec Eduardo</div>
-          <span class="card-pill pill-gold">Guia Estratégico</span>
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Network Hardening & Risk Lab</div>
+          <span class="card-pill pill-blue">Defensive Sec</span>
         </div>
         <p class="card-desc">
-          Manual completo de transição de carreira, posicionamento internacional, narrativa da PMMG para imigração e estratégia de inserção no mercado global.
+          Simulation and remediation of an exposed perimeter breach: port filtering, defense-in-depth architecture, MFA enforcement, and automated Python validation script.
         </p>
       </div>
       <div class="card-footer">
-        <span>Visualizar Guia</span>
+        <span>View Lab Code</span>
         <span class="arrow">↗</span>
       </div>
     </a>
 
-    <!-- Card 5: Plano CU Boulder -->
-    <a href="Plano_Estrategico_Definitivo_CU_Boulder_Familia.pdf" target="_blank" class="card">
+    <!-- Card 5: Packet Analysis (tcpdump) -->
+    <a href="https://github.com/edusouzamarques/tcpdump-incident-investigation-lab" target="_blank" class="card">
+      <div>
+        <div class="card-top">
+          <span class="card-icon">🔍</span>
+          <div class="card-title">Packet Forensics & tcpdump Lab</div>
+          <span class="card-pill pill-blue">Threat Hunting</span>
+        </div>
+        <p class="card-desc">
+          Network protocol forensics isolating unauthorized JavaScript browser redirection: TCP 3-way handshake dissection, DNS/HTTP request correlation, and packet trace triage.
+        </p>
+      </div>
+      <div class="card-footer">
+        <span>View Investigation</span>
+        <span class="arrow">↗</span>
+      </div>
+    </a>
+
+    <!-- Card 6: Academic Anchor (Georgia Tech OMS Cybersecurity) -->
+    <a href="https://pe.gatech.edu/degrees/cybersecurity" target="_blank" class="card">
       <div>
         <div class="card-top">
           <span class="card-icon">🎓</span>
-          <div class="card-title">Plano Estratégico CU Boulder</div>
-          <span class="card-pill pill-green">Mestrado & Família</span>
+          <div class="card-title">Georgia Tech — OMS Cybersecurity</div>
+          <span class="card-pill pill-purple">Master's Roadmap</span>
         </div>
         <p class="card-desc">
-          Planejamento definitivo do Mestrado na University of Colorado Boulder, alinhamento de custos, Pathway de Network Systems e transição internacional.
+          Targeted online Master of Science in Cybersecurity from the #1 public institution in the US. Specialization in Information Security & Policy, bolstering technical depth and EB-2 NIW credentials.
         </p>
       </div>
       <div class="card-footer">
-        <span>Abrir Plano</span>
-        <span class="arrow">↗</span>
-      </div>
-    </a>
-
-    <!-- Card 6: Currículo Internacional -->
-    <a href="Eduardo_Marques_Resume.pdf" target="_blank" class="card">
-      <div>
-        <div class="card-top">
-          <span class="card-icon">📄</span>
-          <div class="card-title">Currículo Internacional</div>
-          <span class="card-pill pill-blue">1-Pager Oficial</span>
-        </div>
-        <p class="card-desc">
-          Currículo em inglês formatado para o mercado dos EUA, combinando 13,5 anos de liderança em segurança pública, portfólio de IA e foco em Tech GRC / AI Safety.
-        </p>
-      </div>
-      <div class="card-footer">
-        <span>Baixar / Visualizar PDF</span>
+        <span>Program Details</span>
         <span class="arrow">↗</span>
       </div>
     </a>
   </div>
 
   <div class="quick-links">
-    <h3>🔗 Atalhos para Plataformas Gratuitas de Estudo</h3>
+    <h3>🔗 Verified External Portals & Code Repositories</h3>
     <div class="links-row">
-      <a href="https://www.netacad.com/" target="_blank" class="qlink">🌐 Cisco NetAcad (Python & Redes)</a>
-      <a href="https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/" target="_blank" class="qlink">📺 Professor Messer (Security+ Vídeos)</a>
-      <a href="https://portswigger.net/web-security" target="_blank" class="qlink">🧪 PortSwigger Web Security Academy</a>
-      <a href="https://tryhackme.com/" target="_blank" class="qlink">🕹️ TryHackMe Labs</a>
-      <a href="https://learn.microsoft.com/" target="_blank" class="qlink">☁️ Microsoft Learn (SC-900 / SC-200)</a>
+      <a href="https://github.com/edusouzamarques" target="_blank" class="qlink">💻 GitHub Profile</a>
+      <a href="https://www.coursera.org/account/accomplishments/records/MWRZL7CQ1QAS" target="_blank" class="qlink">🎓 Google CyberSec Credential (MWRZL7CQ1QAS)</a>
+      <a href="https://tryhackme.com/room/offensivesecurityintroc101" target="_blank" class="qlink">🕹️ TryHackMe (Offensive Security Intro)</a>
+      <a href="https://www.netacad.com/" target="_blank" class="qlink">🌐 Cisco NetAcad Verified Badges</a>
+      <a href="https://linkedin.com/in/edusouzamarques" target="_blank" class="qlink">💼 LinkedIn Profile</a>
     </div>
   </div>
 
   <footer>
-    <p>Eduardo Marques • CyberSec & AI Security Journey</p>
+    <p>Eduardo de Souza Marques • Cybersecurity, GRC & AI Safety Professional</p>
   </footer>
 </div>
 
