@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data:; connect-src 'self' https:; font-src 'self' https: data:; img-src 'self' https: data:;">
@@ -85,46 +85,48 @@
   <div class="wrap" style="padding-bottom:0">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
       <div style="flex:1;min-width:300px">
-        <h1 style="margin:0;font-size:20px;letter-spacing:.3px">🛡️ CyberSec Operations & Strategy Hub — Eduardo Marques</h1>
-        <div class="sub" style="color:var(--dim);font-size:13px;margin-top:6px;line-height:1.5">
+        <h1 id="headerTitle" data-i18n="title" style="margin:0;font-size:20px;letter-spacing:.3px">🛡️ CyberSec Operations & Strategy Hub — Eduardo Marques</h1>
+        <div id="headerSub" data-i18n="sub" class="sub" style="color:var(--dim);font-size:13px;margin-top:6px;line-height:1.5">
           Active Cloud Sync across Mac, Dell, and Mobile. <b>North Star: Governance, Risk & Compliance (GRC) + Threat Intelligence & Evidence Auditing; Rare Competitive Moat: Agentic AI Security & Deterministic Guardrails.</b> Current State (November 2026): <b>Google Cybersecurity (Courses 1–4 Completed ✅: 1. Foundations ✅ · 2. NIST Risk Management ✅ · 3. Networks & Security [MWRZL7CQ1QAS] ✅ · 4. Linux & SQL ✅ | Course 5 In Progress 🔄) · TryHackMe (Intro to Offensive Security) ✅ · Cisco Linux Unhatched ✅ · Cisco Python Essentials 1 ✅ · CompTIA Security+ SY0-701 in accelerated practice</b>. Academic Anchor: <b>Georgia Tech (OMS Cybersecurity)</b> roadmap. Calibrated for global remote and sponsored roles.
         </div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <a href="https://github.com/edusouzamarques" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#1e293b;border:1px solid #475569;color:#f8fafc;font-weight:700;font-size:13px;padding:8px 14px;border-radius:20px;text-decoration:none;white-space:nowrap" title="View GitHub Repositories and Security Labs">
-          💻 github.com/edusouzamarques ↗
-        </a>
-        <a href="Eduardo_Marques_Resume.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,210,63,0.12);border:1px solid var(--gold);color:var(--gold);font-weight:700;font-size:13px;padding:8px 14px;border-radius:20px;text-decoration:none;white-space:nowrap" title="View & Download Official 1-Page Resume (PDF)">
-          📄 Official Resume (PDF) ↗
-        </a>
-        <a href="https://zemark.dev" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#182232;border:1px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;padding:8px 14px;border-radius:20px;text-decoration:none;white-space:nowrap" title="Visit zemark.dev">
-          🌐 zemark.dev ↗
-        </a>
-        <a href="treino-cybersec.html" style="display:inline-flex;align-items:center;gap:6px;background:#1e3a2c;border:1px solid var(--acc);color:var(--acc);font-weight:700;font-size:13px;padding:8px 16px;border-radius:20px;text-decoration:none;white-space:nowrap;box-shadow:0 0 12px rgba(61,220,151,0.2)">
-          🎯 CyberSec Trainer →
-        </a>
-      </div>
-    </div>
+        <!-- I18N LANGUAGE SWITCHER (EN by default, PT, ES) -->
+        
+        <!-- I18N FLOATING / HEADER HIGH-VISIBILITY SELECTOR -->
+        <div id="langSwitcher" style="display:inline-flex;align-items:center;background:#0d1522;border:2px solid #2563eb;border-radius:24px;padding:4px 6px;gap:4px;box-shadow:0 0 14px rgba(37,99,235,0.45);z-index:1000">
+          <span style="font-size:11px;font-weight:700;color:var(--dim);margin-right:4px;margin-left:4px;text-transform:uppercase;letter-spacing:0.5px">Lang:</span>
+          <button onclick="setLanguage('en')" id="btnLang_en" class="lang-btn on" style="padding:5px 12px;font-size:12px;font-weight:700;border:none;border-radius:16px;cursor:pointer;background:var(--blue);color:#04150d;transition:all 0.15s;display:inline-flex;align-items:center;gap:4px">
+            🇺🇸 EN
+          </button>
+          <button onclick="setLanguage('pt')" id="btnLang_pt" class="lang-btn" style="padding:5px 12px;font-size:12px;font-weight:600;border:none;border-radius:16px;cursor:pointer;background:transparent;color:var(--dim);transition:all 0.15s;display:inline-flex;align-items:center;gap:4px">
+            🇧🇷 PT
+          </button>
+          <button onclick="setLanguage('es')" id="btnLang_es" class="lang-btn" style="padding:5px 12px;font-size:12px;font-weight:600;border:none;border-radius:16px;cursor:pointer;background:transparent;color:var(--dim);transition:all 0.15s;display:inline-flex;align-items:center;gap:4px">
+            🇪🇸 ES
+          </button>
+        </div>
+</div>
   </div>
 </header>
 <div class="wrap">
   <div class="tabs">
-    <div class="tab on" data-t="painel">📊 Dashboard</div>
-    <div class="tab" data-t="soclabs" style="border-color:var(--acc);color:var(--acc);background:rgba(61,220,151,0.08);font-weight:700">🛡️ SOC & Labs Queue (60 Incident Scenarios)</div>
-    <div class="tab" data-t="sandbox" style="border-color:var(--blue);color:var(--blue);background:rgba(74,163,255,0.08);font-weight:700">💻 Terminal Sandbox (Linux & SQL)</div>
-    <div class="tab" data-t="bussola" style="border-color:var(--gold);color:var(--gold);background:rgba(255,210,63,0.08);font-weight:700">🧭 GRC Weekly Compass (Ed. #04)</div>
-    <div class="tab" data-t="trilha">🗺️ Learning Roadmap</div>
-    <div class="tab" data-t="glossario">📖 Security Glossary (100)</div>
-    <div class="tab" data-t="carreiras">💼 Career Ladders</div>
-    <div class="tab" data-t="funil">🎯 Rarity Funnel</div>
-    <div class="tab" data-t="ms">🎓 Georgia Tech OMS Cyber</div>
-    <div class="tab" data-t="certs">🎖️ Verified Credentials</div>
-    <div class="tab" data-t="vagas">💼 Global Jobs Radar</div>
-    <div class="tab" data-t="entrevistas">🎤 Interview Simulator (35)</div>
-    <div class="tab" data-t="autoscan">🤖 Auto Scanner</div>
-    <div class="tab" data-t="fontes">📚 Free Study Hub</div>
-    <a href="treino-cybersec.html" class="tab-link" style="padding:8px 14px;border:1px solid var(--blue);border-radius:999px;background:rgba(74,163,255,0.12);color:var(--blue);font-weight:700;text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:6px" title="Open exam drills and interactive modules">🎯 Trainer (Questions & Labs) ↗</a>
-    <a href="grc-lab.html" class="tab-link" style="padding:8px 14px;border:1px solid var(--acc);border-radius:999px;background:rgba(61,220,151,0.12);color:var(--acc);font-weight:700;text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:6px" title="Open Practical GRC Lab (NIST CSF 2.0 / ISO 27001)">🛡️ GRC Lab (NIST + ISO) ↗</a>
+    <div class="tab on" data-t="painel" data-i18n="tab_painel">📊 Dashboard</div>
+    <div class="tab" data-t="soclabs" data-i18n="tab_soclabs" style="border-color:var(--acc);color:var(--acc);background:rgba(61,220,151,0.08);font-weight:700">🛡️ SOC & Labs Queue (60 Incident Scenarios)</div>
+    <div class="tab" data-t="sandbox" data-i18n="tab_sandbox" style="border-color:var(--blue);color:var(--blue);background:rgba(74,163,255,0.08);font-weight:700">💻 Terminal Sandbox (Linux & SQL)</div>
+    <div class="tab" data-t="bussola" data-i18n="tab_bussola" style="border-color:var(--gold);color:var(--gold);background:rgba(255,210,63,0.08);font-weight:700">🧭 GRC Weekly Compass (Ed. #04)</div>
+    <div class="tab" data-t="trilha" data-i18n="tab_trilha">🗺️ Learning Roadmap</div>
+    <div class="tab" data-t="glossario" data-i18n="tab_glossario">📖 Security Glossary (100)</div>
+    <div class="tab" data-t="carreiras" data-i18n="tab_carreiras">💼 Career Ladders</div>
+    <div class="tab" data-t="funil" data-i18n="tab_funil">🎯 Rarity Funnel</div>
+    <div class="tab" data-t="ms" data-i18n="tab_ms">🎓 Georgia Tech OMS Cyber</div>
+    <div class="tab" data-t="certs" data-i18n="tab_certs">🎖️ Verified Credentials</div>
+    <div class="tab" data-t="vagas" data-i18n="tab_vagas">💼 Global Jobs Radar</div>
+    <div class="tab" data-t="entrevistas" data-i18n="tab_entrevistas">🎤 Interview Simulator (35)</div>
+    <div class="tab" data-t="autoscan" data-i18n="tab_autoscan">🤖 Auto Scanner</div>
+    <div class="tab" data-t="fontes" data-i18n="tab_fontes">📚 Free Study Hub</div>
+    <a href="treino-cybersec.html" class="tab-link" style="padding:8px 14px;border:1px solid var(--blue);border-radius:999px;background:rgba(74,163,255,0.12);color:var(--blue);font-weight:700;text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:6px" title="Open exam drills and interactive modules"><span data-i18n="trainer_link">🎯 Trainer (Questions & Labs) ↗</span></a>
+    <a href="grc-lab.html" class="tab-link" style="padding:8px 14px;border:1px solid var(--acc);border-radius:999px;background:rgba(61,220,151,0.12);color:var(--acc);font-weight:700;text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:6px" title="Open Practical GRC Lab (NIST CSF 2.0 / ISO 27001)"><span data-i18n="grc_link">🛡️ GRC Lab (NIST + ISO) ↗</span></a>
     <div class="tab sync-badge" id="syncStatusTab" onclick="openSyncModal()" style="margin-left:auto;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);padding:6px 12px;border-radius:20px" title="Multi-Device Cloud Sync (Click to manage)">
       <span id="syncDot" style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 6px #10b981"></span>
       <span id="syncText" style="font-weight:600;color:var(--acc)">☁️ Cloud Active</span>
@@ -135,50 +137,50 @@
     <!-- Card de Conquistas & Certificados Verificados -->
     <div class="card" style="border-color:#10b981;background:linear-gradient(180deg,#0a1b14,#08130e);margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <h3 style="margin:0;font-size:15px;color:var(--acc);display:flex;align-items:center;gap:8px">🎖️ Active Verified Credentials & Milestones</h3>
-        <span class="badge" style="color:var(--acc);border-color:var(--acc)">Production Verified</span>
+        <h3 data-i18n="ver_title" style="margin:0;font-size:15px;color:var(--acc);display:flex;align-items:center;gap:8px">🎖️ Active Verified Credentials & Milestones</h3>
+        <span class="badge" data-i18n="ver_badge" style="color:var(--acc);border-color:var(--acc)">Production Verified</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px">
         <div style="padding:10px 12px;background:var(--panel2);border:1px solid #164e33;border-radius:8px">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <b style="color:var(--acc)">Google Cybersecurity (Coursera)</b>
-            <span class="pill free" style="font-size:11px">4 of 9 Completed</span>
+            <span class="pill free" data-i18n="google_badge" style="font-size:11px">4 of 9 Completed</span>
           </div>
           <div style="font-size:12px;color:var(--dim);margin:5px 0">
-            • <b>Curso 1:</b> Foundations of Cybersecurity ✅<br>
-            • <b>Curso 2:</b> Play It Safe: Manage Security Risks (NIST CSF) ✅<br>
-            • <b>Curso 3:</b> Connect and Protect: Networks and Network Security ✅<br>
-            • <b>Curso 4:</b> Tools of the Trade: Linux and SQL (CLI & Banco de Dados) ✅
+            <span data-i18n="google_c1">• <b>Course 1:</b> Foundations of Cybersecurity ✅</span><br>
+            <span data-i18n="google_c2">• <b>Course 2:</b> Play It Safe: Manage Security Risks (NIST CSF) ✅</span><br>
+            <span data-i18n="google_c3">• <b>Course 3:</b> Connect and Protect: Networks and Network Security ✅</span><br>
+            <span data-i18n="google_c4">• <b>Course 4:</b> Tools of the Trade: Linux and SQL (CLI & Databases) ✅</span>
           </div>
           <div style="margin-top:6px;display:flex;gap:8px">
-            <a href="https://www.coursera.org/account/accomplishments/records/MWRZL7CQ1QAS" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600">Ver Credencial Coursera (MWRZL7CQ1QAS) ↗</a>
+            <a href="https://www.coursera.org/account/accomplishments/records/MWRZL7CQ1QAS" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600"><span data-i18n="google_link">View Coursera Credential (MWRZL7CQ1QAS) ↗</span></a>
           </div>
         </div>
         <div style="padding:10px 12px;background:var(--panel2);border:1px solid #1e3a5f;border-radius:8px">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <b style="color:var(--blue)">TryHackMe Hands-on Security</b>
-            <span class="pill free" style="font-size:11px">Concluído 07/11/2026</span>
+            <span class="pill free" data-i18n="thm_badge" style="font-size:11px">Completed 11/07/2026</span>
           </div>
           <div style="font-size:12px;color:var(--dim);margin:5px 0">
             • <b>Room:</b> Intro to Offensive Security (c101) ✅<br>
-            • Metodologia Red Teaming, exploração ética de vulnerabilidades web e aplicação de contramedidas defensivas.
+            <span data-i18n="thm_desc">• Red Teaming methodology, ethical web vulnerability exploitation and defensive countermeasures.</span>
           </div>
           <div style="margin-top:6px">
-            <a href="https://tryhackme.com/room/offensivesecurityintroc101" target="_blank" style="font-size:12px;color:var(--blue);font-weight:600">Ver Sala no TryHackMe ↗</a>
+            <a href="https://tryhackme.com/room/offensivesecurityintroc101" target="_blank" style="font-size:12px;color:var(--blue);font-weight:600"><span data-i18n="thm_link">View TryHackMe Room ↗</span></a>
           </div>
         </div>
         <div style="padding:10px 12px;background:var(--panel2);border:1px solid #374151;border-radius:8px">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <b style="color:var(--gold)">Cisco NetAcad & Treinador</b>
-            <span class="pill paid" style="font-size:11px">Hands-on Drills</span>
+            <b data-i18n="cisco_title" style="color:var(--gold)">Cisco NetAcad & Trainer</b>
+            <span class="pill paid" data-i18n="cisco_badge" style="font-size:11px">Hands-on Drills</span>
           </div>
           <div style="font-size:12px;color:var(--dim);margin:5px 0">
-            • <b>Python Essentials 1</b> (Lógica & Automação) ✅<br>
-            • <b>Linux OS Fundamentals</b> (CLI & Permissões) ✅<br>
-            • <b>CompTIA Security+ SY0-701</b> (1.200 Questões + Lab GRC) ✅
+            <span data-i18n="cisco_p1">• <b>Python Essentials 1</b> (Logic & Automation) ✅</span><br>
+            <span data-i18n="cisco_p2">• <b>Linux OS Fundamentals</b> (CLI & Permissions) ✅</span><br>
+            <span data-i18n="cisco_p3">• <b>CompTIA Security+ SY0-701</b> (1,200 Questions + GRC Lab) ✅</span>
           </div>
           <div style="margin-top:6px">
-            <a href="treino-cybersec.html" style="font-size:12px;color:var(--gold);font-weight:600">Abrir Treinador de Questões →</a>
+            <a href="treino-cybersec.html" style="font-size:12px;color:var(--gold);font-weight:600"><span data-i18n="cisco_link">Open Question Trainer →</span></a>
           </div>
         </div>
       </div>
@@ -186,18 +188,18 @@
 
     <div class="card" style="border-color:#24364a;background:linear-gradient(180deg,#0f1622,#0b0f14)">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <h3 style="margin:0;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:8px">🌐 Active Domains & Deployed Web Assets</h3>
-        <span class="badge" style="color:var(--blue);border-color:var(--blue)">Verified Web Presence</span>
+        <h3 data-i18n="dom_title" style="margin:0;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:8px">🌐 Active Domains & Deployed Web Assets</h3>
+        <span class="badge" data-i18n="dom_badge" style="color:var(--blue);border-color:var(--blue)">Verified Web Presence</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px">
         <div style="padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <b style="color:var(--ink)">zemark.dev</b>
-            <span class="pill paid" style="font-size:11px">★ Official Enterprise Domain</span>
+            <span class="pill paid" data-i18n="dom_zemark_badge" style="font-size:11px">★ Official Enterprise Domain</span>
           </div>
-          <div style="font-size:12px;color:var(--dim);margin:4px 0">Domínio da sua empresa comprado na Namecheap (Order #214012797) e vinculado ao Cloudflare.</div>
+          <div data-i18n="dom_zemark_desc" style="font-size:12px;color:var(--dim);margin:4px 0">Company enterprise domain registered on Namecheap (Order #214012797) and routed via Cloudflare.</div>
           <div style="margin-top:6px;display:flex;gap:10px">
-            <a href="https://zemark.dev" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600">Painel Namecheap ↗</a>
+            <a href="https://zemark.dev" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600"><span data-i18n="dom_zemark_link1">Namecheap Panel ↗</span></a>
             <a href="https://dash.cloudflare.com" target="_blank" style="font-size:12px;color:var(--blue)">Cloudflare ↗</a>
           </div>
         </div>
@@ -206,7 +208,7 @@
             <b style="color:var(--ink)">pixelproads.com</b>
             <span class="pill" style="font-size:11px;color:var(--purple);border-color:var(--purple)">Agency / Operations Studio</span>
           </div>
-          <div style="font-size:12px;color:var(--dim);margin:4px 0">Estúdio de mídia e automação de IA (repositório GitHub <code>pixelproads</code>).</div>
+          <div data-i18n="dom_pixel_desc" style="font-size:12px;color:var(--dim);margin:4px 0">Media studio & AI automation engineering (GitHub repo <code>pixelproads</code>).</div>
           <div style="margin-top:6px">
             <a href="https://pixelproads.com" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600">pixelproads.com ↗</a>
           </div>
@@ -216,27 +218,27 @@
             <b style="color:var(--ink)">Assistente CyberSec</b>
             <span class="pill free" style="font-size:11px">GitHub Pages</span>
           </div>
-          <div style="font-size:12px;color:var(--dim);margin:4px 0">App CyberSec na nuvem sincronizado entre Mac, Dell e Celular.</div>
+          <div data-i18n="dom_assist_desc" style="font-size:12px;color:var(--dim);margin:4px 0">Cloud-native CyberSec App synchronized across Mac, Dell, and Mobile.</div>
           <div style="margin-top:6px">
-            <a href="https://edusouzamarques.github.io/cybersec/assistente-cybersec.html" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600">Abrir na Nuvem ↗</a>
+            <a href="https://edusouzamarques.github.io/cybersec/assistente-cybersec.html" target="_blank" style="font-size:12px;color:var(--acc);font-weight:600"><span data-i18n="dom_assist_link">Open in Cloud ↗</span></a>
           </div>
         </div>
       </div>
     </div>
 
     <div class="card next">
-      <h3>▶ Immediate Priority Actions (Next 3 Steps)</h3>
+      <h3 data-i18n="next_title">▶ Immediate Priority Actions (Next 3 Steps)</h3>
       <div id="next3"></div>
     </div>
     <div class="card">
       <div class="reset" onclick="if(confirm('Zerar todo o progresso?')){localStorage.removeItem(KEY);location.reload()}">↺ reset progress</div>
-      <b>Overall Progress</b>
+      <b data-i18n="overall_prog">Overall Progress</b>
       <div class="bar" style="margin:8px 0"><div class="fill" id="fillAll"></div></div>
       <div class="kpi">
-        <div><b id="kDone">0</b> completed</div>
-        <div><b id="kTotal">0</b> total items</div>
-        <div><b id="kPct">0%</b> of roadmap</div>
-        <div><b id="kFree">0</b> 100% free items</div>
+        <div><b id="kDone">0</b> <span data-i18n="kpi_done">completed</span></div>
+        <div><b id="kTotal">0</b> <span data-i18n="kpi_total">total items</span></div>
+        <div><b id="kPct">0%</b> <span data-i18n="kpi_pct">of roadmap</span></div>
+        <div><b id="kFree">0</b> <span data-i18n="kpi_free">100% free items</span></div>
       </div>
     </div>
     <div id="phaseBars"></div>
@@ -401,7 +403,7 @@
   </section>
 </div>
 
-<script src="_jobscan/vagas_data.js?v=20261110_0800"></script>
+<script src="_jobscan/vagas_data.js?v=20261019_1840"></script>
 <script src="_jobscan/entrevistas_data.js?v=20261019_2100"></script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
@@ -3701,6 +3703,227 @@ function runSqlCommand(raw) {
   return `SQL Error: Comandos suportados nesta sandbox: SELECT ... FROM ... [WHERE ...] [GROUP BY ...] [ORDER BY ...]; (Digite HELP para ver tabelas)\n`;
 }
 
+
+
+/* =====================================================================
+   INTERNATIONALIZATION (i18n) ENGINE: EN (Default), PT, ES
+   ===================================================================== */
+let currentLang = localStorage.getItem('cybersec_app_lang') || 'en';
+
+const I18N_DICT = {
+  en: {
+    title: '🛡️ CyberSec Operations & Strategy Hub — Eduardo Marques',
+    sub: 'Active Cloud Sync across Mac, Dell, and Mobile. <b>North Star: Governance, Risk & Compliance (GRC) + Threat Intelligence & Evidence Auditing; Rare Competitive Moat: Agentic AI Security & Deterministic Guardrails.</b> Current State (November 2026): <b>Google Cybersecurity (Courses 1–4 Completed ✅: 1. Foundations ✅ · 2. NIST Risk Management ✅ · 3. Networks & Security [MWRZL7CQ1QAS] ✅ · 4. Linux & SQL ✅ | Course 5 In Progress 🔄) · TryHackMe (Intro to Offensive Security) ✅ · Cisco Linux Unhatched ✅ · Cisco Python Essentials 1 ✅ · CompTIA Security+ SY0-701 in accelerated practice</b>. Academic Anchor: <b>Georgia Tech (OMS Cybersecurity)</b> roadmap. Calibrated for global remote and sponsored roles.',
+    resume_btn: '📄 Official Resume (PDF) ↗',
+    trainer_btn: '🎯 CyberSec Trainer →',
+    tab_painel: '📊 Dashboard',
+    tab_soclabs: '🛡️ SOC & Labs Queue (60 Incident Scenarios)',
+    tab_sandbox: '💻 Terminal Sandbox (Linux & SQL)',
+    tab_bussola: '🧭 GRC Weekly Compass (Ed. #04)',
+    tab_trilha: '🗺️ Learning Roadmap',
+    tab_glossario: '📖 Security Glossary (100)',
+    tab_carreiras: '💼 Career Ladders',
+    tab_funil: '🎯 Rarity Funnel',
+    tab_ms: '🎓 Georgia Tech OMS Cyber',
+    tab_certs: '🎖️ Verified Credentials',
+    tab_vagas: '💼 Global Jobs Radar',
+    tab_entrevistas: '🎤 Interview Simulator (35)',
+    tab_autoscan: '🤖 Auto Scanner',
+    tab_fontes: '📚 Free Study Hub',
+    cloud_active: '☁️ Cloud Active',
+    trainer_link: '🎯 Trainer (Questions & Labs) ↗',
+    grc_link: '🛡️ GRC Lab (NIST + ISO) ↗',
+    ver_title: '🎖️ Active Verified Credentials & Milestones',
+    ver_badge: 'Production Verified',
+    google_badge: '4 of 9 Completed',
+    google_c1: '• <b>Course 1:</b> Foundations of Cybersecurity ✅',
+    google_c2: '• <b>Course 2:</b> Play It Safe: Manage Security Risks (NIST CSF) ✅',
+    google_c3: '• <b>Course 3:</b> Connect and Protect: Networks and Network Security ✅',
+    google_c4: '• <b>Course 4:</b> Tools of the Trade: Linux and SQL (CLI & Databases) ✅',
+    google_link: 'View Coursera Credential (MWRZL7CQ1QAS) ↗',
+    thm_badge: 'Completed 11/07/2026',
+    thm_desc: '• Red Teaming methodology, ethical web vulnerability exploitation and defensive countermeasures.',
+    thm_link: 'View Room on TryHackMe ↗',
+    cisco_title: 'Cisco NetAcad & Trainer',
+    cisco_badge: 'Hands-on Drills',
+    cisco_p1: '• <b>Python Essentials 1</b> (Logic & Automation) ✅',
+    cisco_p2: '• <b>Linux OS Fundamentals</b> (CLI & Permissions) ✅',
+    cisco_p3: '• <b>CompTIA Security+ SY0-701</b> (1,200 Questions + GRC Lab) ✅',
+    cisco_link: 'Open Question Trainer →',
+    dom_title: '🌐 Active Domains & Deployed Web Assets',
+    dom_badge: 'Verified Web Presence',
+    dom_zemark_badge: '★ Official Enterprise Domain',
+    dom_zemark_desc: 'Company enterprise domain registered on Namecheap (Order #214012797) and routed via Cloudflare.',
+    dom_zemark_link1: 'Namecheap Panel ↗',
+    dom_pixel_desc: 'Media studio & AI automation engineering (GitHub repo <code>pixelproads</code>).',
+    dom_assist_desc: 'Cloud-native CyberSec App synchronized across Mac, Dell, and Mobile.',
+    dom_assist_link: 'Open in Cloud ↗',
+    next_title: '▶ Immediate Priority Actions (Next 3 Steps)',
+    overall_prog: 'Overall Progress',
+    kpi_done: 'completed',
+    kpi_total: 'total items',
+    kpi_pct: 'of roadmap',
+    kpi_free: '100% free items'
+  },
+  pt: {
+    title: '🛡️ Hub de Operações & Estratégia CyberSec — Eduardo Marques',
+    sub: 'Sincronização em Nuvem Ativa entre Mac, Dell e Celular. <b>Norte: Governança, Risco e Conformidade (GRC) + Inteligência de Ameaças & Auditoria de Evidências; Diferencial Raro: Segurança de IA Agêntica & Guardrails Determinísticos.</b> Estado Atual (Novembro 2026): <b>Google Cybersecurity (Cursos 1–4 Concluídos ✅: 1. Fundamentos ✅ · 2. Gestão de Risco NIST ✅ · 3. Redes e Segurança [MWRZL7CQ1QAS] ✅ · 4. Linux & SQL ✅ | Curso 5 em Andamento 🔄) · TryHackMe (Intro à Segurança Ofensiva) ✅ · Cisco Linux Unhatched ✅ · Cisco Python Essentials 1 ✅ · CompTIA Security+ SY0-701 em treino acelerado</b>. Âncora Acadêmica: Roteiro <b>Georgia Tech (OMS Cybersecurity)</b>. Calibrado para vagas remotas globais e patrocínio de visto.',
+    resume_btn: '📄 Currículo Oficial (PDF) ↗',
+    trainer_btn: '🎯 Treinador CyberSec →',
+    tab_painel: '📊 Painel Principal',
+    tab_soclabs: '🛡️ Fila de SOC & Labs (60 Incidentes)',
+    tab_sandbox: '💻 Sandbox Terminal (Linux & SQL)',
+    tab_bussola: '🧭 Bússola Semanal GRC (Ed. #04)',
+    tab_trilha: '🗺️ Trilha de Aprendizado',
+    tab_glossario: '📖 Glossário de Segurança (100)',
+    tab_carreiras: '💼 Carreiras em Cyber',
+    tab_funil: '🎯 Funil da Raridade',
+    tab_ms: '🎓 Mestrado Georgia Tech OMS',
+    tab_certs: '🎖️ Certificados Verificados',
+    tab_vagas: '💼 Radar de Vagas Globais',
+    tab_entrevistas: '🎤 Simulador de Entrevistas (35)',
+    tab_autoscan: '🤖 Scanner Automático',
+    tab_fontes: '📚 Onde Estudar Grátis',
+    cloud_active: '☁️ Nuvem Ativa',
+    trainer_link: '🎯 Treinador (Questões & Labs) ↗',
+    grc_link: '🛡️ Laboratório GRC (NIST + ISO) ↗',
+    ver_title: '🎖️ Conquistas & Certificados Verificados',
+    ver_badge: 'Verificado em Produção',
+    google_badge: '4 de 9 Concluídos',
+    google_c1: '• <b>Curso 1:</b> Fundamentos de Cibersegurança ✅',
+    google_c2: '• <b>Curso 2:</b> Play It Safe: Gestão de Riscos (NIST CSF) ✅',
+    google_c3: '• <b>Curso 3:</b> Connect and Protect: Redes e Segurança de Rede ✅',
+    google_c4: '• <b>Curso 4:</b> Ferramentas do Ofício: Linux e SQL (CLI & Banco de Dados) ✅',
+    google_link: 'Ver Credencial Coursera (MWRZL7CQ1QAS) ↗',
+    thm_badge: 'Concluído 07/11/2026',
+    thm_desc: '• Metodologia Red Teaming, exploração ética de vulnerabilidades web e aplicação de contramedidas defensivas.',
+    thm_link: 'Ver Sala no TryHackMe ↗',
+    cisco_title: 'Cisco NetAcad & Treinador',
+    cisco_badge: 'Exercícios Práticos',
+    cisco_p1: '• <b>Python Essentials 1</b> (Lógica & Automação) ✅',
+    cisco_p2: '• <b>Linux OS Fundamentals</b> (CLI & Permissões) ✅',
+    cisco_p3: '• <b>CompTIA Security+ SY0-701</b> (1.200 Questões + Lab GRC) ✅',
+    cisco_link: 'Abrir Treinador de Questões →',
+    dom_title: '🌐 Domínios & Sites Publicados em Produção',
+    dom_badge: 'Presença Web Verificada',
+    dom_zemark_badge: '★ Domínio Empresarial Oficial',
+    dom_zemark_desc: 'Domínio corporativo registrado na Namecheap (Order #214012797) e vinculado ao Cloudflare.',
+    dom_zemark_link1: 'Painel Namecheap ↗',
+    dom_pixel_desc: 'Estúdio de mídia e automação de IA (repositório GitHub <code>pixelproads</code>).',
+    dom_assist_desc: 'App CyberSec na nuvem sincronizado entre Mac, Dell e Celular.',
+    dom_assist_link: 'Abrir na Nuvem ↗',
+    next_title: '▶ Ações de Prioridade Imediata (Próximos 3 Passos)',
+    overall_prog: 'Progresso Geral',
+    kpi_done: 'concluídos',
+    kpi_total: 'itens totais',
+    kpi_pct: 'da trilha',
+    kpi_free: 'itens 100% gratuitos'
+  },
+  es: {
+    title: '🛡️ Centro de Operaciones y Estrategia CyberSec — Eduardo Marques',
+    sub: 'Sincronización en la Nube Activa entre Mac, Dell y Móvil. <b>Norte Estratégico: Gobernanza, Riesgo y Cumplimiento (GRC) + Inteligencia de Amenazas y Auditoría de Evidencias; Diferencial Raro: Seguridad de IA Agéntica y Guardrails Deterministas.</b> Estado Actual (Noviembre 2026): <b>Google Cybersecurity (Cursos 1–4 Completados ✅: 1. Fundamentos ✅ · 2. Gestión de Riesgos NIST ✅ · 3. Redes y Seguridad [MWRZL7CQ1QAS] ✅ · 4. Linux y SQL ✅ | Curso 5 en Progreso 🔄) · TryHackMe (Intro a Seguridad Ofensiva) ✅ · Cisco Linux Unhatched ✅ · Cisco Python Essentials 1 ✅ · CompTIA Security+ SY0-701 en práctica acelerada</b>. Ancla Académica: Hoja de ruta <b>Georgia Tech (OMS Cybersecurity)</b>. Calibrado para roles remotos globales y con patrocinio de visa.',
+    resume_btn: '📄 Currículum Oficial (PDF) ↗',
+    trainer_btn: '🎯 Entrenador CyberSec →',
+    tab_painel: '📊 Panel Principal',
+    tab_soclabs: '🛡️ Cola de SOC y Labs (60 Incidentes)',
+    tab_sandbox: '💻 Terminal Sandbox (Linux y SQL)',
+    tab_bussola: '🧭 Brújula Semanal GRC (Ed. #04)',
+    tab_trilha: '🗺️ Ruta de Aprendizaje',
+    tab_glossario: '📖 Glosario de Seguridad (100)',
+    tab_carreiras: '💼 Carreras en Ciberseguridad',
+    tab_funil: '🎯 Embudo de Rareza',
+    tab_ms: '🎓 Maestría Georgia Tech OMS',
+    tab_certs: '🎖️ Certificaciones Verificadas',
+    tab_vagas: '💼 Radar Global de Empleos',
+    tab_entrevistas: '🎤 Simulador de Entrevistas (35)',
+    tab_autoscan: '🤖 Escáner Automático',
+    tab_fontes: '📚 Dónde Estudiar Gratis',
+    cloud_active: '☁️ Nube Activa',
+    trainer_link: '🎯 Entrenador (Preguntas y Labs) ↗',
+    grc_link: '🛡️ Laboratorio GRC (NIST + ISO) ↗',
+    ver_title: '🎖️ Credenciales Verificadas y Logros',
+    ver_badge: 'Verificado en Producción',
+    google_badge: '4 de 9 Completados',
+    google_c1: '• <b>Curso 1:</b> Fundamentos de Ciberseguridad ✅',
+    google_c2: '• <b>Curso 2:</b> Gestión de Riesgos de Seguridad (NIST CSF) ✅',
+    google_c3: '• <b>Curso 3:</b> Conectar y Proteger: Redes y Seguridad de Redes ✅',
+    google_c4: '• <b>Curso 4:</b> Herramientas del Oficio: Linux y SQL (CLI y Bases de Datos) ✅',
+    google_link: 'Ver Credencial Coursera (MWRZL7CQ1QAS) ↗',
+    thm_badge: 'Completado 07/11/2026',
+    thm_desc: '• Metodología Red Teaming, explotación ética de vulnerabilidades web y aplicación de contramedidas defensivas.',
+    thm_link: 'Ver Sala en TryHackMe ↗',
+    cisco_title: 'Cisco NetAcad y Entrenador',
+    cisco_badge: 'Ejercicios Prácticos',
+    cisco_p1: '• <b>Python Essentials 1</b> (Lógica y Automatización) ✅',
+    cisco_p2: '• <b>Linux OS Fundamentals</b> (CLI y Permisos) ✅',
+    cisco_p3: '• <b>CompTIA Security+ SY0-701</b> (1.200 Preguntas + Lab GRC) ✅',
+    cisco_link: 'Abrir Entrenador de Preguntas →',
+    dom_title: '🌐 Dominios y Sitios Publicados en Producción',
+    dom_badge: 'Presencia Web Verificada',
+    dom_zemark_badge: '★ Dominio Empresarial Oficial',
+    dom_zemark_desc: 'Dominio corporativo adquirido en Namecheap (Order #214012797) y configurado mediante Cloudflare.',
+    dom_zemark_link1: 'Panel Namecheap ↗',
+    dom_pixel_desc: 'Estudio de medios y automatización de IA (repositorio de GitHub <code>pixelproads</code>).',
+    dom_assist_desc: 'Aplicación CyberSec en la nube sincronizada entre Mac, Dell y Móvil.',
+    dom_assist_link: 'Abrir en la Nube ↗',
+    next_title: '▶ Acciones de Prioridad Inmediata (Próximos 3 Pasos)',
+    overall_prog: 'Progreso General',
+    kpi_done: 'completados',
+    kpi_total: 'elementos totales',
+    kpi_pct: 'de la ruta',
+    kpi_free: 'elementos 100% gratuitos'
+  }
+};
+
+function setLanguage(lang) {
+  if (!I18N_DICT[lang]) lang = 'en';
+  currentLang = lang;
+  localStorage.setItem('cybersec_app_lang', lang);
+
+  // Update language buttons styling
+  ['en', 'pt', 'es'].forEach(l => {
+    const btn = document.getElementById('btnLang_' + l);
+    if (btn) {
+      if (l === lang) {
+        btn.classList.add('on');
+        btn.style.background = 'var(--blue)';
+        btn.style.color = '#04150d';
+        btn.style.fontWeight = '700';
+      } else {
+        btn.classList.remove('on');
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--dim)';
+        btn.style.fontWeight = '600';
+      }
+    }
+  });
+
+  // Apply translations to data-i18n elements
+  const dict = I18N_DICT[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
+  });
+
+  // Re-render all views to guarantee zero language mismatch
+  if (typeof renderPainel === 'function') {
+    try { renderPainel(); } catch(e){}
+  }
+  if (typeof renderSocLabs === 'function' && document.getElementById('soclabs')) {
+    try { renderSocLabs(); } catch(e){}
+  }
+  if (typeof renderSandbox === 'function' && document.getElementById('sandbox')) {
+    try { renderSandbox(); } catch(e){}
+  }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(currentLang);
+});
+setTimeout(() => { setLanguage(currentLang); }, 100);
 
 </script>
 

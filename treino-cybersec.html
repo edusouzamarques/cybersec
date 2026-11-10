@@ -106,7 +106,7 @@
     <div class="tab on" data-t="home">🏠 Início</div>
     <div class="tab" data-t="aulas">🎬 Aulas (vídeo a vídeo)</div>
     <div class="tab" data-t="praticar">✏️ Praticar</div>
-    <div class="tab" data-t="simulado">⏱️ Simulado</div>
+    <div class="tab" data-t="simulado" data-i18n="t_sim">⏱️ Mock Exam</div>
     <div class="tab" data-t="pbq">🛠️ PBQ (Prática)</div>
     <div class="tab" data-t="fracos">🩹 Pontos fracos</div>
     <div class="tab" data-t="gloss">📖 Glossário</div>
@@ -4379,5 +4379,68 @@ setInterval(() => {
   initCloudSync();
 }, 120000);
 </script>
+
+<script>
+let currentLang = localStorage.getItem('cybersec_app_lang') || 'en';
+
+const TREINO_I18N = {
+  en: {
+    t_title: 'CyberSec Interactive Trainer — Eduardo Marques',
+    t_painel: '📊 Dashboard',
+    t_treino: '🎯 Practice Engine',
+    t_sim: '⏱️ Timed Mock Exam',
+    t_aulas: '📚 Study Lessons'
+  },
+  pt: {
+    t_title: 'Treinador CyberSec — Eduardo Marques',
+    t_painel: '📊 Painel de Controle',
+    t_treino: '🎯 Treino Prático',
+    t_sim: '⏱️ Simulado Cronometrado',
+    t_aulas: '📚 Aulas & Resumos'
+  },
+  es: {
+    t_title: 'Entrenador CyberSec — Eduardo Marques',
+    t_painel: '📊 Panel de Control',
+    t_treino: '🎯 Práctica Interactiva',
+    t_sim: '⏱️ Simulacro Cronometrado',
+    t_aulas: '📚 Lecciones y Resúmenes'
+  }
+};
+
+function setLanguage(lang) {
+  if (!TREINO_I18N[lang]) lang = 'en';
+  currentLang = lang;
+  localStorage.setItem('cybersec_app_lang', lang);
+
+  ['en', 'pt', 'es'].forEach(l => {
+    const btn = document.getElementById('btnLang_' + l);
+    if (btn) {
+      if (l === lang) {
+        btn.classList.add('on');
+        btn.style.background = 'var(--blue)';
+        btn.style.color = '#04150d';
+        btn.style.fontWeight = '700';
+      } else {
+        btn.classList.remove('on');
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--dim)';
+        btn.style.fontWeight = '600';
+      }
+    }
+  });
+
+  const dict = TREINO_I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
+setTimeout(() => setLanguage(currentLang), 100);
+</script>
+
 </body>
 </html>

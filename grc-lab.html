@@ -106,9 +106,14 @@
 <header>
   <div class="top-nav">
     <div class="breadcrumb">
-      <a href="assistente-cybersec.html">← Voltar para o Assistente</a> · <b>Eduardo de Souza Marques</b> · Portfólio de Cibersegurança & GRC
+      <a href="assistente-cybersec.html"><span data-i18n="grc_back">← Return to Assistant</span></a> · <b>Eduardo de Souza Marques</b> · <span data-i18n="grc_bread">Cybersecurity & GRC Portfolio</span>
     </div>
     <div class="header-actions">
+      <div id="langSwitcher" style="display:inline-flex;align-items:center;background:#0d1522;border:2px solid #2563eb;border-radius:24px;padding:2px 4px;gap:3px;box-shadow:0 0 10px rgba(37,99,235,0.45)">
+        <button onclick="setLanguage('en')" id="btnLang_en" class="lang-btn on" style="padding:4px 8px;font-size:11px;font-weight:700;border:none;border-radius:14px;cursor:pointer;background:var(--blue);color:#04150d">🇺🇸 EN</button>
+        <button onclick="setLanguage('pt')" id="btnLang_pt" class="lang-btn" style="padding:4px 8px;font-size:11px;font-weight:600;border:none;border-radius:14px;cursor:pointer;background:transparent;color:var(--dim)">🇧🇷 PT</button>
+        <button onclick="setLanguage('es')" id="btnLang_es" class="lang-btn" style="padding:4px 8px;font-size:11px;font-weight:600;border:none;border-radius:14px;cursor:pointer;background:transparent;color:var(--dim)">🇪🇸 ES</button>
+      </div>
       <button onclick="openApiModal()" class="btn-link" style="border-color:var(--purple);color:var(--purple);background:rgba(185,140,255,0.12)">⚙️ Modelos & APIs de IA</button>
 
       <a href="treino-cybersec.html" class="btn-link">🎯 Treinador</a>
@@ -1127,6 +1132,90 @@ renderMemo();
 
   </div>
 </div>
+
+
+<script>
+let currentLang = localStorage.getItem('cybersec_app_lang') || 'en';
+
+const GRC_I18N = {
+  en: {
+    grc_back: '← Return to Assistant',
+    grc_bread: 'Cybersecurity & GRC Portfolio',
+    grc_h1: '🛡️ Enterprise GRC & Security Assurance Lab — NIST CSF 2.0 & ISO 27001',
+    grc_sub: 'Interactive enterprise environment demonstrating information security governance, quantitative 5x5 risk management, ISO 27001:2022 control mapping, and executive compliance reporting.',
+    tab_dash: '📊 Executive Dashboard',
+    tab_heat: '🔥 5x5 Risk Heatmap',
+    tab_rr: '📋 Risk Register',
+    tab_nist: '🏛️ NIST CSF 2.0 Matrix',
+    tab_iso: '📜 ISO 27001:2022 Controls',
+    tab_tprm: '🤝 Third-Party Risk (TPRM)',
+    tab_ir: '🚨 Incident Response Playbook',
+    tab_audit: '✅ Audit & Evidence'
+  },
+  pt: {
+    grc_back: '← Voltar para o Assistente',
+    grc_bread: 'Portfólio de Cibersegurança & GRC',
+    grc_h1: '🛡️ Laboratório Corporativo de GRC & Riscos — NIST CSF 2.0 & ISO 27001',
+    grc_sub: 'Ambiente interativo corporativo demonstrando governança de segurança da informação, gestão quantitativa de risco 5x5, mapeamento ISO 27001:2022 e relatórios executivos de conformidade.',
+    tab_dash: '📊 Dashboard Executivo',
+    tab_heat: '🔥 Heatmap de Riscos 5x5',
+    tab_rr: '📋 Registro de Riscos',
+    tab_nist: '🏛️ Matriz NIST CSF 2.0',
+    tab_iso: '📜 Controles ISO 27001:2022',
+    tab_tprm: '🤝 Gestão de Terceiros (TPRM)',
+    tab_ir: '🚨 Playbook Resposta a Incidentes',
+    tab_audit: '✅ Auditoria & Evidências'
+  },
+  es: {
+    grc_back: '← Volver al Asistente',
+    grc_bread: 'Portafolio de Ciberseguridad y GRC',
+    grc_h1: '🛡️ Laboratorio Empresarial de GRC y Riesgos — NIST CSF 2.0 e ISO 27001',
+    grc_sub: 'Entorno corporativo interactivo que demuestra gobernanza de seguridad de la información, gestión cuantitativa de riesgos 5x5, mapeo ISO 27001:2022 e informes ejecutivos de cumplimiento.',
+    tab_dash: '📊 Panel Ejecutivo',
+    tab_heat: '🔥 Heatmap de Riesgos 5x5',
+    tab_rr: '📋 Registro de Riesgos',
+    tab_nist: '🏛️ Matriz NIST CSF 2.0',
+    tab_iso: '📜 Controles ISO 27001:2022',
+    tab_tprm: '🤝 Riesgo de Terceros (TPRM)',
+    tab_ir: '🚨 Playbook Respuesta a Incidentes',
+    tab_audit: '✅ Auditoría y Evidencias'
+  }
+};
+
+function setLanguage(lang) {
+  if (!GRC_I18N[lang]) lang = 'en';
+  currentLang = lang;
+  localStorage.setItem('cybersec_app_lang', lang);
+
+  ['en', 'pt', 'es'].forEach(l => {
+    const btn = document.getElementById('btnLang_' + l);
+    if (btn) {
+      if (l === lang) {
+        btn.classList.add('on');
+        btn.style.background = 'var(--blue)';
+        btn.style.color = '#04150d';
+        btn.style.fontWeight = '700';
+      } else {
+        btn.classList.remove('on');
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--dim)';
+        btn.style.fontWeight = '600';
+      }
+    }
+  });
+
+  const dict = GRC_I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
+setTimeout(() => setLanguage(currentLang), 100);
+</script>
 
 </body>
 </html>

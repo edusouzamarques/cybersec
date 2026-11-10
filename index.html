@@ -232,18 +232,34 @@
 </head>
 <body>
 
+  <div style="display:flex;justify-content:flex-end;width:100%;max-width:920px;margin:0 auto 16px">
+    <div id="langSwitcher" style="display:inline-flex;align-items:center;background:#0d1522;border:2px solid #2563eb;border-radius:24px;padding:4px 6px;gap:4px;box-shadow:0 0 14px rgba(37,99,235,0.45);z-index:1000">
+      <span style="font-size:11px;font-weight:700;color:var(--dim);margin-right:4px;margin-left:4px;text-transform:uppercase;letter-spacing:0.5px">Lang:</span>
+      <button onclick="setLanguage('en')" id="btnLang_en" class="lang-btn on" style="padding:5px 12px;font-size:12px;font-weight:700;border:none;border-radius:16px;cursor:pointer;background:var(--blue);color:#04150d;transition:all 0.15s;display:inline-flex;align-items:center;gap:4px">
+        🇺🇸 EN
+      </button>
+      <button onclick="setLanguage('pt')" id="btnLang_pt" class="lang-btn" style="padding:5px 12px;font-size:12px;font-weight:600;border:none;border-radius:16px;cursor:pointer;background:transparent;color:var(--dim);transition:all 0.15s;display:inline-flex;align-items:center;gap:4px">
+        🇧🇷 PT
+      </button>
+      <button onclick="setLanguage('es')" id="btnLang_es" class="lang-btn" style="padding:5px 12px;font-size:12px;font-weight:600;border:none;border-radius:16px;cursor:pointer;background:transparent;color:var(--dim);transition:all 0.15s;display:inline-flex;align-items:center;gap:4px">
+        🇪🇸 ES
+      </button>
+    </div>
+  </div>
+
+
 <div class="container">
   <header>
-    <div class="badge-tag">Professional Portfolio & Operations Hub</div>
-    <h1>🛡️ CyberSec, GRC & AI Safety Hub — Eduardo Marques</h1>
-    <p class="subtitle">
+    <div class="badge-tag" data-i18n="badge_tag">Professional Portfolio & Operations Hub</div>
+    <h1 data-i18n="title">🛡️ CyberSec, GRC & AI Safety Hub — Eduardo Marques</h1>
+    <p class="subtitle" data-i18n="sub">
       Hands-on cybersecurity investigations, verified regulatory audits (NIST CSF 2.0 / ISO 27001), 
       deterministic AI guardrails, and credentialed technical training.
     </p>
     <div class="header-actions">
       <a href="Eduardo_Marques_Resume.pdf" target="_blank" class="action-btn btn-primary">📄 Download Official Resume (PDF)</a>
       <a href="Eduardo_Marques_Resume_Bilingual.pdf" target="_blank" class="action-btn btn-secondary">🌐 Bilingual Resume (EN/PT)</a>
-      <a href="https://github.com/edusouzamarques" target="_blank" class="action-btn btn-secondary">💻 GitHub Profile</a>
+      <a href="https://github.com/edusouzamarques" target="_blank" class="action-btn btn-secondary"><span data-i18n="q_github">💻 GitHub Profile</span></a>
       <a href="https://linkedin.com/in/edusouzamarques" target="_blank" class="action-btn btn-secondary">🔗 LinkedIn Profile</a>
     </div>
   </header>
@@ -272,15 +288,13 @@
       <div>
         <div class="card-top">
           <span class="card-icon">🎯</span>
-          <div class="card-title">Security+ Interactive Trainer</div>
-          <span class="card-pill pill-green">Simulator & Drills</span>
+          <div class="card-title" data-i18n="c2_title">Security+ Interactive Trainer</div>
+          <span class="card-pill pill-green" data-i18n="c2_pill">Simulator & Drills</span>
         </div>
-        <p class="card-desc">
-          Interactive quiz engine for CompTIA Security+ (SY0-701), Python (PCEP), Linux CLI, and Cloud Security. Includes timed mock exams, spaced repetition, and in-depth rationales.
-        </p>
+        <p class="card-desc" data-i18n="c2_desc">Interactive quiz engine for CompTIA Security+ (SY0-701), Python (PCEP), Linux CLI, and Cloud Security. Includes timed mock exams, spaced repetition, and in-depth rationales.</p>
       </div>
       <div class="card-footer">
-        <span>Launch Trainer</span>
+        <span data-i18n="c2_btn">Launch Trainer</span>
         <span class="arrow">→</span>
       </div>
     </a>
@@ -290,15 +304,13 @@
       <div>
         <div class="card-top">
           <span class="card-icon">📋</span>
-          <div class="card-title">Botium Toys Security Audit</div>
+          <div class="card-title" data-i18n="c3_title">Botium Toys Security Audit</div>
           <span class="card-pill pill-blue">NIST CSF 2.0</span>
         </div>
-        <p class="card-desc">
-          Comprehensive compliance audit and risk assessment for an international enterprise: scope boundary definition, NIST CSF alignment matrix, risk register, and stakeholder remediation plan.
-        </p>
+        <p class="card-desc" data-i18n="c3_desc">Comprehensive compliance audit and risk assessment for an international enterprise: scope boundary definition, NIST CSF alignment matrix, risk register, and stakeholder remediation plan.</p>
       </div>
       <div class="card-footer">
-        <span>View Audit Repository</span>
+        <span data-i18n="c3_btn">View Audit Repository</span>
         <span class="arrow">↗</span>
       </div>
     </a>
@@ -308,15 +320,13 @@
       <div>
         <div class="card-top">
           <span class="card-icon">🔒</span>
-          <div class="card-title">Network Hardening & Risk Lab</div>
+          <div class="card-title" data-i18n="c4_title">Enterprise GRC & Risk Assurance Lab</div>
           <span class="card-pill pill-blue">Defensive Sec</span>
         </div>
-        <p class="card-desc">
-          Simulation and remediation of an exposed perimeter breach: port filtering, defense-in-depth architecture, MFA enforcement, and automated Python validation script.
-        </p>
+        <p class="card-desc" data-i18n="c4_desc">Interactive 5x5 Risk Heatmap, 10 enterprise risk registers, complete NIST CSF 2.0 governance controls, third-party vendor risk assessment, and incident response playbook.</p>
       </div>
       <div class="card-footer">
-        <span>View Lab Code</span>
+        <span data-i18n="c4_btn">Open GRC Lab</span>
         <span class="arrow">↗</span>
       </div>
     </a>
@@ -326,15 +336,13 @@
       <div>
         <div class="card-top">
           <span class="card-icon">🔍</span>
-          <div class="card-title">Packet Forensics & tcpdump Lab</div>
+          <div class="card-title" data-i18n="c5_title">Packet Forensics & tcpdump Lab</div>
           <span class="card-pill pill-blue">Threat Hunting</span>
         </div>
-        <p class="card-desc">
-          Network protocol forensics isolating unauthorized JavaScript browser redirection: TCP 3-way handshake dissection, DNS/HTTP request correlation, and packet trace triage.
-        </p>
+        <p class="card-desc" data-i18n="c5_desc">Network protocol forensics isolating unauthorized JavaScript browser redirection: TCP 3-way handshake dissection, DNS/HTTP request correlation, and 10 realistic PCAP incident captures.</p>
       </div>
       <div class="card-footer">
-        <span>View Investigation</span>
+        <span data-i18n="c5_btn">View Investigation</span>
         <span class="arrow">↗</span>
       </div>
     </a>
@@ -344,35 +352,192 @@
       <div>
         <div class="card-top">
           <span class="card-icon">🎓</span>
-          <div class="card-title">Georgia Tech — OMS Cybersecurity</div>
-          <span class="card-pill pill-purple">Master's Roadmap</span>
+          <div class="card-title" data-i18n="c6_title">Georgia Tech — OMS Cybersecurity</div>
+          <span class="card-pill pill-purple" data-i18n="c6_pill">Master's Roadmap</span>
         </div>
-        <p class="card-desc">
-          Targeted online Master of Science in Cybersecurity from the #1 public institution in the US. Specialization in Information Security & Policy, bolstering technical depth and EB-2 NIW credentials.
-        </p>
+        <p class="card-desc" data-i18n="c6_desc">Targeted online Master of Science in Cybersecurity from the #1 public institution in the US. Specialization in Information Security & Policy, bolstering technical depth and EB-2 NIW credentials.</p>
       </div>
       <div class="card-footer">
-        <span>Program Details</span>
+        <span data-i18n="c6_btn">Program Details</span>
         <span class="arrow">↗</span>
       </div>
     </a>
   </div>
 
   <div class="quick-links">
-    <h3>🔗 Verified External Portals & Code Repositories</h3>
+    <h3 data-i18n="quick_title">🔗 Verified External Portals & Code Repositories</h3>
     <div class="links-row">
-      <a href="https://github.com/edusouzamarques" target="_blank" class="qlink">💻 GitHub Profile</a>
-      <a href="https://www.coursera.org/account/accomplishments/records/MWRZL7CQ1QAS" target="_blank" class="qlink">🎓 Google CyberSec Credential (MWRZL7CQ1QAS)</a>
-      <a href="https://tryhackme.com/room/offensivesecurityintroc101" target="_blank" class="qlink">🕹️ TryHackMe (Offensive Security Intro)</a>
-      <a href="https://www.netacad.com/" target="_blank" class="qlink">🌐 Cisco NetAcad Verified Badges</a>
-      <a href="https://linkedin.com/in/edusouzamarques" target="_blank" class="qlink">💼 LinkedIn Profile</a>
+      <a href="https://github.com/edusouzamarques" target="_blank" class="qlink"><span data-i18n="q_github">💻 GitHub Profile</span></a>
+      <a href="https://www.coursera.org/account/accomplishments/records/MWRZL7CQ1QAS" target="_blank" class="qlink"><span data-i18n="q_google">🎓 Google CyberSec Credential (MWRZL7CQ1QAS)</span></a>
+      <a href="https://tryhackme.com/room/offensivesecurityintroc101" target="_blank" class="qlink"><span data-i18n="q_thm">🕹️ TryHackMe (Offensive Security Intro)</span></a>
+      <a href="https://www.netacad.com/" target="_blank" class="qlink"><span data-i18n="q_cisco">🌐 Cisco NetAcad Verified Badges</span></a>
+      <a href="https://linkedin.com/in/edusouzamarques" target="_blank" class="qlink"><span data-i18n="q_in">💼 LinkedIn Profile</span></a>
     </div>
   </div>
 
   <footer>
-    <p>Eduardo de Souza Marques • Cybersecurity, GRC & AI Safety Professional</p>
+    <p data-i18n="footer">Eduardo de Souza Marques • Cybersecurity, GRC & AI Safety Professional</p>
   </footer>
 </div>
+
+
+<script>
+let currentLang = localStorage.getItem('cybersec_app_lang') || 'en';
+
+const INDEX_I18N = {
+  en: {
+    badge_tag: 'VERIFIED CYBERSECURITY & GRC PORTFOLIO',
+    title: 'Eduardo de Souza Marques',
+    sub: 'Cybersecurity Operations, GRC & Agentic AI Safety Specialist.<br>Interactive hubs, verifiable audit reports, and technical simulators.',
+    btn_github: '<span data-i18n="btn_github">💻 GitHub Profile ↗</span>',
+    btn_resume: '<span data-i18n="btn_resume">📄 Official Resume (PDF) ↗</span>',
+    btn_linkedin: '<span data-i18n="btn_linkedin">💼 LinkedIn ↗</span>',
+    c1_title: 'CyberSec Operations & GRC Assistant',
+    c1_pill: 'Live Hub',
+    c1_desc: 'Central career cockpit: verified credentials (Google, Cisco, CompTIA, TryHackMe), 60 SOC incident ticket queue, Linux/SQL live sandbox, GRC compass, and radar of global jobs.',
+    c1_btn: 'Open Operations Console',
+    c2_title: 'Security+ Interactive Trainer',
+    c2_pill: 'Simulator & Drills',
+    c2_desc: 'Interactive quiz engine for CompTIA Security+ (SY0-701), Python (PCEP), Linux CLI, and Cloud Security. Includes timed mock exams, spaced repetition, and in-depth rationales.',
+    c2_btn: 'Launch Trainer',
+    c3_title: 'Botium Toys Security Audit',
+    c3_pill: 'NIST CSF 2.0',
+    c3_desc: 'Comprehensive compliance audit and risk assessment for an international enterprise: scope boundary definition, NIST CSF alignment matrix, risk register, and stakeholder remediation plan.',
+    c3_btn: 'View Audit Repository',
+    c4_title: 'Enterprise GRC & Risk Assurance Lab',
+    c4_pill: 'NIST & ISO 27001',
+    c4_desc: 'Interactive 5x5 Risk Heatmap, 10 enterprise risk registers, complete NIST CSF 2.0 governance controls, third-party vendor risk assessment, and incident response playbook.',
+    c4_btn: 'Open GRC Lab',
+    c5_title: 'Packet Forensics & tcpdump Lab',
+    c5_pill: 'Threat Hunting',
+    c5_desc: 'Network protocol forensics isolating unauthorized JavaScript browser redirection: TCP 3-way handshake dissection, DNS/HTTP request correlation, and 10 realistic PCAP incident captures.',
+    c5_btn: 'View Investigation',
+    c6_title: 'Georgia Tech — OMS Cybersecurity',
+    c6_pill: "Master's Roadmap",
+    c6_desc: 'Targeted online Master of Science in Cybersecurity from the #1 public institution in the US. Specialization in Information Security & Policy, bolstering technical depth and EB-2 NIW credentials.',
+    c6_btn: 'Program Details',
+    quick_title: '🔗 Verified External Portals & Code Repositories',
+    q_github: '💻 GitHub Profile',
+    q_google: '🎓 Google CyberSec Credential (MWRZL7CQ1QAS)',
+    q_thm: '🕹️ TryHackMe (Offensive Security Intro)',
+    q_cisco: '🌐 Cisco NetAcad Verified Badges',
+    q_in: '💼 LinkedIn Profile',
+    footer: 'Eduardo de Souza Marques • Cybersecurity, GRC & AI Safety Professional'
+  },
+  pt: {
+    badge_tag: 'PORTFÓLIO VERIFICADO DE CIBERSEGURANÇA & GRC',
+    title: 'Eduardo de Souza Marques',
+    sub: 'Especialista em Operações de Cibersegurança, GRC e Segurança de IA Agêntica.<br>Centros interativos, relatórios de auditoria verificáveis e simuladores técnicos.',
+    btn_github: '💻 Perfil no GitHub ↗',
+    btn_resume: '📄 Currículo Oficial (PDF) ↗',
+    btn_linkedin: '<span data-i18n="btn_linkedin">💼 LinkedIn ↗</span>',
+    c1_title: 'Assistente de Operações CyberSec & GRC',
+    c1_pill: 'Hub Ativo',
+    c1_desc: 'Cockpit central de carreira: certificações verificadas (Google, Cisco, CompTIA, TryHackMe), fila de 60 chamados de SOC, sandbox interativa de Linux/SQL, bússola GRC e radar de vagas globais.',
+    c1_btn: 'Abrir Console de Operações',
+    c2_title: 'Treinador Interativo Security+',
+    c2_pill: 'Simulador & Treino',
+    c2_desc: 'Mecanismo interativo de simulados para CompTIA Security+ (SY0-701), Python (PCEP), CLI Linux e Segurança em Nuvem. Inclui simulados cronometrados, repetição espaçada e explicações detalhadas.',
+    c2_btn: 'Iniciar Treinador',
+    c3_title: 'Auditoria de Segurança Botium Toys',
+    c3_pill: 'NIST CSF 2.0',
+    c3_desc: 'Auditoria abrangente de conformidade e avaliação de risco para uma empresa multinacional: delimitação de escopo, matriz NIST CSF, registro de riscos e plano de remediação para executivos.',
+    c3_btn: 'Ver Repositório de Auditoria',
+    c4_title: 'Laboratório Corporativo de GRC & Riscos',
+    c4_pill: 'NIST & ISO 27001',
+    c4_desc: 'Matriz de Risco 5x5 interativa, 10 registros de risco corporativos, controles completos de governança NIST CSF 2.0, auditoria de fornecedores terceiros e playbook de resposta a incidentes.',
+    c4_btn: 'Abrir Laboratório GRC',
+    c5_title: 'Laboratório Forense de Rede & tcpdump',
+    c5_pill: 'Threat Hunting',
+    c5_desc: 'Investigação forense de protocolos de rede isolando redirecionamento web em JavaScript: dissecção do handshake TCP, correlação DNS/HTTP e 10 capturas de incidentes em PCAP.',
+    c5_btn: 'Ver Investigação',
+    c6_title: 'Georgia Tech — Mestrado em Cibersegurança',
+    c6_pill: 'Roteiro de Mestrado',
+    c6_desc: 'Mestrado online em Cibersegurança pela instituição pública nº 1 dos EUA. Especialização em Segurança da Informação e Políticas, fortalecendo profundidade técnica e credenciais para EB-2 NIW.',
+    c6_btn: 'Detalhes do Programa',
+    quick_title: '🔗 Portais Externos Verificados & Repositórios de Código',
+    q_github: '💻 Perfil no GitHub',
+    q_google: '🎓 Credencial Google CyberSec (MWRZL7CQ1QAS)',
+    q_thm: '🕹️ TryHackMe (Intro à Segurança Ofensiva)',
+    q_cisco: '🌐 Emblemas Verificados Cisco NetAcad',
+    q_in: '💼 Perfil no LinkedIn',
+    footer: 'Eduardo de Souza Marques • Profissional de Cibersegurança, GRC e Segurança de IA'
+  },
+  es: {
+    badge_tag: 'PORTAFOLIO VERIFICADO DE CIBERSEGURIDAD Y GRC',
+    title: 'Eduardo de Souza Marques',
+    sub: 'Especialista en Operaciones de Ciberseguridad, GRC y Seguridad de IA Agéntica.<br>Centros interactivos, informes de auditoría verificables y simuladores técnicos.',
+    btn_github: '💻 Perfil de GitHub ↗',
+    btn_resume: '📄 Currículum Oficial (PDF) ↗',
+    btn_linkedin: '<span data-i18n="btn_linkedin">💼 LinkedIn ↗</span>',
+    c1_title: 'Asistente de Operaciones CyberSec y GRC',
+    c1_pill: 'Centro Activo',
+    c1_desc: 'Cockpit central de carrera: credenciales verificadas (Google, Cisco, CompTIA, TryHackMe), cola de 60 casos de incidentes SOC, sandbox interactiva de Linux/SQL, brújula GRC y radar de empleos globales.',
+    c1_btn: 'Abrir Consola de Operaciones',
+    c2_title: 'Entrenador Interactivo Security+',
+    c2_pill: 'Simulador y Práctica',
+    c2_desc: 'Motor interactivo de cuestionarios para CompTIA Security+ (SY0-701), Python (PCEP), CLI de Linux y Seguridad en la Nube. Incluye simulacros cronometrados, repetición espaciada y justificaciones detalladas.',
+    c2_btn: 'Iniciar Entrenador',
+    c3_title: 'Auditoría de Seguridad Botium Toys',
+    c3_pill: 'NIST CSF 2.0',
+    c3_desc: 'Auditoría integral de cumplimiento y evaluación de riesgos para una empresa multinacional: definición de alcance, matriz de alineación NIST CSF, registro de riesgos y plan de remediación ejecutivo.',
+    c3_btn: 'Ver Repositorio de Auditoría',
+    c4_title: 'Laboratorio Empresarial de GRC y Riesgos',
+    c4_pill: 'NIST e ISO 27001',
+    c4_desc: 'Matriz de Riesgo 5x5 interactiva, 10 registros de riesgo corporativo, controles completos de gobernanza NIST CSF 2.0, auditoría de proveedores terceros y plan de respuesta a incidentes.',
+    c4_btn: 'Abrir Laboratorio GRC',
+    c5_title: 'Laboratorio Forense de Red y tcpdump',
+    c5_pill: 'Threat Hunting',
+    c5_desc: 'Forense de protocolos de red aislando redireccionamiento web por JavaScript: disección del handshake TCP, correlación DNS/HTTP y 10 capturas de incidentes en PCAP realistas.',
+    c5_btn: 'Ver Investigación',
+    c6_title: 'Georgia Tech — Maestría en Ciberseguridad',
+    c6_pill: 'Hoja de Ruta de Maestría',
+    c6_desc: 'Maestría online en Ciencias de la Ciberseguridad de la institución pública número 1 de EE. UU. Especialización en Seguridad de la Información y Políticas, fortaleciendo rigor técnico y méritos EB-2 NIW.',
+    c6_btn: 'Detalles del Programa',
+    quick_title: '🔗 Portales Externos Verificados y Repositorios de Código',
+    q_github: '💻 Perfil de GitHub',
+    q_google: '🎓 Credencial Google CyberSec (MWRZL7CQ1QAS)',
+    q_thm: '🕹️ TryHackMe (Intro a Seguridad Ofensiva)',
+    q_cisco: '🌐 Insignias Verificadas de Cisco NetAcad',
+    q_in: '💼 Perfil de LinkedIn',
+    footer: 'Eduardo de Souza Marques • Profesional de Ciberseguridad, GRC y Seguridad de IA'
+  }
+};
+
+function setLanguage(lang) {
+  if (!INDEX_I18N[lang]) lang = 'en';
+  currentLang = lang;
+  localStorage.setItem('cybersec_app_lang', lang);
+
+  ['en', 'pt', 'es'].forEach(l => {
+    const btn = document.getElementById('btnLang_' + l);
+    if (btn) {
+      if (l === lang) {
+        btn.classList.add('on');
+        btn.style.background = 'var(--blue)';
+        btn.style.color = '#04150d';
+        btn.style.fontWeight = '700';
+      } else {
+        btn.classList.remove('on');
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--dim)';
+        btn.style.fontWeight = '600';
+      }
+    }
+  });
+
+  const dict = INDEX_I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
+setTimeout(() => setLanguage(currentLang), 100);
+</script>
 
 </body>
 </html>
