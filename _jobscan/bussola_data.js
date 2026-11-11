@@ -8,7 +8,7 @@ window.BUSSOLA_DATA = {
     "proxima_atualizacao": "16/11/2026",
     "status_bussola": "🟢 Calibrated — High Operational Stability",
     "score_prontidao": "92/100",
-    "alinhamento": "GRC & Governance · SOC & Evidence Auditing · AI Safety · Google CyberSec 1-4 Complete · Master Science (Spain EU / UK NCSC / U.S. 4-Yr B.S. Bridge)",
+    "alinhamento": "GRC & Governance · SOC & Evidence Auditing · AI Safety · Google CyberSec 1-5 Complete [1SZ84L70VTMT] · Master Science (Spain EU / UK NCSC / U.S. 4-Yr B.S. Bridge)",
     "resumo_executivo": "Edition #04 marks the completion of Google Cybersecurity Course 4 (Tools of the Trade: Linux and SQL), the official retrieval of the 1,748h UNINTER degree in Regulatory Compliance & Contracts, and active candidacy in BairesDev and Sezzle. Global market radar confirms high demand for hybrid profiles combining evidentiary investigation, traditional GRC (NIST CSF 2.0 / ISO 27001) and AI-native security tooling.",
     "radar_regulatorio": [
       {
@@ -44,7 +44,7 @@ window.BUSSOLA_DATA = {
     },
     "poly_court_verdict": {
       "consenso": "APPROVED — FAST TRACK",
-      "recomendacao": "Keep active applications on BairesDev (Semi-Senior / System Admin & GRC), Sezzle (Compliance & Fraud Ops), and nexacode (Jr Cyber Security Engineer). Advance directly into Google Cybersecurity Course 5 (Assets, Threats & Vulnerabilities)."
+      "recomendacao": "Keep active applications on BairesDev (Semi-Senior / System Admin & GRC), Sezzle (Compliance & Fraud Ops), and nexacode (Jr Cyber Security Engineer). Google Cybersecurity Course 5 (Assets, Threats & Vulnerabilities [1SZ84L70VTMT]) COMPLETED Nov 11, 2026 ✅ — advance directly into Course 6 (Sound the Alarm: Detection and Response)."
     }
   }
 };
