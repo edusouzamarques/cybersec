@@ -8,7 +8,7 @@ window.BUSSOLA_DATA = {
     "proxima_atualizacao": "16/11/2026",
     "status_bussola": "🟢 Calibrated — High Operational Stability",
     "score_prontidao": "92/100",
-    "alinhamento": "GRC & Governance · SOC & Evidence Auditing · AI Safety · Google CyberSec 1-4 Complete · Georgia Tech Roadmap",
+    "alinhamento": "GRC & Governance · SOC & Evidence Auditing · AI Safety · Google CyberSec 1-4 Complete · Master Science (Spain EU / UK NCSC)",
     "resumo_executivo": "Edition #04 marks the completion of Google Cybersecurity Course 4 (Tools of the Trade: Linux and SQL), the official retrieval of the 1,748h UNINTER degree in Regulatory Compliance & Contracts, and active candidacy in BairesDev and Sezzle. Global market radar confirms high demand for hybrid profiles combining evidentiary investigation, traditional GRC (NIST CSF 2.0 / ISO 27001) and AI-native security tooling.",
     "radar_regulatorio": [
       {
@@ -31,9 +31,9 @@ window.BUSSOLA_DATA = {
       },
       {
         "orgao": "Academic Anchor",
-        "tema": "Georgia Tech — Online Master of Science in Cybersecurity (OMS Cybersecurity)",
-        "impacto": "Ranked #1 public institution in the US for cybersecurity. The Information Security & Policy track provides the ideal theoretical depth and EB-2 NIW credentials without visa or relocation barriers.",
-        "acao_eduardo": "Position your ongoing preparation for Georgia Tech as a long-term academic commitment to US federal and enterprise cybersecurity standards."
+        "tema": "Master Science — Spain (EEES / Bologna) & UK (NCSC Open-Entry MSc)",
+        "impacto": "Eliminates rigid US 4-year Bachelor barriers: Spain (UOC / UNIR / VIU · 60 ECTS, ~€2.9k–€4k) aligns with EU GDPR/ISO 27001 hiring and 2-yr Ibero-American citizenship, while UK NCSC-certified online MScs (Open University F87, UoL/Royal Holloway PBA, Liverpool) accept non-traditional degrees via open entry or 2+ yrs technical work experience.",
+        "acao_eduardo": "Request free Art. 18.2 RD 822/2021 transcript pre-checks in Spain (Apostila de Haia on UNINTER 1,748h diploma) and keep Open University F87 / UoL Royal Holloway PBA ready while closing Security+ and Qualys."
       }
     ],
     "barometro_mercado": {

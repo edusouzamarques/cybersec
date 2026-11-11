@@ -89,7 +89,7 @@ def gerar_edicao_semanal():
 PERFIL DO PROFISSIONAL (EDUARDO DE SOUZA MARQUES):
 - Localização: Brasil (Belo Horizonte/MG).
 - Background Diferencial: 12+ anos na Polícia Militar de MG (investigação formal, preservação rigorosa da cadeia de custódia, relatório técnico forense, entrevistas investigativas, integridade operacional).
-- Formação & Próximo Marco: Master Science em Cibersegurança em análise dual — Opção 1: Georgia Tech OMS Cybersecurity (EUA, Policy/InfoSec) | Opção 2: Máster Online en Ciberseguridad na Espanha (UOC / UNIR / VIU, 60 ECTS Bolonha).
+- Formação & Próximo Marco: Master Science em Cibersegurança com rotas não-restritivas — Opção 1: Espanha Online EEES/Bolonha (UOC / UNIR / VIU, 60 ECTS) | Opção 2: Reino Unido NCSC Open-Entry MSc (The Open University F87 / UoL Royal Holloway PBA / Liverpool).
 - Status Atual dos Estudos (Outubro/2026):
   * Python Essentials 1 (OpenEDG / Cisco) concluído.
   * Linux Unhatched (Cisco) concluído (navegação SSH, permissões, logs em /var/log).
@@ -235,7 +235,7 @@ Responda diretamente de forma estruturada em português.
         "proxima_atualizacao": prox_segunda_str,
         "status_bussola": "🟢 Calibrada — Alta Estabilidade",
         "score_prontidao": "88/100",
-        "alinhamento": "GRC & Governança · Risco Corporativo · AI Safety · Security+ SY0-701 · Master Science (Georgia Tech / Espanha)",
+        "alinhamento": "GRC & Governança · Risco Corporativo · AI Safety · Security+ SY0-701 · Master Science (Espanha EEES / UK NCSC)",
         "resumo_executivo": "Abertura inaugural da Bússola Semanal. Alinhamento confirmado entre a bagagem investigativa prévia de Eduardo e a carência crítica do mercado por profissionais de GRC capazes de documentar evidências, mapear matrizes NIST/ISO e gerenciar riscos de fornecedores (TPRM).",
         "radar_regulatorio": radar_regulatorio,
         "barometro_mercado": barometro_mercado,
