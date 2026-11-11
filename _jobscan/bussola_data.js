@@ -8,7 +8,7 @@ window.BUSSOLA_DATA = {
     "proxima_atualizacao": "16/11/2026",
     "status_bussola": "🟢 Calibrated — High Operational Stability",
     "score_prontidao": "92/100",
-    "alinhamento": "GRC & Governance · SOC & Evidence Auditing · AI Safety · Google CyberSec 1-4 Complete · Master Science (Spain EU / UK NCSC)",
+    "alinhamento": "GRC & Governance · SOC & Evidence Auditing · AI Safety · Google CyberSec 1-4 Complete · Master Science (Spain EU / UK NCSC / U.S. 4-Yr B.S. Bridge)",
     "resumo_executivo": "Edition #04 marks the completion of Google Cybersecurity Course 4 (Tools of the Trade: Linux and SQL), the official retrieval of the 1,748h UNINTER degree in Regulatory Compliance & Contracts, and active candidacy in BairesDev and Sezzle. Global market radar confirms high demand for hybrid profiles combining evidentiary investigation, traditional GRC (NIST CSF 2.0 / ISO 27001) and AI-native security tooling.",
     "radar_regulatorio": [
       {
@@ -31,9 +31,9 @@ window.BUSSOLA_DATA = {
       },
       {
         "orgao": "Academic Anchor",
-        "tema": "Master Science — Spain (EEES / Bologna) & UK (NCSC Open-Entry MSc)",
-        "impacto": "Eliminates rigid US 4-year Bachelor barriers: Spain (UOC / UNIR / VIU · 60 ECTS, ~€2.9k–€4k) aligns with EU GDPR/ISO 27001 hiring and 2-yr Ibero-American citizenship, while UK NCSC-certified online MScs (Open University F87, UoL/Royal Holloway PBA, Liverpool) accept non-traditional degrees via open entry or 2+ yrs technical work experience.",
-        "acao_eduardo": "Request free Art. 18.2 RD 822/2021 transcript pre-checks in Spain (Apostila de Haia on UNINTER 1,748h diploma) and keep Open University F87 / UoL Royal Holloway PBA ready while closing Security+ and Qualys."
+        "tema": "Master Science — Spain (EEES), UK (NCSC) & U.S. Fast 4-Yr B.S. Bridge (UMPI / TESU / Excelsior)",
+        "impacto": "Eliminates rigid degree barriers & USCIS EB-2 / Matter of Shah risk: Spain (UOC / UNIR / VIU · 60 ECTS, ~€2.9k–€4k) & UK NCSC MScs (Open University F87, Royal Holloway PBA, Liverpool) bypass 4-yr gatekeeping (pair w/ EB-2 Exceptional Ability 3-of-6), OR complete a U.S. regionally accredited 4-yr B.S. in ~5–10 mo via WES (UNINTER) + ACE certs (Google 9–10 cr, Sec+ 3 cr) + Sophia/Study.com + 6 cr TESU / 30 cr UMPI / 7–15 cr Excelsior.",
+        "acao_eduardo": "Finish hiring certs first (12–13 ACE credits banked automatically), run $0 Spain Art. 18.2 & WES/UMPI/TESU/Excelsior transfer pre-checks, and choose U.S. Bridge (EB-2 Advanced Degree clarity) vs. Spain/UK direct MSc."
       }
     ],
     "barometro_mercado": {
