@@ -925,10 +925,10 @@ function runAutoloopCycle(){
       dag: 'audit',
       fn: () => {
         setDagActive('audit');
-        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Invocando modelo adversário (DeepSeek Reasoner) para auditar controles...', 'log-devil');
-        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Desafio 1: "Onde está a evidência de rotação periódica de chaves secundárias do Secrets Manager?" -> Respondido: Rotação automática a cada 90 dias com fallback.', 'log-devil');
-        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Desafio 2: "Como o SLA de 99,95% se sustenta se a região primária da AWS cair?" -> Respondido: Multi-AZ + failover de banco Aurora em 45 segundos.', 'log-devil');
-        logTerminal('😈 [DEVIL'S ADVOCATE]', 'Relatório de Auditoria: Nenhuma não-conformidade material detectada. Veredito: LIMPO.', 'log-done');
+        logTerminal('😈 [DEVIL\'S ADVOCATE]', 'Invocando modelo adversário (DeepSeek Reasoner) para auditar controles...', 'log-devil');
+        logTerminal('😈 [DEVIL\'S ADVOCATE]', 'Desafio 1: "Onde está a evidência de rotação periódica de chaves secundárias do Secrets Manager?" -> Respondido: Rotação automática a cada 90 dias com fallback.', 'log-devil');
+        logTerminal('😈 [DEVIL\'S ADVOCATE]', 'Desafio 2: "Como o SLA de 99,95% se sustenta se a região primária da AWS cair?" -> Respondido: Multi-AZ + failover de banco Aurora em 45 segundos.', 'log-devil');
+        logTerminal('😈 [DEVIL\'S ADVOCATE]', 'Relatório de Auditoria: Nenhuma não-conformidade material detectada. Veredito: LIMPO.', 'log-done');
       }
     },
     {
@@ -938,7 +938,7 @@ function runAutoloopCycle(){
         logTerminal('🔄 [ACCEPTANCE]', 'Verificando critério de aceitação falsificável...', 'log-done');
         logTerminal('🔄 [ACCEPTANCE]', '• Rastreabilidade de evidências: 100% ✅', 'log-exec');
         logTerminal('🔄 [ACCEPTANCE]', '• Polycourt Approval: 100% Unânime ✅', 'log-exec');
-        logTerminal('🔄 [ACCEPTANCE]', '• Devil's Advocate Defenses: Superadas ✅', 'log-exec');
+        logTerminal('🔄 [ACCEPTANCE]', '• Devil\'s Advocate Defenses: Superadas ✅', 'log-exec');
         logTerminal('🏆 [CRITÉRIO CUMPRIDO]', 'O ciclo encerrou com sucesso absoluto! Matriz de Calor recalculada e validada.', 'log-done');
         stopAutoloopCycle();
       }

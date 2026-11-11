@@ -403,7 +403,7 @@
   </section>
 </div>
 
-<script src="_jobscan/vagas_data.js?v=20261019_1840"></script>
+<script src="_jobscan/vagas_data.js?v=20261111_0902"></script>
 <script src="_jobscan/entrevistas_data.js?v=20261019_2100"></script>
 <script>
 const KEY = "cybersec_tracker_eduardo_v1";
@@ -1328,7 +1328,9 @@ function renderFunnel(){
 }
 
 function renderMS(){
-  document.getElementById("msSessions").innerHTML =
+  const msEl = document.getElementById("msSessions");
+  if(!msEl) return;
+  msEl.innerHTML =
     '<table style="width:100%;border-collapse:collapse;font-size:12.5px">'+
     '<tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Sessão</th>'+
     '<th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Matrícula abre</th>'+
@@ -1358,18 +1360,26 @@ function renderFontes(){
 }
 const CERTS=[
  // 🧱 NÚCLEO
- {n:"⭐ Google Cybersecurity Professional Certificate (3/8 Concluídos)", org:"Google / Coursera", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"Coursera", pay:"Base Global", train:0, url:"https://www.coursera.org/account/accomplishments/records/MWRZL7CQ1QAS",
-  when:"CONCLUÍDOS: 1. Fundamentos · 2. Gestão de Riscos (NIST CSF) · 3. Redes e Segurança de Redes [MWRZL7CQ1QAS]", why:"⭐ Formação oficial do Google cobrindo arquitetura de redes, TCP/IP, firewalls, controles de segurança, SIEM, Python para automação e resposta a incidentes. Credencial verificável no LinkedIn."},
+ {n:"⭐ Google Cybersecurity Professional Certificate (4/9 Concluídos)", org:"Google / Coursera", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"Coursera", pay:"Base Global", train:0, url:"https://www.coursera.org/account/accomplishments/records/U9G9KWR9WBT4",
+  when:"CONCLUÍDOS: 1. Fundamentos [V76WZ6LX3720] · 2. NIST Riscos · 3. Redes [MWRZL7CQ1QAS] · 4. Linux & SQL [U9G9KWR9WBT4]", why:"⭐ Formação oficial do Google cobrindo arquitetura de redes, TCP/IP, Linux CLI, SQL, controles de segurança, SIEM, Python e resposta a incidentes. Libera voucher de 30% no Security+ após concluir todos os módulos."},
  {n:"⭐ TryHackMe — Hands-on Offensive & Defensive Labs", org:"TryHackMe", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"Prática", train:0, url:"https://tryhackme.com/room/offensivesecurityintroc101",
   when:"CONCLUÍDO: Intro to Offensive Security (07/11/2026)", why:"⭐ Laboratórios práticos no navegador cobrindo mentalidade ofensiva (Red Team), exploração ética de vulnerabilidades web e defesa ativa em profundidade."},
  {n:"CompTIA Security+ (SY0-701)", org:"CompTIA", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"~US$404", pay:"$35–48/h", train:1,
   when:"PRIORIDADE 1 (Estudo no Treinador)", why:"O filtro de RH. Em quase toda vaga. Destrava SOC e Vulnerability Mgmt júnior. Só ela já vale $35–48/h.", url:"https://www.comptia.org/certifications/security"},
  {n:"⭐ Qualys Certified Specialist — VMDR", org:"Qualys (NASDAQ: QLYS)", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$35–50/h", train:1,
-  when:"PRIORIDADE IMEDIATA (em paralelo ao Sec+)", why:"⭐ Carro-chefe mundial de gestão de vulnerabilidades. Treinamento oficial com laboratório prático na nuvem e exame grátis. Presente em mais de 10.000 grandes corporações. Alinhamento 1:1 com Sec+ Domínios 2 e 4.", url:"https://www.qualys.com/learning/"},
+  when:"QUALYS #1 — PRIORIDADE IMEDIATA (em paralelo ao Sec+)", why:"⭐ Carro-chefe mundial de gestão de vulnerabilidades. Treinamento oficial com laboratório prático na nuvem e exame grátis. Presente em mais de 10.000 grandes corporações. Alinhamento 1:1 com Sec+ Domínios 2 e 4.", url:"https://www.qualys.com/learning/"},
+ {n:"⭐ Qualys Certified Specialist — Cloud Agent (CA)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$35–50/h", train:1,
+  when:"QUALYS #2 — RÁPIDO (~1.5h, logo após VMDR)", why:"⭐ O motor de telemetria contínua instalado em endpoints remotos (Windows, Linux, Cloud VMs). Fundamental no modelo de trabalho home office onde scanners locais não alcançam.", url:"https://www.qualys.com/learning/"},
  {n:"⭐ Qualys Certified Specialist — Policy Audit (Compliance)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$38–55/h", train:1,
-  when:"PRIORIDADE IMEDIATA (Trilha GRC & Auditoria)", why:"⭐ Auditoria técnica automatizada de baselines (CIS Benchmarks e DISA-STIG). Prova que tu sabes auditar servidores de verdade, não só ler papel de norma.", url:"https://www.qualys.com/learning/"},
+  when:"QUALYS #3 — Trilha GRC & Auditoria", why:"⭐ Auditoria técnica automatizada de baselines (CIS Benchmarks, NIST e DISA-STIG). Prova que tu sabes auditar servidores de verdade, não só ler papel de norma.", url:"https://www.qualys.com/learning/"},
+ {n:"⭐ Qualys Certified Specialist — EDR (Endpoint Detection & Response)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$35–50/h", train:1,
+  when:"QUALYS #4 — Passaporte SOC & Blue Team", why:"⭐ Monitoramento contínuo de processos e ameaças em memória no endpoint, caça de ameaças e resposta a incidentes ativa (essencial para SOC Tier 1 e Blue Team).", url:"https://www.qualys.com/learning/"},
+ {n:"⭐ Qualys Certified Specialist — CSAM (CyberSecurity Asset Management)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$35–50/h", train:1,
+  when:"QUALYS #5 — Inventário & Superfície de Ataque", why:"⭐ Descoberta e inventário contínuo de ativos de TI e sombra (Shadow IT). Você não protege nem audita o que não sabe que existe na rede.", url:"https://www.qualys.com/learning/"},
+ {n:"⭐ Qualys Certified Specialist — TotalCloud (TC)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"$40–60/h", train:1,
+  when:"QUALYS #6 — Segurança de Nuvem (CSPM)", why:"⭐ Auditoria automática de postura em AWS, Azure e GCP (buckets S3 abertos, grupos de segurança, IAM drift). Ótima ponte para certificações de Cloud.", url:"https://www.qualys.com/learning/"},
  {n:"⭐ Qualys Certified Specialist — Enterprise TruRisk (ETM)", org:"Qualys", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"alto", train:1,
-  when:"PRIORIDADE IMEDIATA (Trilha Risco / Governança)", why:"⭐ Traduz vulnerabilidades técnicas em postura de risco de negócio para diretoria/C-level. Conecta com tua tese de Cyber Risk e AI Governance.", url:"https://www.qualys.com/learning/"},
+  when:"QUALYS OPCIONAL — Trilha Risco / Diretoria", why:"⭐ Traduz vulnerabilidades técnicas em postura de risco de negócio para diretoria/C-level. Conecta com tua tese de Cyber Risk e AI Governance.", url:"https://www.qualys.com/learning/"},
   {n:"⭐ Vanta Auditor Academy & Certified", org:"Vanta", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"—", train:0, url:"https://academy.vanta.com/",
   when:"finais de semana (100% online)", why:"⭐ Automação de GRC oficial: treinamento completo da plataforma líder de conformidade contínua. Ensina como auditar controles de SOC 2 e ISO 27001 em tempo real. Exame e certificado oficiais 100% gratuitos."},
  {n:"⭐ Drata Certified Professional & Auditor", org:"Drata", branch:"🧱 Núcleo — faz PRIMEIRO", cost:"GRÁTIS", pay:"—", train:0, url:"https://academy.drata.com/",
@@ -1839,10 +1849,11 @@ document.querySelectorAll(".tab[data-t]").forEach(t=>{
   };
 });
 document.getElementById("gsearch").addEventListener("input",e=>renderGloss(e.target.value));
-renderAll();
 
 /* ---------- BÚSSOLA SEMANAL GRC (POLY COURT & RADAR) ---------- */
 let activeBussolaSubTab = 'poly';
+
+renderAll();
 
 function renderBussola() {
   const container = document.getElementById("bussola");
