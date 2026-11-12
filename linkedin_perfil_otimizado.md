@@ -93,11 +93,15 @@ Adicione estas entradas na seção de Certificações para indexação imediata 
    * *Órgão Emissor:* Linux Professional Institute (LPI)
    * *Status:* Em preparação / Conclusão prevista
 
-4. **Enterprise TruRisk Platform Foundations**
+4. **Qualys Enterprise TruRisk™ Platform Foundations**
    * *Órgão Emissor:* Qualys
-   * *Credencial:* Concluído (ou adicione o código da credencial assim que exportar)
+   * *Credencial:* Concluído em 26/10/2026 (1h · Anexar PDF em Mídia no LinkedIn; Credential URL: `https://www.qualys.com/training/`)
 
-5. **Fortinet Certified Fundamentals (FCF / NSE 1 & 2)**
+5. **Vulnerability Management Foundations**
+   * *Órgão Emissor:* Qualys
+   * *Credencial:* Concluído em 12/11/2026 (1h · Transcript ID `605225` · Anexar PDF em Mídia no LinkedIn; Credential URL: `https://www.qualys.com/training/`)
+
+6. **Fortinet Certified Fundamentals (FCF / NSE 1 & 2)**
    * *Órgão Emissor:* Fortinet Training Institute
    * *Status:* Cursos oficiais 100% gratuitos / Badges digitais
 

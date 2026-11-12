@@ -94,7 +94,7 @@ PERFIL DO PROFISSIONAL (EDUARDO DE SOUZA MARQUES):
   * Python Essentials 1 (OpenEDG / Cisco) concluído.
   * Linux Unhatched (Cisco) concluído (navegação SSH, permissões, logs em /var/log).
   * CompTIA Security+ SY0-701: Em andamento acelerado no Treinador (Aulas 0.1 a 1.4 PKI concluídas + 5 Labs PBQ práticos).
-  * Qualys Training: Qualys Enterprise TruRisk™ Platform (Foundation Complete ✅ em 26/10/2026 · 1h); pronto para avançar nos exames Specialist gratuitos (VMDR, Cloud Agent, Policy Audit, EDR).
+  * Qualys Training (User #605225): Enterprise TruRisk™ Platform Foundations (✅ 26/10/2026 · 1h) + Vulnerability Management Foundations (✅ 12/11/2026 · 1h) concluídos; próximo passo imediato: exame gratuito Qualys Certified Specialist — VMDR (além de Cloud Agent, Policy Audit, EDR).
   * Laboratório Prático de GRC (GRC Lab): Construído repositório com 10 riscos quantificados (R-01 a R-10), mapeamento cruzado NIST CSF 2.0 ⇄ ISO 27001:2022 ⇄ SOC 2, plano de evidências de auditoria, memorando executivo de segurança para o Board e questionário TPRM de fornecedores.
 - Vagas em Radar Atual:
   * {vagas_contexto}
