@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Eduardo de Souza Marques — Analista de Segurança da Informação & Governança (GRC)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  @page {
+    size: A4;
+    margin: 8mm 11mm 8mm 11mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.30;
+    font-size: 8.5pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Header */
+  .header {
+    border-bottom: 2px solid #0f4c81;
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+  }
+
+  .name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .name {
+    font-size: 17pt;
+    font-weight: 700;
+    color: #0f4c81;
+    letter-spacing: -0.4px;
+  }
+
+  .target-role {
+    font-size: 9.4pt;
+    font-weight: 700;
+    color: #2563eb;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 1px;
+    margin-bottom: 2px;
+  }
+
+  .target-sub {
+    font-size: 7.8pt;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 4px;
+  }
+
+  .contact-bar {
+    font-size: 8.0pt;
+    color: #475569;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    align-items: center;
+  }
+
+  .contact-bar a {
+    color: #0f4c81;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact-bar span {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-size: 9.2pt;
+    font-weight: 700;
+    color: #0f4c81;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid #cbd5e1;
+    padding-bottom: 2px;
+    margin-bottom: 3.5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .section-tag {
+    font-size: 7.0pt;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  p {
+    margin-bottom: 2.5px;
+    color: #334155;
+    text-align: justify;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 10px;
+  }
+
+  .skill-block {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 3.5px 5.5px;
+    margin-bottom: 2px;
+  }
+
+  .skill-block-title {
+    font-size: 8.1pt;
+    font-weight: 700;
+    color: #0f4c81;
+    margin-bottom: 1.5px;
+  }
+
+  .skill-block-content {
+    font-size: 7.8pt;
+    color: #334155;
+    line-height: 1.25;
+  }
+
+  .skill-block-content strong {
+    color: #0f172a;
+  }
+
+  /* Projects & Labs */
+  .project-item {
+    margin-bottom: 2.5px;
+    font-size: 7.9pt;
+    line-height: 1.24;
+  }
+
+  .project-item strong {
+    color: #0f4c81;
+  }
+
+  /* Experience */
+  .job {
+    margin-bottom: 4.5px;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1px;
+  }
+
+  .job-title {
+    font-size: 8.7pt;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .job-company {
+    font-weight: 600;
+    color: #2563eb;
+  }
+
+  .job-date {
+    font-size: 7.8pt;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  li {
+    position: relative;
+    padding-left: 10px;
+    margin-bottom: 1px;
+    color: #334155;
+    font-size: 8.0pt;
+    line-height: 1.24;
+  }
+
+  li::before {
+    content: "▪";
+    position: absolute;
+    left: 1px;
+    color: #2563eb;
+    font-size: 7.5pt;
+  }
+
+  /* Certifications */
+  .cert-row {
+    font-size: 7.9pt;
+    margin-bottom: 1.5px;
+    color: #334155;
+    line-height: 1.22;
+  }
+
+  .cert-row strong {
+    color: #0f172a;
+  }
+
+  .badge-tag {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    padding: 0px 3px;
+    border-radius: 2px;
+    font-size: 6.9pt;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="name-row">
+      <div class="name">Eduardo de Souza Marques</div>
+      <div style="font-size: 8.0pt; color: #475569; font-weight: 500;">Belo Horizonte, MG – Brasil | <strong>100% Remoto (Nacional & Global)</strong></div>
+    </div>
+    <div class="target-role">Analista de Segurança da Informação | Governança, Riscos e Conformidade (GRC)</div>
+    <div class="target-sub">Gestão de Vulnerabilidades & Risco (Qualys TruRisk) • Frameworks NIST CSF & ISO 27001 • Infraestrutura Linux & Redes • Segurança em IA</div>
+    <div class="contact-bar">
+      <span>✉️ <a href="mailto:edusouzam85@gmail.com">edusouzam85@gmail.com</a></span>
+      <span>📱 <a href="https://wa.me/5533999920599">+55 (33) 99992-0599</a></span>
+      <span>🌐 <a href="https://edusouzamarques.github.io/cybersec/">Portfólio / Hub</a></span>
+      <span>🐙 <a href="https://github.com/edusouzamarques">GitHub (27+ Repositórios)</a></span>
+      <span>🔗 <a href="https://linkedin.com/in/edusouzamarques">LinkedIn</a></span>
+    </div>
+  </div>
+
+  <!-- RESUMO EXECUTIVO -->
+  <div class="section">
+    <div class="section-title">Resumo Profissional & Executivo</div>
+    <p>
+      Profissional de Segurança da Informação e Governança com sólida maturidade operacional e analítica, combinando mais de 15 anos de atuação em segurança pública, conformidade institucional e auditoria de protocolos com capacitação técnica certificada em Cibersegurança, Gestão de Vulnerabilidades e Redes pelo <strong>Google</strong>, <strong>Qualys (NASDAQ: QLYS)</strong> e <strong>Cisco Networking Academy</strong>, em preparação avançada para a <strong>CompTIA Security+ (SY0-701)</strong>.
+    </p>
+    <p>
+      Trajetória fundamentada em 13,5 anos na Polícia Militar de Minas Gerais (PMMG), assegurando o cumprimento estrito de Procedimentos Operacionais Padrão (POPs), resposta a ocorrências de alta complexidade e preservação inegociável da cadeia de custódia de evidências materiais e digitais em mais de 1.000 laudos periciais e investigações de causa raiz. Essa disciplina foi estendida por 4 anos como Diretor de Operações e Conformidade Documental internacional, gerenciando a custódia e proteção de dados pessoais sensíveis (PII) sob requisitos regulatórios equivalentes a LGPD/GDPR com índice zero de inconformidades.
+    </p>
+    <p>
+      Domina a aplicação prática de frameworks de segurança (<strong>NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2 Type II e CIS Benchmarks</strong>), o ciclo de gestão de vulnerabilidades (descoberta de ativos, varredura, triagem e priorização de risco com o motor <strong>Qualys TruRisk</strong> e classificação <strong>CVE/CVSS</strong>), modelagem de ameaças (<strong>STRIDE / PASTA</strong>), administração <strong>Linux CLI</strong>, análise de tráfego de rede com <strong>Wireshark / TCPdump</strong> e auditoria em <strong>SQL</strong>.
+    </p>
+    <p>
+      Diferencia-se pela atuação na interseção entre <strong>Cibersegurança e Segurança em Inteligência Artificial (AI Safety & Ops)</strong>: autor de 14 bibliotecas de código aberto voltadas a guardrails determinísticos (<em>fail-closed execution gates</em>), mitigação de alucinações via avaliação adversarial (<em>red teaming</em> multi-modelo), quóruns de consenso para agentes autônomos e governança orçamentária (FinOps). Desenvolveu o <em>Enterprise GRC & Security Assurance Lab</em>, com 10 riscos corporativos quantificados e mapeados entre NIST, ISO e SOC 2, questionários TPRM de terceiros e memorando executivo para conselhos de administração (Board).
+    </p>
+  </div>
+
+  <!-- MATRIZ DE COMPETÊNCIAS TÉCNICAS -->
+  <div class="section">
+    <div class="section-title">
+      <span>Matriz de Competências Técnicas</span>
+      <span class="section-tag">Agrupada por Domínio Operacional</span>
+    </div>
+    <div class="grid-2">
+      <div class="skill-block">
+        <div class="skill-block-title">🛡️ Governança, Riscos (GRC) & Vulnerabilidades</div>
+        <div class="skill-block-content">
+          • <strong>Frameworks:</strong> NIST CSF 2.0 (GV/ID/PR/DE/RS/RC), ISO/IEC 27001:2022, SOC 2 Type II e CIS Benchmarks.<br>
+          • <strong>Gestão de Vulnerabilidades:</strong> Plataforma <strong>Qualys TruRisk</strong>, fluxo VMDR, triagem <strong>CVE/CVSS v3.1</strong>, inventário CSAM e remediação.<br>
+          • <strong>Privacidade & Terceiros:</strong> Adequação à <strong>LGPD/GDPR</strong> (RIPD/DPIA), modelagem de ameaças (<strong>STRIDE/PASTA</strong>) e gestão TPRM.
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">🌐 Redes & Infraestrutura Linux</div>
+        <div class="skill-block-content">
+          • <strong>Redes TCP/IP:</strong> Modelo OSI, IPv4/IPv6, portas/serviços, DNS, DHCP, HTTP/HTTPS, TLS/SSL e roteamento.<br>
+          • <strong>Análise Forense de Tráfego:</strong> Captura e inspeção via <strong>TCPdump</strong> e <strong>Wireshark</strong> (mapeamento MITRE ATT&CK).<br>
+          • <strong>Administração Linux (CLI):</strong> Usuários, grupos, permissões (<code>chmod/chown/umask</code>), serviços (<code>systemd</code>) e logs (<code>/var/log</code>).
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">🤖 Arquitetura, Governança & Segurança em IA</div>
+        <div class="skill-block-content">
+          • <strong>Fail-Closed Execution Gates:</strong> Barreiras de código pré-execução que barram comandos não autorizados de agentes de IA.<br>
+          • <strong>Red Teaming & Avaliação:</strong> Painéis multi-modelo adversariais (<code>devil-advocate</code>) para mitigação de alucinações.<br>
+          • <strong>FinOps & Protocolo MCP:</strong> Tetos orçamentários rígidos (<code>spend-guard</code>), quóruns (<code>deputy</code>) e servidores MCP.
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">⚙️ Identidades, Automação & Bancos de Dados</div>
+        <div class="skill-block-content">
+          • <strong>Menor Privilégio & IAM:</strong> Aplicação de <em>Least Privilege</em>, RBAC, segregação de funções e gestão de credenciais.<br>
+          • <strong>Automação & Scripts:</strong> Automação operacional e testes de integridade em <strong>Python</strong> e <strong>Shell/Bash</strong>.<br>
+          • <strong>Bancos de Dados Relacionais:</strong> Consultas e auditoria de integridade em <strong>SQL / PostgreSQL</strong> (prevenção contra SQLi).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTFÓLIO & REPOSITÓRIOS AUDITÁVEIS -->
+  <div class="section">
+    <div class="section-title">
+      <span>Portfólio Prático & Engenharia de Software</span>
+      <span class="section-tag">Auditável em <a href="https://github.com/edusouzamarques" style="color: #0f4c81;">github.com/edusouzamarques</a></span>
+    </div>
+    <div class="grid-2">
+      <div>
+        <p style="font-size: 8.0pt; font-weight: 700; color: #0f4c81; margin-bottom: 1.5px;">Laboratórios de GRC, Cibersegurança & Redes:</p>
+        <div class="project-item">• <strong>Enterprise GRC Lab (`grc-lab`):</strong> 10 riscos quantificados (R-01 a R-10), mapeamento NIST CSF 2.0 ⇄ ISO 27001 ⇄ SOC 2, questionários TPRM e memorando para diretoria.</div>
+        <div class="project-item">• <strong>Auditoria de Permissões Linux (`linux-file-permissions`):</strong> Saneamento de privilégios excessivos corporativos via CLI e relatórios técnicos.</div>
+        <div class="project-item">• <strong>Inspeção Forense com TCPdump (`tcpdump-incident-lab`):</strong> Dissecação de pacotes corporativos e mapeamento de anomalias na matriz MITRE ATT&CK.</div>
+        <div class="project-item">• <strong>Contenção de Incidentes DoS (`dos-icmp-flood-nist-csf`):</strong> Bloqueio por firewall e relatório pós-incidente sob as fases do NIST CSF.</div>
+        <div class="project-item">• <strong>Auditoria de Vulnerabilidades SQL (`ecommerce-database-assessment`):</strong> Triagem técnica em banco relacional e plano de remediação.</div>
+      </div>
+      <div>
+        <p style="font-size: 8.0pt; font-weight: 700; color: #0f4c81; margin-bottom: 1.5px;">Sistemas de Segurança e Governança de IA:</p>
+        <div class="project-item">• <strong>`agent-gates`:</strong> Pré-condições determinísticas em código puro que recusam chamadas inseguras por agentes de IA (*fail-closed*).</div>
+        <div class="project-item">• <strong>`devil-advocate`:</strong> Painel adversarial multi-modelo para ataque e refutação sistemática de conclusões geradas por IA.</div>
+        <div class="project-item">• <strong>`deputy`:</strong> Bounded delegation para agentes autônomos com quóruns de consenso e zonas restritas invioláveis.</div>
+        <div class="project-item">• <strong>`spend-guard`:</strong> Governança orçamentária rígida para APIs de IA e cloud com bloqueio preventivo de custos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIÊNCIA PROFISSIONAL -->
+  <div class="section" style="page-break-before: always; break-before: page;">
+    <div class="section-title">Experiência Profissional</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div><span class="job-title">Especialista em Automação de IA, Processos e Operações Digitais</span> — <span class="job-company">Pixel Pro Ads / Consultoria</span></div>
+        <div class="job-date">2024 – Presente</div>
+      </div>
+      <ul>
+        <li>Aplicação estrita do princípio do menor privilégio e segregação de funções em ambientes operacionais em nuvem, garantindo a proteção e gestão segura de chaves de API, credenciais e dados operacionais de clientes.</li>
+        <li>Desenvolvimento e manutenção de scripts em Python e Bash para automação de tarefas rotineiras, auditoria de integridade de logs e validação de consistência em pipelines operacionais.</li>
+        <li>Arquitetura e implementação de guardrails e testes automatizados de validação lógica para agentes de IA e modelos de linguagem (autor de 14 bibliotecas de segurança de código aberto).</li>
+        <li>Criação de procedimentos operacionais padrão (POPs), checklists de segurança e documentação técnica de infraestrutura.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div><span class="job-title">Diretor de Operações e Conformidade Documental</span> — <span class="job-company">Assessoria Internacional e Consular</span></div>
+        <div class="job-date">2019 – 2023 (~4 anos)</div>
+      </div>
+      <ul>
+        <li>Auditoria minuciosa de integridade documental e proteção de dados pessoais sensíveis (PII) sob requisitos internacionais equivalentes a LGPD/GDPR, mantendo índice zero de inconformidades regulatórias.</li>
+        <li>Avaliação contínua de conformidade e riscos operacionais de parceiros externos e prestadores de serviços de tecnologia (TPRM).</li>
+        <li>Gestão e custódia de processos confidenciais com rigorosa observância de sigilo e integridade documental perante autoridades consulares.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div><span class="job-title">Especialista em Auditoria de Protocolos, Resposta a Ocorrências e Cadeia de Custódia</span> — <span class="job-company">PMMG</span></div>
+        <div class="job-date">2006 – 2019 (13,5 anos)</div>
+      </div>
+      <ul>
+        <li>Atuação operacional sob estrita observância de normas legais e procedimentos padrão (POPs), assegurando a preservação da cadeia de custódia e integridade de evidências críticas e materiais sensíveis.</li>
+        <li>Elaboração e validação de mais de 1.000 laudos circunstanciados e diagnósticos investigativos com precisão documental e identificação de causa raiz.</li>
+        <li>Atuação sob pressão com alto senso de urgência, controle emocional e histórico exemplar de discrição e sigilo informacional.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CERTIFICAÇÕES OFICIAIS -->
+  <div class="section">
+    <div class="section-title">Certificações & Treinamentos Oficiais</div>
+    <div class="grid-2">
+      <div>
+        <div class="cert-row">• <strong>Qualys Training & Certification (NASDAQ: QLYS):</strong></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Vulnerability Management Foundations</em> <span class="badge-tag">Concluído 12/11/2026 · ID: 605225</span></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Enterprise TruRisk™ Platform Foundations</em> <span class="badge-tag">Concluído 26/10/2026 · CTO Dilip Bachwani</span></div>
+        <div class="cert-row" style="margin-top: 2px;">• <strong>Google Cybersecurity Professional Certificate (5 Concluídos):</strong></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Assets, Threats, and Vulnerabilities</em> <span class="badge-tag">ID: 1SZ84L70VTMT</span></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Tools of the Trade: Linux and SQL</em> <span class="badge-tag">ID: U9G9KWR9WBT4</span></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Connect and Protect: Networks and Security</em> <span class="badge-tag">ID: MWRZL7CQ1QAS</span></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Foundations of Cybersecurity</em> <span class="badge-tag">ID: V76WZ6LX3720</span></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Play It Safe: Manage Security Risks (NIST CSF 2.0)</em></div>
+      </div>
+      <div>
+        <div class="cert-row">• <strong>Cisco Networking Academy — Badges & Certificados Oficiais:</strong></div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Networking Basics</em> (Pilha TCP/IP, endereçamento IPv4/IPv6 e roteamento)</div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Linux Unhatched</em> (Administração essencial Linux CLI e permissões)</div>
+        <div class="cert-row" style="padding-left: 7px;">– <em>Introduction to Cybersecurity & Python Essentials 1</em></div>
+        <div class="cert-row" style="margin-top: 2px;">• <strong>CompTIA Security+ (SY0-701) & GRC:</strong> <em>Em fase final prática (+1.200 cenários & PBQ labs cobrindo Ameaças, Arquitetura, Controles e Governança)</em></div>
+        <div class="cert-row" style="margin-top: 2px;">• <strong>TryHackMe:</strong> <em>Intro to Offensive Security (Concluído em 07/11/2026 — Red Teaming, exploração ética de vulnerabilidades web e defesa ativa)</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMAÇÃO ACADÊMICA & IDIOMAS -->
+  <div class="section">
+    <div class="section-title">Formação Acadêmica & Idiomas</div>
+    <div class="grid-2">
+      <div>
+        <div style="font-size: 8.0pt; margin-bottom: 1.5px;">• <strong>Tecnólogo em Comércio Exterior (Legislação, Processos e Governança)</strong> — UNINTER (1.748h)</div>
+        <div style="font-size: 7.5pt; color: #64748b; padding-left: 7px;">Grade com ênfase em Gestão de Riscos, Sistemas de Informações Gerenciais (SIG) e Normas ISO.</div>
+        <div style="font-size: 8.0pt; margin-top: 1.5px;">• <strong>Curso Técnico em Segurança Pública (Legislação, Investigação e Protocolos)</strong> — PMMG</div>
+        <div style="font-size: 7.5pt; color: #2563eb; padding-left: 7px; font-weight: 600;">• Rumo Acadêmico: Direcionado ao Mestrado Internacional em Cibersegurança (M.S.).</div>
+      </div>
+      <div>
+        <div style="font-size: 8.0pt; margin-bottom: 2px;">• <strong>Português:</strong> Nativo (C2) — Comunicação interpessoal executiva e redação técnica precisa.</div>
+        <div style="font-size: 8.0pt;">• <strong>Inglês:</strong> Profissional (B2/C1) — Leitura fluente de documentações técnicas de sistemas, relatórios de auditoria, logs e RFCs.</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
