@@ -1,6 +1,6 @@
 // GERADO AUTOMATICAMENTE por bussola_semanal.py — NÃO editar manualmente
 window.BUSSOLA_DATA = {
-  "ultima_atualizacao": "2026-11-02 14:26",
+  "ultima_atualizacao": "2026-11-16 08:49",
   "edicao_atual": {
     "numero": 2,
     "titulo": "Edição #2 — Semana de 02/11/2026",
@@ -90,6 +90,94 @@ window.BUSSOLA_DATA = {
     "dica_de_ouro": "Em entrevistas de segurança, quando perguntarem 'Qual a sua maior força?', responda: 'Minha capacidade de unir o rigor da investigação policial à governança corporativa: eu não apenas sigo frameworks de papel, eu sei investigar evidências digitais, preservar a cadeia de custódia e conduzir a resposta técnica a incidentes até o fechamento com o conselho gestor.'"
   },
   "historico": [
+    {
+      "numero": 2,
+      "titulo": "Edição #2 — Semana de 02/11/2026",
+      "data_publicacao": "02/11/2026",
+      "proxima_atualizacao": "09/11/2026",
+      "status_bussola": "🟢 Calibrada — Alta Estabilidade (Semana 44)",
+      "score_prontidao": "92/100",
+      "alinhamento": "GRC & Governança · Risco Corporativo · SIEM Lab & EDR · ISO 27001 / NIST · Security+ SY0-701 · LPI Linux · AWS Cloud · Mestrado Internacional (EUA/UK/Espanha)",
+      "resumo_executivo": "Segunda edição oficial consolidando o novo SIEM Lab & Simulador de Ameaças com 10 vetores de ataque reais e Conselho Multi-Modelo NVIDIA. Alinhamento direto com a contagem regressiva da DORA (janeiro/2025) e NIS2: o mercado corporativo exige evidência prática de resposta a incidentes (NIST SP 800-61r2) e relatórios Post-Mortem rastreáveis, colocando Eduardo em posição de destaque.",
+      "radar_regulatorio": [
+        {
+          "orgao": "NIST (EUA)",
+          "tema": "NIST SP 800-61r2 & CSF 2.0 — Integração Governança + Resposta",
+          "impacto": "O NIST estabeleceu a governança (GV) e a resposta a incidentes (RS) como processos contínuos e integrados. Empresas agora precisam demonstrar métricas auditáveis de MTTD (tempo de detecção) e MTTC (tempo de contenção) em relatórios de diretoria.",
+          "acao_eduardo": "Utilize os relatórios gerados no novo SIEM Lab como prova tangível de que você sabe conter incidentes e mensurar MTTD/MTTC sob as 6 fases do NIST."
+        },
+        {
+          "orgao": "União Europeia",
+          "tema": "DORA (Resiliência Operacional) & NIS2 — Prazo Crítico",
+          "impacto": "A regulação DORA impõe requisitos rigorosos de testes de segurança, gerenciamento de riscos de fornecedores de TI (TPRM) e prazos de notificação de incidentes maiores em até 4 horas (notificação inicial) e 24 horas (relatório intermediário).",
+          "acao_eduardo": "Destaque no seu portfólio internacional (EUA/UK/Espanha) o domínio de playbooks de resposta rápida e o questionário TPRM estruturado no seu GRC Lab."
+        },
+        {
+          "orgao": "ANPD (Brasil)",
+          "tema": "Segurança em Inteligência Artificial & Proteção de Dados",
+          "impacto": "A ANPD e órgãos internacionais intensificaram auditorias sobre o uso de agentes autônomos e LLMs nas empresas, exigindo guard-rails contra vazamento de dados confidenciais e injeção de prompts (OWASP LLM Top 10).",
+          "acao_eduardo": "Cite a simulação do Cenário 7 do seu SIEM Lab (Prompt Injection & Excessive Agency) para provar domínio em segurança defensiva de IA."
+        },
+        {
+          "orgao": "CISA / SEC",
+          "tema": "Priorização Baseada em Risco Real (KEV Catalog + EPSS)",
+          "impacto": "A CISA reiterou que auditorias de conformidade devem priorizar vulnerabilidades ativamente exploradas no mundo real (KEV) em vez de notas teóricas de CVSS isoladas.",
+          "acao_eduardo": "Defenda nas entrevistas como você correlaciona severidade com explorabilidade real na priorização de tratamentos de risco."
+        }
+      ],
+      "barometro_mercado": {
+        "vagas_analisadas": 62,
+        "vagas_grc_riscos": 14,
+        "faixa_brasil_clt": "R$ 5.000 a R$ 8.500 / mês (100% Remoto)",
+        "faixa_global_usd": "US$ 45.000 a US$ 72.000 / ano (~R$ 20.000 a R$ 33.000 / mês via Contractor)",
+        "destaque_da_semana": "Aumento de 34% na procura por analistas juniores que unam governança (GRC) com capacidade técnica comprovada em EDR e simulação de ameaças. Candidatos com portfólio prático (GRC Lab + SIEM Lab) avançam diretamente para entrevistas finais sem passar pela triagem padrão de RH."
+      },
+      "poly_court": {
+        "juiz_estrategista": {
+          "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+          "titulo": "Parecer Estratégico & Posicionamento Executivo (Nemotron 550B Ultra)",
+          "texto": "**1. O Salto Estratégico da Semana 44:** Com o **SIEM Lab (10 Cenários Reais + EDR)** publicado e funcional, você resolveu o maior calcanhar de Aquiles dos candidatos de GRC: a pecha de 'profissional de papel'. Agora seu portfólio cobre o espectro completo — da política executiva (NIST/ISO no GRC Lab) até a resposta técnica no teclado (isolamento de host, dump de RAM e contenção de C2 no SIEM Lab).\n\n**2. Alavancagem da Experiência Investigativa:** Seu background policial agora brilha com evidência visual. Cada relatório Post-Mortem que você gera no simulador espelha um laudo pericial oficial: preservação de provas voláteis (RFC 3227), cadeia de custódia e cálculo de tempo de contenção. Nenhum concorrente júnior recém-saído de faculdade tem essa narrativa.\n\n**3. Ordem de Marcha para Esta Semana:** Aplique nas vagas da **Orbite, SoftExpert e Canonical**, enviando uma carta de apresentação cirúrgica com dois links diretos: (a) seu GRC Lab para provar conformidade estratégica; (b) seu SIEM Lab para provar prontidão operacional. A vaga júnior é sua se você demonstrar essa maturidade na entrevista."
+        },
+        "juiz_auditor": {
+          "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+          "titulo": "Auditoria de Riscos & Alerta de Armadilhas (Nemotron 120B Super)",
+          "texto": "Atenção ao risco de autocomplacência: ter o SIEM Lab construído não substitui a fluência verbal e o domínio das perguntas de entrevista. Durante uma sabatina técnica, o entrevistador vai pinçar um detalhe técnico (ex: 'Por que você isolou o host antes de coletar o dump de memória no cenário de ransomware?'). Se você gaguejar ou der uma resposta genérica, a impressão de autoridade cai por terra.\n\nOutro ponto crítico: não pare de fazer os simulados do Security+ SY0-701. Ter o laboratório prático é excelente, mas o certificado formal é o filtro automático dos sistemas ATS das multinacionais. Mantenha os 90 minutos diários de questões no Treinador CyberSec com meta de acerto ≥ 85%."
+        },
+        "juiz_tatico": {
+          "modelo": "meta/muse-glimmer-30b",
+          "titulo": "Ordem de Marcha Operacional: Sprint 7 Dias (Semana 44: 02/11 a 09/11/2026)",
+          "texto": "---\n\n### **PLANO TÁTICO DE EXECUÇÃO: SEMANA 44 (02/11 a 09/11/2026)**\n**Foco:** Conversão do SIEM Lab em entrevistas, simulado de pico no Security+ e submissão massiva de candidaturas.\n\n---\n\n#### **1. 4 METAS ACIONÁVEIS E MENSURÁVEIS (OKRs DA SEMANA)**\n\n| # | Meta (Objetivo) | Key Results (Entregáveis Mensuráveis) | Prazo Hard |\n| :--- | :--- | :--- | :--- |\n| **1** | **Dominar e Exportar 3 Casos do SIEM Lab** | • Executar simulação completa dos cenários **1 (Ransomware), 2 (AWS IAM Leak) e 3 (Phishing Fileless)**.<br>• Exportar os **3 Relatórios Oficiais Post-Mortem (.md / PDF)**.<br>• Anexar os laudos em destaque no README do repositório no GitHub. | **04/11 (Terça)** |\n| **2** | **Simulado de Tiro Real Security+ (SY0-701)** | • Resolver **80 questões focadas em Domínios 2 & 3 (Arquitetura & Operações)** no Treinador CyberSec.<br>• Executar 1 Simulado Completo Cronometrado com índice **≥ 86%**.<br>• Mapear e revisar os 5 conceitos com maior taxa de erro. | **06/11 (Quinta)** |\n| **3** | **Disparo de Candidaturas com Portfólio Duplo** | • Submeter formulário personalizado para **Orbite, SoftExpert, Flintworks e Canonical**.<br>• Incluir na mensagem de apresentação o link direto do **GRC Lab** e do **SIEM Lab**.<br>• Adicionar 5 Tech Leads / Gerentes de Segurança dessas empresas no LinkedIn com nota de apresentação técnica. | **07/11 (Sexta)** |\n| **4** | **Treino Oral da Dica de Ouro de Entrevista** | • Treinar a resposta de 'Gestão de Incidentes + Lições Aprendidas' gravando áudio no celular até atingir tom natural e seguro de consultor.<br>• Revisar as armadilhas comuns dos 10 quizzes do simulador. | **08/11 (Sábado)** |\n\n---\n\n#### **2. A DICA DE OURO DA SEMANA: RESPOSTA MATADORA PARA ENTREVISTA**\n\n> **Pergunta:** *\"Quando ocorre um incidente grave, como você garante que a empresa aprenda e o problema não se repita?\"*\n\n> **Sua Resposta Pronta (Framework **`NIST SP 800-61r2 Fase 6 + Causa-Raiz + GRC Feedback Loop`**):**\n>\n> *\"Para mim, a fase mais crítica da Resposta a Incidentes não é a contenção — é a **Fase de Lições Aprendidas (NIST SP 800-61r2 / ISO 27035)**. Meu método fecha o ciclo em 4 passos:*\n>\n> 1.  **Reunião Post-Mortem Sem Culpa (Blameless Post-Mortem):** Em até 48 horas após a contenção, reúno os envolvidos para analisar a linha do tempo exata: onde a detecção falhou, por que o alerta demorou e qual foi o tempo real de contenção (MTTC).*\n>\n> 2.  **Análise de Causa-Raiz (5 Porquês / Espinha de Peixe):** Não me contento com 'o funcionário clicou no link'. Investigo a falha estrutural: Por que o filtro de e-mail não barrou? Por que a máquina tinha permissão de saída para aquele IP? Por que não havia MFA FIDO2?*\n>\n> 3.  **Realimentação da Matriz de Risco (GRC Feedback Loop):** O incidente vira dado de governança. Atualizo a probabilidade e o impacto do risco na Matriz de Riscos (como faço no meu GRC Lab), ajusto o plano de tratamento e redefino o apetite de risco com o gestor.*\n>\n> 4.  **Automação do Controle Preventivo:** Se foi ransomware ou phishing, implemento regras de bloqueio preventivo no EDR/SIEM e proponho treinamento direcionado de conscientização (Simulação de Phishing). O incidente só termina quando o controle que falhou foi substituído por uma barreira automatizada que impede a reincidência.\"*\n\n---\n\n### **ALERTAS DE EXECUÇÃO (NON-NEGOTIABLES)**\n1.  **Os 3 Relatórios do SIEM Lab na Terça (04/11):** Ter o link do simulador ativo com os relatórios assinados por você no GitHub é a evidência cabal de competência técnica.\n2.  **Mantenha o Ritmo no Security+:** O exame se aproxima e a consistência diária de 30 minutos é o que fixa as siglas e arquiteturas na memória de longo prazo."
+        },
+        "consenso_geral": "O Tribunal POLY Court aprova por unanimidade a progressão para a Semana 44. A entrega do SIEM Lab elevou o Score de Prontidão de Eduardo para 92/100. O foco exclusivo da semana deve ser converter o portfólio em entrevistas ativas e manter a preparação final para o Security+."
+      },
+      "tarefas_7_dias": [
+        {
+          "id": "task_2026-11-02_1",
+          "cat": "Simulador SIEM & Prática",
+          "titulo": "Concluir 3 simulações completas no SIEM Lab e exportar Post-Mortem",
+          "desc": "Executar os cenários de Ransomware, Vazamento AWS IAM e Phishing no simulador-cybersec.html, respondendo aos quizzes do conselho e salvando os relatórios em Markdown para o portfólio."
+        },
+        {
+          "id": "task_2026-11-02_2",
+          "cat": "Certificação Security+",
+          "titulo": "Security+ SY0-701: Simulado Cronometrado Domínios 2 & 3",
+          "desc": "Realizar 80 questões de Arquitetura, Identidade e Operações no Treinador CyberSec, mantendo assertividade mínima de 85%."
+        },
+        {
+          "id": "task_2026-11-02_3",
+          "cat": "Portfólio & LinkedIn",
+          "titulo": "Publicar atualização técnica sobre o SIEM Lab no LinkedIn",
+          "desc": "Fazer post curto no LinkedIn destacando a importância da preservação de memória RAM (RFC 3227) e contenção lógica em incidentes, marcando o link do projeto."
+        },
+        {
+          "id": "task_2026-11-02_4",
+          "cat": "Candidaturas Ativas",
+          "titulo": "Disparo direcionado de currículo com links do GRC Lab + SIEM Lab",
+          "desc": "Aplicar para as vagas de GRC Júnior e SecOps na Orbite, SoftExpert, Flintworks e Canonical enviando os links de portfólio prático."
+        }
+      ],
+      "dica_de_ouro": "Em entrevistas de segurança, quando perguntarem 'Qual a sua maior força?', responda: 'Minha capacidade de unir o rigor da investigação policial à governança corporativa: eu não apenas sigo frameworks de papel, eu sei investigar evidências digitais, preservar a cadeia de custódia e conduzir a resposta técnica a incidentes até o fechamento com o conselho gestor.'"
+    },
     {
       "numero": 1,
       "titulo": "Edição #1 — Semana de 26/10/2026",
